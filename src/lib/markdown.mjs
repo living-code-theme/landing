@@ -1,4 +1,4 @@
-// Renders the Markdown subset used by each port's `install` text (scripts/ports/*): paragraphs, fenced code,
+// Renders the Markdown subset used by legacy ports' `install` text: paragraphs, fenced code,
 // ordered and unordered lists, inline code, bold, italic and links. Code blocks go through the site's highlighter.
 import { escapeHtml, highlight } from "./highlight.mjs";
 

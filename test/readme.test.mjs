@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
-import { readmeImagePaths, renderReadme } from "../src/lib/readme.mjs";
+import { renderReadme } from "../src/lib/readme.mjs";
 
 const context = {
   repository: "https://github.com/living-code-theme/nvim", revision: "a".repeat(40),
@@ -36,11 +37,25 @@ test("README sanitizes scripts, unsafe URL schemes, forms, event handlers, inlin
 
 test("README raw HTML image references use the same safe local mapping", () => {
   const source = '<img src="images/night.png" alt="Night" onerror="alert(1)">\n\n![Second](images/second%20shot.png)\n![Badge](https://example.com/badge.svg)\n![Unsafe](data:image/png,bad)';
-  assert.deepEqual(readmeImagePaths(source), ["images/night.png", "images/second shot.png"]);
   const html = renderReadme(source, context);
   assert.match(html, /src="\/port-images\/night.webp"/);
   assert.match(html, /src="https:\/\/example.com\/badge.svg"/);
   assert.doesNotMatch(html, /second%20shot|data:image|onerror/);
+});
+
+test("full README rendering preserves the comparison grid and native dropdowns, rewrites full-image links, and strips styling/events", () => {
+  const source = readFileSync(new URL("./fixtures/port-readme.md", import.meta.url), "utf8")
+    .replace("<table data-lc-flavors>", '<table data-lc-flavors style="position:fixed" onclick="alert(1)">');
+  const images = Object.fromEntries(["night", "paper"].map((id) => [`images/${id}.png`, { src: `/port-images/${id}.webp`, width: 1600, height: 1000 }]));
+  const html = renderReadme(source, { ...context, images });
+  assert.match(html, /<table data-lc-flavors>/);
+  for (const id of ["night", "paper"]) {
+    assert.ok(html.includes(`<details data-lc-flavor="${id}">`));
+    assert.ok(html.includes(`href="/port-images/${id}.webp"`));
+    assert.ok(html.includes(`src="/port-images/${id}.webp"`));
+  }
+  assert.doesNotMatch(html, /style=|onclick=|<script|<select/);
+  assert.match(html, /href="#readme-installation"/);
 });
 
 test("README repeated headings get stable, unique local anchors", () => {

@@ -48,8 +48,8 @@ test("legacy captures are real local PNGs and the index does not point outside t
   }
 });
 
-test("source, config, tests and scripts never import files outside the landing", () => {
-  const paths = ["astro.config.mjs", ...["src", "test", "scripts"].flatMap((directory) => readdirSync(join(root, directory), { recursive: true }).filter((path) => /\.(?:astro|mjs|ts|css)$/.test(path)).map((path) => join(directory, path)))];
+test("source, config and tests never import files outside the landing", () => {
+  const paths = ["astro.config.mjs", ...["src", "test"].flatMap((directory) => readdirSync(join(root, directory), { recursive: true }).filter((path) => /\.(?:astro|mjs|ts|css)$/.test(path)).map((path) => join(directory, path)))];
   for (const path of paths) {
     const source = read(path);
     assert.doesNotMatch(source, /(?:from|import)\s*["']@theme\//, path);
@@ -72,4 +72,12 @@ test("source, config, tests and scripts never import files outside the landing",
   const pkg = JSON.parse(read("package.json"));
   for (const [name, version] of Object.entries({ ...pkg.dependencies, ...pkg.devDependencies })) assert.doesNotMatch(version, /^(?:file:|link:|workspace:)/, name);
   assert.ok(existsSync(join(root, "pnpm-lock.yaml")));
+});
+
+test("landing contains only website commands, not port-maintenance tooling", () => {
+  const pkg = JSON.parse(read("package.json"));
+  assert.deepEqual(Object.keys(pkg.scripts).sort(), ["build", "deploy", "dev", "preview", "test"]);
+  assert.equal(pkg.dependencies.ajv, undefined, "manifest validation belongs to core");
+  for (const directory of ["scripts", "templates", "schemas"]) assert.equal(existsSync(join(root, directory)), false, directory);
+  assert.doesNotMatch(read("src/lib/readme.mjs"), /validateReadmeTemplate|readmeImagePaths|readme-template/);
 });

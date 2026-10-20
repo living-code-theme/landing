@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { renderPortReadme } from "../scripts/readme-template.mjs";
 import { renderPortGuide } from "../src/lib/readme.mjs";
 import { ports } from "../src/lib/ports.mjs";
 
@@ -21,7 +20,17 @@ const prose = {
   flavorUsage: Object.fromEntries(manifest.flavors.map((flavor) => [flavor, `Activate this flavor:\n\n\`\`\`vim\n:colorscheme living-code-${flavor}\n\`\`\``])),
 };
 
-const readme = (overrides = {}) => renderPortReadme(manifest, { ...prose, ...overrides });
+// A committed port README is the input contract; these tests do not scaffold repositories.
+const fixture = readFileSync(new URL("./fixtures/port-readme.md", import.meta.url), "utf8");
+const readme = (overrides = {}) => {
+  let source = fixture;
+  for (const [section, content] of Object.entries(overrides)) {
+    if (section === "flavorUsage") {
+      for (const [flavor, usage] of Object.entries(content)) source = source.replace(prose.flavorUsage[flavor], usage);
+    } else source = source.replace(prose[section], content);
+  }
+  return source;
+};
 
 test("the landing guide keeps installation and optional setup, not GitHub's surrounding README", () => {
   const source = readme().replace("## Contributing\n\n", "## Contributing\n\n```sh\ngithub-only-command\n```\n\n");
