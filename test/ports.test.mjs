@@ -1,38 +1,52 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { portCatalog } from "../src/lib/ports.mjs";
+import { portCatalog, ports } from "../src/lib/ports.mjs";
+import discovered from "../data/ports.json" with { type: "json" };
 
-const fallback = { schemaVersion: 1, ports: [
-  { id: "neovim", name: "Old Neovim", group: "Editors" },
-  { id: "kitty", name: "Kitty", group: "Terminals" },
-] };
 const snapshot = (ports = [], migratedSlugs = []) => ({ schemaVersion: 1, organization: "living-code-theme", ports, migratedSlugs });
+const neovim = { id: "neovim", name: "Neovim", group: "Editors", repositoryName: "living-code-theme/nvim" };
+const kitty = { id: "kitty", name: "Kitty", group: "Terminals", repositoryName: "living-code-theme/kitty" };
 
-test("discovered ports replace legacy entries without duplicating routes", () => {
-  const port = { id: "neovim", name: "Neovim", group: "Editors", repositoryName: "living-code-theme/nvim" };
-  const result = portCatalog(fallback, snapshot([port], [port.id]));
-  assert.deepEqual(result.ports.map((p) => p.id), ["neovim", "kitty"]);
-  assert.equal(result.ports[0], port);
+test("the production catalog contains exactly the discovered ports", () => {
+  assert.deepEqual(ports, discovered.ports);
+  assert.ok(ports.every((port) => port.repository && port.readme && port.revision));
 });
 
-test("removing a migrated port never resurrects its legacy entry", () => {
-  assert.deepEqual(portCatalog(fallback, snapshot([], ["neovim"])).ports.map((p) => p.id), ["kitty"]);
+test("an empty snapshot publishes no placeholder ports or groups", () => {
+  assert.deepEqual(portCatalog(snapshot()), { ports: [], groups: [] });
+});
+
+test("ports appear incrementally without any website registry change", () => {
+  const first = portCatalog(snapshot([neovim]));
+  assert.deepEqual(first.ports, [neovim]);
+  assert.deepEqual(first.groups, [{ title: "Editors", ports: [neovim] }]);
+  const next = portCatalog(snapshot([neovim, kitty]));
+  assert.deepEqual(next.ports, [neovim, kitty]);
+  assert.deepEqual(next.groups, [
+    { title: "Editors", ports: [neovim] },
+    { title: "Terminals", ports: [kitty] },
+  ]);
+});
+
+test("removed ports stay absent even when discovery retains migration history", () => {
+  assert.deepEqual(portCatalog(snapshot([kitty], ["neovim", "kitty"])).ports, [kitty]);
+  assert.deepEqual(portCatalog(snapshot([], ["neovim", "kitty"])).ports, []);
 });
 
 test("a new port group appears without a website code change", () => {
-  const result = portCatalog(fallback, snapshot([{ id: "music", group: "Music players" }]));
-  assert.deepEqual(result.groups.map((g) => g.title), ["Editors", "Terminals", "Music players"]);
-  assert.equal(result.groups[2].ports[0].id, "music");
+  const result = portCatalog(snapshot([neovim, { id: "music", group: "Music players" }]));
+  assert.deepEqual(result.groups.map((g) => g.title), ["Editors", "Music players"]);
+  assert.equal(result.groups[1].ports[0].id, "music");
 });
 
 test("group labels sharing a route are grouped together, not rendered as duplicate anchors", () => {
-  const result = portCatalog(fallback, snapshot([{ id: "editor", group: "editors" }]));
-  assert.equal(result.groups.length, 2);
+  const result = portCatalog(snapshot([neovim, { id: "editor", group: "editors" }]));
+  assert.equal(result.groups.length, 1);
   assert.deepEqual(result.groups[0].ports.map((p) => p.id), ["neovim", "editor"]);
 });
 
 test("unsupported snapshots and duplicate routes are rejected", () => {
-  assert.throws(() => portCatalog(fallback, { ...snapshot(), schemaVersion: 2 }), /Unsupported/);
-  assert.throws(() => portCatalog({ ...fallback, schemaVersion: 2 }, snapshot()), /Unsupported/);
-  assert.throws(() => portCatalog(fallback, snapshot([{ id: "a" }, { id: "a" }])), /Duplicate slug/);
+  assert.throws(() => portCatalog({ ...snapshot(), schemaVersion: 2 }), /Unsupported/);
+  assert.throws(() => portCatalog({ schemaVersion: 1 }), /Unsupported/);
+  assert.throws(() => portCatalog(snapshot([{ id: "a" }, { id: "a" }])), /Duplicate slug/);
 });

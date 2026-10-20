@@ -12,7 +12,7 @@ const icons = spiralLayout(SPIRAL_IDS.flatMap((id) => {
 const mark = ["[", "l", "c", "]"].map((ch, i) => ({ path: GLYPHS[ch], x: i * 600 }));
 ---
 
-<Glyphs shape="port-spiral" class="relative mx-auto aspect-[9/7] w-full max-w-[560px]" label="Living Code surrounded by an open spiral of app icons, including Neovim, Ghostty, Firefox and Obsidian" data-spiral-icons={JSON.stringify(icons)} data-spiral-mark={JSON.stringify(mark)}>
+<Glyphs shape="port-spiral" class="relative mx-auto aspect-[9/7] w-full max-w-[560px]" label={icons.length ? `Living Code with published app icons: ${icons.map((icon) => icon.name).join(", ")}` : "The Living Code mark"} data-spiral-icons={JSON.stringify(icons)} data-spiral-mark={JSON.stringify(mark)}>
   <svg viewBox={`0 0 ${SPIRAL.width} ${SPIRAL.height}`} class="size-full" fill="currentColor" aria-hidden="true">
     <g transform="translate(390 368) scale(0.05 -0.05)" class="text-accent">
       {mark.map(({ path, x }) => <path d={path} transform={`translate(${x} 0)`} />)}

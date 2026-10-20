@@ -6,7 +6,7 @@ import { PORT_REQUEST, REPO, TEXT_ROLES, flavors, ports, shipped, short } from "
 import { h2, section } from "../lib/ui.mjs";
 
 const list = (items: string[]) => new Intl.ListFormat("en", { type: "conjunction" }).format(items);
-// Legacy browser ports share a subset; discovered ports can declare any valid selection.
+// Browser ports can share a subset; every port declares its own supported flavors.
 const partial = ports.filter((p) => shipped(p).length < flavors.length);
 const full = ports.length - partial.length;
 const subset = partial.length ? list(shipped(partial[0]).map(short)) : "";
@@ -26,8 +26,10 @@ const a = "text-fg underline decoration-accent/50 transition-colors hover:text-a
       <details class="faq-item border-b border-line" name="faq">
         <summary><span>Does every port include all four flavors?</span><DisclosureIcon /></summary>
         <p class="max-w-[40em] pb-7 text-fg-alt">
-          {partial.length === 0
-            ? `All ${ports.length} do. `
+          {ports.length === 0
+            ? "No ports are published yet. "
+            : partial.length === 0
+            ? ports.length === 1 ? "Yes. The published port includes all four. " : `All ${ports.length} do. `
             : browserException
               ? `${full} of ${ports.length} do. ${partial.length === 2 ? "Both" : "The"} browser themes ship ${subset} only: a browser theme colors little more than backgrounds, borders and one accent, so Frost and Signal would look like Night there. `
               : `${full} of ${ports.length} do. Other ports ship a smaller selection. `}

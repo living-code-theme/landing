@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import { siJavascript } from "simple-icons";
 import { portIcon } from "../src/lib/icons.mjs";
+import { ports } from "../src/lib/ports.mjs";
 
 const slack = portIcon({ id: "slack", name: "Slack" });
 const json = portIcon({ id: "json", name: "JSON / JavaScript" });
@@ -17,8 +18,11 @@ test("JSON / JavaScript uses the JavaScript logo", () => {
   assert.deepEqual(json, { path: siJavascript.path, title: siJavascript.title });
 });
 
-test("Slack and JavaScript glyphs use the same paths as their catalog icons", () => {
-  for (const [id, icon] of [["slack", slack], ["json", json]]) {
+test("published port glyphs use the same paths as their catalog icons", () => {
+  for (const port of ports) {
+    const { id } = port;
+    const icon = portIcon(port);
+    if (!icon.path) continue;
     const html = readFileSync(new URL(`../dist/ports/${id}/index.html`, import.meta.url), "utf8");
     assert.ok(html.includes(`data-glyph-path="${icon.path}"`), `${id}: live glyph shape`);
     assert.ok(html.includes(`d="${icon.path}"`), `${id}: no-WebGL SVG fallback`);

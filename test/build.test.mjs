@@ -6,6 +6,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { flavors } from "../src/lib/theme.mjs";
 import { ports } from "../src/lib/ports.mjs";
+import { portCount } from "../src/lib/data.mjs";
 import { renderPortGuide } from "../src/lib/readme.mjs";
 
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
@@ -26,10 +27,10 @@ test("every port has a page with its name and every install command", () => {
   for (const p of ports) {
     const html = main(page(`ports/${p.id}`));
     assert.match(html, new RegExp(`<h1[^>]*>[\\s\\S]*?${escape(p.name).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`), p.id);
-    const commands = p.repository
-      ? Object.values(renderPortGuide(p.readme, { repository: p.repository, revision: p.revision, images: p.readmeImages }))
-        .flatMap((section) => [...section.matchAll(/data-copy="([^"]*)"/g)].map((match) => match[1]))
-      : [...p.install.matchAll(/```\w*\n([\s\S]*?)\n```/g)].map((match) => escape(match[1]));
+    const commands = Object.values(renderPortGuide(p.readme, { repository: p.repository, revision: p.revision, images: p.readmeImages }))
+      .flatMap((section) => [...section.matchAll(/data-copy="([^"]*)"/g)].map((match) => match[1]));
+    assert.ok(html.includes(`data-port-revision="${p.revision}"`), `${p.id}: imported revision`);
+    assert.ok(html.includes(`href="${p.readmeUrl}"`), `${p.id}: inspect the imported README`);
     for (const command of commands) {
       assert.ok(html.includes(`data-copy="${command}"`), `copy text for ${p.id}`);
     }
@@ -54,7 +55,17 @@ test("the home page and the port index link every port", () => {
     const html = main(page(path));
     for (const p of ports) assert.ok(html.includes(`href="/ports/${p.id}/"`), `${path || "home"} links ${p.id}`);
   }
-  assert.match(page(""), new RegExp(`${ports.length} ports\\.`));
+  assert.ok(page("").includes(`${portCount}.`));
+});
+
+test("only discovered port routes are built, with no retired catalog pages", () => {
+  const routes = readdirSync(join(dist, "ports"), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
+  assert.deepEqual(routes, ports.map((port) => port.id).sort());
+});
+
+test("a single published port never links to itself as the next or previous port", () => {
+  if (ports.length === 1) assert.doesNotMatch(main(page(`ports/${ports[0].id}`)), /aria-label="More ports"/);
 });
 
 test("both port catalogs separate sticky search from responsive result grids", () => {

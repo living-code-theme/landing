@@ -1,10 +1,8 @@
 ---
 // Every port, by group, with a filter. Only the selected name gets a shared-element transition
 // into the title of the port's page; the other names stay part of the grid.
-import { REPO, flavors, groups, keys, shipped, short, slug } from "../lib/data.mjs";
+import { REPO, flavors, groups, keys, portCount, shipped, short, slug } from "../lib/data.mjs";
 import PortIcon from "./PortIcon.astro";
-
-const count = groups.reduce((n, g) => n + g.ports.length, 0);
 ---
 
 <div class="port-catalog" data-port-list>
@@ -14,7 +12,7 @@ const count = groups.reduce((n, g) => n + g.ports.length, 0);
       <svg class="size-5 flex-none text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
       <input id="port-filter" type="search" placeholder="Search apps…" autocomplete="off" autocapitalize="off" spellcheck="false" data-port-filter
         class="h-14 w-full min-w-0 flex-1 bg-transparent text-lg tracking-tight outline-none placeholder:text-muted" />
-      <span class="text-xs whitespace-nowrap text-muted tabular-nums sm:text-sm" data-port-count aria-live="polite">{count} ports</span>
+      <span class="text-xs whitespace-nowrap text-muted tabular-nums sm:text-sm" data-port-count aria-live="polite">{portCount}</span>
     </div>
     <p class="port-catalog-help text-sm text-muted">Choose an app for install steps. All four flavors unless noted.</p>
   </div>

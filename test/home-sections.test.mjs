@@ -4,6 +4,7 @@ import test from "node:test";
 import snapshot from "../data/theme.json" with { type: "json" };
 import { documentationAnchors, flavors, TEXT_ROLES } from "../src/lib/theme.mjs";
 import { ports } from "../src/lib/ports.mjs";
+import { shotsOf, short } from "../src/lib/data.mjs";
 import { appShowcases } from "../src/scripts/language-preview.ts";
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
@@ -58,11 +59,16 @@ test("the gallery exposes every flavor and labels screenshot fallbacks honestly"
     assert.match(showcase, new RegExp(`class="app-showcase__swatch" data-theme="${f.slug}" aria-hidden="true"`));
   }
   assert.equal([...showcase.matchAll(/class="bg-keyword"/g)].length, flavors.length, "square chips show each flavor's syntax palette");
-  for (const app of ["chrome", "obsidian"].filter((id) => APPS.includes(id) && !ports.find((p) => p.id === id)?.repository)) {
+  for (const app of APPS) {
     const panel = showcase.match(new RegExp(`<section[^>]*id="app-panel-${app}"[\\s\\S]*?<\\/section>`))[0];
-    assert.match(panel, /data-only="frost"[^>]*>Night · No Frost capture yet/);
-    assert.match(panel, /data-only="signal"[^>]*>Night · No Signal capture yet/);
-    assert.match(panel, /data-only="paper"[^>]*>Paper<\/span>/);
+    const shots = shotsOf(app);
+    for (const flavor of flavors) {
+      const own = shots.find((shot) => shot.f.id === flavor.id);
+      const shot = own ?? shots.find((shot) => shot.f.id === "night") ?? shots[0];
+      const label = `${short(shot.f)}${own ? "" : ` · No ${short(flavor)} capture yet`}`;
+      const rendered = panel.match(new RegExp(`<span data-only="${flavor.id}"[^>]*>([^<]*)</span>`))?.[1];
+      assert.equal(rendered, label, `${app}: ${flavor.id} capture label`);
+    }
   }
 });
 
@@ -87,7 +93,10 @@ test("the FAQ sits after the port catalog, at the end of the page content", () =
 test("the FAQ's flavor coverage claim matches the port registry", () => {
   const faq = section("faq");
   const partial = ports.filter((p) => p.flavors.length < flavors.length);
-  assert.ok(faq.includes(partial.length ? `${ports.length - partial.length} of ${ports.length} do.` : `All ${ports.length} do.`));
+  const claim = ports.length === 0 ? "No ports are published yet." : partial.length
+    ? `${ports.length - partial.length} of ${ports.length} do.`
+    : ports.length === 1 ? "Yes. The published port includes all four." : `All ${ports.length} do.`;
+  assert.ok(faq.includes(claim));
   const browserException = partial.length > 0 && partial.every((p) => ["firefox", "chrome"].includes(p.id) && p.flavors.join() === partial[0].flavors.join());
   assert.equal(faq.includes("browser themes ship"), browserException);
   assert.match(faq, /Each port's page lists the flavors it ships\./);
@@ -113,7 +122,8 @@ test("requests and reports go to the organization's issue forms, never the retir
   for (const page of ["index.html", "ports/index.html"]) assert.doesNotMatch(read(`../dist/${page}`), /ElliotLuque\/living-code(?!-)/, page);
 });
 
-test("the app contact sheet supports arrow keys, Home, End and click selection", (t) => {
+for (const count of [1, 2, 7]) test(`the app contact sheet supports keyboard and click selection with ${count} captured ports`, (t) => {
+  const apps = Array.from({ length: count }, (_, i) => `app-${i}`);
   const handlers = new Map();
   class Element {
     constructor(id) { this.dataset = { appTab: id }; this.attributes = {}; }
@@ -122,8 +132,8 @@ test("the app contact sheet supports arrow keys, Home, End and click selection",
     focus() {}
     scrollIntoView() {}
   }
-  const candidates = APPS.map((id) => new Element(id));
-  const panels = APPS.map((id) => ({ dataset: { appPanel: id }, setAttribute() {} }));
+  const candidates = apps.map((id) => new Element(id));
+  const panels = apps.map((id) => ({ dataset: { appPanel: id }, setAttribute() {} }));
   const list = { hidden: true, querySelectorAll: () => candidates, addEventListener: (type, fn) => handlers.set(type, fn), removeEventListener: (type) => handlers.delete(type) };
   const root = { querySelector: () => list, querySelectorAll: () => panels };
   for (const [key, value] of Object.entries({ Element, document: { querySelectorAll: () => [root] } })) {
@@ -133,14 +143,14 @@ test("the app contact sheet supports arrow keys, Home, End and click selection",
   }
   const cleanup = appShowcases();
   const tabs = candidates.filter((tab) => !tab.hidden);
-  assert.equal(tabs.length, Math.min(5, APPS.length));
+  assert.equal(tabs.length, Math.min(5, count));
   const key = (tab, k) => handlers.get("keydown")({ target: tab, key: k, preventDefault() {} });
   const shown = () => tabs.findIndex((tab) => tab.dataset.appTab === panels.find((p) => !p.hidden)?.dataset.appPanel);
   assert.equal(list.hidden, false);
   assert.equal(shown(), 0);
   key(tabs[0], "ArrowDown");
-  assert.equal(shown(), 1);
-  key(tabs[1], "ArrowUp");
+  assert.equal(shown(), 1 % tabs.length);
+  key(tabs[1 % tabs.length], "ArrowUp");
   assert.equal(shown(), 0);
   key(tabs[0], "ArrowUp");
   assert.equal(shown(), tabs.length - 1, "wraps around");
@@ -152,11 +162,12 @@ test("the app contact sheet supports arrow keys, Home, End and click selection",
   assert.equal(shown(), 0);
   key(tabs[0], "ArrowLeft");
   assert.equal(shown(), tabs.length - 1);
-  handlers.get("click")({ target: tabs[2] });
-  assert.equal(shown(), 2);
-  assert.equal(tabs[2].attributes["aria-selected"], "true");
-  assert.equal(tabs[2].tabIndex, 0);
-  assert.ok(tabs.filter((_, i) => i !== 2).every((tab) => tab.tabIndex === -1));
+  const selected = Math.min(2, tabs.length - 1);
+  handlers.get("click")({ target: tabs[selected] });
+  assert.equal(shown(), selected);
+  assert.equal(tabs[selected].attributes["aria-selected"], "true");
+  assert.equal(tabs[selected].tabIndex, 0);
+  assert.ok(tabs.filter((_, i) => i !== selected).every((tab) => tab.tabIndex === -1));
   cleanup();
   assert.equal(handlers.size, 0);
 });

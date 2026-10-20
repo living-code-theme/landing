@@ -1,10 +1,8 @@
 // All build inputs live in the landing. The core exports a versioned theme snapshot; discovered
 // repositories own their README, metadata and real screenshots.
-import legacyImages from "../../data/legacy-images.json" with { type: "json" };
 import { ACCENT_ORDER, ANSI_ORDER, GLYPHS, NEUTRAL_ORDER, SLOGAN, TEXT_ROLES, flavors } from "./theme.mjs";
 import { groups, ports } from "./ports.mjs";
 import { escapeHtml } from "./highlight.mjs";
-import { inline } from "./markdown.mjs";
 
 export const SITE = "https://living-code.dev";
 export const ORG = "https://github.com/living-code-theme";
@@ -75,14 +73,11 @@ export const flavorData = Object.fromEntries(flavors.map((f) => [f.id, {
 // --- Ports ---------------------------------------------------------------------------------------------
 
 export { ports, groups };
-export const portIds = new Set(ports.map((p) => p.id));
+export const portCount = `${ports.length} ${ports.length === 1 ? "port" : "ports"}`;
 export const groupOf = Object.fromEntries(groups.flatMap((g) => g.ports.map((p) => [p.id, g.title])));
 
 // How you get each port, without the README's pointer to the text below it.
-export const route = (id) => {
-  const p = ports.find((port) => port.id === id);
-  return p.repository ? escapeHtml(p.quick) : inline(p.quick.replace(/,? see below/, "").replace(/ \(.*?\)$/, "").replace(/ today$/, ""), portIds);
-};
+export const route = (id) => escapeHtml(ports.find((port) => port.id === id).quick);
 
 // Supported flavors are declared by each port, independent of its file layout.
 export const shipped = (p) => flavors.filter((f) => p.flavors.includes(f.id));
@@ -115,13 +110,9 @@ export const keys = (p) => [p.name, p.id, ...(p.aliases ?? []), ...(ALIASES[p.id
 
 // --- Screenshots ---------------------------------------------------------------------------------------
 
-// Discovered captures are cached from their owning repository. Temporary legacy captures and their
-// index are committed inside the landing; no process.cwd() or parent filesystem fallback is needed.
-export const shotsOf = (app) => {
-  const port = ports.find((p) => p.id === app);
-  if (port?.repository) return port.images.map((image) => ({ ...image, f: flavorById[image.flavor] }));
-  return (legacyImages.images[app] ?? []).map((image) => ({ ...image, f: flavorById[image.flavor] }));
-};
+// Captures are cached from the same repository revision as the README and metadata.
+export const shotsOf = (app) => (ports.find((p) => p.id === app)?.images ?? [])
+  .map((image) => ({ ...image, f: flavorById[image.flavor] }));
 const featured = [
   { port: "vscode", name: "VS Code" },
   { port: "jetbrains", name: "IntelliJ IDEA" },

@@ -7,9 +7,8 @@ import DisclosureIcon from "../../components/DisclosureIcon.astro";
 import Shot from "../../components/Shot.astro";
 import Glyphs from "../../components/Glyphs.astro";
 import Pager from "../../components/Pager.astro";
-import { REPO, files, reportIssue, groupOf, portIds, ports, route, shipped, short, shotsOf, slug } from "../../lib/data.mjs";
+import { files, reportIssue, groupOf, ports, route, shipped, short, shotsOf, slug } from "../../lib/data.mjs";
 import { portIcon } from "../../lib/icons.mjs";
-import { inline, markdown } from "../../lib/markdown.mjs";
 import { renderPortGuide } from "../../lib/readme.mjs";
 import { siGithub } from "simple-icons";
 import { back, h3 } from "../../lib/ui.mjs";
@@ -28,18 +27,16 @@ const icon = portIcon(p);
 
 const all = files(p);
 const host = p.homepage ? new URL(p.homepage).host.replace(/^www\./, "") : null;
-const description = p.description ?? `Install the Living Code color scheme in ${p.name}. ${inline(p.install.split("\n")[0]).replace(/<[^>]+>/g, "")}`;
-const guide = p.repository ? renderPortGuide(p.readme, { repository: p.repository, revision: p.revision, images: p.readmeImages }) : null;
-const installation = guide ? guide.installation : markdown(p.install, portIds);
-const options = guide ? [
+const guide = renderPortGuide(p.readme, { repository: p.repository, revision: p.revision, images: p.readmeImages });
+const options = [
   { label: "Configuration", html: guide.configuration },
   { label: "Compatibility", html: guide.compatibility },
-].filter((option) => option.html) : [];
+].filter((option) => option.html);
 ---
 
-<Base title={`Living Code for ${p.name}`} description={description}>
+<Base title={`Living Code for ${p.name}`} description={p.description}>
   <article>
-    <header class="shell grid grid-cols-[minmax(0,1fr)] items-end gap-x-[clamp(40px,6vw,96px)] gap-y-8 pt-[clamp(40px,6vw,88px)] lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+    <header data-port-revision={p.revision} class="shell grid grid-cols-[minmax(0,1fr)] items-end gap-x-[clamp(40px,6vw,96px)] gap-y-8 pt-[clamp(40px,6vw,88px)] lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
       <div>
         <a class={back} href="/ports/" data-port-return><Arrow dir="left" /> All ports</a>
         <h1 class="mt-[clamp(24px,3vw,40px)] text-title font-semibold"><span class="inline-block" data-port-name={p.id}>{p.name}</span></h1>
@@ -47,12 +44,13 @@ const options = guide ? [
           <div><dt>Get it</dt><dd set:html={route(p.id)} /></div>
           <div><dt>Group</dt><dd><a href={`/ports/#${slug(groupOf[p.id])}`}>{groupOf[p.id]}</a></dd></div>
           {host && <div><dt>App</dt><dd><a href={p.homepage}>{host}</a></dd></div>}
-          {p.repository && <div><dt>Source</dt><dd>
+          <div><dt>Source</dt><dd>
             <a href={p.repository} aria-label={`${p.name} repository on GitHub`} title={`${p.name} on GitHub`} class="-my-2 -ml-2.5 inline-flex size-11 items-center justify-center no-underline transition-colors hover:text-accent-2" data-port-repository>
               <svg class="size-6" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d={siGithub.path} /></svg>
             </a>
-          </dd></div>}
-          {p.repository && <div><dt>Problem?</dt><dd><a href={reportIssue(p.repository)} data-port-issues>Report an issue</a></dd></div>}
+          </dd></div>
+          <div><dt>Snapshot</dt><dd><a href={p.readmeUrl} title="README at the imported revision"><code>{p.revision.slice(0, 7)}</code></a></dd></div>
+          <div><dt>Problem?</dt><dd><a href={reportIssue(p.repository)} data-port-issues>Report an issue</a></dd></div>
           <div>
             <dt>Flavors</dt>
             <dd class="flex flex-wrap gap-1">
@@ -71,11 +69,11 @@ const options = guide ? [
     </header>
 
     <div class="shell grid grid-cols-[minmax(0,1fr)] items-start gap-x-[clamp(40px,6vw,96px)] gap-y-12 pt-[clamp(72px,8vw,128px)] lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
-      <section class:list={["prose", p.repository && "port-readme"]} aria-labelledby="install-h" data-reveal>
+      <section class="prose port-readme" aria-labelledby="install-h" data-reveal>
         <div class="mb-6 flex min-h-11 items-center justify-between gap-4">
           <h2 class={h3} id="install-h">Install</h2>
         </div>
-        {installation ? <Fragment set:html={installation} /> : <p>See the repository for installation instructions.</p>}
+        {guide.installation ? <Fragment set:html={guide.installation} /> : <p>See the repository for installation instructions.</p>}
       </section>
       {(options.length > 0 || all.length > 0) && (
         <section aria-labelledby="options-h" data-reveal style="--d:1">
@@ -88,9 +86,8 @@ const options = guide ? [
             <summary>Included files <span class="ml-auto text-sm text-muted">{all.length}</span><DisclosureIcon /></summary>
             <div>
               <ul class="grid gap-0.5">
-                {all.map((path) => <li><a class="block bg-bg-alt px-3.5 py-2.5 text-fg-alt no-underline [overflow-wrap:anywhere] transition-[background-color,color,padding] duration-300 hover:bg-surface hover:pl-5 hover:text-fg" href={p.fileUrls?.[path] ?? `${REPO}/blob/main/${path}`}><code class="text-sm">{path}</code></a></li>)}
+                {all.map((path) => <li><a class="block bg-bg-alt px-3.5 py-2.5 text-fg-alt no-underline [overflow-wrap:anywhere] transition-[background-color,color,padding] duration-300 hover:bg-surface hover:pl-5 hover:text-fg" href={p.fileUrls[path]}><code class="text-sm">{path}</code></a></li>)}
               </ul>
-              {!p.repository && <p class="mt-4 text-sm text-muted [&_a]:text-accent">All generated from <a href={`${REPO}/blob/main/palette/flavors.mjs`}><code>palette/flavors.mjs</code></a>.</p>}
             </div>
           </details>}
         </section>
@@ -103,6 +100,6 @@ const options = guide ? [
       </div>
     )}
 
-    <Pager prev={{ href: `/ports/${prev.id}/`, label: prev.name }} next={{ href: `/ports/${next.id}/`, label: next.name }} label="More ports" />
+    {ports.length > 1 && <Pager prev={{ href: `/ports/${prev.id}/`, label: prev.name }} next={{ href: `/ports/${next.id}/`, label: next.name }} label="More ports" />}
   </article>
 </Base>

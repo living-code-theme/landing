@@ -2,15 +2,15 @@
 import Base from "../../layouts/Base.astro";
 import Arrow from "../../components/Arrow.astro";
 import PortList from "../../components/PortList.astro";
-import { PORT_REQUEST, ports } from "../../lib/data.mjs";
+import { PORT_REQUEST, portCount } from "../../lib/data.mjs";
 import { back, lead } from "../../lib/ui.mjs";
 ---
 
-<Base title={`All ${ports.length} ports of Living Code`} description={`Living Code for ${ports.length} apps: editors, terminals, CLI tools, browsers, apps and the web, each with its install steps.`}>
+<Base title={`${portCount} for Living Code`} description="Browse published Living Code ports, with repository-owned installation guides and real application screenshots.">
   <section class="shell pt-[clamp(24px,3vw,40px)]">
     <a class={back} href="/"><Arrow dir="left" /> Home</a>
     <div class="mt-6 grid items-end gap-6 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
-      <h1 class="text-h2 font-semibold">{ports.length} ports.<br /><span class="text-accent">Find your app.</span></h1>
+      <h1 class="text-h2 font-semibold">{portCount}.<br /><span class="text-accent">Find your app.</span></h1>
       <p class:list={[lead, "[&_a]:text-accent"]}>Every port is generated from the same palette file, so the same token gets the same color in every app. Missing yours? <a href={PORT_REQUEST}>Ask for it</a>.</p>
     </div>
   </section>

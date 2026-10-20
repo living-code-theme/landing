@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
+import sharp from "sharp";
 import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import snapshot from "../data/theme.json" with { type: "json" };
-import captures from "../data/legacy-images.json" with { type: "json" };
+import discovered from "../data/ports.json" with { type: "json" };
 import { ACCENT_ORDER, ANSI_ORDER, GLYPHS, NEUTRAL_ORDER, TEXT_ROLES, flavors } from "../src/lib/theme.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
@@ -36,15 +38,29 @@ test("landing theme data, CSS and glyphs are complete without a palette compiler
   for (const path of ["LICENSE", "public/fonts/OFL-JetBrainsMono.txt", "public/fonts/OFL-Geist.txt"]) assert.ok(read(path).trim());
 });
 
-test("legacy captures are real local PNGs and the index does not point outside the landing", () => {
-  assert.equal(captures.schemaVersion, 1);
-  for (const [port, images] of Object.entries(captures.images)) {
-    assert.equal(new Set(images.map((image) => image.flavor)).size, images.length, port);
-    for (const image of images) {
-      assert.match(image.src, /^(shots|stores)\/[\w-]+\.png$/);
-      const bytes = readFileSync(join(root, "src/assets/legacy", image.src));
-      assert.ok(bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])), image.src);
+test("port inputs and real captures are local and pinned to published repository revisions", async () => {
+  assert.equal(discovered.schemaVersion, 1);
+  for (const port of discovered.ports) {
+    assert.equal(port.repository, `https://github.com/${port.repositoryName}`);
+    assert.match(port.revision, /^[a-f0-9]{40}$/);
+    assert.equal(port.readmeUrl, `${port.repository}/blob/${port.revision}/README.md`);
+    for (const path of port.files) assert.ok(port.fileUrls[path].startsWith(`${port.repository}/blob/${port.revision}/`));
+    assert.equal(new Set(port.images.map((image) => image.flavor)).size, port.images.length, port.id);
+    for (const image of [...port.images, ...Object.values(port.readmeImages)]) {
+      assert.match(image.src, /^\/port-images\/[a-f0-9]{64}\.webp$/);
+      const bytes = readFileSync(join(root, "public", image.src));
+      assert.equal(createHash("sha256").update(bytes).digest("hex"), image.src.split("/").at(-1).replace(/\.webp$/, ""));
+      const metadata = await sharp(bytes).metadata();
+      assert.equal(metadata.format, "webp");
+      assert.equal(metadata.width, image.width);
+      assert.equal(metadata.height, image.height);
     }
+  }
+});
+
+test("retired catalogs and captures cannot silently return as a fallback", () => {
+  for (const path of ["data/legacy-ports.json", "data/legacy-images.json", "src/assets/legacy"]) {
+    assert.equal(existsSync(join(root, path)), false, path);
   }
 });
 

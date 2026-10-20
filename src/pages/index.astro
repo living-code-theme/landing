@@ -9,7 +9,7 @@ import Story from "../components/Story.astro";
 import Flavors from "../components/Flavors.astro";
 import PortList from "../components/PortList.astro";
 import PortSpiral from "../components/PortSpiral.astro";
-import { SLOGAN, flavors, ports } from "../lib/data.mjs";
+import { APPS, SLOGAN, flavors, portCount } from "../lib/data.mjs";
 import { fill, h2, lead, meta, quiet, section } from "../lib/ui.mjs";
 ---
 
@@ -20,15 +20,15 @@ import { fill, h2, lead, meta, quiet, section } from "../lib/ui.mjs";
       <p class="text-display font-semibold text-accent"><span class="line"><span style="--d:1">{SLOGAN}</span></span></p>
       <p class:list={[meta, "mt-7 flex flex-wrap gap-x-7 gap-y-2 xl:absolute xl:right-0 xl:top-4 xl:mt-0 xl:flex-col xl:items-end"]} data-rise style="--d:2">
         <code class="text-accent">:colorscheme living-code-<span data-flavor-id>night</span></code>
-        <span>{ports.length} ports, {flavors.length} flavors, MIT</span>
+        <span>{portCount}, {flavors.length} flavors, MIT</span>
         <span>Made by <a class="inline-flex items-center gap-1 text-fg underline decoration-accent/50 transition-colors hover:text-accent" href="https://elliotluque.com">ElliotLuque <Arrow dir="out" /></a></span>
       </p>
     </div>
     <div class="mt-[clamp(24px,3vw,40px)] grid items-center gap-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-      <p class:list={[lead, "max-w-[36em]"]}>A color scheme for your editor, terminal and browser. The background stays quiet so the code can carry the color, and every color is a role: a string is the same green in all {ports.length} apps.</p>
+      <p class:list={[lead, "max-w-[36em]"]}>A color scheme for your editor, terminal and browser. The background stays quiet so the code can carry the color, and every color is a role: a string keeps the same green wherever you use the theme.</p>
       <div class="flex flex-wrap gap-3 lg:justify-end">
         <a class:list={[fill, "max-sm:flex-1"]} href="/ports/#port-filter" data-port-finder-open aria-haspopup="dialog" aria-controls="port-finder" data-astro-reload>Find your app &amp; install <Arrow /></a>
-        <a class:list={[quiet, "max-sm:flex-1"]} href="/ports/">All {ports.length} ports <Arrow /></a>
+        <a class:list={[quiet, "max-sm:flex-1"]} href="/ports/">Browse {portCount} <Arrow /></a>
       </div>
     </div>
 
@@ -37,15 +37,15 @@ import { fill, h2, lead, meta, quiet, section } from "../lib/ui.mjs";
     </Glyphs>
   </section>
 
-  <AppShowcase />
+  {APPS.length > 0 && <AppShowcase />}
   <Story />
   <Flavors />
 
   <section class:list={[section]} id="ports" aria-labelledby="ports-title">
     <div class="grid items-center gap-2 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
       <div>
-        <h2 class={h2} id="ports-title" data-reveal>{ports.length} ports.<br /><span class="text-accent">Nothing to clone.</span></h2>
-        <p class:list={[lead, "mt-6 max-w-[36em]"]} data-reveal style="--d:1">Editors, terminals, the tools that run inside them, two browsers, two apps and the web. Every one reads the same role map, so a string is the same green everywhere.</p>
+        <h2 class={h2} id="ports-title" data-reveal>{portCount}.<br /><span class="text-accent">Nothing to clone.</span></h2>
+        <p class:list={[lead, "mt-6 max-w-[36em]"]} data-reveal style="--d:1">Only published ports are listed here, with installation instructions from their own repositories. More apps will join as their ports are published.</p>
       </div>
       <PortSpiral />
     </div>

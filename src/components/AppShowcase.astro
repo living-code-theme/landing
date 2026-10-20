@@ -63,7 +63,7 @@ const contexts: Record<string, string> = {
               <Shot app={a.port} sizes="(min-width: 1536px) 1376px, (min-width: 768px) 88vw, 100vw" caption={false} />
               <span class="app-showcase__image-status" data-image-status role="status" aria-live="polite" />
             </div>
-            <div class="app-showcase__capture-note"><span class="app-showcase__status" aria-hidden="true" /><span>{portFor(a.port).repository ? "From the port repository." : "Real app. Fresh profile."}</span><span>{flavors.map((f) => <span data-only={f.id}>{captureLabel(a.port, f)}</span>)}</span></div>
+            <div class="app-showcase__capture-note"><span class="app-showcase__status" aria-hidden="true" /><span>From the port repository.</span><span>{flavors.map((f) => <span data-only={f.id}>{captureLabel(a.port, f)}</span>)}</span></div>
           </div>
           <div class="app-showcase__install">
             <p><span class="app-showcase__install-label">Make yourself at home.</span><span class="app-showcase__route" set:html={route(a.port)} /></p>

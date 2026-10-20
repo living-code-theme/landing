@@ -456,7 +456,7 @@ function portFilter() {
       });
       none.hidden = shown > 0;
       none.querySelector("[data-query]")!.textContent = input.value.trim();
-      count.textContent = q ? `${shown} of ${rows.length}` : `${rows.length} ports`;
+      count.textContent = q ? `${shown} of ${rows.length}` : `${rows.length} ${rows.length === 1 ? "port" : "ports"}`;
       visible = rows.filter((row) => !row.hidden).map((row) => row.querySelector<HTMLAnchorElement>("a")!);
       if (picker) select(visible[0]);
       if (list.closest("main")) {
