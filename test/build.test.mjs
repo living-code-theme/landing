@@ -30,7 +30,7 @@ test("every port has a page with its name and every install command", () => {
     const commands = Object.values(renderPortGuide(p.readme, { repository: p.repository, revision: p.revision, images: p.readmeImages }))
       .flatMap((section) => [...section.matchAll(/data-copy="([^"]*)"/g)].map((match) => match[1]));
     assert.ok(html.includes(`data-port-revision="${p.revision}"`), `${p.id}: imported revision`);
-    assert.ok(html.includes(`href="${p.readmeUrl}"`), `${p.id}: inspect the imported README`);
+    assert.doesNotMatch(html, /<dt>Snapshot<\/dt>/, `${p.id}: revision metadata stays out of the visible details`);
     for (const command of commands) {
       assert.ok(html.includes(`data-copy="${command}"`), `copy text for ${p.id}`);
     }

@@ -112,9 +112,9 @@ The workflow uses `wrangler.jsonc`; it does not change custom-domain routing or 
 2. The next scheduled sync discovers it, validates the website and deploys it. For immediate feedback, manually dispatch
    **sync-ports** on landing's `main`. Each valid repository adds one port; no website registry edit or completion of
    other ports is required.
-3. Check `/ports/<slug>/` on the deployed site. **Source** opens the owning repository, **Snapshot** links to the README
-   at the imported commit, and the flavor preview uses that repository's cached captures. The HTML's
-   `data-port-revision` attribute records the full imported revision for smoke checks.
+3. Check `/ports/<slug>/` on the deployed site. **Source** opens the owning repository, and the flavor preview uses
+   that repository's cached captures. The hidden HTML `data-port-revision` attribute records the full imported
+   revision for smoke checks; it is not shown in the page's details.
 
 The manual discovery commands above and `pnpm deploy` remain available for local verification or recovery.
 Normal website installs, builds and tests never contact core or GitHub.
