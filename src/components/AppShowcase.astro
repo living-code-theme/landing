@@ -31,9 +31,10 @@ const contexts: Record<string, string> = {
       <p class="app-showcase__label">Your tools. <span>Your colors.</span></p>
       <div class="app-showcase__flavors" role="group" aria-label="Preview flavor">
         {flavors.map((f) => (
-          <button type="button" data-set-flavor={f.id} aria-pressed={f.id === "night" ? "true" : "false"}
-            style={`--swatch-bg:${f.c("base")};--swatch-ink:${f.colors[f.roles.accent].hex}`}>
-            <span class="app-showcase__swatch" aria-hidden="true"><span /></span>
+          <button type="button" data-set-flavor={f.id} aria-pressed={f.id === "night" ? "true" : "false"}>
+            <span class="app-showcase__swatch" data-theme={f.slug} aria-hidden="true">
+              <span class="bg-bg-alt" /><span class="bg-keyword" /><span class="bg-string" /><span class="bg-number" />
+            </span>
             {short(f)}
           </button>
         ))}
@@ -60,6 +61,7 @@ const contexts: Record<string, string> = {
             </div>
             <div class="app-showcase__capture">
               <Shot app={a.port} sizes="(min-width: 1536px) 1376px, (min-width: 768px) 88vw, 100vw" caption={false} />
+              <span class="app-showcase__image-status" data-image-status role="status" aria-live="polite" />
             </div>
             <div class="app-showcase__capture-note"><span class="app-showcase__status" aria-hidden="true" /><span>{portFor(a.port).repository ? "From the port repository." : "Real app. Fresh profile."}</span><span>{flavors.map((f) => <span data-only={f.id}>{captureLabel(a.port, f)}</span>)}</span></div>
           </div>
@@ -95,10 +97,10 @@ const contexts: Record<string, string> = {
   .app-showcase__flavors button:hover { color: var(--lc-fg); background: var(--lc-bg-alt); }
   .app-showcase__flavors button[aria-pressed="true"] { color: var(--lc-fg); background: var(--lc-surface0); }
   .app-showcase__swatch {
-    display: grid; width: 18px; height: 18px; place-items: center;
-    background: var(--swatch-bg); border: 1px solid var(--lc-overlay); border-radius: 50%;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; flex: none;
+    width: 20px; height: 20px; padding: 2px;
+    background: var(--lc-bg);
   }
-  .app-showcase__swatch > span { width: 6px; height: 6px; border-radius: 50%; background: var(--swatch-ink); }
   .app-showcase__panels { display: grid; gap: 56px; min-width: 0; }
   .app-showcase__stage { padding: clamp(16px, 2.25vw, 32px); background: var(--lc-bg-alt); }
   .app-showcase__identity { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
@@ -107,8 +109,12 @@ const contexts: Record<string, string> = {
   .app-showcase__app-name :global([data-port-icon]) { color: var(--lc-accent); }
   .app-showcase__identity > p { color: var(--lc-fg-muted); font-size: 0.8125rem; }
   .app-showcase__identity > p > span[aria-hidden] { padding-inline: 12px; color: var(--lc-overlay); }
-  .app-showcase__capture { box-shadow: 0 16px 40px -12px color-mix(in oklch, var(--lc-bg-deep) 70%, transparent); }
-  .app-showcase__capture :global([data-shot]) { overflow: hidden; }
+  .app-showcase__capture { position: relative; box-shadow: 0 16px 40px -12px color-mix(in oklch, var(--lc-bg-deep) 70%, transparent); }
+  .app-showcase__capture :global([data-shot]) { overflow: hidden; background-image: var(--capture-preview, none); background-size: cover; background-position: center; }
+  .app-showcase__capture[data-image-state="loading"] :global(img),
+  .app-showcase__capture[data-image-state="error"] :global(img) { opacity: 0; }
+  .app-showcase__image-status { position: absolute; inset-inline: 16px; bottom: 16px; width: fit-content; max-width: calc(100% - 32px); padding: 8px 12px; background: var(--lc-bg-alt); color: var(--lc-fg); font-size: 0.8125rem; }
+  .app-showcase__image-status:empty { display: none; }
   .app-showcase__capture :global(img) { transition: none; transform: none; scale: 1; }
   .app-showcase__capture-note { display: flex; align-items: center; gap: 8px; margin-top: 20px; color: var(--lc-fg-muted); font-size: 0.75rem; }
   .app-showcase__capture-note > :last-child { margin-left: auto; }

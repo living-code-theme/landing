@@ -5,6 +5,7 @@ import { createField, type Field } from "./living/field";
 import { interruptOnScroll, prepareFlavorTransition, preparePortTransition } from "./transitions";
 import { captureHomeView, restoreHomeChoices, type HomeView } from "./home-view";
 import { appShowcases, languagePreviews } from "./language-preview";
+import { showcaseImages } from "./showcase-images";
 import { faqAccordions } from "./faq";
 import { cancelFinderClose, closeFinder } from "./finder-dialog";
 
@@ -389,6 +390,7 @@ function restorePageLayout() {
   // Doing this on page-load changes the page's height after Astro has already taken the new snapshot.
   teardown.push(languagePreviews(), appShowcases());
   if (homeView) restoreHomeChoices(document, homeView);
+  teardown.push(showcaseImages());
   story();
   portFilter();
   if (input && saved) {

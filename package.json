@@ -8,10 +8,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "pnpm build && wrangler deploy",
     "test": "node --test test/*.test.mjs",
     "test:standalone": "node scripts/check-standalone.mjs",
     "test:discovery": "node --test test/discovery.test.mjs test/readme.test.mjs test/port-template.test.mjs",
     "new:port": "node scripts/new-port.mjs",
+    "preview:port": "node scripts/preview-port.mjs",
     "sync:ports": "node scripts/sync-ports.mjs"
   },
   "dependencies": {
@@ -26,5 +28,8 @@
   },
   "engines": {
     "node": ">=22.22"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.3"
   }
 }

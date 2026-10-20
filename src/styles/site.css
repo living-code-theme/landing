@@ -220,10 +220,6 @@ html:has(.port-finder[open]) { overflow: hidden; }
   .port-readme img { max-width: 100%; height: auto; }
   .port-readme table { display: block; max-width: 100%; overflow-x: auto; }
   .port-readme :is(th, td) { padding: 12px; border-bottom: 1px solid var(--lc-border); text-align: start; }
-  .port-readme table[data-lc-flavors] { display: table; width: 100%; table-layout: fixed; border-collapse: collapse; }
-  .port-readme [data-lc-flavors] td { padding: 16px; vertical-align: top; border: 1px solid var(--lc-border); }
-  .port-readme [data-lc-flavors] sub { position: static; font-size: 0.8125rem; color: var(--lc-fg-alt); }
-  .port-readme [data-lc-flavors] img { display: block; width: 100%; }
   .port-readme details[data-lc-flavor] { border-block-end: 1px solid var(--lc-border); }
   .port-readme details[data-lc-flavor] + details[data-lc-flavor] { margin-top: 0; }
   .port-readme details[data-lc-flavor] > summary { padding-block: 16px; min-height: 48px; font-weight: 400; }
@@ -232,12 +228,16 @@ html:has(.port-finder[open]) { overflow: hidden; }
   .port-readme details[data-lc-flavor] > :not(summary) + * { margin-top: 16px; }
   .port-readme summary { cursor: pointer; font-weight: 600; }
   @media (max-width: 640px) {
-    .port-readme table[data-lc-flavors], .port-readme [data-lc-flavors] :is(tbody, tr, td) { display: block; width: 100%; }
-    .port-readme [data-lc-flavors] td { padding: 12px; border: 0; border-block-end: 1px solid var(--lc-border); }
-    .port-readme [data-lc-flavors] tr + tr { margin-top: 0; }
     .port-readme details[data-lc-flavor] > summary { font-size: 0.875rem; }
   }
   .port-readme blockquote { padding: 16px; background: var(--lc-bg-alt); }
+  .port-option { border-block-end: 1px solid var(--lc-border); }
+  .port-option > summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding-block: 16px; cursor: pointer; list-style: none; }
+  .port-option > summary::marker { content: ""; }
+  .port-option > summary::-webkit-details-marker { display: none; }
+  .port-option > summary:hover { color: var(--lc-accent); }
+  .port-option > div { padding-block-end: 24px; }
+  .port-option > div > :first-child { margin-top: 0; }
   .prose :not(pre) > code { padding: 0.1em 0.35em; background: var(--lc-surface0); font-size: 0.85em; overflow-wrap: anywhere; }
   .snippet { position: relative; background: var(--lc-bg-deep); max-width: 100%; }
   .snippet pre { margin: 0; padding: 18px 104px 18px 20px; overflow-x: auto; font-size: 0.875rem; line-height: 1.65; scrollbar-width: thin; }

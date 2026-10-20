@@ -2,7 +2,7 @@
 // Search the registry locally, then go straight to the chosen port's page.
 import Arrow from "./Arrow.astro";
 import PortIcon from "./PortIcon.astro";
-import { REPO, groups, keys, ports, slug } from "../lib/data.mjs";
+import { PORT_REQUEST, groups, keys, ports, slug } from "../lib/data.mjs";
 ---
 
 <dialog class="port-finder" id="port-finder" aria-labelledby="port-finder-title" aria-describedby="port-finder-help" data-port-list>
@@ -45,7 +45,7 @@ import { REPO, groups, keys, ports, slug } from "../lib/data.mjs";
       ))}
     </div>
     <p class="py-6 text-fg-alt [&_a]:text-accent" data-port-none hidden>
-      No port for “<span data-query></span>” yet. Try another app name, <a href={`${REPO}/issues`}>request a port</a>, or use the <a href="/ports/css/">CSS palette</a>.
+      No port for “<span data-query></span>” yet. Try another app name, <a href={PORT_REQUEST}>request a port</a>, or use the <a href="/ports/css/">CSS palette</a>.
     </p>
   </div>
   <div class="flex items-center justify-between gap-4 border-t border-line px-5 py-3 text-sm sm:px-8">

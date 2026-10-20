@@ -13,6 +13,8 @@ type TabSet = {
   vertical?: boolean;
   // Carry the selected sample through Astro's flavor-page navigation.
   remember?: boolean;
+  // Optionally expose only a browser-local subset of tabs.
+  pick?: (keys: string[]) => string[];
 };
 
 const rememberedTabs = new Map<string, string>();
@@ -21,7 +23,13 @@ export function tabSets(set: TabSet) {
   const cleanups: (() => void)[] = [];
   document.querySelectorAll<HTMLElement>(set.root).forEach((root) => {
     const list = root.querySelector<HTMLElement>(set.list)!;
-    const tabs = [...list.querySelectorAll<HTMLButtonElement>(set.tab)];
+    const candidates = [...list.querySelectorAll<HTMLButtonElement>(set.tab)];
+    const picked = set.pick?.(candidates.map((tab) => tab.dataset[set.tabKey]!));
+    const tabs = candidates.filter((tab) => {
+      tab.hidden = picked ? !picked.includes(tab.dataset[set.tabKey]!) : false;
+      return !tab.hidden;
+    });
+    if (!tabs.length) return;
     const panels = [...root.querySelectorAll<HTMLElement>(set.panel)];
     const prev = set.vertical ? ["ArrowLeft", "ArrowUp"] : ["ArrowLeft"];
     const next = set.vertical ? ["ArrowRight", "ArrowDown"] : ["ArrowRight"];

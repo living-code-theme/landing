@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://living-code.dev/port.schema.json",
   "title": "Living Code port",
   "description": "Opt a public living-code-theme repository into the landing by committing port.json and README.md at its root.",
   "type": "object",

@@ -6,9 +6,8 @@ import { PORT_FLAVORS, README_MARKER, README_SECTIONS } from "../../scripts/read
 
 const anchor = (s) => s.replace(/<[^>]*>/g, "").replace(/&[^;]+;/g, "").toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, "").trim().replace(/\s/g, "-");
 const attributes = (object) => Object.fromEntries(Object.entries(object).filter(([, value]) => value !== undefined));
-function parseReadme(source) {
-  const headings = new Map();
-  return new Marked({
+function parseReadme(source, headings = new Map()) {
+  const parser = new Marked({
     gfm: true,
     renderer: {
       code({ text, lang }) { return codeBlock(text, (lang ?? "").split(/\s/)[0]); },
@@ -20,7 +19,8 @@ function parseReadme(source) {
         return `<h${level} id="readme-${slug}${count ? `-${count}` : ""}">${this.parser.parseInline(tokens)}</h${level}>\n`;
       },
     },
-  }).parse(source);
+  });
+  return typeof source === "string" ? parser.parse(source) : parser.parser(source);
 }
 
 /** Only repository-relative images are downloaded; external images are never fetched by the sync job. */
@@ -96,11 +96,37 @@ export function validateReadmeTemplate(source, manifest) {
   }
 }
 
-export function renderReadme(source, { repository, revision, images = {} }) {
+/** The landing is an installation guide, not a second copy of the GitHub repository page. */
+export function renderPortGuide(source, context) {
+  const tokens = new Marked({ gfm: true }).lexer(source);
+  const sections = new Map(["installation", "configuration", "compatibility"].map((key) => [key, []]));
+  let current;
+  for (const token of tokens) {
+    if (token.type === "heading" && token.depth <= 2) {
+      current = token.depth === 2 ? sections.get(token.text.toLowerCase()) : undefined;
+    } else if (current) current.push(token);
+  }
+  const headings = new Map();
+  return Object.fromEntries([...sections].map(([key, content]) => {
+    // Keep reference-style links, even when their definitions live in an omitted section.
+    content.links = tokens.links;
+    return [key, renderContent(content, context, { headings, pinAnchors: true }).trim()];
+  }));
+}
+
+export function renderReadme(source, context) {
+  return renderContent(source, context);
+}
+
+function renderContent(source, { repository, revision, images = {} }, { headings, pinAnchors = false } = {}) {
   const root = `${repository}/blob/${revision}/`;
   const hrefFor = (href) => {
     if (!href) return undefined;
-    if (href.startsWith("#")) return `#readme-${href.slice(1).replace(/^user-content-/, "")}`;
+    if (href.startsWith("#")) {
+      const target = href.slice(1).replace(/^user-content-/, "");
+      // A shortened guide may omit the target section; the pinned README always has the original anchors.
+      return pinAnchors ? `${root}README.md#${target}` : `#readme-${target}`;
+    }
     const image = images[relativeImagePath(href)];
     if (image?.src) return image.src;
     if (/^(https?:|mailto:)/i.test(href)) return href;
@@ -111,7 +137,7 @@ export function renderReadme(source, { repository, revision, images = {} }) {
     tagName: tagName === "h1" ? "h2" : tagName,
     attribs: attrs.id ? { id: attrs.id.startsWith("readme-") ? attrs.id : `readme-${anchor(attrs.id)}` } : {},
   });
-  return sanitizeHtml(parseReadme(source), {
+  return sanitizeHtml(parseReadme(source, headings), {
     allowedTags: [...sanitizeHtml.defaults.allowedTags, "img", "details", "summary", "button"],
     allowedAttributes: {
       a: ["href", "title"], img: ["src", "alt", "title", "width", "height", "loading", "decoding"],

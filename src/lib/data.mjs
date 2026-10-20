@@ -7,7 +7,13 @@ import { escapeHtml } from "./highlight.mjs";
 import { inline } from "./markdown.mjs";
 
 export const SITE = "https://living-code.dev";
-export const REPO = "https://github.com/ElliotLuque/living-code";
+export const ORG = "https://github.com/living-code-theme";
+// The core holds the palette, palette.json and the README sections linked from this site.
+export const REPO = `${ORG}/core`;
+export const PORT_REQUEST = `${REPO}/issues/new?template=port-request.yml`;
+export const COLOR_FEEDBACK = `${REPO}/issues/new?template=color-feedback.yml`;
+// Every port repository inherits its issue forms from living-code-theme/.github.
+export const reportIssue = (repository) => `${repository}/issues/new/choose`;
 export { ACCENT_ORDER, ANSI_ORDER, NEUTRAL_ORDER, SLOGAN, TEXT_ROLES, flavors };
 
 // --- Flavors -------------------------------------------------------------------------------------------
@@ -125,7 +131,7 @@ const featured = [
 ];
 export const APPS = [
   ...featured.filter((app) => ports.some((p) => p.id === app.port) && shotsOf(app.port).length),
-  ...ports.filter((p) => p.repository && p.images.length && !featured.some((app) => app.port === p.id)).map((p) => ({ port: p.id, name: p.name })),
+  ...ports.filter((p) => shotsOf(p.id).length && !featured.some((app) => app.port === p.id)).map((p) => ({ port: p.id, name: p.name })),
 ];
 
 // --- The mark ------------------------------------------------------------------------------------------

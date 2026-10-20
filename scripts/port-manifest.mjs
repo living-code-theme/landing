@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import Ajv from "ajv";
 
-const schema = JSON.parse(readFileSync(new URL("../port.schema.json", import.meta.url), "utf8"));
+const schema = JSON.parse(readFileSync(new URL("../public/port.schema.json", import.meta.url), "utf8"));
 const validate = new Ajv({ allErrors: true }).compile(schema);
 const RESERVED = new Set(["index", "new", "search", "favicon", "404"]);
 export const FLAVORS = ["night", "frost", "paper", "signal"];

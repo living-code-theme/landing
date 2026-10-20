@@ -3,13 +3,13 @@
 import Mark from "./Mark.astro";
 import ChameleonCameo from "./ChameleonCameo.astro";
 import Glyphs from "./Glyphs.astro";
-import { REPO, SLOGAN, flavorById, flavors, groups, short, slug } from "../lib/data.mjs";
+import { COLOR_FEEDBACK, ORG, PORT_REQUEST, REPO, SLOGAN, flavorById, flavors, groups, short, slug } from "../lib/data.mjs";
 import { meta } from "../lib/ui.mjs";
 
 const cols = [
   ["Flavors", flavors.map((f) => [`/flavors/${f.id}/`, short(f)])],
   ["Ports", groups.map((g) => [`/ports/#${slug(g.title)}`, g.title])],
-  ["Source", [[REPO, "GitHub"], [`${REPO}/releases`, "Releases"], [`${REPO}/blob/main/palette.json`, "palette.json"], [`${REPO}/issues`, "Report a color"]]],
+  ["Source", [[ORG, "GitHub"], [`${REPO}/blob/main/palette.json`, "palette.json"], [PORT_REQUEST, "Request a port"], [COLOR_FEEDBACK, "Report a color"]]],
 ] as const;
 ---
 

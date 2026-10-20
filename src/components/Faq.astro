@@ -2,7 +2,7 @@
 // The practical questions someone asks before installing. The numbers come from the palette and the port
 // registry, so the answers cannot drift from what ships.
 import DisclosureIcon from "./DisclosureIcon.astro";
-import { REPO, TEXT_ROLES, flavors, ports, shipped, short } from "../lib/data.mjs";
+import { PORT_REQUEST, REPO, TEXT_ROLES, flavors, ports, shipped, short } from "../lib/data.mjs";
 import { h2, section } from "../lib/ui.mjs";
 
 const list = (items: string[]) => new Intl.ListFormat("en", { type: "conjunction" }).format(items);
@@ -44,7 +44,7 @@ const a = "text-fg underline decoration-accent/50 transition-colors hover:text-a
       </details>
       <details class="faq-item border-b border-line" name="faq">
         <summary><span>My app isn't listed. Now what?</span><DisclosureIcon /></summary>
-        <p class="max-w-[40em] pb-7 text-fg-alt"><a class={a} href={`${REPO}/issues/new?title=Port%20request`}>Request a port</a> and name the app. Meanwhile, anything with color settings can follow the theme: map the <a class={a} href={`${REPO}#using-the-palette-in-something-else`}>semantic roles</a> onto its slots or read the values from <a class={a} href={`${REPO}/blob/main/palette.json`}>palette.json</a>. If you build one, <a class={a} href={`${REPO}#contributing-a-port`}>contributing a port</a> explains how to add it.</p>
+        <p class="max-w-[40em] pb-7 text-fg-alt"><a class={a} href={PORT_REQUEST}>Request a port</a> and name the app. Meanwhile, anything with color settings can follow the theme: map the <a class={a} href={`${REPO}#using-the-palette-in-something-else`}>semantic roles</a> onto its slots or read the values from <a class={a} href={`${REPO}/blob/main/palette.json`}>palette.json</a>. If you build one, <a class={a} href={`${REPO}#contributing-a-port`}>contributing a port</a> explains how to add it.</p>
       </details>
     </div>
   </div>

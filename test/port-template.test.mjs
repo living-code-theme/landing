@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 import test from "node:test";
 import { promisify } from "node:util";
 import { newPort } from "../scripts/new-port.mjs";
-import { PORT_FLAVORS, README_SECTIONS, renderPortReadme } from "../scripts/readme-template.mjs";
+import { PORT_FLAVORS, PORT_REQUEST_URL, README_SECTIONS, renderPortReadme } from "../scripts/readme-template.mjs";
 import { readmeImagePaths, renderReadme, validateReadmeTemplate } from "../src/lib/readme.mjs";
 
 const manifest = (flavors = PORT_FLAVORS) => ({ schemaVersion: 1, name: "Neovim", slug: "neovim", group: "Editors", emoji: "📝", flavors, images: flavors.map((flavor) => ({ flavor, path: `images/${flavor}.png`, alt: `Neovim running Living Code ${flavor}` })) });
@@ -89,7 +89,7 @@ test("malformed template updates, unfinished scaffolds and flavor/metadata drift
   assert.throws(() => renderPortReadme({ ...meta, images: [meta.images[0], meta.images[0]] }), /screenshots/);
 });
 
-test("landing preserves the comparison grid and native dropdowns, rewrites full-image links, and strips styling/events", () => {
+test("full README rendering preserves the comparison grid and native dropdowns, rewrites full-image links, and strips styling/events", () => {
   const meta = manifest();
   const images = Object.fromEntries(meta.images.map((image) => [image.path, { src: `/port-images/${image.flavor}.webp`, width: 1600, height: 1000 }]));
   const source = renderPortReadme(meta, prose).replace("<table data-lc-flavors>", '<table data-lc-flavors style="position:fixed" onclick="alert(1)">');
@@ -114,18 +114,32 @@ test("metadata text and alt text cannot inject HTML into the template", () => {
   assert.match(source, /&quot; onerror=&quot;/);
 });
 
+test("Contributing links the port's issue forms and core's port request form", () => {
+  const source = renderPortReadme(manifest(), { repository: "https://github.com/living-code-theme/nvim" });
+  const section = source.split("## Contributing\n")[1].split("\n## ")[0];
+  assert.ok(section.includes("[Open an issue](https://github.com/living-code-theme/nvim/issues/new/choose)"));
+  assert.ok(section.includes(`[Request a port](${PORT_REQUEST_URL})`));
+  assert.equal(PORT_REQUEST_URL, "https://github.com/living-code-theme/core/issues/new?template=port-request.yml");
+  assert.match(renderPortReadme(manifest()), /Open an issue in this repository/, "no guessed link without a repository");
+  for (const repository of ["https://github.com/someone-else/nvim", "javascript:alert(1)", "https://github.com/living-code-theme/nvim/../x"]) {
+    assert.throws(() => renderPortReadme(manifest(), { repository }), /living-code-theme GitHub URL/, repository);
+  }
+});
+
 test("new-port scaffold owns README, metadata, local schema, license and image instructions; never overwrites", async (t) => {
   const dir = await mkdtemp(join(tmpdir(), "living-code-port-template-"));
   t.after(() => rm(dir, { force: true, recursive: true }));
   const meta = manifest();
   await newPort(dir, meta);
   const readme = await readFile(join(dir, "README.md"), "utf8");
-  assert.equal(readme, renderPortReadme(meta));
+  const repository = `https://github.com/living-code-theme/${basename(dir)}`;
+  assert.equal(readme, renderPortReadme(meta, { repository }));
+  assert.ok(readme.includes(`[Open an issue](${repository}/issues/new/choose)`), "links the scaffolded repository's issue forms");
   assert.throws(() => validateReadmeTemplate(readme, meta), /placeholder/);
-  assert.deepEqual(JSON.parse(await readFile(join(dir, "port.json"), "utf8")), { $schema: "./port.schema.json", ...meta });
+  assert.deepEqual(JSON.parse(await readFile(join(dir, "port.json"), "utf8")), { $schema: "https://living-code.dev/port.schema.json", ...meta });
   assert.match(await readFile(join(dir, "LICENSE"), "utf8"), /MIT License/);
-  assert.match(await readFile(join(dir, "images/README.md"), "utf8"), /night.png/);
-  assert.ok(JSON.parse(await readFile(join(dir, "port.schema.json"), "utf8")).properties);
+  assert.deepEqual((await readdir(dir)).sort(), ["LICENSE", "README.md", "images", "port.json"], "no local schema or image notes");
+  assert.deepEqual(await readdir(join(dir, "images")), []);
   await assert.rejects(newPort(dir, meta), /empty output directory/);
   assert.equal(await readFile(join(dir, "README.md"), "utf8"), readme);
 });

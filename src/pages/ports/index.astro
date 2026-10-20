@@ -2,7 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import Arrow from "../../components/Arrow.astro";
 import PortList from "../../components/PortList.astro";
-import { REPO, ports } from "../../lib/data.mjs";
+import { PORT_REQUEST, ports } from "../../lib/data.mjs";
 import { back, lead } from "../../lib/ui.mjs";
 ---
 
@@ -11,7 +11,7 @@ import { back, lead } from "../../lib/ui.mjs";
     <a class={back} href="/"><Arrow dir="left" /> Home</a>
     <div class="mt-6 grid items-end gap-6 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
       <h1 class="text-h2 font-semibold">{ports.length} ports.<br /><span class="text-accent">Find your app.</span></h1>
-      <p class:list={[lead, "[&_a]:text-accent"]}>Every port is generated from the same palette file, so the same token gets the same color in every app. Missing yours? <a href={`${REPO}/issues`}>Ask for it</a>.</p>
+      <p class:list={[lead, "[&_a]:text-accent"]}>Every port is generated from the same palette file, so the same token gets the same color in every app. Missing yours? <a href={PORT_REQUEST}>Ask for it</a>.</p>
     </div>
   </section>
   <section class="shell pt-[clamp(32px,4vw,56px)]" aria-label="Ports by group">

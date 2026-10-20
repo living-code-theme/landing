@@ -55,7 +55,9 @@ test("the gallery exposes every flavor and labels screenshot fallbacks honestly"
   assert.match(showcase, /role="group" aria-label="Preview flavor"/);
   for (const f of flavors) {
     assert.match(showcase, new RegExp(`data-set-flavor="${f.id}" aria-pressed="${f.id === "night"}"`));
+    assert.match(showcase, new RegExp(`class="app-showcase__swatch" data-theme="${f.slug}" aria-hidden="true"`));
   }
+  assert.equal([...showcase.matchAll(/class="bg-keyword"/g)].length, flavors.length, "square chips show each flavor's syntax palette");
   for (const app of ["chrome", "obsidian"].filter((id) => APPS.includes(id) && !ports.find((p) => p.id === id)?.repository)) {
     const panel = showcase.match(new RegExp(`<section[^>]*id="app-panel-${app}"[\\s\\S]*?<\\/section>`))[0];
     assert.match(panel, /data-only="frost"[^>]*>Night · No Frost capture yet/);
@@ -100,7 +102,15 @@ test("the FAQ's contrast answer matches the shipped theme audit", () => {
 
 test("the FAQ's core README links match the exported documentation contract", () => {
   const anchors = new Set(documentationAnchors);
-  for (const [, anchor] of section("faq").matchAll(/living-code#([\w-]+)"/g)) assert.ok(anchors.has(anchor), anchor);
+  const links = [...section("faq").matchAll(/living-code-theme\/core#([\w-]+)"/g)].map(([, anchor]) => anchor);
+  assert.deepEqual(links.sort(), ["contributing-a-port", "using-the-palette-in-something-else"]);
+  for (const anchor of links) assert.ok(anchors.has(anchor), anchor);
+});
+
+test("requests and reports go to the organization's issue forms, never the retired monorepo", () => {
+  const faq = section("faq");
+  assert.ok(faq.includes('href="https://github.com/living-code-theme/core/issues/new?template=port-request.yml"'));
+  for (const page of ["index.html", "ports/index.html"]) assert.doesNotMatch(read(`../dist/${page}`), /ElliotLuque\/living-code(?!-)/, page);
 });
 
 test("the app contact sheet supports arrow keys, Home, End and click selection", (t) => {
@@ -112,9 +122,9 @@ test("the app contact sheet supports arrow keys, Home, End and click selection",
     focus() {}
     scrollIntoView() {}
   }
-  const tabs = APPS.map((id) => new Element(id));
+  const candidates = APPS.map((id) => new Element(id));
   const panels = APPS.map((id) => ({ dataset: { appPanel: id }, setAttribute() {} }));
-  const list = { hidden: true, querySelectorAll: () => tabs, addEventListener: (type, fn) => handlers.set(type, fn), removeEventListener: (type) => handlers.delete(type) };
+  const list = { hidden: true, querySelectorAll: () => candidates, addEventListener: (type, fn) => handlers.set(type, fn), removeEventListener: (type) => handlers.delete(type) };
   const root = { querySelector: () => list, querySelectorAll: () => panels };
   for (const [key, value] of Object.entries({ Element, document: { querySelectorAll: () => [root] } })) {
     const original = Object.getOwnPropertyDescriptor(globalThis, key);
@@ -122,8 +132,10 @@ test("the app contact sheet supports arrow keys, Home, End and click selection",
     t.after(() => original ? Object.defineProperty(globalThis, key, original) : delete globalThis[key]);
   }
   const cleanup = appShowcases();
+  const tabs = candidates.filter((tab) => !tab.hidden);
+  assert.equal(tabs.length, Math.min(5, APPS.length));
   const key = (tab, k) => handlers.get("keydown")({ target: tab, key: k, preventDefault() {} });
-  const shown = () => panels.findIndex((p) => !p.hidden);
+  const shown = () => tabs.findIndex((tab) => tab.dataset.appTab === panels.find((p) => !p.hidden)?.dataset.appPanel);
   assert.equal(list.hidden, false);
   assert.equal(shown(), 0);
   key(tabs[0], "ArrowDown");
@@ -131,15 +143,15 @@ test("the app contact sheet supports arrow keys, Home, End and click selection",
   key(tabs[1], "ArrowUp");
   assert.equal(shown(), 0);
   key(tabs[0], "ArrowUp");
-  assert.equal(shown(), APPS.length - 1, "wraps around");
+  assert.equal(shown(), tabs.length - 1, "wraps around");
   key(tabs.at(-1), "ArrowRight");
   assert.equal(shown(), 0);
   key(tabs[0], "End");
-  assert.equal(shown(), APPS.length - 1);
+  assert.equal(shown(), tabs.length - 1);
   key(tabs.at(-1), "Home");
   assert.equal(shown(), 0);
   key(tabs[0], "ArrowLeft");
-  assert.equal(shown(), APPS.length - 1);
+  assert.equal(shown(), tabs.length - 1);
   handlers.get("click")({ target: tabs[2] });
   assert.equal(shown(), 2);
   assert.equal(tabs[2].attributes["aria-selected"], "true");

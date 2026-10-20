@@ -2,7 +2,7 @@
 // The bar on every page. It persists across navigations, so the flavor menu and its state survive a page change.
 import Mark from "./Mark.astro";
 import Arrow from "./Arrow.astro";
-import { CLAUSES, REPO, flavors, short } from "../lib/data.mjs";
+import { CLAUSES, ORG, flavors, short } from "../lib/data.mjs";
 
 const links = [
   ["/#calm", "Palette"],
@@ -32,7 +32,7 @@ const links = [
         </li>
       ))}
     </ul>
-    <a class="text-accent lg:hidden" href={REPO}>Source on GitHub</a>
+    <a class="text-accent lg:hidden" href={ORG}>Source on GitHub</a>
   </nav>
 
   <a class="ml-auto inline-flex min-h-11 items-center gap-3 bg-bg-alt px-3 text-sm font-medium text-fg no-underline transition-colors hover:bg-surface lg:ml-0" href="/ports/#port-filter" data-port-finder-open aria-haspopup="dialog" aria-controls="port-finder" data-astro-reload>
@@ -62,7 +62,7 @@ const links = [
     </ul>
   </div>
 
-  <a class="inline-flex items-center gap-2 text-sm text-muted no-underline transition-colors hover:text-fg max-lg:hidden" href={REPO}>GitHub <Arrow dir="out" /></a>
+  <a class="inline-flex items-center gap-2 text-sm text-muted no-underline transition-colors hover:text-fg max-lg:hidden" href={ORG}>GitHub <Arrow dir="out" /></a>
 
   <button type="button" class="-mr-2.5 grid size-11 place-content-center gap-1.5 lg:hidden" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
     <span class="sr-only">Menu</span>

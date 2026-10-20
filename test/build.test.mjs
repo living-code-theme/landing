@@ -6,6 +6,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { flavors } from "../src/lib/theme.mjs";
 import { ports } from "../src/lib/ports.mjs";
+import { renderPortGuide } from "../src/lib/readme.mjs";
 
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
 const page = (path) => readFileSync(join(dist, path, "index.html"), "utf8");
@@ -25,8 +26,12 @@ test("every port has a page with its name and every install command", () => {
   for (const p of ports) {
     const html = main(page(`ports/${p.id}`));
     assert.match(html, new RegExp(`<h1[^>]*>[\\s\\S]*?${escape(p.name).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`), p.id);
-    for (const [, code] of (p.readme ?? p.install).matchAll(/```\w*\n([\s\S]*?)\n```/g)) {
-      assert.ok(html.includes(`data-copy="${escape(code)}"`), `copy text for ${p.id}`);
+    const commands = p.repository
+      ? Object.values(renderPortGuide(p.readme, { repository: p.repository, revision: p.revision, images: p.readmeImages }))
+        .flatMap((section) => [...section.matchAll(/data-copy="([^"]*)"/g)].map((match) => match[1]))
+      : [...p.install.matchAll(/```\w*\n([\s\S]*?)\n```/g)].map((match) => escape(match[1]));
+    for (const command of commands) {
+      assert.ok(html.includes(`data-copy="${command}"`), `copy text for ${p.id}`);
     }
   }
 });
@@ -259,4 +264,10 @@ test("each port page draws its own icon: a logo path, or a word where there is n
   }
   if (ports.some((p) => p.id === "neovim" && !p.icon)) assert.match(page("ports/neovim"), /<div data-glyph="icon:neovim"[^>]*data-glyph-path="[Mm]/);
   if (ports.some((p) => p.id === "fzf" && !p.icon)) assert.match(page("ports/fzf"), /<div data-glyph="icon:fzf"[^>]*data-glyph-text="fzf"/);
+});
+
+test("the port.json schema is published at the URL every port references", () => {
+  const schema = readFileSync(join(dist, "port.schema.json"), "utf8");
+  assert.equal(schema, readFileSync(new URL("../public/port.schema.json", import.meta.url), "utf8"));
+  assert.equal(JSON.parse(schema).$id, "https://living-code.dev/port.schema.json");
 });

@@ -7,17 +7,18 @@ import { parseArgs } from "node:util";
 import { validateManifest } from "./port-manifest.mjs";
 import { FLAVOR_LABELS, PORT_FLAVORS, renderPortReadme } from "./readme-template.mjs";
 
+// Editors fetch the schema from the website for port.json autocomplete; ports need no local copy.
+export const PORT_SCHEMA_URL = "https://living-code.dev/port.schema.json";
+
 export async function newPort(directory, manifest) {
   validateManifest(manifest, basename(resolve(directory)));
   const existing = await readdir(directory).catch((error) => { if (error.code !== "ENOENT") throw error; return []; });
   if (existing.length) throw new Error("Choose an empty output directory; existing port documentation must not be overwritten");
-  const readme = renderPortReadme(manifest);
+  const readme = renderPortReadme(manifest, { repository: `https://github.com/living-code-theme/${basename(resolve(directory))}` });
   await mkdir(join(directory, "images"), { recursive: true });
   await cp(new URL("../templates/port/LICENSE", import.meta.url), join(directory, "LICENSE"));
-  await cp(new URL("../port.schema.json", import.meta.url), join(directory, "port.schema.json"));
-  await writeFile(join(directory, "port.json"), JSON.stringify({ $schema: "./port.schema.json", ...manifest }, null, 2) + "\n");
+  await writeFile(join(directory, "port.json"), JSON.stringify({ $schema: PORT_SCHEMA_URL, ...manifest }, null, 2) + "\n");
   await writeFile(join(directory, "README.md"), readme);
-  await writeFile(join(directory, "images/README.md"), `# Real application captures\n\n${manifest.images.map((image) => `- \`${basename(image.path)}\`: ${image.alt}`).join("\n") || "No screenshots declared yet."}\n\nCapture the actual application running each supported flavor. Do not substitute generated mockups. Keep filenames and alt text consistent with root port.json and README.md.\n`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
