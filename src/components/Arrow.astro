@@ -1,0 +1,10 @@
+---
+// The one arrow the site uses, turned to point where the link goes.
+interface Props { dir?: "right" | "down" | "out" | "left" }
+const { dir = "right" } = Astro.props;
+const turn = { right: 0, down: 90, left: 180, out: -45 }[dir];
+---
+
+<svg class="arrow size-[1em] flex-none" viewBox="0 0 16 16" aria-hidden="true" style={`--turn:${turn}deg`}>
+  <path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" />
+</svg>

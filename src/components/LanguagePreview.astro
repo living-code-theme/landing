@@ -1,0 +1,83 @@
+---
+import { PREVIEWS, previewLines } from "../lib/language-preview.mjs";
+import { h3 } from "../lib/ui.mjs";
+
+interface Props { flavorName: string }
+const { flavorName } = Astro.props;
+---
+
+<div class="language-preview" data-language-preview>
+  <div class="language-preview__intro">
+    <h2 class={h3} id="language-preview-title">Read it in your language.</h2>
+    <p class="mt-4 max-w-[30em] text-fg-alt">Try the code you write, then switch flavors. The same roles carry through every sample, from syntax to the lines you add and remove.</p>
+    <p class="mt-6 text-sm text-muted">Previewing <span class="text-fg" data-flavor-name>{flavorName}</span>. Your language stays selected when you change flavors.</p>
+  </div>
+  <div class="language-preview__editor">
+    <div class="language-preview__tabs" role="tablist" aria-label="Code preview language" data-language-tabs hidden>
+      {PREVIEWS.map((sample, i) => (
+        <button type="button" role="tab" id={`language-tab-${sample.id}`} aria-controls={`language-panel-${sample.id}`}
+          aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} data-language-tab={sample.id}>
+          {sample.label}
+        </button>
+      ))}
+    </div>
+    <div class="language-preview__panels">
+      {PREVIEWS.map((sample) => (
+        <section class="language-preview__panel" id={`language-panel-${sample.id}`} aria-labelledby={`language-file-${sample.id}`} data-language-panel={sample.id}>
+          <h3 class="language-preview__file" id={`language-file-${sample.id}`}><code>{sample.file}</code></h3>
+          <pre tabindex="0" aria-label={`${sample.label} code sample`}><code>{previewLines(sample).map((line, i) => <span class="language-preview__line" data-line-kind={line.kind}><span class="language-preview__number" aria-hidden="true">{i + 1}</span><span set:html={line.html} /></span>)}</code></pre>
+        </section>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .language-preview {
+    display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+    align-items: start; gap: clamp(32px, 5vw, 80px); padding-top: clamp(40px, 5vw, 72px);
+  }
+  .language-preview [hidden] { display: none; }
+  .language-preview__intro { padding-top: 12px; }
+  .language-preview__editor { min-width: 0; background: var(--lc-bg-alt); }
+  .language-preview__tabs {
+    display: flex; overflow-x: auto; padding-inline: 12px; border-bottom: 1px solid var(--lc-border);
+    scrollbar-width: thin; scrollbar-color: var(--lc-overlay) var(--lc-bg-alt);
+  }
+  .language-preview__tabs button {
+    flex: 0 0 auto; min-height: 48px; padding: 12px; border-bottom: 2px solid transparent;
+    font-size: 0.875rem; color: var(--lc-fg-muted); white-space: nowrap;
+  }
+  .language-preview__tabs button:hover { color: var(--lc-fg); background: var(--lc-surface0); }
+  .language-preview__tabs button[aria-selected="true"] { color: var(--lc-accent); border-bottom-color: currentColor; }
+  .language-preview__tabs button:focus-visible { outline-offset: -4px; }
+  .language-preview__panels { display: grid; gap: 16px; }
+  .language-preview__file { padding: 12px 24px; font-size: 0.75rem; font-weight: 400; color: var(--lc-fg-muted); }
+  .language-preview pre {
+    margin: 0; min-height: 25rem; overflow-x: auto; padding-block: 8px 24px;
+    background: var(--lc-bg); font-size: 0.875rem; line-height: 1.75; tab-size: 4;
+    scrollbar-width: thin; scrollbar-color: var(--lc-overlay) var(--lc-bg-alt);
+  }
+  .language-preview__line { display: block; min-width: max-content; padding-right: 24px; }
+  .language-preview__number {
+    display: inline-block; width: 4ch; margin-inline: 12px 20px;
+    color: var(--lc-line-number); text-align: right; user-select: none;
+  }
+  .language-preview__line[data-line-kind="added"] {
+    color: var(--lc-added); background: color-mix(in oklch, var(--lc-added) 6%, transparent);
+  }
+  .language-preview__line[data-line-kind="removed"] {
+    color: var(--lc-removed); background: color-mix(in oklch, var(--lc-removed) 6%, transparent);
+  }
+  .language-preview__line[data-line-kind="meta"] { color: var(--lc-info); }
+  @media (max-width: 1023px) {
+    .language-preview { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .language-preview__intro { padding-top: 0; }
+  }
+  @media (max-width: 639px) {
+    .language-preview__tabs { padding-inline: 4px; }
+    .language-preview__tabs button { padding-inline: 10px; }
+    .language-preview__file { padding-inline: 16px; }
+    .language-preview__number { width: 2.5ch; margin-inline: 12px; }
+  }
+</style>

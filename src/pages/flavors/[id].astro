@@ -1,0 +1,132 @@
+---
+// One page per flavor, always shown in that flavor: its accents as a glyph hue wheel, the sample file, its slate
+// ramp as fields of color, every role with its OKLCH value, hex and contrast, its terminal colors and the apps
+// captured in it.
+import Base from "../../layouts/Base.astro";
+import Arrow from "../../components/Arrow.astro";
+import Shot from "../../components/Shot.astro";
+import Glyphs from "../../components/Glyphs.astro";
+import FlavorWheel from "../../components/FlavorWheel.astro";
+import Pager from "../../components/Pager.astro";
+import LanguagePreview from "../../components/LanguagePreview.astro";
+import { back, fill, h2, h3, lead, quiet, split } from "../../lib/ui.mjs";
+import { ANSI_ORDER, APPS, NEUTRAL_ORDER, REPO, ROLE_GROUPS, TEXT_ROLES, flavors, roleRow, roleVar, short, shotsOf } from "../../lib/data.mjs";
+
+export function getStaticPaths() {
+  return flavors.map((f, i) => ({ params: { id: f.id }, props: { i } }));
+}
+
+const { i } = Astro.props;
+const f = flavors[i];
+const prev = flavors[(i - 1 + flavors.length) % flavors.length];
+const next = flavors[(i + 1) % flavors.length];
+
+const USES: Record<string, string> = {
+  crust: "sidebars, status lines", base: "background", mantle: "floats, cards", surface0: "line highlight",
+  surface1: "borders", surface2: "selection", overlay: "line numbers", comment: "comments",
+  subtext: "muted text", text2: "properties", text: "foreground",
+};
+const text = new Set(TEXT_ROLES);
+// Ink for the ramp's fields: the darkest step on light fields, the lightest on dark ones.
+const byL = [...NEUTRAL_ORDER].sort((a, b) => f.raw[a][0] - f.raw[b][0]);
+const inks = `--light-ink:var(--lc-${byL[0]});--dark-ink:var(--lc-${byL.at(-1)})`;
+const apps = APPS.filter((a) => shotsOf(a.port).some((s) => s.f.id === f.id));
+---
+
+<Base title={`${f.name}: every color`} description={`${f.name}. ${f.description}`} flavor={f.id}>
+  <article>
+    <header class="shell grid grid-cols-[minmax(0,1fr)] items-center gap-x-[clamp(40px,6vw,96px)] gap-y-10 pt-[clamp(40px,6vw,88px)] lg:grid-cols-2">
+      <div>
+        <a class={back} href="/#flavors" data-flavor-return><Arrow dir="left" /> All flavors</a>
+        <h1 class="mt-[clamp(24px,3vw,40px)] text-title font-semibold"><span class="line"><span>Living Code</span></span> <span class="line text-accent"><span style="--d:1" data-flavor-title={f.id} transition:name={`flavor-${f.id}`}>{short(f)}</span></span></h1>
+        <p class:list={[lead, "mt-[clamp(24px,3vw,36px)]"]} data-rise style="--d:2">{f.description}</p>
+        <div class="mt-9 flex flex-wrap gap-3" data-rise style="--d:3">
+          <button type="button" class={fill} data-adopt-flavor={f.id} data-done={`${short(f)} is your flavor now`}>Use {short(f)} on the whole site</button>
+          <a class={quiet} href="/ports/">Install it <Arrow /></a>
+        </div>
+      </div>
+      <Glyphs shape={`wheel:${f.id}`} class="mx-auto aspect-square w-full max-w-[560px]" label={`The accents of ${f.name} on an OKLCH hue wheel drawn in glyphs`}>
+        <FlavorWheel />
+      </Glyphs>
+    </header>
+
+    <section class="shell" aria-labelledby="language-preview-title">
+      <LanguagePreview flavorName={short(f)} />
+    </section>
+
+    <section class="pt-[clamp(72px,8vw,128px)]" aria-labelledby="ramp-title">
+      <h2 class="sr-only" id="ramp-title">The slate ramp</h2>
+      <ol style={inks}>
+        {NEUTRAL_ORDER.map((n, k) => (
+          <li style={`background:var(--lc-${n});--k:${k}`} class:list={["ramp-field shell grid items-center gap-x-8 gap-y-2 py-[clamp(16px,2vw,26px)] grid-cols-[minmax(0,1fr)_auto] sm:grid-cols-[minmax(120px,1fr)_minmax(0,2fr)_auto_auto]", f.raw[n][0] < 0.62 ? "text-(--dark-ink)" : "text-(--light-ink)"]} data-reveal>
+            <b class="text-[clamp(1.125rem,1.6vw,1.5rem)] font-semibold tracking-tight">{n}</b>
+            <span class="max-sm:col-span-full max-sm:row-start-2 max-sm:text-sm">{USES[n]}</span>
+            <code class="text-sm opacity-85">{f.colors[n].css}</code>
+            <code class="text-sm opacity-85 max-sm:hidden">{f.colors[n].hex}</code>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="shell pt-(--section)" aria-labelledby="roles-title">
+      <div class={split}>
+        <h2 class={h2} id="roles-title" data-reveal>Every role.<br /><span class="text-accent">Three numbers each.</span></h2>
+        <p class={lead} data-reveal style="--d:1">Ports read roles, not colors. Here is what each role is in {short(f)}, and how it reads against the background. Text roles need 4.5:1.</p>
+      </div>
+      {ROLE_GROUPS.map(([title, roles]) => (
+        <div class="not-first-of-type:mt-[clamp(48px,6vw,80px)]">
+          <h3 class:list={[h3, "mb-4"]} data-reveal>{title}</h3>
+          <table class="w-full border-collapse text-sm" data-ui>
+            <caption class="sr-only">{title} roles in {f.name}</caption>
+            <thead><tr class="text-muted [&_th]:py-3 [&_th]:pr-3 sm:[&_th]:pr-4 [&_th]:text-left [&_th]:font-normal"><th scope="col">Role</th><th scope="col" class="max-sm:hidden">Color</th><th scope="col" class="max-sm:hidden">OKLCH</th><th scope="col">Hex</th><th scope="col" class="!pr-0 !text-right">Contrast</th></tr></thead>
+            <tbody>
+              {roles.map((r) => {
+                const row = roleRow(f, r);
+                return (
+                  <tr class="border-t border-surface transition-colors hover:bg-bg-alt [&_td]:py-3 [&_td]:pr-3 sm:[&_td]:pr-4" data-reveal>
+                    <th scope="row" class="flex items-center gap-3 py-3 pr-3 text-left font-medium sm:gap-3.5 sm:pr-4"><i class="size-[22px] flex-none outline outline-1 -outline-offset-1 outline-surface-1" style={`background:var(${roleVar(r)})`} /><span style={text.has(r) ? `color:var(${roleVar(r)})` : undefined}>{r}</span></th>
+                    <td class="max-sm:hidden">{row.name}</td>
+                    <td class="max-sm:hidden"><code class="text-fg-alt">{row.css}</code></td>
+                    <td><code class="text-fg-alt">{row.hex}</code></td>
+                    <td class="!pr-0 text-right tabular-nums">{row.ratio}:1</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </section>
+
+    <section class="shell pt-(--section)" aria-labelledby="ansi-title">
+      <h2 class:list={[h3, "mb-6"]} id="ansi-title" data-reveal>Terminal colors</h2>
+      {(["normal", "bright"] as const).map((row) => (
+        <ol class="grid grid-cols-4 gap-0.5 not-first-of-type:mt-0.5 sm:grid-cols-8" aria-label={`${row} colors`}>
+          {f.ansi[row].map((hex: string, k: number) => (
+            <li class="grid gap-1 pb-3 text-sm text-muted" data-reveal style={`--d:${k}`}><i class="mb-1.5 aspect-[16/10]" style={`background:${hex}`} /><span>{row === "bright" ? "bright " : ""}{ANSI_ORDER[k]}</span><code class="text-xs">{hex}</code></li>
+          ))}
+        </ol>
+      ))}
+    </section>
+
+    {apps.length > 0 && (
+      <section class="shell pt-(--section)" aria-labelledby="fapps-title">
+        <h2 class:list={[h3, "mb-6"]} id="fapps-title" data-reveal>Captured in {short(f)}</h2>
+        <ul class="grid gap-x-6 gap-y-8 sm:grid-cols-2">
+          {apps.map((a) => (
+            <li data-reveal><a class="grid gap-3 font-medium no-underline" href={`/ports/${a.port}/`}><Shot app={a.port} flavor={f.id} sizes="(min-width: 900px) 50vw, 100vw" caption={false} /><span class="inline-flex items-center gap-2.5">{a.name} <Arrow /></span></a></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <Pager prev={{ href: `/flavors/${prev.id}/`, label: short(prev) }} next={{ href: `/flavors/${next.id}/`, label: short(next) }} label="More flavors" />
+    <p class="shell mt-6 text-sm text-muted [&_a]:text-accent">Defined in <a href={`${REPO}/blob/main/palette/flavors.mjs`}><code>palette/flavors.mjs</code></a>.</p>
+  </article>
+</Base>
+
+<style is:global>
+  html.js .ramp-field[data-reveal] { transform: none; transition: clip-path 1s var(--ease-out), opacity 0.6s; transition-delay: calc(var(--k) * 55ms); }
+  html.js .ramp-field[data-reveal]:not(.is-in) { clip-path: inset(0 100% 0 0); opacity: 1; }
+  html.js .ramp-field[data-reveal].is-in { clip-path: inset(0); }
+</style>

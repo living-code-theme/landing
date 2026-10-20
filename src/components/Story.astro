@@ -1,0 +1,204 @@
+---
+// How the palette is built, told on one code window that colors itself as you scroll: slate first, then teal
+// structure, then warm data, ending with diagnostics. The section pins, and scroll drives one
+// timeline through it (src/scripts/site.ts). The file is a plane in 3D: each step holds a camera shot on the lines
+// it colors while its text reads; then the camera lays the file down and rides a scan line along it at the pace
+// you scroll, recoloring it line by line, before rising into the next shot, while the glyphs beside it re-form into
+// the next step's token or glyph-built form. Scrolling back plays it all backwards. Without script it is the finished file
+// and a list; under reduced motion the file stays square to the screen and only its colors change.
+import Glyphs from "./Glyphs.astro";
+import { NEUTRAL_ORDER, flavors, roleVar } from "../lib/data.mjs";
+import { code, sampleHtml } from "../lib/sample.mjs";
+import { ART, FLIGHT, PACE, SHOTS, TOKENS, travel } from "../lib/story.mjs";
+import { h2, h3, lead, section, split } from "../lib/ui.mjs";
+
+const html = sampleHtml({ diagnostics: true, stagger: true });
+const rows = code().split("\n").length;
+const only = (fn: (f: (typeof flavors)[number]) => string) => flavors.map((f) => `<span data-only="${f.id}">${fn(f)}</span>`).join("");
+const chip = (r: string) => `<span class="inline-flex items-center gap-2 bg-bg-alt px-3 py-1.5 text-sm text-muted max-lg:px-2 max-lg:py-1 max-lg:text-xs"><i class="size-3" style="background:var(${roleVar(r)})"></i><span class="text-fg">${r}</span> ${only((f) => f.roles[r])}</span>`;
+const chips = (roles: string[]) => `<p class="flex flex-wrap gap-1.5">${roles.map(chip).join("")}</p>`;
+const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+// The token as text, in its colors: the stand-in where there is no WebGL.
+const word = (t: { text: string; roles: string[] }) => [...t.text].map((ch, k) => `<span style="color:var(${roleVar(t.roles[k % t.roles.length])})">${esc(ch)}</span>`).join("");
+
+const STEPS = [
+  {
+    name: "Slate",
+    title: "Start from slate.",
+    status: "slate only",
+    text: "Background, panels, selection and comments share one hue at almost no chroma. Only the lightness steps, so nothing behind the code competes with it.",
+    proof: `<div class="flex max-w-[460px] gap-0.5">${NEUTRAL_ORDER.map((n) => `<span class="grid flex-1 gap-1.5 text-center text-xs text-muted"><i class="h-10 outline outline-1 -outline-offset-1 outline-surface-1 max-lg:h-6" style="background:var(--lc-${n})"></i><span class="tabular-nums max-sm:text-[9px]">${only((f) => f.raw[n][0].toFixed(2))}</span></span>`).join("")}</div>`,
+  },
+  {
+    name: "Structure",
+    title: "Teal for structure.",
+    status: "+ structure",
+    text: "Keywords, functions and types take the cool hues: the parts you navigate by.",
+    proof: chips(["keyword", "function", "type"]),
+  },
+  {
+    name: "Data",
+    title: "Warm for data.",
+    status: "+ data",
+    text: "Strings, numbers and constants take the warm ones: the values you read.",
+    proof: chips(["string", "number", "constant"]),
+  },
+  {
+    name: "Signals",
+    title: "Signals stay apart.",
+    status: "4 diagnostics",
+    text: "Errors, warnings, info and hints each get a hue and a sign of their own, so you can tell them apart at a glance or without color at all.",
+    proof: chips(["error", "warning", "info", "hint"]),
+  },
+];
+
+const pad = (n: number) => String(n).padStart(2, "0");
+const bar = "flex h-10 items-center justify-between bg-deep px-4 text-sm text-muted max-lg:h-8 max-lg:text-xs";
+const status = "flex h-8 items-center gap-4 bg-deep pr-4 text-xs text-muted max-lg:h-6 max-lg:text-[10px]";
+const mode = "flex items-center self-stretch bg-accent px-3 font-bold text-bg";
+const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none tracking-normal max-lg:text-[56px]";
+---
+
+<section class={section} id="calm" aria-labelledby="calm-title">
+  <div class={split}>
+    <h2 class={h2} id="calm-title" data-reveal>Quiet first.<br /><span class="text-accent">Color on purpose.</span></h2>
+    <p class={lead} data-reveal style="--d:1">Most themes paint everything. Living Code starts from a gray editor and adds color one job at a time. Scroll, and watch this file get its colors.</p>
+  </div>
+  <div data-story-track data-hold={PACE.hold} data-pass={PACE.pass} data-shots={JSON.stringify(SHOTS)} data-flight={JSON.stringify(FLIGHT)} style={`--travel:${travel()}`}>
+    <div class="story-stage grid grid-cols-[minmax(0,1fr)] gap-x-[clamp(40px,6vw,96px)] gap-y-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center" data-story data-step={STEPS.length} style={`--rows:${rows}`}>
+      <div class="story-scene" data-story-scene>
+      <figure class="story-editor bg-bg-alt text-fg outline outline-1 -outline-offset-1 outline-line" data-story-editor>
+        <div class={bar}><code>night.ts</code><span class="flex gap-1.5" aria-hidden="true"><i class="size-[9px] rounded-full bg-surface-1" /><i class="size-[9px] rounded-full bg-surface-1" /><i class="size-[9px] rounded-full bg-surface-1" /></span></div>
+        <div class="story-code relative overflow-hidden">
+          <pre class="overflow-x-auto py-[18px] text-sm leading-[1.75] [scrollbar-width:thin] max-lg:py-2.5 max-lg:text-[10px] max-lg:leading-[1.6]"><code set:html={html} /></pre>
+          <span class="scan-rail pointer-events-none absolute inset-x-0 top-[18px] bottom-[18px] max-lg:top-2.5 max-lg:bottom-2.5" aria-hidden="true"><span class="scan-line"></span></span>
+        </div>
+        <samp class={status}>
+          <span class={mode}>NORMAL</span>
+          {STEPS.map((s, i) => <span data-story-msg={i + 1}>{s.status}</span>)}
+        </samp>
+      </figure>
+      </div>
+      <div class="grid content-center gap-6 max-lg:gap-3">
+        <nav class="story-rail relative" aria-label="Palette steps">
+          <ol class="grid grid-cols-4 gap-1">
+            {STEPS.map((s, i) => (
+              <li><button type="button" class="story-rail__step" data-story-go={i + 1}><span class="tabular-nums">{pad(i + 1)}</span> <span class="story-rail__name">{s.name}</span></button></li>
+            ))}
+          </ol>
+          <span class="story-rail__fill" aria-hidden="true"></span>
+        </nav>
+        <Glyphs shape={`story:${TOKENS.length}`} data-story-token class="h-[clamp(96px,calc(100svh-720px),190px)] max-lg:h-[clamp(40px,calc(56svh-380px),96px)]" label="Code tokens, data blocks and diagnostic symbols, built from code glyphs">
+          {TOKENS.map((t, i) => "paths" in t ? (
+            <svg class="story-word h-full w-full" data-story-word={i + 1} viewBox={`0 0 ${ART.width} ${ART.height}`} fill="none" stroke-width={ART.stroke} stroke-linecap="round" stroke-linejoin="round" role="img" aria-label={t.label}>
+              {t.paths.map((path, k) => <path d={path} stroke={`var(${roleVar(t.roles[k])})`} />)}
+            </svg>
+          ) : <span class:list={[letters, "story-word"]} data-story-word={i + 1} set:html={word(t)} />)}
+        </Glyphs>
+        <ol class="story-copies grid gap-16">
+          {STEPS.map((s, i) => (
+            <li class="story-copy grid content-start gap-4 max-lg:gap-2" data-story-copy={i + 1}>
+              <h3 class={h3}>{s.title}</h3>
+              <p class="max-w-[30em] text-fg-alt max-lg:text-sm max-lg:leading-snug">{s.text}</p>
+              <div class="story-proof" set:html={s.proof} />
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  /* The scrubbed story: the track is as tall as the stage plus its travel, and the stage pins under the header. Its
+     steps share one cell and the script crossfades them; the rail only shows where the script drives the story. */
+  [data-story-track][data-scrub] { height: calc(100svh - var(--head) + var(--travel) * 100svh); }
+  [data-scrub] .story-stage { position: sticky; top: var(--head); height: calc(100svh - var(--head)); align-content: center; padding-block: 24px; }
+  [data-scrub] .story-copies > * { grid-area: 1 / 1; }
+  [data-scrub] .story-copy { will-change: opacity, transform; }
+  [data-story-track]:not([data-scrub]) .story-rail { display: none; }
+  @media (max-width: 1023px) {
+    [data-scrub] .story-stage { align-content: start; padding-block: 12px; row-gap: 14px; }
+  }
+
+  /* The scene: a window with perspective onto the file, which the script places and turns as a camera would
+     (src/scripts/site.ts). On wide screens it runs out to the left edge of the screen; on narrow ones it spans the
+     width above the text. The edges fade, so the file arrives out of the page instead of out of a box. */
+  [data-scrub] .story-scene {
+    position: relative; height: calc(100svh - var(--head) - 48px); max-height: 860px; overflow: clip;
+    margin-left: calc(-1 * max(var(--margin), (100vw - 1440px) / 2));
+    perspective: 1300px; perspective-origin: 54% 46%;
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 94%, transparent), linear-gradient(transparent, #000 11%, #000 87%, transparent);
+    mask-composite: intersect;
+  }
+  @media (max-width: 1023px) {
+    [data-scrub] .story-scene {
+      height: clamp(220px, 44svh, 460px); margin-inline: calc(-1 * var(--margin)); perspective: 900px; perspective-origin: 50% 46%;
+      mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(transparent, #000 10%, #000 88%, transparent);
+    }
+  }
+  /* The file is a plane: its lines, the scan line and the light the scan line casts all live in its 3D space. It
+     keeps one size everywhere and the camera scales it, so a narrow screen sees the same file, closer or farther. */
+  [data-scrub] .story-editor {
+    position: absolute; top: 0; left: 0; width: max-content; transform-origin: 0 0; transform-style: preserve-3d;
+    box-shadow: 0 48px 90px -36px color-mix(in oklch, var(--lc-bg-deep) 70%, black);
+    backface-visibility: hidden;
+  }
+  [data-scrub] :is(.story-code, .story-code pre, .story-code code, .scan-rail, .scan-line) { transform-style: preserve-3d; overflow: visible; }
+  [data-scrub] .story-code code { display: block; }
+  [data-scrub] .story-code pre { padding-block: 18px; font-size: 15px; line-height: 1.75; }
+  [data-scrub] .scan-rail { top: 18px; bottom: 18px; }
+  /* A line rises off the page as the scan reaches it and settles back once it has its colors. */
+  [data-scrub] [data-story] .ln { transform: translateZ(calc(var(--glow) * 28px)); }
+  /* The scan casts a sheet of light that stands up off the file, so it reads as a scanner even seen side on. */
+  [data-scrub] .scan-line::after {
+    content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 84px;
+    transform-origin: bottom; transform: rotateX(-90deg);
+    background: linear-gradient(to top, color-mix(in oklch, var(--lc-accent) 32%, transparent), transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-scrub] [data-story] .ln { transform: none; }
+    [data-scrub] .scan-line::after { display: none; }
+  }
+
+  /* The rail: a step per stop, the current one lit, and a hairline that fills as you go. */
+  .story-rail { padding-bottom: 10px; }
+  .story-rail::before, .story-rail__fill { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px; background: var(--lc-surface1); }
+  .story-rail__fill { background: var(--lc-accent); transform-origin: left; transform: scaleX(var(--story-p, 1)); }
+  .story-rail__step { display: flex; width: 100%; gap: 0.6ch; padding-block: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--lc-fg-muted); text-align: left; transition: color 0.3s; }
+  .story-rail__step:hover, .story-rail__step[aria-current] { color: var(--lc-fg); }
+  .story-rail__step[aria-current] > :first-child { color: var(--lc-accent); }
+  @media (max-width: 1023px) {
+    .story-rail { padding-bottom: 4px; }
+    .story-rail__name { display: none; }
+  }
+  /* A short phone keeps the title, the text and the token; the swatches and chips wait for more room. */
+  @media (max-width: 1023px) and (max-height: 700px) { [data-scrub] .story-proof { display: none; } }
+
+  /* The status line and the token stand-in follow the step. */
+  [data-story-msg], .story-word { display: none; }
+  [data-story][data-step="1"] :is([data-story-msg="1"], [data-story-word="1"]), [data-story][data-step="2"] :is([data-story-msg="2"], [data-story-word="2"]),
+  [data-story][data-step="3"] :is([data-story-msg="3"], [data-story-word="3"]), [data-story][data-step="4"] :is([data-story-msg="4"], [data-story-word="4"]) { display: inline; animation: rise 0.4s var(--ease-out); }
+
+  /* Each line has the colors of the step the scan last left it in (data-s); without script, the finished file. */
+  [data-story] .ln, [data-story] .ln * { transition: color 0.35s, opacity 0.35s, text-decoration-color 0.35s; }
+  [data-story] .ln[data-s="1"] *:not(.t-comment, .ln__n, .sign, .vt) { color: var(--lc-fg-muted); }
+  [data-story] .ln[data-s="2"] :is(.t-string, .t-number, .t-constant, .t-variable, .t-property, .t-parameter, .t-decorator) { color: var(--lc-fg-muted); }
+  [data-story] .ln:is([data-s="1"], [data-s="2"], [data-s="3"]) :is(.sign, .vt) { opacity: 0; }
+  [data-story] .ln:is([data-s="1"], [data-s="2"], [data-s="3"]) .under { text-decoration-color: transparent; }
+
+  /* Lines light up as the scan reaches them and fade behind it. --front is where the scan is, in lines; --dir is
+     1 going down and -1 going up; --band fades the whole effect in and out at the ends of a pass. */
+  [data-story] .ln {
+    --d: calc((var(--front, -9) - var(--n, 0) - 0.5) * var(--dir, 1));
+    --glow: calc(max(0, min(1 - var(--d) / 3, 1 + var(--d) * 2)) * var(--band, 0));
+    background: color-mix(in oklch, var(--lc-accent) calc(var(--glow) * 13%), transparent);
+  }
+
+  /* The scan line: a hairline of accent with a short glow trailing behind it. */
+  .scan-line { position: absolute; inset-inline: 0; top: calc(var(--front, 0) / var(--rows) * 100%); height: 1px; background: var(--lc-accent); opacity: var(--band, 0); }
+  .scan-line::before { content: ""; position: absolute; inset-inline: 0; bottom: 1px; height: 56px; background: linear-gradient(to top, color-mix(in oklch, var(--lc-accent) 18%, transparent), transparent); }
+  [data-story][data-dir="up"] .scan-line::before { bottom: auto; top: 1px; background: linear-gradient(to bottom, color-mix(in oklch, var(--lc-accent) 18%, transparent), transparent); }
+  .story-editor { transition: outline-color 0.4s; }
+  [data-story][data-passing] .story-editor { outline-color: color-mix(in oklch, var(--lc-accent) 45%, var(--lc-border)); }
+</style>

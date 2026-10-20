@@ -1,0 +1,2617 @@
+{
+  "schemaVersion": 1,
+  "slogan": "Calm slate. Living color.",
+  "accentOrder": [
+    "teal",
+    "mint",
+    "aqua",
+    "steel",
+    "amber",
+    "copper",
+    "flare",
+    "moss",
+    "orchid",
+    "rose"
+  ],
+  "ansiOrder": [
+    "black",
+    "red",
+    "green",
+    "yellow",
+    "blue",
+    "magenta",
+    "cyan",
+    "white"
+  ],
+  "neutralOrder": [
+    "crust",
+    "base",
+    "mantle",
+    "surface0",
+    "surface1",
+    "surface2",
+    "overlay",
+    "comment",
+    "subtext",
+    "text2",
+    "text"
+  ],
+  "minimumContrast": 4.5,
+  "textRoles": [
+    "fg",
+    "fgAlt",
+    "fgMuted",
+    "fgSubtle",
+    "keyword",
+    "function",
+    "string",
+    "number",
+    "constant",
+    "type",
+    "decorator",
+    "tag",
+    "property",
+    "parameter",
+    "comment",
+    "operator",
+    "error",
+    "warning",
+    "info",
+    "hint",
+    "success",
+    "link",
+    "heading",
+    "lineNumberActive"
+  ],
+  "documentationAnchors": [
+    "choose-a-flavor",
+    "install-in-30-seconds",
+    "design",
+    "flavors",
+    "living-code-night",
+    "living-code-frost",
+    "living-code-paper",
+    "living-code-signal",
+    "syntax-roles",
+    "ports",
+    "installation",
+    "npm-packages",
+    "editors",
+    "neovimhttpsneovimio",
+    "vs-codehttpscodevisualstudiocom",
+    "jetbrains-ideshttpswwwjetbrainscomides",
+    "zedhttpszeddev",
+    "helixhttpshelix-editorcom",
+    "sublime-texthttpswwwsublimetextcom",
+    "bat-delta-tmthemehttpsgithubcomsharkdpbat",
+    "terminals",
+    "kittyhttpsswkovidgoyalnetkitty",
+    "ghosttyhttpsghosttyorg",
+    "alacrittyhttpsalacrittyorg",
+    "weztermhttpsweztermorg",
+    "foothttpscodebergorgdnklfoot",
+    "windows-terminalhttpsgithubcommicrosoftterminal",
+    "iterm2httpsiterm2com",
+    "warphttpswwwwarpdev",
+    "konsolehttpskonsolekdeorg",
+    "cli-tui",
+    "tmuxhttpsgithubcomtmuxtmux",
+    "fzfhttpsgithubcomjunegunnfzf",
+    "starshiphttpsstarshiprs",
+    "btophttpsgithubcomaristocratosbtop",
+    "lazygithttpsgithubcomjesseduffieldlazygit",
+    "deltahttpsgithubcomdandavisondelta",
+    "hunkhttpsgithubcommodem-devhunk",
+    "fishhttpsfishshellcom",
+    "zellijhttpszellijdev",
+    "yazihttpsyazi-rsgithubio",
+    "k9shttpsk9scliio",
+    "ezahttpsezarocks",
+    "browsers",
+    "firefoxhttpswwwfirefoxcom",
+    "chrome-brave-and-chromiumhttpschromewebstoregooglecomcategorythemes",
+    "apps",
+    "obsidianhttpsobsidianmd",
+    "slackhttpsslackcom",
+    "web-code",
+    "expressive-codehttpsexpressive-codecom",
+    "css-variableshttpsdevelopermozillaorgdocswebcsscolor_valueoklch",
+    "tailwind-css-v4httpstailwindcsscom",
+    "json-javascripthttpsgithubcomelliotluqueliving-code",
+    "theme-systems",
+    "base16-stylix-tinted-theminghttpsgithubcomtinted-theminghome",
+    "using-the-palette-in-something-else",
+    "recolor-images",
+    "contributing-a-port",
+    "license"
+  ],
+  "glyphs": {
+    "[": "M185 -110V830H465V715H310V5H465V-110Z",
+    "e": "M301 -10Q231 -10 179 17Q127 44 98.5 93.5Q70 143 70 210V340Q70 407 98.5 456.5Q127 506 179 533Q231 560 301 560Q370 560 421.5 533Q473 506 501.5 457.5Q530 409 530 344V244H190V206Q190 150 219 121.5Q248 93 301 93Q340 93 367.5 106.5Q395 120 400 146H524Q511 75 450 32.5Q389 -10 301 -10ZM190 344V325L410 326V345Q410 402 382 433Q354 464 301 464Q246 464 218 432.5Q190 401 190 344Z",
+    "l": "M389 0Q307 0 257.5 49Q208 98 208 178V617H27V730H333V181Q333 150 350.5 131.5Q368 113 398 113H559V0Z",
+    "c": "M309 -10Q238 -10 185.5 16.5Q133 43 104 91.5Q75 140 75 206V344Q75 410 104 458.5Q133 507 185.5 533.5Q238 560 309 560Q412 560 474.5 506.5Q537 453 540 361H417Q414 404 384.5 427.5Q355 451 309 451Q258 451 229 423.5Q200 396 200 345V206Q200 155 229 127Q258 99 309 99Q356 99 385 122.5Q414 146 417 189H540Q537 97 474.5 43.5Q412 -10 309 -10Z",
+    "]": "M135 -110V5H290V715H135V830H415V-110Z"
+  },
+  "flavors": [
+    {
+      "id": "night",
+      "name": "Living Code Night",
+      "slug": "living-code-night",
+      "light": false,
+      "description": "The default. Dark slate ground, teal structure, green strings and gray comments. Amber warnings and copper numbers keep their warm contrast.",
+      "raw": {
+        "crust": [
+          0.1,
+          0.01,
+          240
+        ],
+        "base": [
+          0.13,
+          0.01,
+          240
+        ],
+        "mantle": [
+          0.16,
+          0.01,
+          240
+        ],
+        "surface0": [
+          0.2,
+          0.01,
+          240
+        ],
+        "surface1": [
+          0.25,
+          0.01,
+          240
+        ],
+        "surface2": [
+          0.32,
+          0.012,
+          240
+        ],
+        "overlay": [
+          0.45,
+          0.012,
+          240
+        ],
+        "comment": [
+          0.58,
+          0.012,
+          235
+        ],
+        "subtext": [
+          0.7023,
+          0.0065,
+          223.49
+        ],
+        "text2": [
+          0.85,
+          0.01,
+          240
+        ],
+        "text": [
+          0.93,
+          0.01,
+          240
+        ],
+        "teal": [
+          0.65,
+          0.15,
+          180
+        ],
+        "mint": [
+          0.8,
+          0.12,
+          180
+        ],
+        "aqua": [
+          0.86,
+          0.07,
+          192
+        ],
+        "steel": [
+          0.75,
+          0.07,
+          232
+        ],
+        "amber": [
+          0.83,
+          0.115,
+          78
+        ],
+        "copper": [
+          0.72,
+          0.12,
+          48
+        ],
+        "flare": [
+          0.67,
+          0.165,
+          25
+        ],
+        "moss": [
+          0.78,
+          0.12,
+          142
+        ],
+        "orchid": [
+          0.72,
+          0.1,
+          318
+        ],
+        "rose": [
+          0.8,
+          0.06,
+          350
+        ]
+      },
+      "colors": {
+        "crust": {
+          "oklch": [
+            0.1,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.1 0.01 240)",
+          "hex": "#020405",
+          "rgb": [
+            2,
+            4,
+            5
+          ],
+          "clipped": false
+        },
+        "base": {
+          "oklch": [
+            0.13,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.13 0.01 240)",
+          "hex": "#05080b",
+          "rgb": [
+            5,
+            8,
+            11
+          ],
+          "clipped": false
+        },
+        "mantle": {
+          "oklch": [
+            0.16,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.16 0.01 240)",
+          "hex": "#090e11",
+          "rgb": [
+            9,
+            14,
+            17
+          ],
+          "clipped": false
+        },
+        "surface0": {
+          "oklch": [
+            0.2,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.2 0.01 240)",
+          "hex": "#12171a",
+          "rgb": [
+            18,
+            23,
+            26
+          ],
+          "clipped": false
+        },
+        "surface1": {
+          "oklch": [
+            0.25,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.25 0.01 240)",
+          "hex": "#1d2226",
+          "rgb": [
+            29,
+            34,
+            38
+          ],
+          "clipped": false
+        },
+        "surface2": {
+          "oklch": [
+            0.32,
+            0.012,
+            240
+          ],
+          "css": "oklch(0.32 0.012 240)",
+          "hex": "#2d3438",
+          "rgb": [
+            45,
+            52,
+            56
+          ],
+          "clipped": false
+        },
+        "overlay": {
+          "oklch": [
+            0.45,
+            0.012,
+            240
+          ],
+          "css": "oklch(0.45 0.012 240)",
+          "hex": "#50565b",
+          "rgb": [
+            80,
+            86,
+            91
+          ],
+          "clipped": false
+        },
+        "comment": {
+          "oklch": [
+            0.58,
+            0.012,
+            235
+          ],
+          "css": "oklch(0.58 0.012 235)",
+          "hex": "#747c80",
+          "rgb": [
+            116,
+            124,
+            128
+          ],
+          "clipped": false
+        },
+        "subtext": {
+          "oklch": [
+            0.7023,
+            0.0065,
+            223.49
+          ],
+          "css": "oklch(0.7023 0.0065 223.49)",
+          "hex": "#9ba0a2",
+          "rgb": [
+            155,
+            160,
+            162
+          ],
+          "clipped": false
+        },
+        "text2": {
+          "oklch": [
+            0.85,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.85 0.01 240)",
+          "hex": "#c8cfd4",
+          "rgb": [
+            200,
+            207,
+            212
+          ],
+          "clipped": false
+        },
+        "text": {
+          "oklch": [
+            0.93,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.93 0.01 240)",
+          "hex": "#e2e9ee",
+          "rgb": [
+            226,
+            233,
+            238
+          ],
+          "clipped": false
+        },
+        "teal": {
+          "oklch": [
+            0.65,
+            0.15,
+            180
+          ],
+          "css": "oklch(0.65 0.15 180)",
+          "hex": "#00a692",
+          "rgb": [
+            0,
+            166,
+            146
+          ],
+          "clipped": true
+        },
+        "mint": {
+          "oklch": [
+            0.8,
+            0.12,
+            180
+          ],
+          "css": "oklch(0.8 0.12 180)",
+          "hex": "#52d7c1",
+          "rgb": [
+            82,
+            215,
+            193
+          ],
+          "clipped": false
+        },
+        "aqua": {
+          "oklch": [
+            0.86,
+            0.07,
+            192
+          ],
+          "css": "oklch(0.86 0.07 192)",
+          "hex": "#9ae0dd",
+          "rgb": [
+            154,
+            224,
+            221
+          ],
+          "clipped": false
+        },
+        "steel": {
+          "oklch": [
+            0.75,
+            0.07,
+            232
+          ],
+          "css": "oklch(0.75 0.07 232)",
+          "hex": "#80b6d3",
+          "rgb": [
+            128,
+            182,
+            211
+          ],
+          "clipped": false
+        },
+        "amber": {
+          "oklch": [
+            0.83,
+            0.115,
+            78
+          ],
+          "css": "oklch(0.83 0.115 78)",
+          "hex": "#f0be6d",
+          "rgb": [
+            240,
+            190,
+            109
+          ],
+          "clipped": false
+        },
+        "copper": {
+          "oklch": [
+            0.72,
+            0.12,
+            48
+          ],
+          "css": "oklch(0.72 0.12 48)",
+          "hex": "#e18c5f",
+          "rgb": [
+            225,
+            140,
+            95
+          ],
+          "clipped": false
+        },
+        "flare": {
+          "oklch": [
+            0.67,
+            0.165,
+            25
+          ],
+          "css": "oklch(0.67 0.165 25)",
+          "hex": "#e96560",
+          "rgb": [
+            233,
+            101,
+            96
+          ],
+          "clipped": false
+        },
+        "moss": {
+          "oklch": [
+            0.78,
+            0.12,
+            142
+          ],
+          "css": "oklch(0.78 0.12 142)",
+          "hex": "#8acb83",
+          "rgb": [
+            138,
+            203,
+            131
+          ],
+          "clipped": false
+        },
+        "orchid": {
+          "oklch": [
+            0.72,
+            0.1,
+            318
+          ],
+          "css": "oklch(0.72 0.1 318)",
+          "hex": "#bf91cd",
+          "rgb": [
+            191,
+            145,
+            205
+          ],
+          "clipped": false
+        },
+        "rose": {
+          "oklch": [
+            0.8,
+            0.06,
+            350
+          ],
+          "css": "oklch(0.8 0.06 350)",
+          "hex": "#ddaec3",
+          "rgb": [
+            221,
+            174,
+            195
+          ],
+          "clipped": false
+        }
+      },
+      "roles": {
+        "bg": "base",
+        "bgAlt": "mantle",
+        "bgDeep": "crust",
+        "fg": "text",
+        "fgAlt": "text2",
+        "fgMuted": "subtext",
+        "fgSubtle": "comment",
+        "accent": "teal",
+        "cursor": "teal",
+        "selection": "surface2",
+        "lineHighlight": "surface0",
+        "border": "surface1",
+        "borderActive": "teal",
+        "lineNumber": "overlay",
+        "lineNumberActive": "amber",
+        "match": "amber",
+        "error": "flare",
+        "warning": "amber",
+        "info": "steel",
+        "hint": "mint",
+        "success": "moss",
+        "added": "moss",
+        "removed": "flare",
+        "modified": "amber",
+        "keyword": "mint",
+        "builtin": "mint",
+        "function": "aqua",
+        "string": "moss",
+        "number": "copper",
+        "constant": "copper",
+        "escape": "copper",
+        "regex": "orchid",
+        "type": "steel",
+        "namespace": "steel",
+        "operator": "comment",
+        "punctuation": "overlay",
+        "decorator": "orchid",
+        "tag": "orchid",
+        "attribute": "text2",
+        "property": "text2",
+        "variable": "text",
+        "parameter": "text2",
+        "comment": "comment",
+        "heading": "teal",
+        "link": "aqua",
+        "code": "amber",
+        "quote": "comment"
+      },
+      "styles": {
+        "comment": "italic",
+        "parameter": "italic",
+        "builtin": "italic",
+        "quote": "italic",
+        "heading": "bold",
+        "link": "underline"
+      },
+      "ansiRaw": {
+        "normal": [
+          [
+            0.25,
+            0.01,
+            240
+          ],
+          [
+            0.67,
+            0.165,
+            25
+          ],
+          [
+            0.78,
+            0.12,
+            142
+          ],
+          [
+            0.83,
+            0.115,
+            78
+          ],
+          [
+            0.75,
+            0.07,
+            232
+          ],
+          [
+            0.72,
+            0.1,
+            318
+          ],
+          [
+            0.65,
+            0.15,
+            180
+          ],
+          [
+            0.7023,
+            0.0065,
+            223.49
+          ]
+        ],
+        "bright": [
+          [
+            0.45,
+            0.012,
+            240
+          ],
+          [
+            0.75,
+            0.14025,
+            25
+          ],
+          [
+            0.86,
+            0.102,
+            142
+          ],
+          [
+            0.9099999999999999,
+            0.09775,
+            78
+          ],
+          [
+            0.83,
+            0.059500000000000004,
+            232
+          ],
+          [
+            0.7999999999999999,
+            0.085,
+            318
+          ],
+          [
+            0.73,
+            0.1275,
+            180
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ]
+        ]
+      },
+      "ansi": {
+        "normal": [
+          "#1d2226",
+          "#e96560",
+          "#8acb83",
+          "#f0be6d",
+          "#80b6d3",
+          "#bf91cd",
+          "#00a692",
+          "#9ba0a2"
+        ],
+        "bright": [
+          "#50565b",
+          "#fa8880",
+          "#abe2a4",
+          "#ffdba5",
+          "#a1cfe8",
+          "#d5ade2",
+          "#1fc1ab",
+          "#e2e9ee"
+        ]
+      },
+      "contrastToBase": {
+        "crust": 1.0236618416717975,
+        "base": 1,
+        "mantle": 1.0366123317784726,
+        "surface0": 1.1117867082148805,
+        "surface1": 1.2584565091047462,
+        "surface2": 1.5884517439969394,
+        "overlay": 2.7095008868681414,
+        "comment": 4.707931288499475,
+        "subtext": 7.606085959295849,
+        "text2": 12.739183749441347,
+        "text": 16.38633382396164,
+        "teal": 6.584010002098035,
+        "mint": 11.326997392253217,
+        "aqua": 13.499513643843269,
+        "steel": 9.174284510309226,
+        "amber": 11.776458891681685,
+        "copper": 7.797702868134364,
+        "flare": 6.2299076409610175,
+        "moss": 10.4755474419519,
+        "orchid": 7.778771069123117,
+        "rose": 10.481476172043305
+      }
+    },
+    {
+      "id": "frost",
+      "name": "Living Code Frost",
+      "slug": "living-code-frost",
+      "light": false,
+      "description": "Night on a lifted, bluer slate with a third less chroma. Calmer for long sessions; the warm/cool split survives at low saturation.",
+      "raw": {
+        "crust": [
+          0.14,
+          0.015,
+          245
+        ],
+        "base": [
+          0.17,
+          0.015,
+          245
+        ],
+        "mantle": [
+          0.2,
+          0.015,
+          245
+        ],
+        "surface0": [
+          0.23,
+          0.015,
+          245
+        ],
+        "surface1": [
+          0.28,
+          0.015,
+          245
+        ],
+        "surface2": [
+          0.35,
+          0.018,
+          245
+        ],
+        "overlay": [
+          0.45,
+          0.012,
+          240
+        ],
+        "comment": [
+          0.61,
+          0.012,
+          235
+        ],
+        "subtext": [
+          0.7023,
+          0.0065,
+          223.49
+        ],
+        "text2": [
+          0.85,
+          0.01,
+          240
+        ],
+        "text": [
+          0.93,
+          0.01,
+          240
+        ],
+        "teal": [
+          0.67,
+          0.0975,
+          180
+        ],
+        "mint": [
+          0.8200000000000001,
+          0.078,
+          180
+        ],
+        "aqua": [
+          0.88,
+          0.045500000000000006,
+          192
+        ],
+        "steel": [
+          0.77,
+          0.045500000000000006,
+          232
+        ],
+        "amber": [
+          0.85,
+          0.07475000000000001,
+          78
+        ],
+        "copper": [
+          0.74,
+          0.078,
+          48
+        ],
+        "flare": [
+          0.6900000000000001,
+          0.10725000000000001,
+          25
+        ],
+        "moss": [
+          0.8,
+          0.078,
+          142
+        ],
+        "orchid": [
+          0.74,
+          0.065,
+          318
+        ],
+        "rose": [
+          0.8200000000000001,
+          0.039,
+          350
+        ]
+      },
+      "colors": {
+        "crust": {
+          "oklch": [
+            0.14,
+            0.015,
+            245
+          ],
+          "css": "oklch(0.14 0.015 245)",
+          "hex": "#050a0f",
+          "rgb": [
+            5,
+            10,
+            15
+          ],
+          "clipped": false
+        },
+        "base": {
+          "oklch": [
+            0.17,
+            0.015,
+            245
+          ],
+          "css": "oklch(0.17 0.015 245)",
+          "hex": "#0a1016",
+          "rgb": [
+            10,
+            16,
+            22
+          ],
+          "clipped": false
+        },
+        "mantle": {
+          "oklch": [
+            0.2,
+            0.015,
+            245
+          ],
+          "css": "oklch(0.2 0.015 245)",
+          "hex": "#10171c",
+          "rgb": [
+            16,
+            23,
+            28
+          ],
+          "clipped": false
+        },
+        "surface0": {
+          "oklch": [
+            0.23,
+            0.015,
+            245
+          ],
+          "css": "oklch(0.23 0.015 245)",
+          "hex": "#171e24",
+          "rgb": [
+            23,
+            30,
+            36
+          ],
+          "clipped": false
+        },
+        "surface1": {
+          "oklch": [
+            0.28,
+            0.015,
+            245
+          ],
+          "css": "oklch(0.28 0.015 245)",
+          "hex": "#232a30",
+          "rgb": [
+            35,
+            42,
+            48
+          ],
+          "clipped": false
+        },
+        "surface2": {
+          "oklch": [
+            0.35,
+            0.018,
+            245
+          ],
+          "css": "oklch(0.35 0.018 245)",
+          "hex": "#333c43",
+          "rgb": [
+            51,
+            60,
+            67
+          ],
+          "clipped": false
+        },
+        "overlay": {
+          "oklch": [
+            0.45,
+            0.012,
+            240
+          ],
+          "css": "oklch(0.45 0.012 240)",
+          "hex": "#50565b",
+          "rgb": [
+            80,
+            86,
+            91
+          ],
+          "clipped": false
+        },
+        "comment": {
+          "oklch": [
+            0.61,
+            0.012,
+            235
+          ],
+          "css": "oklch(0.61 0.012 235)",
+          "hex": "#7d8489",
+          "rgb": [
+            125,
+            132,
+            137
+          ],
+          "clipped": false
+        },
+        "subtext": {
+          "oklch": [
+            0.7023,
+            0.0065,
+            223.49
+          ],
+          "css": "oklch(0.7023 0.0065 223.49)",
+          "hex": "#9ba0a2",
+          "rgb": [
+            155,
+            160,
+            162
+          ],
+          "clipped": false
+        },
+        "text2": {
+          "oklch": [
+            0.85,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.85 0.01 240)",
+          "hex": "#c8cfd4",
+          "rgb": [
+            200,
+            207,
+            212
+          ],
+          "clipped": false
+        },
+        "text": {
+          "oklch": [
+            0.93,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.93 0.01 240)",
+          "hex": "#e2e9ee",
+          "rgb": [
+            226,
+            233,
+            238
+          ],
+          "clipped": false
+        },
+        "teal": {
+          "oklch": [
+            0.67,
+            0.0975,
+            180
+          ],
+          "css": "oklch(0.67 0.0975 180)",
+          "hex": "#43a997",
+          "rgb": [
+            67,
+            169,
+            151
+          ],
+          "clipped": false
+        },
+        "mint": {
+          "oklch": [
+            0.8200000000000001,
+            0.078,
+            180
+          ],
+          "css": "oklch(0.82 0.078 180)",
+          "hex": "#8ad5c6",
+          "rgb": [
+            138,
+            213,
+            198
+          ],
+          "clipped": false
+        },
+        "aqua": {
+          "oklch": [
+            0.88,
+            0.045500000000000006,
+            192
+          ],
+          "css": "oklch(0.88 0.0455 192)",
+          "hex": "#b6e2df",
+          "rgb": [
+            182,
+            226,
+            223
+          ],
+          "clipped": false
+        },
+        "steel": {
+          "oklch": [
+            0.77,
+            0.045500000000000006,
+            232
+          ],
+          "css": "oklch(0.77 0.0455 232)",
+          "hex": "#98bacd",
+          "rgb": [
+            152,
+            186,
+            205
+          ],
+          "clipped": false
+        },
+        "amber": {
+          "oklch": [
+            0.85,
+            0.07475000000000001,
+            78
+          ],
+          "css": "oklch(0.85 0.0748 78)",
+          "hex": "#e9c897",
+          "rgb": [
+            233,
+            200,
+            151
+          ],
+          "clipped": false
+        },
+        "copper": {
+          "oklch": [
+            0.74,
+            0.078,
+            48
+          ],
+          "css": "oklch(0.74 0.078 48)",
+          "hex": "#d49c80",
+          "rgb": [
+            212,
+            156,
+            128
+          ],
+          "clipped": false
+        },
+        "flare": {
+          "oklch": [
+            0.6900000000000001,
+            0.10725000000000001,
+            25
+          ],
+          "css": "oklch(0.69 0.1073 25)",
+          "hex": "#d68079",
+          "rgb": [
+            214,
+            128,
+            121
+          ],
+          "clipped": false
+        },
+        "moss": {
+          "oklch": [
+            0.8,
+            0.078,
+            142
+          ],
+          "css": "oklch(0.8 0.078 142)",
+          "hex": "#a2cb9d",
+          "rgb": [
+            162,
+            203,
+            157
+          ],
+          "clipped": false
+        },
+        "orchid": {
+          "oklch": [
+            0.74,
+            0.065,
+            318
+          ],
+          "css": "oklch(0.74 0.065 318)",
+          "hex": "#bc9ec6",
+          "rgb": [
+            188,
+            158,
+            198
+          ],
+          "clipped": false
+        },
+        "rose": {
+          "oklch": [
+            0.8200000000000001,
+            0.039,
+            350
+          ],
+          "css": "oklch(0.82 0.039 350)",
+          "hex": "#d9bac8",
+          "rgb": [
+            217,
+            186,
+            200
+          ],
+          "clipped": false
+        }
+      },
+      "roles": {
+        "bg": "base",
+        "bgAlt": "mantle",
+        "bgDeep": "crust",
+        "fg": "text",
+        "fgAlt": "text2",
+        "fgMuted": "subtext",
+        "fgSubtle": "comment",
+        "accent": "teal",
+        "cursor": "teal",
+        "selection": "surface2",
+        "lineHighlight": "surface0",
+        "border": "surface1",
+        "borderActive": "teal",
+        "lineNumber": "overlay",
+        "lineNumberActive": "amber",
+        "match": "amber",
+        "error": "flare",
+        "warning": "amber",
+        "info": "steel",
+        "hint": "mint",
+        "success": "moss",
+        "added": "moss",
+        "removed": "flare",
+        "modified": "amber",
+        "keyword": "mint",
+        "builtin": "mint",
+        "function": "aqua",
+        "string": "moss",
+        "number": "copper",
+        "constant": "copper",
+        "escape": "copper",
+        "regex": "orchid",
+        "type": "steel",
+        "namespace": "steel",
+        "operator": "comment",
+        "punctuation": "overlay",
+        "decorator": "orchid",
+        "tag": "orchid",
+        "attribute": "text2",
+        "property": "text2",
+        "variable": "text",
+        "parameter": "text2",
+        "comment": "comment",
+        "heading": "teal",
+        "link": "aqua",
+        "code": "amber",
+        "quote": "comment"
+      },
+      "styles": {
+        "comment": "italic",
+        "parameter": "italic",
+        "builtin": "italic",
+        "quote": "italic",
+        "heading": "bold",
+        "link": "underline"
+      },
+      "ansiRaw": {
+        "normal": [
+          [
+            0.28,
+            0.015,
+            245
+          ],
+          [
+            0.6900000000000001,
+            0.10725000000000001,
+            25
+          ],
+          [
+            0.8,
+            0.078,
+            142
+          ],
+          [
+            0.85,
+            0.07475000000000001,
+            78
+          ],
+          [
+            0.77,
+            0.045500000000000006,
+            232
+          ],
+          [
+            0.74,
+            0.065,
+            318
+          ],
+          [
+            0.67,
+            0.0975,
+            180
+          ],
+          [
+            0.7023,
+            0.0065,
+            223.49
+          ]
+        ],
+        "bright": [
+          [
+            0.45,
+            0.012,
+            240
+          ],
+          [
+            0.77,
+            0.09116250000000001,
+            25
+          ],
+          [
+            0.88,
+            0.0663,
+            142
+          ],
+          [
+            0.92,
+            0.06353750000000001,
+            78
+          ],
+          [
+            0.85,
+            0.038675,
+            232
+          ],
+          [
+            0.82,
+            0.05525,
+            318
+          ],
+          [
+            0.75,
+            0.082875,
+            180
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ]
+        ]
+      },
+      "ansi": {
+        "normal": [
+          "#232a30",
+          "#d68079",
+          "#a2cb9d",
+          "#e9c897",
+          "#98bacd",
+          "#bc9ec6",
+          "#43a997",
+          "#9ba0a2"
+        ],
+        "bright": [
+          "#50565b",
+          "#e99e97",
+          "#bfe3bb",
+          "#fce0b6",
+          "#b6d3e3",
+          "#d4b9dc",
+          "#6fbfb0",
+          "#e2e9ee"
+        ]
+      },
+      "contrastToBase": {
+        "crust": 1.041398345387162,
+        "base": 1,
+        "mantle": 1.0565190271360327,
+        "surface0": 1.132752236263117,
+        "surface1": 1.3116232654665383,
+        "surface2": 1.6944371801357083,
+        "overlay": 2.5746020726335974,
+        "comment": 5.054876917803763,
+        "subtext": 7.2273992491907215,
+        "text2": 12.10493380678789,
+        "text": 15.57050201773592,
+        "teal": 6.688409653912149,
+        "mint": 11.308320478438896,
+        "aqua": 13.544116576688806,
+        "steel": 9.3108661250243,
+        "amber": 12.015282076277057,
+        "copper": 8.09142715362517,
+        "flare": 6.572974945708785,
+        "moss": 10.51134846235131,
+        "orchid": 8.075257726639967,
+        "rose": 10.760435762995655
+      }
+    },
+    {
+      "id": "paper",
+      "name": "Living Code Paper",
+      "slug": "living-code-paper",
+      "light": true,
+      "description": "Daylight. Same two temperatures on near-white slate, lightness inverted so every syntax color keeps WCAG AA contrast.",
+      "raw": {
+        "crust": [
+          0.92,
+          0.008,
+          240
+        ],
+        "base": [
+          0.975,
+          0.004,
+          240
+        ],
+        "mantle": [
+          0.95,
+          0.006,
+          240
+        ],
+        "surface0": [
+          0.93,
+          0.008,
+          240
+        ],
+        "surface1": [
+          0.88,
+          0.01,
+          240
+        ],
+        "surface2": [
+          0.84,
+          0.015,
+          240
+        ],
+        "overlay": [
+          0.68,
+          0.012,
+          240
+        ],
+        "comment": [
+          0.55,
+          0.012,
+          235
+        ],
+        "subtext": [
+          0.45,
+          0.01,
+          240
+        ],
+        "text2": [
+          0.32,
+          0.01,
+          240
+        ],
+        "text": [
+          0.2,
+          0.01,
+          240
+        ],
+        "teal": [
+          0.53,
+          0.09,
+          180
+        ],
+        "mint": [
+          0.47,
+          0.08,
+          182
+        ],
+        "aqua": [
+          0.5,
+          0.075,
+          200
+        ],
+        "steel": [
+          0.5,
+          0.09,
+          240
+        ],
+        "amber": [
+          0.53,
+          0.105,
+          75
+        ],
+        "copper": [
+          0.52,
+          0.12,
+          45
+        ],
+        "flare": [
+          0.52,
+          0.13,
+          25
+        ],
+        "moss": [
+          0.52,
+          0.12,
+          142
+        ],
+        "orchid": [
+          0.52,
+          0.1,
+          318
+        ],
+        "rose": [
+          0.52,
+          0.06,
+          350
+        ]
+      },
+      "colors": {
+        "crust": {
+          "oklch": [
+            0.92,
+            0.008,
+            240
+          ],
+          "css": "oklch(0.92 0.008 240)",
+          "hex": "#e0e5e9",
+          "rgb": [
+            224,
+            229,
+            233
+          ],
+          "clipped": false
+        },
+        "base": {
+          "oklch": [
+            0.975,
+            0.004,
+            240
+          ],
+          "css": "oklch(0.975 0.004 240)",
+          "hex": "#f4f7f9",
+          "rgb": [
+            244,
+            247,
+            249
+          ],
+          "clipped": false
+        },
+        "mantle": {
+          "oklch": [
+            0.95,
+            0.006,
+            240
+          ],
+          "css": "oklch(0.95 0.006 240)",
+          "hex": "#ebeff2",
+          "rgb": [
+            235,
+            239,
+            242
+          ],
+          "clipped": false
+        },
+        "surface0": {
+          "oklch": [
+            0.93,
+            0.008,
+            240
+          ],
+          "css": "oklch(0.93 0.008 240)",
+          "hex": "#e3e9ed",
+          "rgb": [
+            227,
+            233,
+            237
+          ],
+          "clipped": false
+        },
+        "surface1": {
+          "oklch": [
+            0.88,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.88 0.01 240)",
+          "hex": "#d2d8dd",
+          "rgb": [
+            210,
+            216,
+            221
+          ],
+          "clipped": false
+        },
+        "surface2": {
+          "oklch": [
+            0.84,
+            0.015,
+            240
+          ],
+          "css": "oklch(0.84 0.015 240)",
+          "hex": "#c2ccd3",
+          "rgb": [
+            194,
+            204,
+            211
+          ],
+          "clipped": false
+        },
+        "overlay": {
+          "oklch": [
+            0.68,
+            0.012,
+            240
+          ],
+          "css": "oklch(0.68 0.012 240)",
+          "hex": "#92999f",
+          "rgb": [
+            146,
+            153,
+            159
+          ],
+          "clipped": false
+        },
+        "comment": {
+          "oklch": [
+            0.55,
+            0.012,
+            235
+          ],
+          "css": "oklch(0.55 0.012 235)",
+          "hex": "#6b7378",
+          "rgb": [
+            107,
+            115,
+            120
+          ],
+          "clipped": false
+        },
+        "subtext": {
+          "oklch": [
+            0.45,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.45 0.01 240)",
+          "hex": "#50565a",
+          "rgb": [
+            80,
+            86,
+            90
+          ],
+          "clipped": false
+        },
+        "text2": {
+          "oklch": [
+            0.32,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.32 0.01 240)",
+          "hex": "#2e3437",
+          "rgb": [
+            46,
+            52,
+            55
+          ],
+          "clipped": false
+        },
+        "text": {
+          "oklch": [
+            0.2,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.2 0.01 240)",
+          "hex": "#12171a",
+          "rgb": [
+            18,
+            23,
+            26
+          ],
+          "clipped": false
+        },
+        "teal": {
+          "oklch": [
+            0.53,
+            0.09,
+            180
+          ],
+          "css": "oklch(0.53 0.09 180)",
+          "hex": "#187d6e",
+          "rgb": [
+            24,
+            125,
+            110
+          ],
+          "clipped": false
+        },
+        "mint": {
+          "oklch": [
+            0.47,
+            0.08,
+            182
+          ],
+          "css": "oklch(0.47 0.08 182)",
+          "hex": "#0f695e",
+          "rgb": [
+            15,
+            105,
+            94
+          ],
+          "clipped": false
+        },
+        "aqua": {
+          "oklch": [
+            0.5,
+            0.075,
+            200
+          ],
+          "css": "oklch(0.5 0.075 200)",
+          "hex": "#1f7074",
+          "rgb": [
+            31,
+            112,
+            116
+          ],
+          "clipped": false
+        },
+        "steel": {
+          "oklch": [
+            0.5,
+            0.09,
+            240
+          ],
+          "css": "oklch(0.5 0.09 240)",
+          "hex": "#2b6991",
+          "rgb": [
+            43,
+            105,
+            145
+          ],
+          "clipped": false
+        },
+        "amber": {
+          "oklch": [
+            0.53,
+            0.105,
+            75
+          ],
+          "css": "oklch(0.53 0.105 75)",
+          "hex": "#8f6213",
+          "rgb": [
+            143,
+            98,
+            19
+          ],
+          "clipped": false
+        },
+        "copper": {
+          "oklch": [
+            0.52,
+            0.12,
+            45
+          ],
+          "css": "oklch(0.52 0.12 45)",
+          "hex": "#a04f27",
+          "rgb": [
+            160,
+            79,
+            39
+          ],
+          "clipped": false
+        },
+        "flare": {
+          "oklch": [
+            0.52,
+            0.13,
+            25
+          ],
+          "css": "oklch(0.52 0.13 25)",
+          "hex": "#a74541",
+          "rgb": [
+            167,
+            69,
+            65
+          ],
+          "clipped": false
+        },
+        "moss": {
+          "oklch": [
+            0.52,
+            0.12,
+            142
+          ],
+          "css": "oklch(0.52 0.12 142)",
+          "hex": "#3b7a35",
+          "rgb": [
+            59,
+            122,
+            53
+          ],
+          "clipped": false
+        },
+        "orchid": {
+          "oklch": [
+            0.52,
+            0.1,
+            318
+          ],
+          "css": "oklch(0.52 0.1 318)",
+          "hex": "#81558e",
+          "rgb": [
+            129,
+            85,
+            142
+          ],
+          "clipped": false
+        },
+        "rose": {
+          "oklch": [
+            0.52,
+            0.06,
+            350
+          ],
+          "css": "oklch(0.52 0.06 350)",
+          "hex": "#845b6e",
+          "rgb": [
+            132,
+            91,
+            110
+          ],
+          "clipped": false
+        }
+      },
+      "roles": {
+        "bg": "base",
+        "bgAlt": "mantle",
+        "bgDeep": "crust",
+        "fg": "text",
+        "fgAlt": "text2",
+        "fgMuted": "subtext",
+        "fgSubtle": "comment",
+        "accent": "teal",
+        "cursor": "teal",
+        "selection": "surface2",
+        "lineHighlight": "surface0",
+        "border": "surface1",
+        "borderActive": "teal",
+        "lineNumber": "overlay",
+        "lineNumberActive": "amber",
+        "match": "amber",
+        "error": "flare",
+        "warning": "amber",
+        "info": "steel",
+        "hint": "mint",
+        "success": "moss",
+        "added": "moss",
+        "removed": "flare",
+        "modified": "amber",
+        "keyword": "mint",
+        "builtin": "mint",
+        "function": "aqua",
+        "string": "moss",
+        "number": "copper",
+        "constant": "copper",
+        "escape": "copper",
+        "regex": "orchid",
+        "type": "steel",
+        "namespace": "steel",
+        "operator": "comment",
+        "punctuation": "overlay",
+        "decorator": "orchid",
+        "tag": "orchid",
+        "attribute": "text2",
+        "property": "text2",
+        "variable": "text",
+        "parameter": "text2",
+        "comment": "comment",
+        "heading": "teal",
+        "link": "aqua",
+        "code": "amber",
+        "quote": "comment"
+      },
+      "styles": {
+        "comment": "italic",
+        "parameter": "italic",
+        "builtin": "italic",
+        "quote": "italic",
+        "heading": "bold",
+        "link": "underline"
+      },
+      "ansiRaw": {
+        "normal": [
+          [
+            0.88,
+            0.01,
+            240
+          ],
+          [
+            0.52,
+            0.13,
+            25
+          ],
+          [
+            0.52,
+            0.12,
+            142
+          ],
+          [
+            0.53,
+            0.105,
+            75
+          ],
+          [
+            0.5,
+            0.09,
+            240
+          ],
+          [
+            0.52,
+            0.1,
+            318
+          ],
+          [
+            0.53,
+            0.09,
+            180
+          ],
+          [
+            0.45,
+            0.01,
+            240
+          ]
+        ],
+        "bright": [
+          [
+            0.68,
+            0.012,
+            240
+          ],
+          [
+            0.44,
+            0.1105,
+            25
+          ],
+          [
+            0.44,
+            0.102,
+            142
+          ],
+          [
+            0.45,
+            0.08925,
+            75
+          ],
+          [
+            0.42,
+            0.0765,
+            240
+          ],
+          [
+            0.44,
+            0.085,
+            318
+          ],
+          [
+            0.45,
+            0.0765,
+            180
+          ],
+          [
+            0.2,
+            0.01,
+            240
+          ]
+        ]
+      },
+      "ansi": {
+        "normal": [
+          "#d2d8dd",
+          "#a74541",
+          "#3b7a35",
+          "#8f6213",
+          "#2b6991",
+          "#81558e",
+          "#187d6e",
+          "#50565a"
+        ],
+        "bright": [
+          "#92999f",
+          "#853532",
+          "#2d6029",
+          "#724d0d",
+          "#1f5272",
+          "#664371",
+          "#116357",
+          "#12171a"
+        ]
+      },
+      "contrastToBase": {
+        "crust": 1.1780263799683666,
+        "base": 1,
+        "mantle": 1.0762320306381592,
+        "surface0": 1.1426453560720597,
+        "surface1": 1.3341022131712896,
+        "surface2": 1.517032125203046,
+        "overlay": 2.6759072700857938,
+        "comment": 4.5036504239524815,
+        "subtext": 6.911136356467327,
+        "text2": 11.787837320868848,
+        "text": 16.83596675768723,
+        "teal": 4.685890801529364,
+        "mint": 6.0868489113394135,
+        "aqua": 5.389102201353185,
+        "steel": 5.510796891200378,
+        "amber": 5.005378862680762,
+        "copper": 5.385683973838744,
+        "flare": 5.475049781253383,
+        "moss": 4.878724688701203,
+        "orchid": 5.3852302507024525,
+        "rose": 5.30011828038229
+      }
+    },
+    {
+      "id": "signal",
+      "name": "Living Code Signal",
+      "slug": "living-code-signal",
+      "light": false,
+      "description": "A minimal variant of Night with a single accent. Teal marks keywords, tags and focus; everything else stays on the slate ramp. No warm literals or multicolor diagnostics.",
+      "raw": {
+        "crust": [
+          0.1,
+          0.01,
+          240
+        ],
+        "base": [
+          0.13,
+          0.01,
+          240
+        ],
+        "mantle": [
+          0.16,
+          0.01,
+          240
+        ],
+        "surface0": [
+          0.2,
+          0.01,
+          240
+        ],
+        "surface1": [
+          0.25,
+          0.01,
+          240
+        ],
+        "surface2": [
+          0.32,
+          0.012,
+          240
+        ],
+        "overlay": [
+          0.45,
+          0.012,
+          240
+        ],
+        "comment": [
+          0.58,
+          0.012,
+          235
+        ],
+        "subtext": [
+          0.7023,
+          0.0065,
+          223.49
+        ],
+        "text2": [
+          0.85,
+          0.01,
+          240
+        ],
+        "text": [
+          0.93,
+          0.01,
+          240
+        ],
+        "teal": [
+          0.65,
+          0.15,
+          180
+        ],
+        "mint": [
+          0.65,
+          0.15,
+          180
+        ],
+        "aqua": [
+          0.93,
+          0.01,
+          240
+        ],
+        "steel": [
+          0.85,
+          0.01,
+          240
+        ],
+        "amber": [
+          0.93,
+          0.01,
+          240
+        ],
+        "copper": [
+          0.93,
+          0.01,
+          240
+        ],
+        "flare": [
+          0.93,
+          0.01,
+          240
+        ],
+        "moss": [
+          0.85,
+          0.01,
+          240
+        ],
+        "orchid": [
+          0.65,
+          0.15,
+          180
+        ],
+        "rose": [
+          0.85,
+          0.01,
+          240
+        ]
+      },
+      "colors": {
+        "crust": {
+          "oklch": [
+            0.1,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.1 0.01 240)",
+          "hex": "#020405",
+          "rgb": [
+            2,
+            4,
+            5
+          ],
+          "clipped": false
+        },
+        "base": {
+          "oklch": [
+            0.13,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.13 0.01 240)",
+          "hex": "#05080b",
+          "rgb": [
+            5,
+            8,
+            11
+          ],
+          "clipped": false
+        },
+        "mantle": {
+          "oklch": [
+            0.16,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.16 0.01 240)",
+          "hex": "#090e11",
+          "rgb": [
+            9,
+            14,
+            17
+          ],
+          "clipped": false
+        },
+        "surface0": {
+          "oklch": [
+            0.2,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.2 0.01 240)",
+          "hex": "#12171a",
+          "rgb": [
+            18,
+            23,
+            26
+          ],
+          "clipped": false
+        },
+        "surface1": {
+          "oklch": [
+            0.25,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.25 0.01 240)",
+          "hex": "#1d2226",
+          "rgb": [
+            29,
+            34,
+            38
+          ],
+          "clipped": false
+        },
+        "surface2": {
+          "oklch": [
+            0.32,
+            0.012,
+            240
+          ],
+          "css": "oklch(0.32 0.012 240)",
+          "hex": "#2d3438",
+          "rgb": [
+            45,
+            52,
+            56
+          ],
+          "clipped": false
+        },
+        "overlay": {
+          "oklch": [
+            0.45,
+            0.012,
+            240
+          ],
+          "css": "oklch(0.45 0.012 240)",
+          "hex": "#50565b",
+          "rgb": [
+            80,
+            86,
+            91
+          ],
+          "clipped": false
+        },
+        "comment": {
+          "oklch": [
+            0.58,
+            0.012,
+            235
+          ],
+          "css": "oklch(0.58 0.012 235)",
+          "hex": "#747c80",
+          "rgb": [
+            116,
+            124,
+            128
+          ],
+          "clipped": false
+        },
+        "subtext": {
+          "oklch": [
+            0.7023,
+            0.0065,
+            223.49
+          ],
+          "css": "oklch(0.7023 0.0065 223.49)",
+          "hex": "#9ba0a2",
+          "rgb": [
+            155,
+            160,
+            162
+          ],
+          "clipped": false
+        },
+        "text2": {
+          "oklch": [
+            0.85,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.85 0.01 240)",
+          "hex": "#c8cfd4",
+          "rgb": [
+            200,
+            207,
+            212
+          ],
+          "clipped": false
+        },
+        "text": {
+          "oklch": [
+            0.93,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.93 0.01 240)",
+          "hex": "#e2e9ee",
+          "rgb": [
+            226,
+            233,
+            238
+          ],
+          "clipped": false
+        },
+        "teal": {
+          "oklch": [
+            0.65,
+            0.15,
+            180
+          ],
+          "css": "oklch(0.65 0.15 180)",
+          "hex": "#00a692",
+          "rgb": [
+            0,
+            166,
+            146
+          ],
+          "clipped": true
+        },
+        "mint": {
+          "oklch": [
+            0.65,
+            0.15,
+            180
+          ],
+          "css": "oklch(0.65 0.15 180)",
+          "hex": "#00a692",
+          "rgb": [
+            0,
+            166,
+            146
+          ],
+          "clipped": true
+        },
+        "aqua": {
+          "oklch": [
+            0.93,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.93 0.01 240)",
+          "hex": "#e2e9ee",
+          "rgb": [
+            226,
+            233,
+            238
+          ],
+          "clipped": false
+        },
+        "steel": {
+          "oklch": [
+            0.85,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.85 0.01 240)",
+          "hex": "#c8cfd4",
+          "rgb": [
+            200,
+            207,
+            212
+          ],
+          "clipped": false
+        },
+        "amber": {
+          "oklch": [
+            0.93,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.93 0.01 240)",
+          "hex": "#e2e9ee",
+          "rgb": [
+            226,
+            233,
+            238
+          ],
+          "clipped": false
+        },
+        "copper": {
+          "oklch": [
+            0.93,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.93 0.01 240)",
+          "hex": "#e2e9ee",
+          "rgb": [
+            226,
+            233,
+            238
+          ],
+          "clipped": false
+        },
+        "flare": {
+          "oklch": [
+            0.93,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.93 0.01 240)",
+          "hex": "#e2e9ee",
+          "rgb": [
+            226,
+            233,
+            238
+          ],
+          "clipped": false
+        },
+        "moss": {
+          "oklch": [
+            0.85,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.85 0.01 240)",
+          "hex": "#c8cfd4",
+          "rgb": [
+            200,
+            207,
+            212
+          ],
+          "clipped": false
+        },
+        "orchid": {
+          "oklch": [
+            0.65,
+            0.15,
+            180
+          ],
+          "css": "oklch(0.65 0.15 180)",
+          "hex": "#00a692",
+          "rgb": [
+            0,
+            166,
+            146
+          ],
+          "clipped": true
+        },
+        "rose": {
+          "oklch": [
+            0.85,
+            0.01,
+            240
+          ],
+          "css": "oklch(0.85 0.01 240)",
+          "hex": "#c8cfd4",
+          "rgb": [
+            200,
+            207,
+            212
+          ],
+          "clipped": false
+        }
+      },
+      "roles": {
+        "bg": "base",
+        "bgAlt": "mantle",
+        "bgDeep": "crust",
+        "fg": "text",
+        "fgAlt": "text2",
+        "fgMuted": "subtext",
+        "fgSubtle": "comment",
+        "accent": "teal",
+        "cursor": "teal",
+        "selection": "surface2",
+        "lineHighlight": "surface0",
+        "border": "surface1",
+        "borderActive": "teal",
+        "lineNumber": "overlay",
+        "lineNumberActive": "text2",
+        "match": "teal",
+        "error": "text",
+        "warning": "text2",
+        "info": "text2",
+        "hint": "text2",
+        "success": "text2",
+        "added": "text2",
+        "removed": "text",
+        "modified": "teal",
+        "keyword": "teal",
+        "builtin": "teal",
+        "function": "text",
+        "string": "text",
+        "number": "text",
+        "constant": "text",
+        "escape": "text",
+        "regex": "text",
+        "type": "text2",
+        "namespace": "text2",
+        "operator": "comment",
+        "punctuation": "overlay",
+        "decorator": "teal",
+        "tag": "teal",
+        "attribute": "text2",
+        "property": "text2",
+        "variable": "text",
+        "parameter": "text2",
+        "comment": "comment",
+        "heading": "teal",
+        "link": "teal",
+        "code": "text",
+        "quote": "comment"
+      },
+      "styles": {
+        "comment": "italic",
+        "parameter": "italic",
+        "builtin": "italic",
+        "quote": "italic",
+        "heading": "bold",
+        "link": "underline"
+      },
+      "ansiRaw": {
+        "normal": [
+          [
+            0.25,
+            0.01,
+            240
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ],
+          [
+            0.85,
+            0.01,
+            240
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ],
+          [
+            0.85,
+            0.01,
+            240
+          ],
+          [
+            0.85,
+            0.01,
+            240
+          ],
+          [
+            0.65,
+            0.15,
+            180
+          ],
+          [
+            0.7023,
+            0.0065,
+            223.49
+          ]
+        ],
+        "bright": [
+          [
+            0.45,
+            0.012,
+            240
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ],
+          [
+            0.65,
+            0.15,
+            180
+          ],
+          [
+            0.93,
+            0.01,
+            240
+          ]
+        ]
+      },
+      "ansi": {
+        "normal": [
+          "#1d2226",
+          "#e2e9ee",
+          "#c8cfd4",
+          "#e2e9ee",
+          "#c8cfd4",
+          "#c8cfd4",
+          "#00a692",
+          "#9ba0a2"
+        ],
+        "bright": [
+          "#50565b",
+          "#e2e9ee",
+          "#e2e9ee",
+          "#e2e9ee",
+          "#e2e9ee",
+          "#e2e9ee",
+          "#00a692",
+          "#e2e9ee"
+        ]
+      },
+      "contrastToBase": {
+        "crust": 1.0236618416717975,
+        "base": 1,
+        "mantle": 1.0366123317784726,
+        "surface0": 1.1117867082148805,
+        "surface1": 1.2584565091047462,
+        "surface2": 1.5884517439969394,
+        "overlay": 2.7095008868681414,
+        "comment": 4.707931288499475,
+        "subtext": 7.606085959295849,
+        "text2": 12.739183749441347,
+        "text": 16.38633382396164,
+        "teal": 6.584010002098035,
+        "mint": 6.584010002098035,
+        "aqua": 16.38633382396164,
+        "steel": 12.739183749441347,
+        "amber": 16.38633382396164,
+        "copper": 16.38633382396164,
+        "flare": 16.38633382396164,
+        "moss": 12.739183749441347,
+        "orchid": 6.584010002098035,
+        "rose": 12.739183749441347
+      }
+    }
+  ],
+  "source": {
+    "repository": "https://github.com/ElliotLuque/living-code",
+    "sha256": "a13848a2a1db293a29aaeebdd44bda33102bd0085588279a1c880f176cf0a0db"
+  }
+}

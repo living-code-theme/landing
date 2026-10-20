@@ -1,0 +1,10 @@
+---
+// An anchor for the living field (src/scripts/living/). The glyphs gather into `shape` here when this element is
+// the one nearest the middle of the screen. The slot is the still stand-in shown when there is no WebGL.
+interface Props { shape: string; class?: string; label?: string; [key: string]: unknown }
+const { shape, class: className, label, ...rest } = Astro.props;
+---
+
+<div data-glyph={shape} class:list={["select-none", className]} role={label ? "img" : undefined} aria-label={label} aria-hidden={label ? undefined : "true"} {...rest}>
+  <div data-glyph-still class="absolute inset-0 grid place-items-center"><slot /></div>
+</div>

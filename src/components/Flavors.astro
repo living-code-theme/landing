@@ -1,0 +1,79 @@
+---
+// Four flavors: tabs that repaint the whole site, the chosen flavor's own description and contrast range, its
+// accents as numbers, and the same accents as a glyph hue wheel. Switching flavor sends the wheel's glyphs to the
+// new accents, so Frost visibly pulls in toward the gray center and Signal folds everything into the slate.
+import Arrow from "./Arrow.astro";
+import FlavorWheel from "./FlavorWheel.astro";
+import ChameleonCameo from "./ChameleonCameo.astro";
+import Glyphs from "./Glyphs.astro";
+import { CLAUSES, contrastRange, flavors, short, wheel } from "../lib/data.mjs";
+import { highlight } from "../lib/highlight.mjs";
+import { h2, h3, lead, link, section, split } from "../lib/ui.mjs";
+
+const fmt = (n: number) => (n < 10 ? n.toFixed(2) : n.toFixed(1));
+// One line of code per tab, set in that tab's own flavor.
+const line = (id: string) => highlight(`const ${id} = palette("${id}");`, "js");
+---
+
+<section class={section} id="flavors" aria-labelledby="flavors-title">
+  <div class={split}>
+    <h2 class={h2} id="flavors-title" data-reveal>One palette.<br /><span class="text-accent">Four flavors.</span></h2>
+    <p class={lead} data-reveal style="--d:1">Every flavor is the same roles on a different ground. Pick one and this whole site repaints in it, the way your editor will.</p>
+  </div>
+
+  <div class="flex justify-end" aria-hidden="true">
+    <ChameleonCameo pose="perched" class="w-[clamp(240px,30vw,380px)]" />
+  </div>
+  <div class="grid grid-cols-2 gap-0.5 lg:grid-cols-4" role="tablist" aria-label="Flavor for this site" data-reveal style="--d:2">
+    {flavors.map((f) => (
+      <button type="button" role="tab" data-bar data-theme={f.slug} data-set-flavor={f.id} aria-selected={f.id === "night" ? "true" : "false"} aria-controls="flavor-panel" id={`tab-${f.id}`}
+        class="grid gap-1.5 bg-bg-alt p-4 text-left text-muted transition-colors hover:bg-surface hover:text-fg aria-selected:bg-surface aria-selected:text-fg sm:p-5">
+        <b class="text-[1.0625rem] font-semibold">{short(f)}</b>
+        <code class="overflow-hidden text-sm whitespace-nowrap" aria-hidden="true" set:html={line(f.id)} />
+        <span class="text-sm max-sm:hidden">{CLAUSES[f.id]}</span>
+      </button>
+    ))}
+  </div>
+
+  <div id="flavor-panel" role="tabpanel" aria-label="Current flavor">
+    <div class="grid items-center gap-[clamp(40px,6vw,96px)] pt-[clamp(40px,5vw,72px)] lg:grid-cols-2">
+    <div>
+      {flavors.map((f) => {
+        const range = contrastRange(f);
+        return (
+          <div data-only={f.id} class="animate-[rise_0.7s_var(--ease-out)]">
+            <h3 class={h3}>Living Code <span data-flavor-title={f.id} transition:name={`flavor-${f.id}`}>{short(f)}</span></h3>
+            <p class="mt-4 max-w-[34em] text-fg-alt">{f.description}</p>
+            <dl class="mt-7 grid grid-cols-2 justify-start gap-x-10 gap-y-3 sm:grid-cols-[repeat(3,auto)]">
+              <div><dt class="text-sm text-muted">Lowest text contrast</dt><dd><span class="mr-1 text-2xl font-semibold tracking-tight tabular-nums">{fmt(range.low.ratio)}:1</span> {range.low.color}</dd></div>
+              <div><dt class="text-sm text-muted">Highest</dt><dd><span class="mr-1 text-2xl font-semibold tracking-tight tabular-nums">{fmt(range.high.ratio)}:1</span> {range.high.color}</dd></div>
+              <div><dt class="text-sm text-muted">Ground</dt><dd><code class="text-sm whitespace-nowrap">{f.colors.base.css}</code></dd></div>
+            </dl>
+            <a class:list={[link, "mt-7"]} href={`/flavors/${f.id}/`}>Every {short(f)} color <Arrow /></a>
+          </div>
+        );
+      })}
+      <table class="mt-10 w-full max-w-[420px] border-collapse text-sm">
+        <caption class="sr-only">The ten accents of the current flavor in OKLCH</caption>
+        <thead><tr class="text-xs text-muted"><th scope="col" class="py-1.5 text-left font-normal">Accent</th>{["L", "C", "h"].map((k) => <th scope="col" class="py-1.5 pl-5 text-right font-normal">{k}</th>)}</tr></thead>
+        <tbody>
+          {wheel(flavors[0]).map((a, i) => (
+            <tr>
+              <th scope="row" class="flex items-center gap-2.5 py-1.5 text-left font-normal"><i class="size-3 transition-colors duration-700" style={`background:var(--lc-${a.name})`} />{a.name}</th>
+              {(["L", "C", "h"] as const).map((k) => (
+                <td class="py-1.5 pl-5 text-right tabular-nums">{flavors.map((f) => <span data-only={f.id} class="inline-block animate-[rise_0.6s_var(--ease-out)]">{(wheel(f)[i][k] as number).toFixed(k === "h" ? 0 : 2)}</span>)}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <Glyphs shape="wheel" class="mx-auto aspect-square w-full max-w-[620px]" label="The accents of the current flavor on an OKLCH hue wheel drawn in glyphs: angle is hue, distance from the center is chroma">
+        <FlavorWheel />
+      </Glyphs>
+      <p class="mx-auto mt-3 max-w-[620px] text-sm text-muted">Angle is hue, distance from the middle is chroma. Rings at C 0.05, 0.10 and 0.15.</p>
+    </div>
+    </div>
+  </div>
+</section>

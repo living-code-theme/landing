@@ -1,0 +1,18 @@
+---
+// A plus when collapsed, a minus when its native details element is open.
+---
+<svg class="size-5 flex-none text-accent" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+  <path d="M4 10h12" />
+  <path class="vertical" d="M10 4v12" />
+</svg>
+
+<style>
+  .vertical {
+    transform-origin: 10px 10px;
+    transition: transform 240ms var(--ease-out), opacity 160ms ease-out;
+  }
+  :global(details[open]:not([data-closing])) .vertical { transform: scaleY(0); opacity: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    .vertical { transition: none; }
+  }
+</style>

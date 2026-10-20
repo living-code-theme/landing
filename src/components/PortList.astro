@@ -1,0 +1,118 @@
+---
+// Every port, by group, with a filter. Only the selected name gets a shared-element transition
+// into the title of the port's page; the other names stay part of the grid.
+import { REPO, flavors, groups, keys, shipped, short, slug } from "../lib/data.mjs";
+import PortIcon from "./PortIcon.astro";
+
+const count = groups.reduce((n, g) => n + g.ports.length, 0);
+---
+
+<div class="port-catalog" data-port-list>
+  <div class="port-toolbar" data-port-toolbar>
+    <label for="port-filter" class="text-sm font-medium text-muted max-md:sr-only">Find your app</label>
+    <div class="port-search relative flex min-w-0 items-center gap-3 bg-bg-alt px-4 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 after:ease-out focus-within:after:scale-x-100">
+      <svg class="size-5 flex-none text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
+      <input id="port-filter" type="search" placeholder="Search apps…" autocomplete="off" autocapitalize="off" spellcheck="false" data-port-filter
+        class="h-14 w-full min-w-0 flex-1 bg-transparent text-lg tracking-tight outline-none placeholder:text-muted" />
+      <span class="text-xs whitespace-nowrap text-muted tabular-nums sm:text-sm" data-port-count aria-live="polite">{count} ports</span>
+    </div>
+    <p class="port-catalog-help text-sm text-muted">Choose an app for install steps. All four flavors unless noted.</p>
+  </div>
+  <div class="port-results" data-port-results>
+  {groups.map((g) => (
+    <section class="port-group [&[hidden]]:hidden" id={slug(g.title)} data-port-group aria-labelledby={`g-${slug(g.title)}`}>
+      <h3 class="port-group-title flex items-baseline gap-3 self-start text-xl font-semibold tracking-tight" id={`g-${slug(g.title)}`}>{g.title}<span class="text-sm font-normal text-muted tabular-nums" data-port-group-count>{g.ports.length}</span></h3>
+      <ul class="port-result-grid">
+        {g.ports.map((p) => {
+          const ships = shipped(p);
+          return (
+            <li class="border-b border-line" data-port-keys={keys(p)}>
+              <a class="port-row port-link no-underline" href={`/ports/${p.id}/`}>
+                <PortIcon port={p} />
+                <span class="flex min-w-0 flex-col items-start gap-1">
+                  <span class="port-name draw inline-block max-w-full text-xl font-medium tracking-tight [overflow-wrap:anywhere]" data-port-name={p.id}>{p.name}</span>
+                  {ships.length < flavors.length && (
+                    <span class="text-sm text-muted" data-port-flavor-note>{ships.map(short).join(" & ")} only</span>
+                  )}
+                </span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+  <p class="max-w-[40em] bg-bg-alt p-6 [&_a]:text-accent" data-port-none hidden>
+    No port for “<span data-query></span>” yet. Any app can still follow the theme: read <a href={`${REPO}/blob/main/palette.json`}>palette.json</a> or map the <a href={`${REPO}#using-the-palette-in-something-else`}>semantic roles</a> onto its color slots.
+  </p>
+  </div>
+</div>
+
+<style>
+  .port-catalog {
+    --port-toolbar-height: 81px;
+    min-width: 0;
+    min-height: calc(100svh - var(--head));
+  }
+  .port-toolbar {
+    position: sticky;
+    top: var(--head);
+    z-index: 30;
+    display: grid;
+    align-items: center;
+    padding-block: 12px;
+    border-bottom: 1px solid var(--lc-border);
+    background: var(--lc-bg);
+  }
+  .port-catalog-help { margin-top: 12px; }
+  .port-search { outline-offset: -2px; }
+  .port-search:focus-within { outline: 1px solid var(--lc-accent); }
+  .port-search input { caret-color: var(--lc-accent); scroll-margin-top: 12px; }
+  .port-group { margin-top: 32px; }
+  .port-group + .port-group { margin-top: 64px; }
+  .port-group-title {
+    position: sticky;
+    top: calc(var(--head) + var(--port-toolbar-height));
+    z-index: 10;
+    padding-block: 12px;
+    background: var(--lc-bg);
+  }
+  .port-results { min-width: 0; }
+  .port-result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    column-gap: 24px;
+  }
+  .port-row {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    min-width: 0;
+    min-height: 72px;
+    height: 100%;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+  }
+  .port-group, .port-row { scroll-margin-top: calc(var(--port-toolbar-height) + 24px); }
+  [data-port-none] { margin-top: 32px; }
+  @media (min-width: 768px) {
+    .port-catalog {
+      display: grid;
+      grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+      align-items: start;
+      column-gap: clamp(32px, 5vw, 80px);
+    }
+    .port-toolbar {
+      top: calc(var(--head) + 24px);
+      align-self: start;
+      row-gap: 12px;
+      padding: 0;
+      border: 0;
+    }
+    .port-catalog-help { margin-top: 0; }
+    .port-group:first-child { margin-top: 0; }
+    .port-group-title { top: var(--head); }
+    .port-group, .port-row { scroll-margin-top: 24px; }
+    [data-port-none] { margin-top: 0; }
+  }
+</style>

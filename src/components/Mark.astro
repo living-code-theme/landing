@@ -1,0 +1,13 @@
+---
+// The [lc] mark, drawn from the code face's bold outlines, the same ones the marketplace icons use.
+import { MARK_VIEWBOX, markGlyphs } from "../lib/data.mjs";
+
+interface Props { label?: string; class?: string }
+const { label, class: className } = Astro.props;
+---
+
+<svg class={className} viewBox={MARK_VIEWBOX} role={label ? "img" : undefined} aria-label={label} aria-hidden={label ? undefined : "true"}>
+  <g transform="scale(1 -1)" fill="currentColor">
+    {markGlyphs.map((g) => <path transform={`translate(${g.x} 0)`} d={g.d} />)}
+  </g>
+</svg>

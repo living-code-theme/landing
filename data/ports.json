@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "organization": "living-code-theme",
+  "migratedSlugs": [
+    "neovim"
+  ],
+  "ports": [
+    {
+      "id": "neovim",
+      "name": "Neovim",
+      "group": "Editors",
+      "description": "Living Code for Neovim. Four color flavors, Tree-sitter and LSP highlights, and lualine integration.",
+      "homepage": "https://neovim.io",
+      "quick": "Install with your plugin manager",
+      "aliases": [
+        "nvim",
+        "vim",
+        "lazyvim",
+        "lua"
+      ],
+      "icon": "neovim",
+      "emoji": "📝",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "files": [
+        "colors/living-code-frost.lua",
+        "colors/living-code-night.lua",
+        "colors/living-code-paper.lua",
+        "colors/living-code-signal.lua",
+        "colors/living-code.lua",
+        "lua/living-code/highlights.lua",
+        "lua/living-code/init.lua",
+        "lua/living-code/palettes/frost.lua",
+        "lua/living-code/palettes/night.lua",
+        "lua/living-code/palettes/paper.lua",
+        "lua/living-code/palettes/signal.lua",
+        "lua/lualine/themes/living-code.lua"
+      ],
+      "readme": "<!-- living-code-readme:1 -->\n# 📝 Living Code for Neovim\n\n**Calm slate. Living color.** Living Code for Neovim. Four color flavors, Tree-sitter and LSP highlights, and lualine integration.\n\n[Installation](#installation) · [Flavors](#flavors) · [Configuration](#configuration) · [All ports](https://github.com/living-code-theme)\n\n## Previews\n\n<table data-lc-flavors>\n<tr>\n<td width=\"50%\" valign=\"top\">\n<strong>Night</strong><br><sub>Dark · full palette</sub><br><br>\n<a href=\"images/night.png\"><img src=\"images/night.png\" alt=\"Neovim running Living Code Night\" width=\"640\"></a>\n</td>\n<td width=\"50%\" valign=\"top\">\n<strong>Frost</strong><br><sub>Dark · softer chroma</sub><br><br>\n<a href=\"images/frost.png\"><img src=\"images/frost.png\" alt=\"Neovim running Living Code Frost\" width=\"640\"></a>\n</td>\n</tr>\n<tr>\n<td width=\"50%\" valign=\"top\">\n<strong>Paper</strong><br><sub>Light · near-white slate</sub><br><br>\n<a href=\"images/paper.png\"><img src=\"images/paper.png\" alt=\"Neovim running Living Code Paper\" width=\"640\"></a>\n</td>\n<td width=\"50%\" valign=\"top\">\n<strong>Signal</strong><br><sub>Dark · teal accent</sub><br><br>\n<a href=\"images/signal.png\"><img src=\"images/signal.png\" alt=\"Neovim running Living Code Signal\" width=\"640\"></a>\n</td>\n</tr>\n</table>\n\nSelect any preview to view the image at full size.\n\n## Installation\n\nInstall with your plugin manager. For lazy.nvim:\n\n```lua\n{\n  \"living-code-theme/nvim\",\n  priority = 1000,\n  config = function()\n    require(\"living-code\").setup({\n      flavor = \"night\",\n      transparent = false,\n      italic_comments = true,\n    })\n    vim.cmd.colorscheme(\"living-code\")\n  end,\n}\n```\n\nOr pick a flavor directly: `:colorscheme living-code-signal`. Covers Tree-sitter, LSP semantic tokens, diagnostics, gitsigns, telescope, nvim-cmp / blink.cmp, which-key, mini.*, lualine (`theme = \"living-code\"`).\n\n## Flavors\n\nExpand a flavor for its full-size preview and activation instructions.\n\n<details data-lc-flavor=\"night\">\n<summary><strong>Night</strong> · Dark · full palette</summary>\n\n<p><a href=\"images/night.png\"><img src=\"images/night.png\" alt=\"Neovim running Living Code Night\" width=\"1280\"></a></p>\n\nActivate this flavor directly:\n\n```vim\n:colorscheme living-code-night\n```\n\nOr set `flavor = \"night\"` in `require(\"living-code\").setup()` before loading `living-code`.\n\n</details>\n\n<details data-lc-flavor=\"frost\">\n<summary><strong>Frost</strong> · Dark · softer chroma</summary>\n\n<p><a href=\"images/frost.png\"><img src=\"images/frost.png\" alt=\"Neovim running Living Code Frost\" width=\"1280\"></a></p>\n\nActivate this flavor directly:\n\n```vim\n:colorscheme living-code-frost\n```\n\nOr set `flavor = \"frost\"` in `require(\"living-code\").setup()` before loading `living-code`.\n\n</details>\n\n<details data-lc-flavor=\"paper\">\n<summary><strong>Paper</strong> · Light · near-white slate</summary>\n\n<p><a href=\"images/paper.png\"><img src=\"images/paper.png\" alt=\"Neovim running Living Code Paper\" width=\"1280\"></a></p>\n\nActivate this flavor directly:\n\n```vim\n:colorscheme living-code-paper\n```\n\nOr set `flavor = \"paper\"` in `require(\"living-code\").setup()` before loading `living-code`.\n\n</details>\n\n<details data-lc-flavor=\"signal\">\n<summary><strong>Signal</strong> · Dark · teal accent</summary>\n\n<p><a href=\"images/signal.png\"><img src=\"images/signal.png\" alt=\"Neovim running Living Code Signal\" width=\"1280\"></a></p>\n\nActivate this flavor directly:\n\n```vim\n:colorscheme living-code-signal\n```\n\nOr set `flavor = \"signal\"` in `require(\"living-code\").setup()` before loading `living-code`.\n\n</details>\n\n## Configuration\n\nCall setup before loading the colorscheme. All options are optional:\n\n```lua\nrequire(\"living-code\").setup({\n  flavor = \"night\",\n  light_flavor = \"paper\",\n  transparent = false,\n  italic_comments = true,\n  dim_inactive = false,\n  on_highlights = nil,\n})\nvim.cmd.colorscheme(\"living-code\")\n```\n\nWith `background=light`, the default colorscheme selects `light_flavor`. A flavor-specific colorscheme always loads that flavor. For lualine, use `theme = \"living-code\"`.\n\n## Compatibility\n\nUses Neovim's Lua highlight API and true color. Includes Tree-sitter, LSP semantic tokens, diagnostics, gitsigns, telescope, nvim-cmp / blink.cmp, which-key, mini.* and lualine highlights. Plugin integrations are optional; install the plugins you use separately.\n\n## Contributing\n\nReport installation issues and include the application version and selected flavor. For visual changes, include a real application screenshot. Keep this README, `port.json` and `images/` in sync; do not add generated mockups.\n\n🦎 **One chameleon, many habitats.** Part of [Living Code](https://github.com/living-code-theme).\n\n## License\n\n[MIT](LICENSE) © Elliot Luque\n",
+      "repository": "https://github.com/living-code-theme/nvim",
+      "repositoryName": "living-code-theme/nvim",
+      "revision": "489fdf3a29760587f62eea1d6079f6e778bb5ced",
+      "readmeUrl": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/README.md",
+      "fileUrls": {
+        "colors/living-code-frost.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code-frost.lua",
+        "colors/living-code-night.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code-night.lua",
+        "colors/living-code-paper.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code-paper.lua",
+        "colors/living-code-signal.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code-signal.lua",
+        "colors/living-code.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code.lua",
+        "lua/living-code/highlights.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/highlights.lua",
+        "lua/living-code/init.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/init.lua",
+        "lua/living-code/palettes/frost.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/palettes/frost.lua",
+        "lua/living-code/palettes/night.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/palettes/night.lua",
+        "lua/living-code/palettes/paper.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/palettes/paper.lua",
+        "lua/living-code/palettes/signal.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/palettes/signal.lua",
+        "lua/lualine/themes/living-code.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/lualine/themes/living-code.lua"
+      },
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Neovim running Living Code Night",
+          "src": "/port-images/e1fb4d9cd00fd52e06b00821eb97965e297890b2fe5254329326e7c1f0673cef.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Neovim running Living Code Frost",
+          "src": "/port-images/ec12cfa04035c5ad547cc71d947dbe00573978b0814e98be925f1b8dadadd5dd.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Neovim running Living Code Paper",
+          "src": "/port-images/6671a0b766f97e1f5be4c61147fe2a7adffaee9930c86a99882d9857a7072036.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Neovim running Living Code Signal",
+          "src": "/port-images/55176b102baa70ba1ea9dac1dc164cd6ff2d3453c7bdac80248e9407265981c0.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "readmeImages": {
+        "images/night.png": {
+          "src": "/port-images/e1fb4d9cd00fd52e06b00821eb97965e297890b2fe5254329326e7c1f0673cef.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        "images/frost.png": {
+          "src": "/port-images/ec12cfa04035c5ad547cc71d947dbe00573978b0814e98be925f1b8dadadd5dd.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        "images/paper.png": {
+          "src": "/port-images/6671a0b766f97e1f5be4c61147fe2a7adffaee9930c86a99882d9857a7072036.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        "images/signal.png": {
+          "src": "/port-images/55176b102baa70ba1ea9dac1dc164cd6ff2d3453c7bdac80248e9407265981c0.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      }
+    }
+  ]
+}

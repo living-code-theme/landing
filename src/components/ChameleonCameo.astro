@@ -1,0 +1,67 @@
+---
+// A portrait of the hero's actual glyph-surface model, not a second silhouette filled with text.
+import { chameleonPortrait } from "../scripts/living/chameleon";
+interface Props { pose: "perched" | "sleeping"; class?: string }
+const { pose, class: className } = Astro.props;
+const portrait = chameleonPortrait(pose);
+---
+
+<svg class:list={["chameleon-cameo", className]} data-chameleon-cameo={pose}
+  viewBox={`0 0 ${portrait.width} ${portrait.height}`} aria-hidden="true" focusable="false"
+  style={`--eye-x:${portrait.eyeX}px;--eye-y:${portrait.eyeY}px`}>
+  <g class="chameleon-cameo__breath">
+    {portrait.parts.map((part) => (
+      <g data-cameo-part={part.name}>
+        {part.runs.map((run) => (
+          <text x={run.x.join(" ")} y={run.y.join(" ")} fill={`var(--lc-${run.role.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)})`}
+            opacity={run.opacity} font-size={run.size}>{run.text}</text>
+        ))}
+      </g>
+    ))}
+  </g>
+</svg>
+
+<style>
+  .chameleon-cameo { display: block; overflow: visible; pointer-events: none; user-select: none; }
+  /* taste-skill-ignore: actual code glyphs sampled from the hero's 3D mascot. */
+  .chameleon-cameo text { font-family: var(--font-mono); font-weight: 600; font-variant-ligatures: none; text-anchor: middle; dominant-baseline: central; transition: fill 400ms var(--ease-out); }
+  .chameleon-cameo__breath { transform-origin: 50% 85%; animation: cameo-breathe 5s ease-in-out infinite; }
+  [data-cameo-part="tail"] { transform-origin: 67% 53%; animation: cameo-tail 9s ease-in-out infinite; }
+  [data-cameo-part="eye"] { transform-origin: var(--eye-x) var(--eye-y); animation: cameo-blink 7s linear infinite; }
+  [data-chameleon-cameo="sleeping"] .chameleon-cameo__breath { animation-duration: 7s; }
+  [data-chameleon-cameo="sleeping"] [data-cameo-part="tail"] { transform-origin: 33% 53%; animation-duration: 13s; }
+  [data-chameleon-cameo="sleeping"] [data-cameo-part="eye"] { animation: none; }
+  .chameleon-cameo__breath, [data-cameo-part] { animation-play-state: paused; }
+  [data-cameo-running] .chameleon-cameo__breath, [data-cameo-running] [data-cameo-part] { animation-play-state: running; }
+  @keyframes cameo-breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.018); } }
+  @keyframes cameo-tail { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(-2deg); } 82% { transform: rotate(0.7deg); } }
+  @keyframes cameo-blink { 0%, 92%, 96%, 100% { transform: scaleY(1); } 94% { transform: scaleY(0.12); } }
+  @media (prefers-reduced-motion: reduce) {
+    .chameleon-cameo__breath, [data-cameo-part] { animation: none; }
+    .chameleon-cameo text { transition: none; }
+  }
+</style>
+
+<script>
+  // CSS owns the small motions; the observer only allows them while the portrait can actually be seen.
+  let stop = () => {};
+  document.addEventListener("astro:page-load", () => {
+    stop();
+    const cameos = [...document.querySelectorAll<SVGElement>("[data-chameleon-cameo]")];
+    if (!cameos.length) return;
+    const visible = new Set<Element>();
+    const sync = () => cameos.forEach((el) => el.toggleAttribute("data-cameo-running", visible.has(el) && !document.hidden));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.isIntersecting ? visible.add(entry.target) : visible.delete(entry.target));
+      sync();
+    });
+    cameos.forEach((el) => observer.observe(el));
+    document.addEventListener("visibilitychange", sync);
+    stop = () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", sync);
+      cameos.forEach((el) => el.removeAttribute("data-cameo-running"));
+    };
+  });
+  document.addEventListener("astro:before-swap", () => stop());
+</script>

@@ -1,0 +1,87 @@
+---
+// One page per port: its install text, a real screenshot when available, and every file it is made of.
+// The title is the row you clicked, carried over by the transition.
+import Base from "../../layouts/Base.astro";
+import Arrow from "../../components/Arrow.astro";
+import Shot from "../../components/Shot.astro";
+import Glyphs from "../../components/Glyphs.astro";
+import Pager from "../../components/Pager.astro";
+import { REPO, files, groupOf, portIds, ports, route, shipped, short, shotsOf, slug } from "../../lib/data.mjs";
+import { portIcon } from "../../lib/icons.mjs";
+import { inline, markdown } from "../../lib/markdown.mjs";
+import { renderReadme } from "../../lib/readme.mjs";
+import { back, h3 } from "../../lib/ui.mjs";
+
+export function getStaticPaths() {
+  return ports.map((p, i) => ({ params: { id: p.id }, props: { i } }));
+}
+
+const { i } = Astro.props;
+const p = ports[i];
+const prev = ports[(i - 1 + ports.length) % ports.length];
+const next = ports[(i + 1) % ports.length];
+const ships = shipped(p);
+const hasShot = shotsOf(p.id).length > 0;
+const icon = portIcon(p);
+
+const all = files(p);
+const host = p.homepage ? new URL(p.homepage).host.replace(/^www\./, "") : null;
+const description = p.description ?? `Install the Living Code color scheme in ${p.name}. ${inline(p.install.split("\n")[0]).replace(/<[^>]+>/g, "")}`;
+const documentation = p.repository ? renderReadme(p.readme, { repository: p.repository, revision: p.revision, images: p.readmeImages }) : markdown(p.install, portIds);
+---
+
+<Base title={`Living Code for ${p.name}`} description={description}>
+  <article>
+    <header class="shell grid grid-cols-[minmax(0,1fr)] items-end gap-x-[clamp(40px,6vw,96px)] gap-y-8 pt-[clamp(40px,6vw,88px)] lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+      <div>
+        <a class={back} href="/ports/" data-port-return><Arrow dir="left" /> All ports</a>
+        <h1 class="mt-[clamp(24px,3vw,40px)] text-title font-semibold"><span class="inline-block" data-port-name={p.id}>{p.name}</span></h1>
+        <dl class="mt-[clamp(32px,4vw,56px)] flex flex-wrap gap-x-[clamp(32px,5vw,72px)] gap-y-5 [&_dd_a]:text-accent [&_dd_code]:text-sm [&_dt]:mb-1.5 [&_dt]:text-sm [&_dt]:text-muted" data-rise style="--d:1">
+          <div><dt>Get it</dt><dd set:html={route(p.id)} /></div>
+          <div><dt>Group</dt><dd><a href={`/ports/#${slug(groupOf[p.id])}`}>{groupOf[p.id]}</a></dd></div>
+          {host && <div><dt>App</dt><dd><a href={p.homepage}>{host}</a></dd></div>}
+          <div>
+            <dt>Flavors</dt>
+            <dd class="flex flex-wrap gap-1">
+              {ships.map((f) => (
+                <button type="button" data-bar data-set-flavor={f.id} aria-pressed="false" class="inline-flex items-center gap-2 bg-bg-alt px-3 py-1.5 text-sm text-muted transition-colors hover:bg-surface hover:text-fg aria-pressed:bg-surface aria-pressed:text-fg"><i data-theme={f.slug} class="size-2.5 bg-keyword" />{short(f)}</button>
+              ))}
+            </dd>
+          </div>
+        </dl>
+      </div>
+      <Glyphs shape={`icon:${p.id}`} data-glyph-path={icon.path} data-glyph-text={icon.text} class="aspect-square w-full max-w-[340px] justify-self-end max-lg:max-w-[220px] max-lg:justify-self-center" label={`The ${icon.title ?? p.name} ${icon.path ? "logo" : "name"}, drawn in code glyphs`}>
+        {icon.path
+          ? <svg viewBox="0 0 24 24" class="w-[62%] text-accent" aria-hidden="true"><path fill="currentColor" d={icon.path} /></svg>
+          : <span class="font-mono text-[clamp(40px,7vw,88px)] font-bold text-accent">{icon.text}</span>}
+      </Glyphs>
+    </header>
+
+    <div class="shell grid grid-cols-[minmax(0,1fr)] items-start gap-x-[clamp(40px,6vw,96px)] gap-y-12 pt-[clamp(72px,8vw,128px)] lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+      <section class:list={["prose", p.repository && "port-readme"]} aria-labelledby="install-h" data-reveal>
+        <h2 class:list={[h3, "mb-6"]} id="install-h">{p.repository ? "Documentation" : "Install"}</h2>
+        {p.repository && <p><a class="inline-flex max-w-full items-center gap-2" href={p.readmeUrl}>Read the original README on GitHub <Arrow dir="out" /></a></p>}
+        <Fragment set:html={documentation} />
+      </section>
+      {all.length > 0 && (
+        <section aria-labelledby="files-h" data-reveal style="--d:1">
+          <h2 class:list={[h3, "mb-6"]} id="files-h">What you get</h2>
+          <ul class="grid gap-0.5">
+            {all.map((path) => <li><a class="block bg-bg-alt px-3.5 py-2.5 text-fg-alt no-underline [overflow-wrap:anywhere] transition-[background-color,color,padding] duration-300 hover:bg-surface hover:pl-5 hover:text-fg" href={p.fileUrls?.[path] ?? `${REPO}/blob/main/${path}`}><code class="text-sm">{path}</code></a></li>)}
+          </ul>
+          <p class="mt-4 text-sm text-muted [&_a]:text-accent">{p.repository
+            ? <>Maintained in <a href={p.repository}>{p.repositoryName}</a>.</>
+            : <>All generated from <a href={`${REPO}/blob/main/palette/flavors.mjs`}><code>palette/flavors.mjs</code></a>.</>}</p>
+        </section>
+      )}
+    </div>
+
+    {hasShot && (
+      <div class="shell pt-[clamp(40px,5vw,72px)]">
+        <Shot app={p.id} sizes="(min-width: 1440px) 1360px, 100vw" />
+      </div>
+    )}
+
+    <Pager prev={{ href: `/ports/${prev.id}/`, label: prev.name }} next={{ href: `/ports/${next.id}/`, label: next.name }} label="More ports" />
+  </article>
+</Base>

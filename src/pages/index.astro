@@ -1,0 +1,57 @@
+---
+import Base from "../layouts/Base.astro";
+import Arrow from "../components/Arrow.astro";
+import Glyphs from "../components/Glyphs.astro";
+import Chameleon from "../components/Chameleon.astro";
+import AppShowcase from "../components/AppShowcase.astro";
+import Faq from "../components/Faq.astro";
+import Story from "../components/Story.astro";
+import Flavors from "../components/Flavors.astro";
+import PortList from "../components/PortList.astro";
+import PortSpiral from "../components/PortSpiral.astro";
+import { SLOGAN, flavors, ports } from "../lib/data.mjs";
+import { fill, h2, lead, meta, quiet, section } from "../lib/ui.mjs";
+---
+
+<Base title="Living Code: a calm color scheme for editors, terminals and the web">
+  <section class="shell pt-[clamp(32px,4.5vw,72px)]" id="hero" aria-labelledby="hero-title">
+    <div class="relative">
+      <h1 class="text-display font-semibold" id="hero-title"><span class="line"><span>Living Code<span class="cursor" aria-hidden="true">_</span></span></span></h1>
+      <p class="text-display font-semibold text-accent"><span class="line"><span style="--d:1">{SLOGAN}</span></span></p>
+      <p class:list={[meta, "mt-7 flex flex-wrap gap-x-7 gap-y-2 xl:absolute xl:right-0 xl:top-4 xl:mt-0 xl:flex-col xl:items-end"]} data-rise style="--d:2">
+        <code class="text-accent">:colorscheme living-code-<span data-flavor-id>night</span></code>
+        <span>{ports.length} ports, {flavors.length} flavors, MIT</span>
+        <span>Made by <a class="inline-flex items-center gap-1 text-fg underline decoration-accent/50 transition-colors hover:text-accent" href="https://elliotluque.com">ElliotLuque <Arrow dir="out" /></a></span>
+      </p>
+    </div>
+    <div class="mt-[clamp(24px,3vw,40px)] grid items-center gap-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      <p class:list={[lead, "max-w-[36em]"]}>A color scheme for your editor, terminal and browser. The background stays quiet so the code can carry the color, and every color is a role: a string is the same green in all {ports.length} apps.</p>
+      <div class="flex flex-wrap gap-3 lg:justify-end">
+        <a class:list={[fill, "max-sm:flex-1"]} href="/ports/#port-filter" data-port-finder-open aria-haspopup="dialog" aria-controls="port-finder" data-astro-reload>Find your app &amp; install <Arrow /></a>
+        <a class:list={[quiet, "max-sm:flex-1"]} href="/ports/">All {ports.length} ports <Arrow /></a>
+      </div>
+    </div>
+
+    <Glyphs shape="chameleon" class="bleed mt-[clamp(48px,5vw,72px)] h-[clamp(220px,36vw,540px)]" label="The Living Code chameleon on a branch, drawn in code glyphs: it watches the pointer, catches bugs with its tongue and changes its colors">
+      <Chameleon class="h-[78%] max-w-[94%] text-accent opacity-20" />
+    </Glyphs>
+  </section>
+
+  <AppShowcase />
+  <Story />
+  <Flavors />
+
+  <section class:list={[section]} id="ports" aria-labelledby="ports-title">
+    <div class="grid items-center gap-2 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
+      <div>
+        <h2 class={h2} id="ports-title" data-reveal>{ports.length} ports.<br /><span class="text-accent">Nothing to clone.</span></h2>
+        <p class:list={[lead, "mt-6 max-w-[36em]"]} data-reveal style="--d:1">Editors, terminals, the tools that run inside them, two browsers, two apps and the web. Every one reads the same role map, so a string is the same green everywhere.</p>
+      </div>
+      <PortSpiral />
+    </div>
+    <PortList />
+  </section>
+
+  <Faq />
+
+</Base>

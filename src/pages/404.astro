@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import Arrow from "../components/Arrow.astro";
+import Glyphs from "../components/Glyphs.astro";
+import { back, fill, lead, quiet } from "../lib/ui.mjs";
+---
+
+<Base title="Not found: Living Code">
+  <section class="shell min-h-[60vh] pt-[clamp(40px,6vw,88px)]">
+    <a class={back} href="/"><Arrow dir="left" /> Home</a>
+    <h1 class="mt-[clamp(24px,3vw,40px)] text-title font-semibold"><span class="line"><span>E404<span class="cursor" aria-hidden="true">_</span></span></span> <span class="line text-accent"><span style="--d:1">No such page.</span></span></h1>
+    <p class:list={[lead, "mt-[clamp(24px,3vw,36px)]"]} data-rise style="--d:2">The address may have moved. Every port and every flavor is one click from the home page.</p>
+    <div class="mt-9 flex flex-wrap gap-3" data-rise style="--d:3">
+      <a class={fill} href="/">Home <Arrow /></a>
+      <a class={quiet} href="/ports/">All ports <Arrow /></a>
+    </div>
+    <Glyphs shape="text:404" class="bleed mt-10 h-[clamp(200px,32vw,460px)]" />
+  </section>
+</Base>

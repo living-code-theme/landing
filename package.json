@@ -1,0 +1,30 @@
+{
+  "name": "living-code-site",
+  "private": true,
+  "packageManager": "pnpm@12.9.0",
+  "type": "module",
+  "description": "Standalone living-code.dev landing, built from local theme data and repository-owned port snapshots.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "node --test test/*.test.mjs",
+    "test:standalone": "node scripts/check-standalone.mjs",
+    "test:discovery": "node --test test/discovery.test.mjs test/readme.test.mjs test/port-template.test.mjs",
+    "new:port": "node scripts/new-port.mjs",
+    "sync:ports": "node scripts/sync-ports.mjs"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "ajv": "^8.20.0",
+    "astro": "^7.4.0",
+    "marked": "^17.0.6",
+    "sanitize-html": "^2.18.1",
+    "sharp": "0.35.5",
+    "simple-icons": "^16.35.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "engines": {
+    "node": ">=22.22"
+  }
+}

@@ -1,0 +1,58 @@
+---
+// A real screenshot from its owning port repository or the landing's temporary legacy assets. When an app
+// has no capture in that flavor, Night stands in and the caption says so.
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import { APPS, flavors, ports, shotsOf, short } from "../lib/data.mjs";
+
+interface Props {
+  app: string;
+  // Show one flavor only (a flavor's own page) instead of following the site.
+  flavor?: string;
+  sizes?: string;
+  eager?: boolean;
+  caption?: boolean;
+  // A decorative contact-sheet image: no figure, caption, hover zoom, or full-size image downloads.
+  thumbnail?: boolean;
+}
+const { app, flavor, sizes = "(min-width: 1100px) 66vw, 100vw", eager = false, caption = true, thumbnail = false } = Astro.props;
+const Frame = thumbnail ? "span" : "figure";
+const Picture = thumbnail ? "span" : "div";
+
+const files = import.meta.glob<{ default: ImageMetadata }>(["../assets/legacy/shots/*.png", "../assets/legacy/stores/*.png"], { eager: true });
+const image = (src: string) => src.startsWith("/port-images/") ? src : files[`../assets/legacy/${src}`].default;
+// The store apps are named for the app (IntelliJ IDEA, Chromium); every other port by its own name.
+const label = APPS.find((a) => a.port === app)?.name ?? ports.find((p) => p.id === app)!.name;
+const have = shotsOf(app);
+const night = have.find((s) => s.f.id === "night") ?? have[0];
+const views = (flavor ? flavors.filter((f) => f.id === flavor) : flavors).map((f) => {
+  const own = have.find((s) => s.f.id === f.id);
+  return { f, shot: own ?? night, own: !!own };
+});
+---
+
+<Frame class={thumbnail ? "block" : undefined}>
+  <Picture class="group/shot relative block aspect-[1280/800] overflow-hidden bg-bg-alt" data-shot={thumbnail ? undefined : true} data-shot-eager={eager || undefined}>
+    {views.map(({ f, shot }, i) => (
+      <Image
+        src={image(shot.src)}
+        width={shot.width}
+        height={shot.height}
+        widths={thumbnail ? [240, 480] : [640, 960, 1280, 1920, 2560]}
+        sizes={sizes}
+        alt={thumbnail ? "" : shot.alt ?? `${label} with Living Code ${short(shot.f)}, real screenshot`}
+        loading={eager && i === 0 ? "eager" : "lazy"}
+        decoding="async"
+        class:list={["size-full object-cover", !thumbnail && "transition-transform duration-[1400ms] ease-out group-hover/shot:scale-[1.02]"]}
+        data-only={flavor ? undefined : f.id}
+      />
+    ))}
+  </Picture>
+  {caption && !thumbnail && (
+    <figcaption class="mt-3 text-sm text-muted">
+      {views.map(({ f, shot, own }) => (
+        <span data-only={flavor ? undefined : f.id}>{label} in {short(shot.f)}{own ? "" : `. No ${short(f)} capture yet`}</span>
+      ))}
+    </figcaption>
+  )}
+</Frame>

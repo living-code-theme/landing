@@ -1,0 +1,39 @@
+---
+// The still stand-in for the glyph hue wheel: the ten accents of each flavor as dots, angle for hue and distance
+// from the middle for chroma. Switching flavor moves the dots, the way the glyphs move when WebGL is there.
+import { ACCENT_ORDER, flavors, wheel } from "../lib/data.mjs";
+
+const SIZE = 640, C = SIZE / 2, MAX = 0.17, R = 268;
+const at = (c: number, h: number) => {
+  const r = (Math.min(c, MAX) / MAX) * R, a = (h * Math.PI) / 180;
+  return [+(r * Math.cos(a)).toFixed(1), +(-r * Math.sin(a)).toFixed(1)];
+};
+const points = ACCENT_ORDER.map((name) => ({
+  name,
+  style: flavors.map((f) => {
+    const p = wheel(f).find((w) => w.name === name)!;
+    const [x, y] = at(p.C, p.h);
+    return `--x-${f.id}:${x}px;--y-${f.id}:${y}px`;
+  }).join(";"),
+}));
+---
+
+<svg viewBox={`0 0 ${SIZE} ${SIZE}`} class="size-full overflow-visible" aria-hidden="true">
+  <g transform={`translate(${C} ${C})`}>
+    {[0.05, 0.1, 0.15].map((c) => <circle class="fill-none stroke-surface-1" r={(c / MAX) * R} />)}
+    <circle class="fill-surface-2" r="10" />
+    {points.map((p, i) => (
+      <g class="wheel-dot" style={`${p.style};--i:${i}`}>
+        <circle r="15" style={`fill:var(--lc-${p.name})`} />
+      </g>
+    ))}
+  </g>
+</svg>
+
+<style is:global>
+  .wheel-dot { transform: translate(var(--x), var(--y)); transition: transform 1.1s var(--ease-spring); transition-delay: calc(var(--i) * 45ms); }
+  html[data-theme="living-code-night"] .wheel-dot { --x: var(--x-night); --y: var(--y-night); }
+  html[data-theme="living-code-frost"] .wheel-dot { --x: var(--x-frost); --y: var(--y-frost); }
+  html[data-theme="living-code-paper"] .wheel-dot { --x: var(--x-paper); --y: var(--y-paper); }
+  html[data-theme="living-code-signal"] .wheel-dot { --x: var(--x-signal); --y: var(--y-signal); }
+</style>

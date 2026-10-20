@@ -1,0 +1,485 @@
+{
+  "schemaVersion": 1,
+  "images": {
+    "neovim": [
+      {
+        "flavor": "night",
+        "src": "shots/neovim-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/neovim-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/neovim-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/neovim-signal.png"
+      }
+    ],
+    "vscode": [
+      {
+        "flavor": "night",
+        "src": "shots/vscode-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/vscode-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/vscode-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/vscode-signal.png"
+      }
+    ],
+    "jetbrains": [
+      {
+        "flavor": "night",
+        "src": "shots/jetbrains-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/jetbrains-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/jetbrains-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/jetbrains-signal.png"
+      }
+    ],
+    "zed": [
+      {
+        "flavor": "night",
+        "src": "shots/zed-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/zed-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/zed-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/zed-signal.png"
+      }
+    ],
+    "helix": [
+      {
+        "flavor": "night",
+        "src": "shots/helix-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/helix-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/helix-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/helix-signal.png"
+      }
+    ],
+    "sublime": [
+      {
+        "flavor": "night",
+        "src": "shots/sublime-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/sublime-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/sublime-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/sublime-signal.png"
+      }
+    ],
+    "tmtheme": [
+      {
+        "flavor": "night",
+        "src": "shots/tmtheme-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/tmtheme-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/tmtheme-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/tmtheme-signal.png"
+      }
+    ],
+    "kitty": [
+      {
+        "flavor": "night",
+        "src": "shots/kitty-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/kitty-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/kitty-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/kitty-signal.png"
+      }
+    ],
+    "ghostty": [
+      {
+        "flavor": "night",
+        "src": "shots/ghostty-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/ghostty-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/ghostty-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/ghostty-signal.png"
+      }
+    ],
+    "alacritty": [
+      {
+        "flavor": "night",
+        "src": "shots/alacritty-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/alacritty-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/alacritty-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/alacritty-signal.png"
+      }
+    ],
+    "wezterm": [
+      {
+        "flavor": "night",
+        "src": "shots/wezterm-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/wezterm-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/wezterm-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/wezterm-signal.png"
+      }
+    ],
+    "foot": [
+      {
+        "flavor": "night",
+        "src": "shots/foot-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/foot-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/foot-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/foot-signal.png"
+      }
+    ],
+    "konsole": [
+      {
+        "flavor": "night",
+        "src": "shots/konsole-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/konsole-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/konsole-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/konsole-signal.png"
+      }
+    ],
+    "tmux": [
+      {
+        "flavor": "night",
+        "src": "shots/tmux-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/tmux-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/tmux-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/tmux-signal.png"
+      }
+    ],
+    "fzf": [
+      {
+        "flavor": "night",
+        "src": "shots/fzf-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/fzf-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/fzf-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/fzf-signal.png"
+      }
+    ],
+    "starship": [
+      {
+        "flavor": "night",
+        "src": "shots/starship-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/starship-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/starship-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/starship-signal.png"
+      }
+    ],
+    "btop": [
+      {
+        "flavor": "night",
+        "src": "shots/btop-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/btop-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/btop-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/btop-signal.png"
+      }
+    ],
+    "lazygit": [
+      {
+        "flavor": "night",
+        "src": "shots/lazygit-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/lazygit-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/lazygit-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/lazygit-signal.png"
+      }
+    ],
+    "delta": [
+      {
+        "flavor": "night",
+        "src": "shots/delta-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/delta-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/delta-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/delta-signal.png"
+      }
+    ],
+    "hunk": [
+      {
+        "flavor": "night",
+        "src": "shots/hunk-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/hunk-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/hunk-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/hunk-signal.png"
+      }
+    ],
+    "fish": [
+      {
+        "flavor": "night",
+        "src": "shots/fish-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/fish-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/fish-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/fish-signal.png"
+      }
+    ],
+    "zellij": [
+      {
+        "flavor": "night",
+        "src": "shots/zellij-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/zellij-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/zellij-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/zellij-signal.png"
+      }
+    ],
+    "yazi": [
+      {
+        "flavor": "night",
+        "src": "shots/yazi-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/yazi-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/yazi-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/yazi-signal.png"
+      }
+    ],
+    "k9s": [
+      {
+        "flavor": "night",
+        "src": "shots/k9s-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/k9s-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/k9s-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/k9s-signal.png"
+      }
+    ],
+    "eza": [
+      {
+        "flavor": "night",
+        "src": "shots/eza-night.png"
+      },
+      {
+        "flavor": "frost",
+        "src": "shots/eza-frost.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/eza-paper.png"
+      },
+      {
+        "flavor": "signal",
+        "src": "shots/eza-signal.png"
+      }
+    ],
+    "firefox": [
+      {
+        "flavor": "night",
+        "src": "shots/firefox-night.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/firefox-paper.png"
+      }
+    ],
+    "chrome": [
+      {
+        "flavor": "night",
+        "src": "shots/chrome-night.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/chrome-paper.png"
+      }
+    ],
+    "obsidian": [
+      {
+        "flavor": "night",
+        "src": "shots/obsidian-night.png"
+      },
+      {
+        "flavor": "paper",
+        "src": "shots/obsidian-paper.png"
+      }
+    ]
+  }
+}

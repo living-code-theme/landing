@@ -1,0 +1,12 @@
+---
+// Previous and next at the foot of a port or flavor page.
+interface Props { prev: { href: string; label: string }; next: { href: string; label: string }; label: string }
+const { prev, next, label } = Astro.props;
+const cell = "group grid gap-1.5 bg-bg-alt p-[clamp(24px,3vw,40px)] no-underline transition-colors duration-300 hover:bg-surface";
+const name = "text-[clamp(1.5rem,3vw,2.75rem)] leading-[1.05] font-semibold tracking-[-0.035em] transition-[translate,color] duration-500 ease-out group-hover:text-accent";
+---
+
+<nav class="shell mt-(--section) grid gap-0.5 sm:grid-cols-2" aria-label={label}>
+  <a class={cell} href={prev.href} rel="prev"><span class="text-sm text-muted">Previous</span><b class:list={[name, "group-hover:-translate-x-2"]}>{prev.label}</b></a>
+  <a class:list={[cell, "sm:text-right"]} href={next.href} rel="next"><span class="text-sm text-muted">Next</span><b class:list={[name, "group-hover:translate-x-2"]}>{next.label}</b></a>
+</nav>

@@ -1,0 +1,69 @@
+---
+// Every page: the CSS port's variables, Tailwind, the two faces, the client router that turns links into view
+// transitions, the living field behind everything, and the header and footer that stay put while pages change.
+import { ClientRouter } from "astro:transitions";
+import "../styles/theme.css";
+import "../styles/site.css";
+import Header from "../components/Header.astro";
+import PortFinder from "../components/PortFinder.astro";
+import Footer from "../components/Footer.astro";
+import { flavorById, flavorData, flavorIds, ports } from "../lib/data.mjs";
+
+interface Props {
+  title: string;
+  description?: string;
+  // A flavor page is always shown in its own flavor, whatever the visitor picked elsewhere.
+  flavor?: string;
+}
+
+const { title, description = `Living Code is a color scheme for editors, terminals and the web: a calm slate background, living color in the code, four flavors and ports for ${ports.length} apps.`, flavor } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const theme = flavorById[flavor ?? "night"];
+const json = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
+---
+
+<!doctype html>
+<html lang="en" data-theme={theme.slug} data-flavor-page={flavor}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content={theme.c("base")} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-subset.woff2" as="font" type="font/woff2" crossorigin />
+    <script is:inline define:vars={{ ids: flavorIds }}>
+      // Runs before first paint, on every full load: the visitor's flavor, unless this page has its own.
+      const root = document.documentElement;
+      root.classList.add("js");
+      try {
+        const stored = localStorage.getItem("living-code-flavor");
+        if (!root.dataset.flavorPage && ids.includes(stored)) root.dataset.theme = "living-code-" + stored;
+      } catch {}
+    </script>
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="fixed left-(--margin) top-3 z-[200] -translate-y-[160%] bg-accent px-4 py-2.5 text-bg transition-transform focus:translate-y-0" href="#main">Skip to content</a>
+    <canvas class="pointer-events-none fixed inset-0 -z-10 h-full w-full" data-living-field transition:persist="living-field" aria-hidden="true"></canvas>
+    <Header />
+    <PortFinder />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script type="application/json" id="flavor-data" set:html={json(flavorData)} />
+    <script>
+      import "../scripts/site.ts";
+    </script>
+  </body>
+</html>

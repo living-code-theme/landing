@@ -1,0 +1,26 @@
+---
+// The Living Code chameleon as a still drawing, from the same outlines the hero's glyphs fill (src/lib/chameleon.mjs).
+// One color: the parts the glyphs color separately (the eye, the branch) are cut out of it or drawn fainter.
+import { CHAMELEON, CHAMELEON_VIEWBOX } from "../lib/chameleon.mjs";
+
+interface Props { class?: string }
+const { class: className } = Astro.props;
+const id = "chameleon-cut";
+const solid = CHAMELEON.filter((p) => p.part !== "cut" && p.part !== "pupil");
+const cuts = CHAMELEON.filter((p) => p.part === "cut");
+---
+
+<svg class={className} viewBox={CHAMELEON_VIEWBOX} aria-hidden="true" overflow="visible">
+  <mask id={id} maskUnits="userSpaceOnUse" x="-400" y="0" width="2000" height="520">
+    <rect x="-400" width="2000" height="520" fill="#fff" />
+    {cuts.map((p) => p.width ? <path d={p.d} fill="none" stroke="#000" stroke-width={p.width} stroke-linecap="round" /> : <path d={p.d} fill="#000" />)}
+  </mask>
+  <g mask={`url(#${id})`} stroke-linecap="round" stroke-linejoin="round">
+    {solid.map((p) => {
+      const faint = p.part === "branch" ? 0.55 : undefined;
+      return p.width
+        ? <path d={p.d} fill="none" stroke="currentColor" stroke-width={p.width} opacity={faint} />
+        : <path d={p.d} fill="currentColor" opacity={faint} />;
+    })}
+  </g>
+</svg>
