@@ -79,8 +79,8 @@ there before committing. The automated equivalent is configured below; ordinary 
 
 ## Automatic discovery and deployment
 
-[`.github/workflows/sync-ports.yml`](.github/workflows/sync-ports.yml) runs on `main` pushes, manual dispatch, and every
-15 minutes at minutes **7, 22, 37 and 52 UTC**. GitHub can delay scheduled runs; this is polling, not a delivery SLA.
+[`.github/workflows/sync-ports.yml`](.github/workflows/sync-ports.yml) runs on `main` pushes, manual dispatch, and once
+a day at **00:07 UTC**. GitHub can delay scheduled runs; this is polling, not a delivery SLA.
 It runs only in `living-code-theme/landing` on `main`.
 
 The workflow checks out landing and a **pinned, reviewed core commit** into separate directories. It installs core's

@@ -54,8 +54,8 @@ function fixture(t) {
   return { directory, git, head, run, output, origin };
 }
 
-test("automation runs every 15 minutes and on main pushes or manual dispatch", () => {
-  assert.match(workflow, /cron: "7,22,37,52 \* \* \* \*"/);
+test("automation runs daily at 00:07 UTC and on main pushes or manual dispatch", () => {
+  assert.match(workflow, /cron: "7 0 \* \* \*"/);
   assert.match(workflow, /workflow_dispatch:/);
   assert.match(workflow, /push:\n    branches: \[main\]/);
   assert.match(workflow, /github\.repository == 'living-code-theme\/landing' && github\.ref == 'refs\/heads\/main'/);
