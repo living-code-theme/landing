@@ -1,5 +1,5 @@
 // The site's flavor: one data-theme attribute on <html>, chosen by the visitor and kept in localStorage.
-// Switching repaints the live page as a scan line runs down the screen, the way a terminal redraws,
+// Switching reveals the new palette behind a scan line, the way a terminal redraws,
 // carrying the :colorscheme command that would do the same in Neovim.
 import { navigate } from "astro:transitions/client";
 import { prepareScreenshots } from "./transitions";
@@ -43,7 +43,7 @@ const apply = (id: string) => {
 };
 
 export function setFlavor(id: string) {
-  if (!FLAVORS.includes(id as never) || id === currentFlavor()) return;
+  if (!FLAVORS.includes(id as never) || id === (root.dataset.flavorTarget ?? currentFlavor())) return;
   try { localStorage.setItem(KEY, id); } catch {}
 
   // A flavor page is that flavor; picking another one goes to its page.

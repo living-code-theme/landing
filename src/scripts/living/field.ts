@@ -4,8 +4,8 @@
 // follow a link) every glyph flies from where it is to its place in the new shape. The canvas persists across
 // page transitions, so the flight carries on from one page into the next.
 //
-// Colors are the current flavor's roles. A flavor switch eases every glyph into its new color, and the hue wheel
-// rebuilds itself, so its glyphs fly to the new flavor's accents.
+// Colors are the current flavor's roles. A flavor switch follows the page's palette wipe, or eases every glyph
+// into its new color outside a scan. The hue wheel rebuilds itself, so its glyphs fly to the new flavor's accents.
 //
 // An anchor can also scrub a flight instead of starting one: with data-glyph-to and data-glyph-mix (0 to 1) its
 // glyphs hold a point on the way from its shape to the next, so scroll drives the flight, both ways.
@@ -702,6 +702,11 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
       if (!flavors[id] || id === flavorId) return;
       flavorId = id;
       colorGoal = palette(id);
+      if (document.documentElement.dataset.flavorSwitch !== undefined) {
+        // The reveal needs a fully recolored new frame, not a snapshot mid-ease.
+        colors.set(colorGoal);
+        draw(boxOf(target));
+      }
       wake();
     },
     destroy() {

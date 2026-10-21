@@ -312,16 +312,52 @@ a:hover > .arrow, button:hover > .arrow, a:focus-visible > .arrow { translate: c
 html.js [data-story-step]:not(.is-current) { opacity: 0.3; }
 [data-story-step] { transition: opacity 0.5s; }
 
-/* --- Flavor switch: a live scan and repaint, so scrolling never cancels or freezes the animation -------- */
+/* --- Flavor switch: the old palette stays below the scan, the new one is revealed above it ------------- */
 
-html[data-flavor-switch] {
-  transition: background-color 240ms var(--ease-out), color 240ms var(--ease-out);
+/* Capture final role colors, not an intermediate hover/color transition. */
+html[data-flavor-switch] *,
+html[data-flavor-switch] *::before,
+html[data-flavor-switch] *::after { transition: none !important; }
+
+/* Capture the header, glyphs and shared titles with the page, so their colors wipe too.
+   Navigation keeps its usual independent layers once the flavor scan has finished. */
+html[data-flavor-switch] :is(header, [data-living-field], [data-flavor-title], [data-port-name]) {
+  view-transition-name: none !important;
+}
+html[data-flavor-switch]::view-transition { pointer-events: none; }
+html[data-flavor-switch]::view-transition-group(root) { animation: none; }
+html[data-flavor-switch]::view-transition-old(root) {
+  z-index: 1;
+  mix-blend-mode: normal;
+  animation: flavor-wipe 1s var(--ease-in-out) both;
+}
+html[data-flavor-switch]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+@keyframes flavor-wipe {
+  from { clip-path: inset(0); }
+  to { clip-path: inset(100% 0 0); }
+}
+
+/* A separate scan layer stays visible above both palettes. Its snapshot and its
+   live fallback travel together, so scrolling can discard snapshots without a jump. */
+html[data-flavor-switch]::view-transition-group(flavor-scan) {
+  z-index: 300;
+  animation: flavor-scan-drop 1s var(--ease-in-out) both;
+}
+html[data-flavor-switch]::view-transition-old(flavor-scan) { display: none; }
+html[data-flavor-switch]::view-transition-new(flavor-scan) { animation: none; }
+@keyframes flavor-scan-drop {
+  from { transform: translateY(0); }
+  to { transform: translateY(100dvh); }
 }
 
 .scan {
   position: fixed; top: 0; left: 0; right: 0; z-index: 300;
   height: 2px; background: var(--lc-accent);
   pointer-events: none;
+  view-transition-name: flavor-scan;
 }
 .scan code {
   position: absolute; top: 2px; right: max(var(--margin), calc((100% - 1440px) / 2));

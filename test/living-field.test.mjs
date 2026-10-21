@@ -41,6 +41,7 @@ function browser(t, { reducedMotion = false } = {}) {
     ALIASED_POINT_SIZE_RANGE: 1, LINK_STATUS: 2,
     getUniformLocation: (program, name) => name,
     uniform4fv: (name, value) => { uniforms[name] = [...value]; },
+    uniform3fv: (name, value) => { uniforms[name] = [...value]; },
     getExtension: () => null,
     getParameter: () => new Float32Array([1, 64]),
     getProgramParameter: () => true,
@@ -88,9 +89,10 @@ function browser(t, { reducedMotion = false } = {}) {
   };
   anchors = [anchor("chameleon")];
   const flavor = { colors: { teal: "#55aaaa" }, roles: { fg: "#eeeeee", comment: "#888888" } };
+  const paper = { colors: { teal: "#008080" }, roles: { fg: "#111111", comment: "#777777" } };
   return {
     document, events, canvas,
-    start: async () => (field = await createField(canvas, { night: flavor }, "night")),
+    start: async () => (field = await createField(canvas, { night: flavor, paper }, "night")),
     target: (glyph, options) => { anchors = [anchor(glyph, options)]; },
     uniforms,
     scroll(y) { page.scroll = y; events.dispatchEvent(new Event("scroll")); },
@@ -120,6 +122,18 @@ test("repeated navigation and hero retargeting keep exactly one animation loop",
   }
   field.destroy();
   assert.equal(b.pending(), 0, "destroy cancels the entire loop, including after navigation");
+});
+
+test("a palette wipe captures fully recolored glyphs without waiting for the next frame", async (t) => {
+  const b = browser(t);
+  const field = await b.start();
+  b.tick();
+  b.document.documentElement.dataset.flavorSwitch = "";
+  field.flavor("paper");
+  assert.deepEqual(b.uniforms["u_colors[0]"], [...new Float32Array([
+    ...Array(3).fill(0x11 / 255), ...Array(3).fill(0x77 / 255),
+  ])]);
+  assert.equal(b.pending(), 1, "the synchronous recolor must not fork the animation loop");
 });
 
 test("starting a scroll-scrubbed flight does not fork the animation loop", async (t) => {
