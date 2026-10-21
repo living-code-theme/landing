@@ -286,7 +286,26 @@ const TABLE = 160;
 
 // `turned`: the chameleon has already turned round for this fly, and will not again (it eats it from there).
 interface Fly { on: boolean; born: number; home: P3; eatAt: number; seed: number; wild: boolean; turned: boolean }
-const TURN_X = 0.12, TURN_TIME = 0.72;
+const TURN_X = 0.12;
+const TURN_CROUCH = 0.2, TURN_FLIGHT = 0.42, TURN_SETTLE = 0.3;
+const TURN_TIME = TURN_CROUCH + TURN_FLIGHT + TURN_SETTLE;
+// A planted wind-up, a ballistic hop, then a compression that eases back to standing. Only the airborne
+// part turns: the feet must leave the bark before they rotate, and find it again before the body settles.
+function turnJump(age: number) {
+  const flight = clamp((age - TURN_CROUCH) / TURN_FLIGHT);
+  const crouch = Math.sin(Math.PI * clamp(age / TURN_CROUCH)) ** 2;
+  const land = Math.sin(Math.PI * clamp((age - TURN_CROUCH - TURN_FLIGHT) / TURN_SETTLE)) ** 2;
+  const tuck = smooth(0, 0.28, flight) * (1 - smooth(0.58, 1, flight));
+  return {
+    spin: ease(flight),
+    height: 4 * 0.25 * flight * (1 - flight) - 0.065 * crouch - 0.055 * land,
+    pitch: -0.035 * crouch + 0.065 * Math.sin(TAU * flight) - 0.025 * land,
+    tuck,
+    open: smooth(0, 0.16, flight) * (1 - smooth(0.7, 1, flight)),
+    airborne: age > TURN_CROUCH && age < TURN_CROUCH + TURN_FLIGHT,
+    load: 1 + crouch * 0.45 + land * 0.3,
+  };
+}
 // The strike: the tongue out, held on the fly, and reeled back in.
 const SHOOT = 0.065, HOLD = 0.05, REEL = 0.3;
 
@@ -455,8 +474,12 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   const jaw = still();
   // Turning round: to face a fly that comes behind it, and back again to walk on once it has eaten. The body turns
   // about an upright axis through its middle; `now` is how far round it is (0 facing on, pi facing back).
-  const turn = { now: 0, from: 0, goal: 0, at: -1, backAt: -1 };
-  let hc = 1, hs = 0, hop = 0;
+  const turn = { now: 0, from: 0, goal: 0, at: -1, backAt: -1, launched: false, landed: false };
+  const startTurn = (goal: number, t: number) => {
+    turn.from = turn.now; turn.goal = goal; turn.at = t; turn.backAt = -1;
+    turn.launched = turn.landed = false;
+  };
+  let hc = 1, hs = 0;
   // From the chameleon's own frame (as if it faced on) to the model's, and back.
   const spin3 = (p: P3, c: number, sn: number, isDir: boolean, out: P3): P3 => {
     const x = isDir ? p[0] : p[0] - TURN_X, X = c * x + sn * p[2], Z = -sn * x + c * p[2];
@@ -626,14 +649,24 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     if (phase === "gone" && t - phaseAt > 1.2) { go("walk"); stepsLeft = 3 + Math.floor(rnd() * 4); nextStep = t + 0.35; }
     slid = spring(slide, glide, 11, 1, dt);
 
-    // --- Turning round: a fly behind it (in its own frame) and it turns to face it, lifting a little as it goes; --
-    // with nothing left to eat it waits a moment and turns back to walk on.
+    // --- Turning round: crouch on planted feet, turn in the air, regrip and absorb the landing --------------
+    // With nothing left to eat it waits a moment and hops back to walk on. The impulses fire once, even if a
+    // slow frame crosses a phase boundary; the sampled pose itself does not depend on the frame rate.
+    const turnAge = turn.at >= 0 ? t - turn.at : 0;
+    const jump = turnJump(turnAge);
     if (turn.at >= 0) {
-      const p = clamp((t - turn.at) / TURN_TIME);
-      turn.now = turn.from + (turn.goal - turn.from) * ease(p);
-      hop = 0.045 * Math.sin(Math.PI * p) ** 2;
-      if (p >= 1) { turn.now = turn.goal; turn.at = -1; hop = 0; sag.v -= 0.3; }
+      turn.now = turn.from + (turn.goal - turn.from) * jump.spin;
+      if (!turn.launched && turnAge >= TURN_CROUCH) {
+        turn.launched = true;
+        sag.v -= 0.1; flick.v -= 1.2;
+      }
+      if (!turn.landed && turnAge >= TURN_CROUCH + TURN_FLIGHT) {
+        turn.landed = true;
+        sag.v += 0.18; flick.v += 1.8;
+      }
+      if (turnAge >= TURN_TIME) { turn.now = turn.goal; turn.at = -1; }
     }
+    for (let i = 0; i < 4; i++) opened[i] = Math.max(opened[i], jump.open);
     hc = Math.cos(turn.now); hs = Math.sin(turn.now);
     cy = Math.cos(yaw * hc); sy = Math.sin(yaw * hc);
     sagX = viewX(0);
@@ -648,11 +681,11 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       const aheadTurned = 2 * TURN_X - (ahead + PIVOT[0]) - PIVOT[0];
       if (next >= 0 && !flies[next].turned && ahead < -0.1 && aheadTurned > 0.05 && aheadTurned > ahead + 0.4) {
         flies[next].turned = true;
-        turn.from = turn.now; turn.goal = turn.now < Math.PI / 2 ? Math.PI : 0; turn.at = t; turn.backAt = -1;
+        startTurn(turn.now < Math.PI / 2 ? Math.PI : 0, t);
         flies[next].eatAt = Math.max(flies[next].eatAt, t + TURN_TIME + 0.15);
       } else if (!anyFly && turn.now !== 0) {
         if (turn.backAt < 0) turn.backAt = t + 0.6;
-        else if (t > turn.backAt) { turn.from = turn.now; turn.goal = 0; turn.at = t; turn.backAt = -1; }
+        else if (t > turn.backAt) startTurn(0, t);
       }
     }
 
@@ -718,7 +751,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     spring(head.pitch, head.goalPitch, intent ? 30 : 17, 0.78, dt);
 
     // --- The body on its legs: riding the bark, carrying its weight off a lifted foot, rocking, leaning in -------
-    spring(sag, portrait ? 0 : SAG + 0.004 * Math.sin(t * 0.7), 13, 0.16, dt);
+    spring(sag, portrait || jump.airborne ? 0 : SAG * jump.load + 0.004 * Math.sin(t * 0.7), 13, 0.16, dt);
     const fore = rise(FORE_X), hind = rise(HIND_X);
     spring(ride.y, (fore + hind) / 2, 15, 0.85, dt);
     spring(ride.pitch, Math.atan2(fore - hind, FORE_X - HIND_X), 15, 0.85, dt);
@@ -734,12 +767,12 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     const breath = 0.02 * Math.sin(t * 1.7);
     const gulp = gulpAt >= 0 ? Math.sin(Math.PI * clamp((t - gulpAt) / 0.45)) : 0;
     {
-      const pitch = ride.pitch.x, cp = Math.cos(pitch), sp = Math.sin(pitch), cr = Math.cos(roll.x), sr = Math.sin(roll.x);
+      const pitch = ride.pitch.x + jump.pitch, cp = Math.cos(pitch), sp = Math.sin(pitch), cr = Math.cos(roll.x), sr = Math.sin(roll.x);
       stance[0] = cp; stance[1] = -sp; stance[2] = 0;
       stance[3] = cr * sp; stance[4] = cr * cp; stance[5] = -sr;
       stance[6] = sr * sp; stance[7] = sr * cp; stance[8] = cr;
       stance[9] = lean.x + rock.amp.x * Math.sin(rock.phase);
-      stance[10] = ride.y.x + sink.x;
+      stance[10] = ride.y.x + sink.x + jump.height;
       stance[11] = sway.x;
     }
     // The head keeps itself level while the body tips beneath it.
@@ -786,7 +819,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     }
     // The root: it lifts and swings slowly on its own, raises the tail a little while a foot is up (for balance),
     // swings against the body's sway and gives with each flick.
-    spring(lift, portrait ? 0 : 0.1 * Math.sin(t * 0.7) + 0.045 * Math.sin(t * 1.63 + 0.5) + 0.07 * weight + 0.03 * flick.x, 5, 0.9, dt);
+    spring(lift, portrait ? 0 : 0.1 * Math.sin(t * 0.7) + 0.045 * Math.sin(t * 1.63 + 0.5) + 0.07 * weight + 0.03 * flick.x + 0.22 * jump.tuck, 5, 0.9, dt);
     spring(wag, portrait ? 0 : 0.09 * Math.sin(t * 0.53 + 2) + 0.04 * Math.sin(t * 1.31) - 2 * sway.x, 5, 0.9, dt);
     bendTail(wound, portrait ? 0 : 1.4 + 0.6 * Math.sin(t * 0.37), t * 1.6, portrait ? 0 : 0.2 * Math.sin(t * 0.9 + 0.8), tail);
 
@@ -796,8 +829,13 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       const S = posed(leg[0], false, S0.slice() as P3);
       const fx = grip[i] - slid, lift = lifted[i];
       branchAt(viewX(fx), B);
-      // The foot on top of the bark, gripping round it on its own side; lifted, it swings out a little to clear it.
-      const F: P3 = [fx, B[0] + GRIP_UP * B[2] + lift * 0.1, hc * B[1] + leg[2][2] * (B[2] / BRANCH_R) * (1 + lift * 0.5)];
+      // Standing feet stay on the bark through the crouch and landing compression. In flight they travel with
+      // the body, folding toward the hips, then reaching back to the branch before the toes close round it.
+      const F: P3 = [
+        fx + (leg[0][0] - fx) * jump.tuck * 0.45,
+        B[0] + GRIP_UP * B[2] + lift * 0.1 + Math.max(0, jump.height) + jump.tuck * 0.13,
+        hc * B[1] + leg[2][2] * (B[2] / BRANCH_R) * (1 + lift * 0.5 + jump.tuck * 0.3),
+      ];
       const { l1, l2, bend } = BONES[i];
       const toF = sub(F, S), dist = Math.min(Math.hypot(...toF), (l1 + l2) * 0.995), u = unit(toF);
       const a = (l1 * l1 - l2 * l2 + dist * dist) / (2 * dist), h = Math.sqrt(Math.max(0, l1 * l1 - a * a));
@@ -958,7 +996,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       // The body, the head, the eyes and the tail carried on the legs.
       if (body) { posed(P, false, P); posed(N, true, N); }
       // The whole animal, turned round if it has turned.
-      if (k !== K.Branch && k !== K.Leaf && k !== K.Fly && (turn.now !== 0 || hop)) { toWorld(P, false, P); toWorld(N, true, N); P[1] += hop; }
+      if (k !== K.Branch && k !== K.Leaf && k !== K.Fly && turn.now !== 0) { toWorld(P, false, P); toWorld(N, true, N); }
       const living = k === K.Body || k === K.Tail || k === K.Leg || k === K.Foot;
       if (living && bump[i] > 0.09 && mode === 0) { chars = GRID ? "o" : "oO@"; mode = 3; if (!GRID) alpha *= 1.3; }
 
