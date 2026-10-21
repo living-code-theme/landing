@@ -1,0 +1,52 @@
+PORT APP ICONS
+
+These app marks identify the applications supported by Living Code. They are
+not Living Code branding, and no endorsement or trademark rights are implied.
+The monochrome adaptations are bundled locally in src/lib/port-app-icons.mjs;
+normal website builds do not download artwork or run vectorization tools.
+
+foot
+  Original artwork: Lennard Hofmann, 2020, "foot logo".
+  Source: https://codeberg.org/dnkl/foot/src/branch/master/icons/hicolor/scalable/apps/foot.svg
+  Original footprint source: https://freesvg.org/human-footprints
+  License: Creative Commons Attribution-ShareAlike 4.0 International
+  https://creativecommons.org/licenses/by-sa/4.0/
+  Changes: terminal background removed, light border/footprint/cursor converted
+  to a single monochrome outline and normalized to a 24 x 24 viewBox. This
+  adapted foot artwork is provided under the same CC BY-SA 4.0 license.
+  Source SHA-256: afd748355f6feffb2203982abc963d9c503121b8fb394c23dbbcc9ba546e6e04
+
+btop++
+  Source: https://github.com/aristocratos/btop/blob/main/Img/icon.svg
+  Upstream terms: https://github.com/aristocratos/btop/blob/main/LICENSE
+  Changes: front B silhouette retained; stripes and shadow omitted; normalized.
+  Source SHA-256: fdd88bf17cf042d96a786427d1ac2bf1641510f34aee57e80508a0a781c2425d
+
+Zellij
+  Source: https://github.com/zellij-org/zellij/blob/main/assets/logo.svg
+  Upstream terms: https://github.com/zellij-org/zellij
+  Changes: colored terminal/tile shapes converted to monochrome; dark backing
+  removed, prompt cutouts retained, and outlines normalized.
+  Source SHA-256: 17f7fbc64c394a628be149788422a4617326086f089110222a39190ed306407f
+
+Expressive Code
+  Source: https://github.com/expressive-code/expressive-code/blob/main/docs/public/mask-icon.svg
+  Upstream terms: https://github.com/expressive-code/expressive-code/blob/main/LICENSE
+  Changes: the project's monochrome mask icon normalized from 192 x 192 to
+  24 x 24; all original paths retained.
+  Source SHA-256: 7e811ba623182e379da869a23c5cb18d83e5c19882680f42103437e390b2e1af
+
+fzf
+  Artwork by Junegunn Choi, used in the fzf project's README.
+  Source: https://github.com/junegunn/i/blob/master/fzf-color.png
+  Project: https://github.com/junegunn/fzf
+  Changes: stylized prompt/wordmark isolated from its sign frame and tagline,
+  converted to a monochrome silhouette, and normalized.
+  Source SHA-256: ab79b190cc974f000ca195958e1d29f5c6072daafbbc6619a2c6be8f3d79f4d3
+
+K9s
+  Source: https://k9scli.io/assets/k9s.png
+  Project: https://github.com/derailed/k9s
+  Changes: the official dog/glasses mascot converted to a monochrome outline,
+  retaining the Kubernetes wheel cutouts, and normalized.
+  Source SHA-256: e4b574962491c993502fb4145f16e772ddae0e7c57dd002cecc17154110a9424

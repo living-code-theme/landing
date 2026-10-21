@@ -282,7 +282,7 @@ test("each port page draws its own icon: a logo path, or a word where there is n
     assert.match(anchor, /data-glyph-(path="[Mm][^"]+"|text="[^"]+")/, p.id);
   }
   if (ports.some((p) => p.id === "neovim" && !p.icon)) assert.match(page("ports/neovim"), /<div data-glyph="icon:neovim"[^>]*data-glyph-path="[Mm]/);
-  if (ports.some((p) => p.id === "fzf" && !p.icon)) assert.match(page("ports/fzf"), /<div data-glyph="icon:fzf"[^>]*data-glyph-text="fzf"/);
+  if (ports.some((p) => p.id === "fzf" && !p.icon)) assert.match(page("ports/fzf"), /<div data-glyph="icon:fzf"[^>]*data-glyph-path="[Mm]/);
 });
 
 test("the port.json schema is published at the URL every port references", () => {
