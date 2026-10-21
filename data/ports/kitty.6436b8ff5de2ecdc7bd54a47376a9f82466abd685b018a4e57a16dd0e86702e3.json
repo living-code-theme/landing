@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "kitty",
+    "name": "Kitty",
+    "group": "Terminals",
+    "description": "Living Code for Kitty. Four color flavors for terminal text, selections, cursors, borders, tabs and the complete ANSI palette.",
+    "homepage": "https://sw.kovidgoyal.net/kitty/",
+    "quick": "Download and include the theme",
+    "aliases": [
+      "kitty",
+      "kitten",
+      "terminal"
+    ],
+    "icon": null,
+    "emoji": "🐈",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-night.conf",
+      "living-code-frost.conf",
+      "living-code-paper.conf",
+      "living-code-signal.conf"
+    ],
+    "repository": "https://github.com/living-code-theme/kitty",
+    "repositoryName": "living-code-theme/kitty",
+    "revision": "ad69f77c7872b752bbc1ffe59d28328f58b3befe",
+    "readmeUrl": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/README.md",
+    "fileUrls": {
+      "living-code-night.conf": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/living-code-night.conf",
+      "living-code-frost.conf": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/living-code-frost.conf",
+      "living-code-paper.conf": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/living-code-paper.conf",
+      "living-code-signal.conf": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/living-code-signal.conf"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Kitty running Living Code Night",
+        "src": "/port-images/8c3f40eb662cfd4b698e027ae35339888bb4be9d418d05d4ec4f5a01fa0cd61b.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Kitty running Living Code Frost",
+        "src": "/port-images/70c68d997ddd51e57a30d3c764009105ea098f002409464d871d1c7c9d656735.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Kitty running Living Code Paper",
+        "src": "/port-images/5b5cfbe6b4193af2501962b8384aeabd51a49adf1ae11fe41d7a58eca9c3083b.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Kitty running Living Code Signal",
+        "src": "/port-images/bc4f81623b635c01dfe4afd9470df79d7dce2e41231bae85bbef5cc2c9e8b9f1.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Download all four flavors:\n\n```sh\ncurl -fsSL --create-dirs --output-dir \"${XDG_CONFIG_HOME:-$HOME/.config}/kitty/themes\" \\\n  -O \"https://raw.githubusercontent.com/living-code-theme/kitty/main/living-code-{night,frost,paper,signal}.conf\"\n```\n\nAdd this to `kitty.conf`:\n\n```conf\ninclude themes/living-code-night.conf\n```\n\nRestart Kitty to apply it. Replace `night` with `frost`, `paper` or `signal` to use another flavor.",
+      "configuration": "Theme files only set colors; your fonts, padding, opacity, shell and keybindings stay unchanged. Put any personal color overrides after the theme include.\n\nAll four installed flavors are also available in `kitten themes`. See [Kitty’s configuration reference](https://sw.kovidgoyal.net/kitty/conf/) for application settings.",
+      "compatibility": "For the Kitty terminal on Linux and macOS. Includes all 16 ANSI colors, foreground and background, selection, cursor, URL, border, tab and mark colors. No plugin or build step is required. Applications with their own syntax themes, such as Neovim, need their matching Living Code port.",
+      "links": {}
+    },
+    "guideImages": {}
+  }
+}

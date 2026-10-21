@@ -1,11 +1,19 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "organization": "living-code-theme",
-  "migratedSlugs": [
-    "css",
-    "kitty",
-    "neovim"
-  ],
+  "assets": {
+    "base": "/port-images/",
+    "files": {
+      "55176b102baa70ba1ea9dac1dc164cd6ff2d3453c7bdac80248e9407265981c0.webp": 139930,
+      "5b5cfbe6b4193af2501962b8384aeabd51a49adf1ae11fe41d7a58eca9c3083b.webp": 153764,
+      "6671a0b766f97e1f5be4c61147fe2a7adffaee9930c86a99882d9857a7072036.webp": 151492,
+      "70c68d997ddd51e57a30d3c764009105ea098f002409464d871d1c7c9d656735.webp": 155210,
+      "8c3f40eb662cfd4b698e027ae35339888bb4be9d418d05d4ec4f5a01fa0cd61b.webp": 161990,
+      "bc4f81623b635c01dfe4afd9470df79d7dce2e41231bae85bbef5cc2c9e8b9f1.webp": 145642,
+      "e1fb4d9cd00fd52e06b00821eb97965e297890b2fe5254329326e7c1f0673cef.webp": 155038,
+      "ec12cfa04035c5ad547cc71d947dbe00573978b0814e98be925f1b8dadadd5dd.webp": 145736
+    }
+  },
   "ports": [
     {
       "id": "neovim",
@@ -28,39 +36,6 @@
         "paper",
         "signal"
       ],
-      "files": [
-        "colors/living-code-frost.lua",
-        "colors/living-code-night.lua",
-        "colors/living-code-paper.lua",
-        "colors/living-code-signal.lua",
-        "colors/living-code.lua",
-        "lua/living-code/highlights.lua",
-        "lua/living-code/init.lua",
-        "lua/living-code/palettes/frost.lua",
-        "lua/living-code/palettes/night.lua",
-        "lua/living-code/palettes/paper.lua",
-        "lua/living-code/palettes/signal.lua",
-        "lua/lualine/themes/living-code.lua"
-      ],
-      "readme": "<!-- living-code-readme:1 -->\n# 📝 Living Code for Neovim\n\n**Calm slate. Living color.** Living Code for Neovim. Four color flavors, Tree-sitter and LSP highlights, and lualine integration.\n\n[Installation](#installation) · [Flavors](#flavors) · [Configuration](#configuration) · [All ports](https://github.com/living-code-theme)\n\n## Previews\n\n<table data-lc-flavors>\n<tr>\n<td width=\"50%\" valign=\"top\">\n<strong>Night</strong><br><sub>Dark · full palette</sub><br><br>\n<a href=\"images/night.png\"><img src=\"images/night.png\" alt=\"Neovim running Living Code Night\" width=\"640\"></a>\n</td>\n<td width=\"50%\" valign=\"top\">\n<strong>Frost</strong><br><sub>Dark · softer chroma</sub><br><br>\n<a href=\"images/frost.png\"><img src=\"images/frost.png\" alt=\"Neovim running Living Code Frost\" width=\"640\"></a>\n</td>\n</tr>\n<tr>\n<td width=\"50%\" valign=\"top\">\n<strong>Paper</strong><br><sub>Light · near-white slate</sub><br><br>\n<a href=\"images/paper.png\"><img src=\"images/paper.png\" alt=\"Neovim running Living Code Paper\" width=\"640\"></a>\n</td>\n<td width=\"50%\" valign=\"top\">\n<strong>Signal</strong><br><sub>Dark · teal accent</sub><br><br>\n<a href=\"images/signal.png\"><img src=\"images/signal.png\" alt=\"Neovim running Living Code Signal\" width=\"640\"></a>\n</td>\n</tr>\n</table>\n\nSelect any preview to view the image at full size.\n\n## Installation\n\nInstall with your plugin manager. For lazy.nvim:\n\n```lua\n{\n  \"living-code-theme/nvim\",\n  priority = 1000,\n  config = function()\n    require(\"living-code\").setup({\n      flavor = \"night\",\n      transparent = false,\n      italic_comments = true,\n    })\n    vim.cmd.colorscheme(\"living-code\")\n  end,\n}\n```\n\nOr pick a flavor directly: `:colorscheme living-code-signal`. Covers Tree-sitter, LSP semantic tokens, diagnostics, gitsigns, telescope, nvim-cmp / blink.cmp, which-key, mini.*, lualine (`theme = \"living-code\"`).\n\n## Flavors\n\nExpand a flavor for its full-size preview and activation instructions.\n\n<details data-lc-flavor=\"night\">\n<summary><strong>Night</strong> · Dark · full palette</summary>\n\n<p><a href=\"images/night.png\"><img src=\"images/night.png\" alt=\"Neovim running Living Code Night\" width=\"1280\"></a></p>\n\nActivate this flavor directly:\n\n```vim\n:colorscheme living-code-night\n```\n\nOr set `flavor = \"night\"` in `require(\"living-code\").setup()` before loading `living-code`.\n\n</details>\n\n<details data-lc-flavor=\"frost\">\n<summary><strong>Frost</strong> · Dark · softer chroma</summary>\n\n<p><a href=\"images/frost.png\"><img src=\"images/frost.png\" alt=\"Neovim running Living Code Frost\" width=\"1280\"></a></p>\n\nActivate this flavor directly:\n\n```vim\n:colorscheme living-code-frost\n```\n\nOr set `flavor = \"frost\"` in `require(\"living-code\").setup()` before loading `living-code`.\n\n</details>\n\n<details data-lc-flavor=\"paper\">\n<summary><strong>Paper</strong> · Light · near-white slate</summary>\n\n<p><a href=\"images/paper.png\"><img src=\"images/paper.png\" alt=\"Neovim running Living Code Paper\" width=\"1280\"></a></p>\n\nActivate this flavor directly:\n\n```vim\n:colorscheme living-code-paper\n```\n\nOr set `flavor = \"paper\"` in `require(\"living-code\").setup()` before loading `living-code`.\n\n</details>\n\n<details data-lc-flavor=\"signal\">\n<summary><strong>Signal</strong> · Dark · teal accent</summary>\n\n<p><a href=\"images/signal.png\"><img src=\"images/signal.png\" alt=\"Neovim running Living Code Signal\" width=\"1280\"></a></p>\n\nActivate this flavor directly:\n\n```vim\n:colorscheme living-code-signal\n```\n\nOr set `flavor = \"signal\"` in `require(\"living-code\").setup()` before loading `living-code`.\n\n</details>\n\n## Configuration\n\nCall setup before loading the colorscheme. All options are optional:\n\n```lua\nrequire(\"living-code\").setup({\n  flavor = \"night\",\n  light_flavor = \"paper\",\n  transparent = false,\n  italic_comments = true,\n  dim_inactive = false,\n  on_highlights = nil,\n})\nvim.cmd.colorscheme(\"living-code\")\n```\n\nWith `background=light`, the default colorscheme selects `light_flavor`. A flavor-specific colorscheme always loads that flavor. For lualine, use `theme = \"living-code\"`.\n\n## Compatibility\n\nUses Neovim's Lua highlight API and true color. Includes Tree-sitter, LSP semantic tokens, diagnostics, gitsigns, telescope, nvim-cmp / blink.cmp, which-key, mini.* and lualine highlights. Plugin integrations are optional; install the plugins you use separately.\n\n## Contributing\n\nReport installation issues and include the application version and selected flavor. For visual changes, include a real application screenshot. Keep this README, `port.json` and `images/` in sync; do not add generated mockups.\n\n🦎 **One chameleon, many habitats.** Part of [Living Code](https://github.com/living-code-theme).\n\n## License\n\n[MIT](LICENSE) © Elliot Luque\n",
-      "repository": "https://github.com/living-code-theme/nvim",
-      "repositoryName": "living-code-theme/nvim",
-      "revision": "489fdf3a29760587f62eea1d6079f6e778bb5ced",
-      "readmeUrl": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/README.md",
-      "fileUrls": {
-        "colors/living-code-frost.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code-frost.lua",
-        "colors/living-code-night.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code-night.lua",
-        "colors/living-code-paper.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code-paper.lua",
-        "colors/living-code-signal.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code-signal.lua",
-        "colors/living-code.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/colors/living-code.lua",
-        "lua/living-code/highlights.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/highlights.lua",
-        "lua/living-code/init.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/init.lua",
-        "lua/living-code/palettes/frost.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/palettes/frost.lua",
-        "lua/living-code/palettes/night.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/palettes/night.lua",
-        "lua/living-code/palettes/paper.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/palettes/paper.lua",
-        "lua/living-code/palettes/signal.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/living-code/palettes/signal.lua",
-        "lua/lualine/themes/living-code.lua": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/lua/lualine/themes/living-code.lua"
-      },
       "images": [
         {
           "flavor": "night",
@@ -91,28 +66,11 @@
           "height": 1600
         }
       ],
-      "readmeImages": {
-        "images/night.png": {
-          "src": "/port-images/e1fb4d9cd00fd52e06b00821eb97965e297890b2fe5254329326e7c1f0673cef.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        "images/frost.png": {
-          "src": "/port-images/ec12cfa04035c5ad547cc71d947dbe00573978b0814e98be925f1b8dadadd5dd.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        "images/paper.png": {
-          "src": "/port-images/6671a0b766f97e1f5be4c61147fe2a7adffaee9930c86a99882d9857a7072036.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        "images/signal.png": {
-          "src": "/port-images/55176b102baa70ba1ea9dac1dc164cd6ff2d3453c7bdac80248e9407265981c0.webp",
-          "width": 2560,
-          "height": 1600
-        }
-      }
+      "repository": "https://github.com/living-code-theme/nvim",
+      "repositoryName": "living-code-theme/nvim",
+      "revision": "489fdf3a29760587f62eea1d6079f6e778bb5ced",
+      "readmeUrl": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/README.md",
+      "content": "ports/neovim.76d1d19d35f1bd2085fc3c406715ed9d02c15a689fd1c6cfc9ee2434ba00753d.json"
     },
     {
       "id": "kitty",
@@ -134,23 +92,6 @@
         "paper",
         "signal"
       ],
-      "files": [
-        "living-code-night.conf",
-        "living-code-frost.conf",
-        "living-code-paper.conf",
-        "living-code-signal.conf"
-      ],
-      "readme": "<!-- living-code-readme:1 -->\n# 🐈 Living Code for Kitty\n\n**Calm slate. Living color.** Living Code for Kitty. Four color flavors for terminal text, selections, cursors, borders, tabs and the complete ANSI palette.\n\n[Installation](#installation) · [Flavors](#flavors) · [Configuration](#configuration) · [All ports](https://github.com/living-code-theme)\n\n## Previews\n\n<table data-lc-flavors>\n<tr>\n<td width=\"50%\" valign=\"top\">\n<strong>Night</strong><br><sub>Dark · full palette</sub><br><br>\n<a href=\"images/night.png\"><img src=\"images/night.png\" alt=\"Kitty running Living Code Night\" width=\"640\"></a>\n</td>\n<td width=\"50%\" valign=\"top\">\n<strong>Frost</strong><br><sub>Dark · softer chroma</sub><br><br>\n<a href=\"images/frost.png\"><img src=\"images/frost.png\" alt=\"Kitty running Living Code Frost\" width=\"640\"></a>\n</td>\n</tr>\n<tr>\n<td width=\"50%\" valign=\"top\">\n<strong>Paper</strong><br><sub>Light · near-white slate</sub><br><br>\n<a href=\"images/paper.png\"><img src=\"images/paper.png\" alt=\"Kitty running Living Code Paper\" width=\"640\"></a>\n</td>\n<td width=\"50%\" valign=\"top\">\n<strong>Signal</strong><br><sub>Dark · teal accent</sub><br><br>\n<a href=\"images/signal.png\"><img src=\"images/signal.png\" alt=\"Kitty running Living Code Signal\" width=\"640\"></a>\n</td>\n</tr>\n</table>\n\nSelect any preview to view the image at full size.\n\n## Installation\n\nDownload all four flavors:\n\n```sh\ncurl -fsSL --create-dirs --output-dir \"${XDG_CONFIG_HOME:-$HOME/.config}/kitty/themes\" \\\n  -O \"https://raw.githubusercontent.com/living-code-theme/kitty/main/living-code-{night,frost,paper,signal}.conf\"\n```\n\nAdd this to `kitty.conf`:\n\n```conf\ninclude themes/living-code-night.conf\n```\n\nRestart Kitty to apply it. Replace `night` with `frost`, `paper` or `signal` to use another flavor.\n\n## Flavors\n\nExpand a flavor for its full-size preview and activation instructions.\n\n<details data-lc-flavor=\"night\">\n<summary><strong>Night</strong> · Dark · full palette</summary>\n\n<p><a href=\"images/night.png\"><img src=\"images/night.png\" alt=\"Kitty running Living Code Night\" width=\"1280\"></a></p>\n\nSet this include in `kitty.conf`:\n\n```conf\ninclude themes/living-code-night.conf\n```\n\nKeep only one Living Code include active, then restart Kitty.\n\n</details>\n\n<details data-lc-flavor=\"frost\">\n<summary><strong>Frost</strong> · Dark · softer chroma</summary>\n\n<p><a href=\"images/frost.png\"><img src=\"images/frost.png\" alt=\"Kitty running Living Code Frost\" width=\"1280\"></a></p>\n\nSet this include in `kitty.conf`:\n\n```conf\ninclude themes/living-code-frost.conf\n```\n\nKeep only one Living Code include active, then restart Kitty.\n\n</details>\n\n<details data-lc-flavor=\"paper\">\n<summary><strong>Paper</strong> · Light · near-white slate</summary>\n\n<p><a href=\"images/paper.png\"><img src=\"images/paper.png\" alt=\"Kitty running Living Code Paper\" width=\"1280\"></a></p>\n\nSet this include in `kitty.conf`:\n\n```conf\ninclude themes/living-code-paper.conf\n```\n\nKeep only one Living Code include active, then restart Kitty.\n\n</details>\n\n<details data-lc-flavor=\"signal\">\n<summary><strong>Signal</strong> · Dark · teal accent</summary>\n\n<p><a href=\"images/signal.png\"><img src=\"images/signal.png\" alt=\"Kitty running Living Code Signal\" width=\"1280\"></a></p>\n\nSet this include in `kitty.conf`:\n\n```conf\ninclude themes/living-code-signal.conf\n```\n\nKeep only one Living Code include active, then restart Kitty.\n\n</details>\n\n## Configuration\n\nTheme files only set colors; your fonts, padding, opacity, shell and keybindings stay unchanged. Put any personal color overrides after the theme include.\n\nAll four installed flavors are also available in `kitten themes`. See [Kitty’s configuration reference](https://sw.kovidgoyal.net/kitty/conf/) for application settings.\n\n## Compatibility\n\nFor the Kitty terminal on Linux and macOS. Includes all 16 ANSI colors, foreground and background, selection, cursor, URL, border, tab and mark colors. No plugin or build step is required. Applications with their own syntax themes, such as Neovim, need their matching Living Code port.\n\n## Contributing\n\nFound a problem? [Open an issue](https://github.com/living-code-theme/kitty/issues/new/choose) with the app version, the flavor and a screenshot. Want Living Code somewhere else? [Request a port](https://github.com/living-code-theme/core/issues/new?template=port-request.yml).\n\nPull requests are welcome. Keep this README, `port.json` and `images/` in sync, and use real screenshots of the app, never mockups.\n\n🦎 **One chameleon, many habitats.** Part of [Living Code](https://github.com/living-code-theme).\n\n## License\n\n[MIT](LICENSE) © Elliot Luque\n",
-      "repository": "https://github.com/living-code-theme/kitty",
-      "repositoryName": "living-code-theme/kitty",
-      "revision": "ad69f77c7872b752bbc1ffe59d28328f58b3befe",
-      "readmeUrl": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/README.md",
-      "fileUrls": {
-        "living-code-night.conf": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/living-code-night.conf",
-        "living-code-frost.conf": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/living-code-frost.conf",
-        "living-code-paper.conf": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/living-code-paper.conf",
-        "living-code-signal.conf": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/living-code-signal.conf"
-      },
       "images": [
         {
           "flavor": "night",
@@ -181,28 +122,11 @@
           "height": 1600
         }
       ],
-      "readmeImages": {
-        "images/night.png": {
-          "src": "/port-images/8c3f40eb662cfd4b698e027ae35339888bb4be9d418d05d4ec4f5a01fa0cd61b.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        "images/frost.png": {
-          "src": "/port-images/70c68d997ddd51e57a30d3c764009105ea098f002409464d871d1c7c9d656735.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        "images/paper.png": {
-          "src": "/port-images/5b5cfbe6b4193af2501962b8384aeabd51a49adf1ae11fe41d7a58eca9c3083b.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        "images/signal.png": {
-          "src": "/port-images/bc4f81623b635c01dfe4afd9470df79d7dce2e41231bae85bbef5cc2c9e8b9f1.webp",
-          "width": 2560,
-          "height": 1600
-        }
-      }
+      "repository": "https://github.com/living-code-theme/kitty",
+      "repositoryName": "living-code-theme/kitty",
+      "revision": "ad69f77c7872b752bbc1ffe59d28328f58b3befe",
+      "readmeUrl": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/README.md",
+      "content": "ports/kitty.6436b8ff5de2ecdc7bd54a47376a9f82466abd685b018a4e57a16dd0e86702e3.json"
     },
     {
       "id": "css",
@@ -222,19 +146,12 @@
         "paper",
         "signal"
       ],
-      "files": [
-        "living-code.css"
-      ],
-      "readme": "<!-- living-code-readme:1 -->\n# 🎨 Living Code for CSS variables\n\n**Calm slate. Living color.** Living Code for CSS variables. Repository-owned theme files, installation instructions and four color flavors.\n\n[Installation](#installation) · [Flavors](#flavors) · [Configuration](#configuration) · [All ports](https://github.com/living-code-theme)\n\n## Previews\n\nReal application screenshots have not been captured yet.\n\n## Installation\n\n```sh\npnpm add @living-code/css\n```\n\nImport the stylesheet in your app:\n\n```css\n@import \"@living-code/css/living-code.css\";\n```\n\nOr load it directly in HTML:\n\n```html\n<link rel=\"stylesheet\" href=\"living-code.css\" />\n<html data-theme=\"living-code-night\">\n```\n\nUse palette names (`var(--lc-teal)`) or semantic roles (`var(--lc-keyword)`, `var(--lc-bg)`, `var(--lc-border-active)`).\n\n## Flavors\n\nExpand a flavor for its full-size preview and activation instructions.\n\n<details data-lc-flavor=\"night\">\n<summary><strong>Night</strong> · Dark · full palette</summary>\n\nA real application capture is not available yet.\n\n```html\n<html data-theme=\"living-code-night\">\n```\n\n</details>\n\n<details data-lc-flavor=\"frost\">\n<summary><strong>Frost</strong> · Dark · softer chroma</summary>\n\nA real application capture is not available yet.\n\n```html\n<html data-theme=\"living-code-frost\">\n```\n\n</details>\n\n<details data-lc-flavor=\"paper\">\n<summary><strong>Paper</strong> · Light · near-white slate</summary>\n\nA real application capture is not available yet.\n\n```html\n<html data-theme=\"living-code-paper\">\n```\n\n</details>\n\n<details data-lc-flavor=\"signal\">\n<summary><strong>Signal</strong> · Dark · teal accent</summary>\n\nA real application capture is not available yet.\n\n```html\n<html data-theme=\"living-code-signal\">\n```\n\n</details>\n\n## Configuration\n\nSee [CSS variables's documentation](https://developer.mozilla.org/docs/Web/CSS/color_value/oklch) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.\n\n## Compatibility\n\nPreserves the npm package name `@living-code/css` and its existing import paths. Package publication and registry credentials are separate from creating this repository.\n\n## Contributing\n\nFound a problem? [Open an issue](https://github.com/living-code-theme/css/issues/new/choose) with the app version, the flavor and a screenshot. Want Living Code somewhere else? [Request a port](https://github.com/living-code-theme/core/issues/new?template=port-request.yml).\n\nPull requests are welcome. Keep this README, `port.json` and `images/` in sync, and use real screenshots of the app, never mockups.\n\n🦎 **One chameleon, many habitats.** Part of [Living Code](https://github.com/living-code-theme).\n\n## License\n\n[MIT](LICENSE) © Elliot Luque\n",
+      "images": [],
       "repository": "https://github.com/living-code-theme/css",
       "repositoryName": "living-code-theme/css",
       "revision": "ceb8d6e0fe3b087aaff16dc44a5ac111526a1172",
       "readmeUrl": "https://github.com/living-code-theme/css/blob/ceb8d6e0fe3b087aaff16dc44a5ac111526a1172/README.md",
-      "fileUrls": {
-        "living-code.css": "https://github.com/living-code-theme/css/blob/ceb8d6e0fe3b087aaff16dc44a5ac111526a1172/living-code.css"
-      },
-      "images": [],
-      "readmeImages": {}
+      "content": "ports/css.f5e4f4317e935c9c9243e1dd2f65969d2426f0953260e5ec8672abbb836f2b62.json"
     }
   ]
 }
