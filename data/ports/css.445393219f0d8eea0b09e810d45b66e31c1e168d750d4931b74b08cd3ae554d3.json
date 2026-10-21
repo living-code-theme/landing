@@ -21,14 +21,6 @@
     "files": [
       "living-code.css"
     ],
-    "repository": "https://github.com/living-code-theme/css",
-    "repositoryName": "living-code-theme/css",
-    "revision": "ceb8d6e0fe3b087aaff16dc44a5ac111526a1172",
-    "readmeUrl": "https://github.com/living-code-theme/css/blob/ceb8d6e0fe3b087aaff16dc44a5ac111526a1172/README.md",
-    "fileUrls": {
-      "living-code.css": "https://github.com/living-code-theme/css/blob/ceb8d6e0fe3b087aaff16dc44a5ac111526a1172/living-code.css"
-    },
-    "images": [],
     "guide": {
       "schemaVersion": 1,
       "installation": "```sh\npnpm add @living-code/css\n```\n\nImport the stylesheet in your app:\n\n```css\n@import \"@living-code/css/living-code.css\";\n```\n\nOr load it directly in HTML:\n\n```html\n<link rel=\"stylesheet\" href=\"living-code.css\" />\n<html data-theme=\"living-code-night\">\n```\n\nUse palette names (`var(--lc-teal)`) or semantic roles (`var(--lc-keyword)`, `var(--lc-bg)`, `var(--lc-border-active)`).",
@@ -36,6 +28,14 @@
       "compatibility": "Preserves the npm package name `@living-code/css` and its existing import paths. Package publication and registry credentials are separate from creating this repository.",
       "links": {}
     },
+    "repository": "https://github.com/living-code-theme/css",
+    "repositoryName": "living-code-theme/css",
+    "revision": "85b695f86bd553dc371945ab3c6bad761c0bba62",
+    "readmeUrl": "https://github.com/living-code-theme/css/blob/85b695f86bd553dc371945ab3c6bad761c0bba62/README.md",
+    "fileUrls": {
+      "living-code.css": "https://github.com/living-code-theme/css/blob/85b695f86bd553dc371945ab3c6bad761c0bba62/living-code.css"
+    },
+    "images": [],
     "guideImages": {}
   }
 }

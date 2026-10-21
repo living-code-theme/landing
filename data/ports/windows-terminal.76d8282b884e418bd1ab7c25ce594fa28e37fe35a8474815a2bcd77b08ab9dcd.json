@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "windows-terminal",
+    "name": "Windows Terminal",
+    "group": "Terminals",
+    "description": "Living Code for Windows Terminal. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://github.com/microsoft/terminal",
+    "quick": "See installation instructions",
+    "aliases": [
+      "windows-terminal"
+    ],
+    "icon": null,
+    "emoji": "🪟",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.json",
+      "living-code-night.json",
+      "living-code-paper.json",
+      "living-code-signal.json",
+      "living-code.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Run this in PowerShell. It saves a [JSON fragment](https://learn.microsoft.com/en-us/windows/terminal/json-fragment-extensions) that Windows Terminal loads by itself, so nothing in `settings.json` is edited:\n\n```powershell\n$d = \"$env:LOCALAPPDATA\\Microsoft\\Windows Terminal\\Fragments\\living-code\"; New-Item -ItemType Directory -Force $d | Out-Null; Invoke-WebRequest https://raw.githubusercontent.com/living-code-theme/windows-terminal/main/living-code.json -OutFile \"$d\\living-code.json\" -UseBasicParsing\n```\n\nRestart Windows Terminal. The four schemes appear in *Settings → Color schemes*; select one under a profile's *Appearance*, or set it in `settings.json`:\n\n```json\n\"colorScheme\": \"Living Code Night\"\n```\n\nFallback: paste the scheme objects from `living-code-*.json` into the `schemes` array of `settings.json`.",
+      "configuration": "See [Windows Terminal's documentation](https://github.com/microsoft/terminal) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for Windows Terminal, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/windows-terminal",
+    "repositoryName": "living-code-theme/windows-terminal",
+    "revision": "7dbe6b7f1b0feb416dedeb13c4eb0669eac70fcb",
+    "readmeUrl": "https://github.com/living-code-theme/windows-terminal/blob/7dbe6b7f1b0feb416dedeb13c4eb0669eac70fcb/README.md",
+    "fileUrls": {
+      "living-code-frost.json": "https://github.com/living-code-theme/windows-terminal/blob/7dbe6b7f1b0feb416dedeb13c4eb0669eac70fcb/living-code-frost.json",
+      "living-code-night.json": "https://github.com/living-code-theme/windows-terminal/blob/7dbe6b7f1b0feb416dedeb13c4eb0669eac70fcb/living-code-night.json",
+      "living-code-paper.json": "https://github.com/living-code-theme/windows-terminal/blob/7dbe6b7f1b0feb416dedeb13c4eb0669eac70fcb/living-code-paper.json",
+      "living-code-signal.json": "https://github.com/living-code-theme/windows-terminal/blob/7dbe6b7f1b0feb416dedeb13c4eb0669eac70fcb/living-code-signal.json",
+      "living-code.json": "https://github.com/living-code-theme/windows-terminal/blob/7dbe6b7f1b0feb416dedeb13c4eb0669eac70fcb/living-code.json"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

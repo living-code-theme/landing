@@ -4,17 +4,1012 @@
   "assets": {
     "base": "/port-images/",
     "files": {
+      "0420c441c06755d36b4d6a05af70030b07af83455ab0b4f1d3174a892ddfbd19.webp": 182532,
+      "07c6495387f49ccec67c97febcbbb832b596762882e9d677d5dcb2c3e6cfe0e3.webp": 150034,
+      "09bf4ea922991071e4d34528dd5b2ac929a4cfecd4a7275b5fe0ef8f1a6ee13b.webp": 158476,
+      "12b289f2b438d6ca50207195bc45b286f512475cbb4123ea6900315a3ec45c40.webp": 118080,
+      "153cbd92c4b426df537237265cbee5f04b5cd684d5ddfe006333d62bf0feae4b.webp": 139424,
+      "16ab7e19c531a9c9dc8a098752578b9f444db6406fbebf69420a7c983c71a338.webp": 148464,
+      "1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp": 136772,
+      "1a5b45683b946a3e81950600c85ef7b008a7b4fb7f9bc107e67546af21c0b6ff.webp": 86960,
+      "1c06462d91c5c50185ff678e34795c82346971616a01a99fa218d85041bd45a3.webp": 76482,
+      "1fd9aee9d3ae6485c11c8763b0352c4075ccb5eb924a0a4b549d6a6583f541a5.webp": 196204,
+      "231838869115c5bf3992ba595f6902775c932bf73029fc836adfe0785b6e4785.webp": 162338,
+      "254fc6bfa8294b78d9d04dac2c268ec67a6f8266f2370b86cb1db4c8c5c2ba63.webp": 118294,
+      "2a1168a12c55350e200a8b70a44c33701a1f75ccc36268bd5803e5eb7635f6bf.webp": 78426,
+      "2c26d2634a1e91627e9c430d8fe0f0513f0a0ea4d1151860d0050deb36767313.webp": 139678,
+      "2e86a91bca05961e7d9d77dc751a1797b8c16e02be86c6cf1a09346b3ee5a359.webp": 170974,
+      "35c0bbaae4b9f2157ac4da6b1b064b585b659bff3de2668ee83549e96023ba78.webp": 127056,
+      "366aa07b965f2cc902a44d3326495a0bae381bfda394d7c6b51c788cdb275611.webp": 69868,
+      "38f8956eea1b4e195be4b0c5c8a6920a34a57ce0641b8e35f1c2a47cccb2a8ec.webp": 165992,
+      "3a0e2905fc278d6d912545fbe9b8a581218957fd07f57a054fb09c6ae629a5cb.webp": 105846,
+      "3a445505cdc858b8de04c3f17d31e6022fdb1f1a213d88cd4b35d600155b87b7.webp": 118268,
+      "3c6ebe19b8177d2600eb9e7948426b5eb24f54cb013a8195d0407b75cc74b981.webp": 132860,
+      "3d7df01497f7588384da12a867bfa8cf19c1d3b10df0baca183bda04038a57a1.webp": 67736,
+      "3e23d321c596cbe5357a2b4bd474b159f631fc7508d7056a3cfdf9f61b30ae85.webp": 56604,
+      "3f0682959b657f8eb5e6cc9475170f0a50392d3f6ed6e83d29541f5f9ee83bb5.webp": 87744,
+      "40d305bc67b2718303a42a0d2d9759b14faf9a839f1672912fe42334a05b0063.webp": 121688,
+      "433130211385bbad0514e3388626d961d2b9ae30f37aba2b54e312dc25ae756b.webp": 133882,
+      "459b0df221f5c1150eb6c10531f2ad49bc6a3fbdc9285e19ec384dd7736ced28.webp": 162916,
+      "4898d74a27bd9fc5ac5e344be7ae7f7f04bae8dd5c224cbc407959487d88d243.webp": 50036,
+      "4afd32d5f89be5b50bef4e310f58a9a22a954b6d6901f439f7477f7347f3c598.webp": 149770,
+      "4ee94198af574574fb4fdf1a8ab9de2ba345d8b0b2fa87b7e9c3e8f291b8ea27.webp": 110570,
+      "4f54ba65980898cb563a5de7ac4a6383c801bb2212f795b32d63dd6e1ec85cac.webp": 77316,
+      "4ff87fb18ae62d487a788d316c19d1dc35d0cfd7b0102c4444b0b8d2aa8b15c6.webp": 64014,
+      "530ec19b7d7ede91cbc8171e2c8375a1f30b702fc7c52ab7ab2030492d07283b.webp": 59636,
+      "544651f874e496425c168981111f6182b9a9e6f20c3eefa54bc3b455f5549f2a.webp": 160396,
       "55176b102baa70ba1ea9dac1dc164cd6ff2d3453c7bdac80248e9407265981c0.webp": 139930,
+      "592cbdccdd4db18b7420bc1bb5149c4b163d8582856d2d07643ea98552d178a6.webp": 102776,
+      "59e95526b8b0026e79caf00c54f926c70dfd5f7e19cc4583db4fbfc45445c42b.webp": 143850,
+      "5a672b5a4c5089c071734c4794b92da3b2e93fa99548687693ffe3f6c650a0b1.webp": 76134,
       "5b5cfbe6b4193af2501962b8384aeabd51a49adf1ae11fe41d7a58eca9c3083b.webp": 153764,
+      "5cbc00f5d857805cc1bdfee6f379944d36f5bb3c0e481cdc3b8208aa565e2a26.webp": 161440,
+      "5eea1d52e5c56d1ae971e471e933bf9d7c59441f12bf02f70083e2ac9bb43890.webp": 147712,
+      "60eb84cc8ea74ed386c826fd38d386a0d64a9420d2bf04998ee530011a481d99.webp": 184202,
+      "613c8b06ae9014d47527075539c953d094dad6924f04d27ef0fdd01c08732d1c.webp": 69574,
+      "65b1d81535a0a51c46a7e62ed165d8595a5ee288c006546de55ab69e1fe8c404.webp": 168298,
       "6671a0b766f97e1f5be4c61147fe2a7adffaee9930c86a99882d9857a7072036.webp": 151492,
+      "6a91c9847cac368f87cb2ae29a3983556aeeadb6ad16d3cc554f4d443f3cf414.webp": 198400,
+      "6be02fe115ac71cf8786671d694e3a2773ff91adbcbded56aa924696f6335945.webp": 159462,
+      "6d457120f14ae1dccb74d888613882912c6ff735822d19004da41f36fd3f25c1.webp": 92498,
+      "6e00e2fe5f6c6515c0e4152beed62f1eaeb44babeb58efed14d2ea84164110f7.webp": 319702,
+      "6e31c4e9c6dce718ec7a2aaec3356b8011cd4519519a812bc9679ebf306541b2.webp": 165454,
       "70c68d997ddd51e57a30d3c764009105ea098f002409464d871d1c7c9d656735.webp": 155210,
+      "76e9ed5b07c3c0b9b11ecbd9fec0c1c7e89cfd03cf568cce537552bad4a4cd19.webp": 163550,
+      "7826a49fe26df1b73b45df76d227def1694bdc49ed76daa4e43171a35562cb1c.webp": 134428,
+      "7993be376f201524ca3ab103d765a2806ef9cc8c53d56f5645f3c5d03bd759f7.webp": 162866,
+      "7c26916e0d3910a3ec284ec8830c194b8578e631a9ad4edca3803f7cede4e407.webp": 56412,
+      "7f890f520c66bafced9cd350bef9a3da70f53af6d682cf984b4d864102f3fddb.webp": 308266,
+      "8875e6401ee21e98a202c41ae78582f091a8db027248e11d98038f16f962408d.webp": 175974,
+      "8930a0df835a0361f773b71f1228ddf88d8b02e5b11135b6885963260879882d.webp": 136106,
       "8c3f40eb662cfd4b698e027ae35339888bb4be9d418d05d4ec4f5a01fa0cd61b.webp": 161990,
+      "8ce91db6c80bd4efdd7b6446ac58bb062fa28457bc7b530293ac0add7a32f64a.webp": 127256,
+      "9396a3f41c44db3bfe966b06b4513830d3ef5a7d2f3a28844d4d8f719f634b68.webp": 158592,
+      "9509951b600c543967392fcc8fd28109add626c477a95fc872705ff658b7109f.webp": 76302,
+      "95aaee8efddae58f1f0f8b9f673e047fa833dac3505d413a68def079562a00a7.webp": 153222,
+      "985d590cac9387cb07a276296cc4593a70239ddfdca904489c8089b16d932f7d.webp": 158280,
+      "987301d5f5193d0afe0a366b4b7cb69d35351b82bfb34f0aaa8daf278b31fe56.webp": 80226,
+      "9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp": 127284,
+      "9e7f8d041d794319d81e1060a7d8b324b8ee480eea38e22f7727493b69f8d3b9.webp": 134020,
+      "a4e7152926695b3aa8fc4a2b78bdfa422479c7b26e2e98ea1080a03176c168cd.webp": 190266,
+      "a807da908421448b8430569b27102d7b10c7954c08850d666062fe44aa2745ae.webp": 162292,
+      "a9e4f0302af8dcd93dbdd42dfd8b793455f803d46d928eade52522be85610557.webp": 136694,
+      "ad7677fa714b4cf5b18f03bda3442d522861789b5d044383449aff80f9daef3f.webp": 54462,
+      "aed60615055760cd042da1dcd1c0e4f452fa39ed31732a99d4f24ea5a684a12a.webp": 150788,
+      "af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp": 125652,
+      "b046277cea3859ef004f7775ed3f017bd9051d00d826cb59f8d5dd694037a38a.webp": 153688,
+      "b2d1c7a67634352b48a1b8226629fa0a38c70d09ab14a51c86a91dbf2b95623b.webp": 47692,
+      "b429c2569d4ab2a39b5d2a3ceaa5a106af7821fac9b178102494e7a3623d2756.webp": 61516,
+      "b5a8f7401ccc1347dc46f4e6b23ad229c6c4b7880f6a968193b2ff72fd78e182.webp": 192968,
+      "b5ad6b58e511f89d5a49ccd90a2e852ed03b4976af562f5994099bdca34bd8af.webp": 137276,
+      "b82f3d3fc708a4e1aa9bf3508124977d9898d7ccc439b66cb1d9dbb6126d2126.webp": 54604,
+      "b9ba9ff34e61947d6fd902c37d368d4fda8948aa01186cd1bf1700ba3dec4039.webp": 73908,
+      "ba757cc993c7eb7ac524bc014e18c8cc7aa24b8ad4a7e41f10625597060bef2f.webp": 104714,
       "bc4f81623b635c01dfe4afd9470df79d7dce2e41231bae85bbef5cc2c9e8b9f1.webp": 145642,
+      "c2a457808fe62b9478f48ab3a0a0bcfff4fd2ec009a602f00c02ad7300631cb0.webp": 162588,
+      "c46cd100b0634b8d2a990c6a07c396e095244f91288d3d306f4abeacb20e6a91.webp": 128900,
+      "c938a8f60dd91b8bbeb8241942196e0195bf97837d4a95843cc96934094d2822.webp": 150386,
+      "cac1af3c9dd47a7ad5861e707330078667df4c0a98abc6ebb031249428ad2fa2.webp": 105042,
+      "cb801cabb79f1f1ab09c6cc204fa575b33e1f67511bc290da1c82b3b9949aaaf.webp": 159954,
+      "cd351dcdbe3dca4dd8c3207e24c37535cf33be263172b91e0322e12c74309fe9.webp": 150032,
+      "cf8bc5f86cdd60d1302b4489c91687ac8dc23cf428f520a1445dcfa58191d996.webp": 75454,
+      "d20ad5be772b1accec6cec12e5c1afa34ea764fe7894b1731891c7d891e0ee24.webp": 115080,
+      "d23a22f8d5cb1d666e8cee28e090ac0406a1c6d78c00294740ed362488f67000.webp": 319552,
+      "d7d96c09854279558a8ff4dca1c4d28b384c0f0c67f59a15f3d1348ceace3134.webp": 109808,
+      "dc0e4cc2bc66371aad6a4715cb7a36e8e3dbd48af7b0891cbdaff9b323220da5.webp": 129864,
+      "ddb49175f03dbd137896e5d33debdfc105831b2b3c52bed88c7fbfce45b0e1b5.webp": 150984,
+      "ddbc6f08f97a39b446793b24e2243daca4a198dac68501805eca35f9e5e43b97.webp": 162918,
+      "de0b25823efc4d8528acbbe65a59820b217c5ea692fc7e94a0964f58674bdeb5.webp": 138852,
+      "dfedbcb9fa1e0a2b3ae8eba5ee036fb959c2979d8270b795064d4bbdb2318fbf.webp": 313252,
       "e1fb4d9cd00fd52e06b00821eb97965e297890b2fe5254329326e7c1f0673cef.webp": 155038,
-      "ec12cfa04035c5ad547cc71d947dbe00573978b0814e98be925f1b8dadadd5dd.webp": 145736
+      "e20855f8a52ebaf98e0e9e35dde50f715589040bda9a445cadc03536477fd0f8.webp": 189114,
+      "e259763b05b5fe6a66fbb90856fc239e836bddc1b49b6606b34bf531ae3fcc96.webp": 46514,
+      "e699637ae35649ac394c4851535baad438999cbe0a4b6dbbed196158cba9a6cd.webp": 155790,
+      "e9cf6ef80592d96294535929989a13ed302f3ad823889dcb431bdeb652c5134c.webp": 165232,
+      "ec12cfa04035c5ad547cc71d947dbe00573978b0814e98be925f1b8dadadd5dd.webp": 145736,
+      "f1a3bdc89a6b1cbe3693f9847ea681d57dbb3867d844813bf7a4203edf028ac5.webp": 86382,
+      "fc56cd8452e85ec208ed28233d3890f0d9825df45ccb3c93364227945037b393.webp": 147624,
+      "fd6ef99ae3f1a06c174c98c7157b9975924c6332c45f9be48ea40744783b4c5c.webp": 63056
     }
   },
   "ports": [
+    {
+      "id": "obsidian",
+      "name": "Obsidian",
+      "group": "Apps",
+      "description": "Living Code for Obsidian. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://obsidian.md",
+      "quick": "See installation instructions",
+      "aliases": [
+        "obsidian"
+      ],
+      "icon": null,
+      "emoji": "💎",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Obsidian running Living Code Night",
+          "src": "/port-images/4f54ba65980898cb563a5de7ac4a6383c801bb2212f795b32d63dd6e1ec85cac.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Obsidian running Living Code Paper",
+          "src": "/port-images/1c06462d91c5c50185ff678e34795c82346971616a01a99fa218d85041bd45a3.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/obsidian",
+      "repositoryName": "living-code-theme/obsidian",
+      "revision": "ad8066730d97d1328896e160bfe91b59ccb292e3",
+      "readmeUrl": "https://github.com/living-code-theme/obsidian/blob/ad8066730d97d1328896e160bfe91b59ccb292e3/README.md",
+      "content": "ports/obsidian.cdffb9a5a9c78ca59b2bdda3809ce2124acb96716a21c644c401385fe96377b5.json"
+    },
+    {
+      "id": "slack",
+      "name": "Slack",
+      "group": "Apps",
+      "description": "Living Code for Slack. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://slack.com",
+      "quick": "See installation instructions",
+      "aliases": [
+        "slack"
+      ],
+      "icon": null,
+      "emoji": "💬",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/slack",
+      "repositoryName": "living-code-theme/slack",
+      "revision": "51fb0025c6ca105287ccee9444ddec1497770934",
+      "readmeUrl": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/README.md",
+      "content": "ports/slack.4e175c4da0324b8e93ba65dd164720c402cea66cba8984ac9320ac5be6fc4426.json"
+    },
+    {
+      "id": "chrome",
+      "name": "Chrome, Brave and Chromium",
+      "group": "Browsers",
+      "description": "Living Code for Chrome, Brave and Chromium. Repository-owned theme files, installation instructions and Night and Paper.",
+      "homepage": "https://chromewebstore.google.com/category/themes",
+      "quick": "See installation instructions",
+      "aliases": [
+        "chrome"
+      ],
+      "icon": null,
+      "emoji": "🌐",
+      "flavors": [
+        "night",
+        "paper"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Chrome, Brave and Chromium running Living Code Night",
+          "src": "/port-images/4898d74a27bd9fc5ac5e344be7ae7f7f04bae8dd5c224cbc407959487d88d243.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Chrome, Brave and Chromium running Living Code Paper",
+          "src": "/port-images/ad7677fa714b4cf5b18f03bda3442d522861789b5d044383449aff80f9daef3f.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/chrome",
+      "repositoryName": "living-code-theme/chrome",
+      "revision": "35253b1fbaf4fb32bee38b79949d28b942bea548",
+      "readmeUrl": "https://github.com/living-code-theme/chrome/blob/35253b1fbaf4fb32bee38b79949d28b942bea548/README.md",
+      "content": "ports/chrome.3afc81fe8b4e8d9201c29589227311bb8ea325c58774dd919e927793370c9736.json"
+    },
+    {
+      "id": "firefox",
+      "name": "Firefox",
+      "group": "Browsers",
+      "description": "Living Code for Firefox. Repository-owned theme files, installation instructions and Night and Paper.",
+      "homepage": "https://www.firefox.com",
+      "quick": "See installation instructions",
+      "aliases": [
+        "firefox"
+      ],
+      "icon": null,
+      "emoji": "🦊",
+      "flavors": [
+        "night",
+        "paper"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Firefox running Living Code Night",
+          "src": "/port-images/b2d1c7a67634352b48a1b8226629fa0a38c70d09ab14a51c86a91dbf2b95623b.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Firefox running Living Code Paper",
+          "src": "/port-images/e259763b05b5fe6a66fbb90856fc239e836bddc1b49b6606b34bf531ae3fcc96.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/firefox",
+      "repositoryName": "living-code-theme/firefox",
+      "revision": "0bed16a3d1633760ec0908faa8afe222c71cd190",
+      "readmeUrl": "https://github.com/living-code-theme/firefox/blob/0bed16a3d1633760ec0908faa8afe222c71cd190/README.md",
+      "content": "ports/firefox.d69406eed3ea52c0c032ef0847b070cb08172f68028018f0729914ad57e5572c.json"
+    },
+    {
+      "id": "btop",
+      "name": "btop",
+      "group": "CLI & TUI",
+      "description": "Living Code for btop. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/aristocratos/btop",
+      "quick": "See installation instructions",
+      "aliases": [
+        "btop"
+      ],
+      "icon": null,
+      "emoji": "📊",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "btop running Living Code Night",
+          "src": "/port-images/6a91c9847cac368f87cb2ae29a3983556aeeadb6ad16d3cc554f4d443f3cf414.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "btop running Living Code Frost",
+          "src": "/port-images/1fd9aee9d3ae6485c11c8763b0352c4075ccb5eb924a0a4b549d6a6583f541a5.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "btop running Living Code Paper",
+          "src": "/port-images/b5a8f7401ccc1347dc46f4e6b23ad229c6c4b7880f6a968193b2ff72fd78e182.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "btop running Living Code Signal",
+          "src": "/port-images/e20855f8a52ebaf98e0e9e35dde50f715589040bda9a445cadc03536477fd0f8.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/btop",
+      "repositoryName": "living-code-theme/btop",
+      "revision": "49db2b59b9ec418e77553564f6c1ab426c6247ff",
+      "readmeUrl": "https://github.com/living-code-theme/btop/blob/49db2b59b9ec418e77553564f6c1ab426c6247ff/README.md",
+      "content": "ports/btop.a3fbf8b7b3e40575ec7a4de0e370922a5f7e094b64e9bdde3ce08e4045118385.json"
+    },
+    {
+      "id": "delta",
+      "name": "delta",
+      "group": "CLI & TUI",
+      "description": "Living Code for delta. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/dandavison/delta",
+      "quick": "See installation instructions",
+      "aliases": [
+        "delta"
+      ],
+      "icon": null,
+      "emoji": "🔺",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "delta running Living Code Night",
+          "src": "/port-images/3a445505cdc858b8de04c3f17d31e6022fdb1f1a213d88cd4b35d600155b87b7.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "delta running Living Code Frost",
+          "src": "/port-images/4ee94198af574574fb4fdf1a8ab9de2ba345d8b0b2fa87b7e9c3e8f291b8ea27.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "delta running Living Code Paper",
+          "src": "/port-images/d20ad5be772b1accec6cec12e5c1afa34ea764fe7894b1731891c7d891e0ee24.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "delta running Living Code Signal",
+          "src": "/port-images/3a0e2905fc278d6d912545fbe9b8a581218957fd07f57a054fb09c6ae629a5cb.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/delta",
+      "repositoryName": "living-code-theme/delta",
+      "revision": "e80c3e1941aa26e19dcaeed5214c89704cbc8d1d",
+      "readmeUrl": "https://github.com/living-code-theme/delta/blob/e80c3e1941aa26e19dcaeed5214c89704cbc8d1d/README.md",
+      "content": "ports/delta.0bb17c870b71775aba3c6d41c323e7899f70ff811a48f80eec9a46d611d396b8.json"
+    },
+    {
+      "id": "eza",
+      "name": "eza",
+      "group": "CLI & TUI",
+      "description": "Living Code for eza. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://eza.rocks",
+      "quick": "See installation instructions",
+      "aliases": [
+        "eza"
+      ],
+      "icon": null,
+      "emoji": "📁",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "eza running Living Code Night",
+          "src": "/port-images/987301d5f5193d0afe0a366b4b7cb69d35351b82bfb34f0aaa8daf278b31fe56.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "eza running Living Code Frost",
+          "src": "/port-images/cf8bc5f86cdd60d1302b4489c91687ac8dc23cf428f520a1445dcfa58191d996.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "eza running Living Code Paper",
+          "src": "/port-images/9509951b600c543967392fcc8fd28109add626c477a95fc872705ff658b7109f.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "eza running Living Code Signal",
+          "src": "/port-images/613c8b06ae9014d47527075539c953d094dad6924f04d27ef0fdd01c08732d1c.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/eza",
+      "repositoryName": "living-code-theme/eza",
+      "revision": "9c0d9024fe17844126de6db69add56d0e7545b11",
+      "readmeUrl": "https://github.com/living-code-theme/eza/blob/9c0d9024fe17844126de6db69add56d0e7545b11/README.md",
+      "content": "ports/eza.f7b1d7f8981bb9caa65a307a3bf99495ea25e52c5c175c3253d5d2721c774bf7.json"
+    },
+    {
+      "id": "fish",
+      "name": "fish",
+      "group": "CLI & TUI",
+      "description": "Living Code for fish. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://fishshell.com",
+      "quick": "See installation instructions",
+      "aliases": [
+        "fish"
+      ],
+      "icon": null,
+      "emoji": "🐟",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "fish running Living Code Night",
+          "src": "/port-images/2a1168a12c55350e200a8b70a44c33701a1f75ccc36268bd5803e5eb7635f6bf.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "fish running Living Code Frost",
+          "src": "/port-images/b9ba9ff34e61947d6fd902c37d368d4fda8948aa01186cd1bf1700ba3dec4039.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "fish running Living Code Paper",
+          "src": "/port-images/5a672b5a4c5089c071734c4794b92da3b2e93fa99548687693ffe3f6c650a0b1.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "fish running Living Code Signal",
+          "src": "/port-images/366aa07b965f2cc902a44d3326495a0bae381bfda394d7c6b51c788cdb275611.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/fish",
+      "repositoryName": "living-code-theme/fish",
+      "revision": "de60d510793ee76785ef2f4c0356418aab332c66",
+      "readmeUrl": "https://github.com/living-code-theme/fish/blob/de60d510793ee76785ef2f4c0356418aab332c66/README.md",
+      "content": "ports/fish.a7ba74281e132ea15abb5e67942d47d8604ad3858be91d5a3abf0a7b7d054f34.json"
+    },
+    {
+      "id": "fzf",
+      "name": "fzf",
+      "group": "CLI & TUI",
+      "description": "Living Code for fzf. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/junegunn/fzf",
+      "quick": "See installation instructions",
+      "aliases": [
+        "fzf"
+      ],
+      "icon": null,
+      "emoji": "🔎",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "fzf running Living Code Night",
+          "src": "/port-images/6e00e2fe5f6c6515c0e4152beed62f1eaeb44babeb58efed14d2ea84164110f7.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "fzf running Living Code Frost",
+          "src": "/port-images/dfedbcb9fa1e0a2b3ae8eba5ee036fb959c2979d8270b795064d4bbdb2318fbf.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "fzf running Living Code Paper",
+          "src": "/port-images/7f890f520c66bafced9cd350bef9a3da70f53af6d682cf984b4d864102f3fddb.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "fzf running Living Code Signal",
+          "src": "/port-images/d23a22f8d5cb1d666e8cee28e090ac0406a1c6d78c00294740ed362488f67000.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/fzf",
+      "repositoryName": "living-code-theme/fzf",
+      "revision": "2303044c9252c8393d580635958ea1eee1e38d82",
+      "readmeUrl": "https://github.com/living-code-theme/fzf/blob/2303044c9252c8393d580635958ea1eee1e38d82/README.md",
+      "content": "ports/fzf.2129f877313ef5bbad2eb782f86846f5715f8583e2ba5ac07118c221558fc312.json"
+    },
+    {
+      "id": "hunk",
+      "name": "Hunk",
+      "group": "CLI & TUI",
+      "description": "Living Code for Hunk. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/modem-dev/hunk",
+      "quick": "See installation instructions",
+      "aliases": [
+        "hunk"
+      ],
+      "icon": null,
+      "emoji": "🪵",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Hunk running Living Code Night",
+          "src": "/port-images/5cbc00f5d857805cc1bdfee6f379944d36f5bb3c0e481cdc3b8208aa565e2a26.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Hunk running Living Code Frost",
+          "src": "/port-images/aed60615055760cd042da1dcd1c0e4f452fa39ed31732a99d4f24ea5a684a12a.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Hunk running Living Code Paper",
+          "src": "/port-images/e699637ae35649ac394c4851535baad438999cbe0a4b6dbbed196158cba9a6cd.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Hunk running Living Code Signal",
+          "src": "/port-images/c938a8f60dd91b8bbeb8241942196e0195bf97837d4a95843cc96934094d2822.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/hunk",
+      "repositoryName": "living-code-theme/hunk",
+      "revision": "48b71dc4f3a96a6699561c0349da5708fa2d3afa",
+      "readmeUrl": "https://github.com/living-code-theme/hunk/blob/48b71dc4f3a96a6699561c0349da5708fa2d3afa/README.md",
+      "content": "ports/hunk.993a44aa3732ebcb8657b968b23e52736a544f8810bb8f208dae0d58f9434501.json"
+    },
+    {
+      "id": "k9s",
+      "name": "k9s",
+      "group": "CLI & TUI",
+      "description": "Living Code for k9s. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://k9scli.io",
+      "quick": "See installation instructions",
+      "aliases": [
+        "k9s"
+      ],
+      "icon": null,
+      "emoji": "🐕",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "k9s running Living Code Night",
+          "src": "/port-images/3d7df01497f7588384da12a867bfa8cf19c1d3b10df0baca183bda04038a57a1.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "k9s running Living Code Frost",
+          "src": "/port-images/4ff87fb18ae62d487a788d316c19d1dc35d0cfd7b0102c4444b0b8d2aa8b15c6.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "k9s running Living Code Paper",
+          "src": "/port-images/fd6ef99ae3f1a06c174c98c7157b9975924c6332c45f9be48ea40744783b4c5c.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "k9s running Living Code Signal",
+          "src": "/port-images/b429c2569d4ab2a39b5d2a3ceaa5a106af7821fac9b178102494e7a3623d2756.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/k9s",
+      "repositoryName": "living-code-theme/k9s",
+      "revision": "635b7d8149ad4a6f93501be64d5d33c76eb671c9",
+      "readmeUrl": "https://github.com/living-code-theme/k9s/blob/635b7d8149ad4a6f93501be64d5d33c76eb671c9/README.md",
+      "content": "ports/k9s.bd864e21418f0e112b1bc12d2ae02ee218dc712af5b9fbc6ca46e074412be2e9.json"
+    },
+    {
+      "id": "lazygit",
+      "name": "lazygit",
+      "group": "CLI & TUI",
+      "description": "Living Code for lazygit. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/jesseduffield/lazygit",
+      "quick": "See installation instructions",
+      "aliases": [
+        "lazygit"
+      ],
+      "icon": null,
+      "emoji": "🌿",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "lazygit running Living Code Night",
+          "src": "/port-images/a4e7152926695b3aa8fc4a2b78bdfa422479c7b26e2e98ea1080a03176c168cd.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "lazygit running Living Code Frost",
+          "src": "/port-images/0420c441c06755d36b4d6a05af70030b07af83455ab0b4f1d3174a892ddfbd19.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "lazygit running Living Code Paper",
+          "src": "/port-images/60eb84cc8ea74ed386c826fd38d386a0d64a9420d2bf04998ee530011a481d99.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "lazygit running Living Code Signal",
+          "src": "/port-images/8875e6401ee21e98a202c41ae78582f091a8db027248e11d98038f16f962408d.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/lazygit",
+      "repositoryName": "living-code-theme/lazygit",
+      "revision": "413bea5e92aa74375646b5b3ddd4c29f4b4646bf",
+      "readmeUrl": "https://github.com/living-code-theme/lazygit/blob/413bea5e92aa74375646b5b3ddd4c29f4b4646bf/README.md",
+      "content": "ports/lazygit.e3beaebb9cf69a18ebdddf9cd623ffcd10a1f7b522031186a5190a13dac468c6.json"
+    },
+    {
+      "id": "starship",
+      "name": "Starship",
+      "group": "CLI & TUI",
+      "description": "Living Code for Starship. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://starship.rs",
+      "quick": "See installation instructions",
+      "aliases": [
+        "starship"
+      ],
+      "icon": null,
+      "emoji": "🌟",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Starship running Living Code Night",
+          "src": "/port-images/530ec19b7d7ede91cbc8171e2c8375a1f30b702fc7c52ab7ab2030492d07283b.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Starship running Living Code Frost",
+          "src": "/port-images/3e23d321c596cbe5357a2b4bd474b159f631fc7508d7056a3cfdf9f61b30ae85.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Starship running Living Code Paper",
+          "src": "/port-images/7c26916e0d3910a3ec284ec8830c194b8578e631a9ad4edca3803f7cede4e407.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Starship running Living Code Signal",
+          "src": "/port-images/b82f3d3fc708a4e1aa9bf3508124977d9898d7ccc439b66cb1d9dbb6126d2126.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/starship",
+      "repositoryName": "living-code-theme/starship",
+      "revision": "6e1558f56c674d7471303d6cb1810238cfc27005",
+      "readmeUrl": "https://github.com/living-code-theme/starship/blob/6e1558f56c674d7471303d6cb1810238cfc27005/README.md",
+      "content": "ports/starship.33c7b02a19ce7278a61229b706d2feb0bebc4bb7a189f695f923246f6348f90c.json"
+    },
+    {
+      "id": "tmux",
+      "name": "tmux",
+      "group": "CLI & TUI",
+      "description": "Living Code for tmux. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/tmux/tmux",
+      "quick": "See installation instructions",
+      "aliases": [
+        "tmux"
+      ],
+      "icon": null,
+      "emoji": "🧩",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "tmux running Living Code Night",
+          "src": "/port-images/6d457120f14ae1dccb74d888613882912c6ff735822d19004da41f36fd3f25c1.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "tmux running Living Code Frost",
+          "src": "/port-images/3f0682959b657f8eb5e6cc9475170f0a50392d3f6ed6e83d29541f5f9ee83bb5.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "tmux running Living Code Paper",
+          "src": "/port-images/1a5b45683b946a3e81950600c85ef7b008a7b4fb7f9bc107e67546af21c0b6ff.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "tmux running Living Code Signal",
+          "src": "/port-images/f1a3bdc89a6b1cbe3693f9847ea681d57dbb3867d844813bf7a4203edf028ac5.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/tmux",
+      "repositoryName": "living-code-theme/tmux",
+      "revision": "ecfa0abe2b7156207ca79a4703c9c76dc2e550d3",
+      "readmeUrl": "https://github.com/living-code-theme/tmux/blob/ecfa0abe2b7156207ca79a4703c9c76dc2e550d3/README.md",
+      "content": "ports/tmux.d4297c6f10a5e8f8d07f9fbe3d3fd4884a226bd22566981cbee40b845699a4de.json"
+    },
+    {
+      "id": "yazi",
+      "name": "yazi",
+      "group": "CLI & TUI",
+      "description": "Living Code for yazi. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://yazi-rs.github.io",
+      "quick": "See installation instructions",
+      "aliases": [
+        "yazi"
+      ],
+      "icon": null,
+      "emoji": "🦆",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "yazi running Living Code Night",
+          "src": "/port-images/35c0bbaae4b9f2157ac4da6b1b064b585b659bff3de2668ee83549e96023ba78.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "yazi running Living Code Frost",
+          "src": "/port-images/12b289f2b438d6ca50207195bc45b286f512475cbb4123ea6900315a3ec45c40.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "yazi running Living Code Paper",
+          "src": "/port-images/40d305bc67b2718303a42a0d2d9759b14faf9a839f1672912fe42334a05b0063.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "yazi running Living Code Signal",
+          "src": "/port-images/254fc6bfa8294b78d9d04dac2c268ec67a6f8266f2370b86cb1db4c8c5c2ba63.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/yazi",
+      "repositoryName": "living-code-theme/yazi",
+      "revision": "baea9aeced2c200917879cd93d028ceacbdcc2ae",
+      "readmeUrl": "https://github.com/living-code-theme/yazi/blob/baea9aeced2c200917879cd93d028ceacbdcc2ae/README.md",
+      "content": "ports/yazi.f34065f65047be37cc4046345ee22e4ba25e5984589614380466503a3c22c8f7.json"
+    },
+    {
+      "id": "zellij",
+      "name": "zellij",
+      "group": "CLI & TUI",
+      "description": "Living Code for zellij. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://zellij.dev",
+      "quick": "See installation instructions",
+      "aliases": [
+        "zellij"
+      ],
+      "icon": null,
+      "emoji": "🧱",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "zellij running Living Code Night",
+          "src": "/port-images/d7d96c09854279558a8ff4dca1c4d28b384c0f0c67f59a15f3d1348ceace3134.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "zellij running Living Code Frost",
+          "src": "/port-images/cac1af3c9dd47a7ad5861e707330078667df4c0a98abc6ebb031249428ad2fa2.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "zellij running Living Code Paper",
+          "src": "/port-images/ba757cc993c7eb7ac524bc014e18c8cc7aa24b8ad4a7e41f10625597060bef2f.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "zellij running Living Code Signal",
+          "src": "/port-images/592cbdccdd4db18b7420bc1bb5149c4b163d8582856d2d07643ea98552d178a6.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/zellij",
+      "repositoryName": "living-code-theme/zellij",
+      "revision": "fca6df4b205f8ca79b5f8ce2a4a9fe2c9a68d1e0",
+      "readmeUrl": "https://github.com/living-code-theme/zellij/blob/fca6df4b205f8ca79b5f8ce2a4a9fe2c9a68d1e0/README.md",
+      "content": "ports/zellij.620c7c19834516739bbace73350b791805fa5885d5ccad5ddb603c7b6b98989f.json"
+    },
+    {
+      "id": "helix",
+      "name": "Helix",
+      "group": "Editors",
+      "description": "Living Code for Helix. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://helix-editor.com",
+      "quick": "See installation instructions",
+      "aliases": [
+        "helix"
+      ],
+      "icon": null,
+      "emoji": "🧬",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Helix running Living Code Night",
+          "src": "/port-images/de0b25823efc4d8528acbbe65a59820b217c5ea692fc7e94a0964f58674bdeb5.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Helix running Living Code Frost",
+          "src": "/port-images/c46cd100b0634b8d2a990c6a07c396e095244f91288d3d306f4abeacb20e6a91.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Helix running Living Code Paper",
+          "src": "/port-images/9e7f8d041d794319d81e1060a7d8b324b8ee480eea38e22f7727493b69f8d3b9.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Helix running Living Code Signal",
+          "src": "/port-images/8ce91db6c80bd4efdd7b6446ac58bb062fa28457bc7b530293ac0add7a32f64a.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/helix",
+      "repositoryName": "living-code-theme/helix",
+      "revision": "31982f28bc1e9dec9d42e3a6f93640b6689f89c3",
+      "readmeUrl": "https://github.com/living-code-theme/helix/blob/31982f28bc1e9dec9d42e3a6f93640b6689f89c3/README.md",
+      "content": "ports/helix.0600b28221ce3be8e087f6a167ed8a64247c9b863049ba89a4d68ba634dba764.json"
+    },
+    {
+      "id": "jetbrains",
+      "name": "JetBrains IDEs",
+      "group": "Editors",
+      "description": "Living Code for JetBrains IDEs. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://www.jetbrains.com/ides/",
+      "quick": "See installation instructions",
+      "aliases": [
+        "jetbrains"
+      ],
+      "icon": null,
+      "emoji": "🧠",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "JetBrains IDEs running Living Code Night",
+          "src": "/port-images/231838869115c5bf3992ba595f6902775c932bf73029fc836adfe0785b6e4785.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "JetBrains IDEs running Living Code Frost",
+          "src": "/port-images/cb801cabb79f1f1ab09c6cc204fa575b33e1f67511bc290da1c82b3b9949aaaf.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "JetBrains IDEs running Living Code Paper",
+          "src": "/port-images/459b0df221f5c1150eb6c10531f2ad49bc6a3fbdc9285e19ec384dd7736ced28.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "JetBrains IDEs running Living Code Signal",
+          "src": "/port-images/a807da908421448b8430569b27102d7b10c7954c08850d666062fe44aa2745ae.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/jetbrains",
+      "repositoryName": "living-code-theme/jetbrains",
+      "revision": "c6e64dac1d4ffc960026e7f8028882121b0dfd4d",
+      "readmeUrl": "https://github.com/living-code-theme/jetbrains/blob/c6e64dac1d4ffc960026e7f8028882121b0dfd4d/README.md",
+      "content": "ports/jetbrains.0bab1ae1dbd3b7e19493ddcfe37ef6992c8ceb874298dd84e03923de3145e78c.json"
+    },
     {
       "id": "neovim",
       "name": "Neovim",
@@ -68,9 +1063,412 @@
       ],
       "repository": "https://github.com/living-code-theme/nvim",
       "repositoryName": "living-code-theme/nvim",
-      "revision": "489fdf3a29760587f62eea1d6079f6e778bb5ced",
-      "readmeUrl": "https://github.com/living-code-theme/nvim/blob/489fdf3a29760587f62eea1d6079f6e778bb5ced/README.md",
-      "content": "ports/neovim.76d1d19d35f1bd2085fc3c406715ed9d02c15a689fd1c6cfc9ee2434ba00753d.json"
+      "revision": "aa422b9c9827a2c2382d5e4b9460a9a862e87ec7",
+      "readmeUrl": "https://github.com/living-code-theme/nvim/blob/aa422b9c9827a2c2382d5e4b9460a9a862e87ec7/README.md",
+      "content": "ports/neovim.5fe3af6253921180767d45918106966b0c50598bdc983fab20deccc9554f8daf.json"
+    },
+    {
+      "id": "sublime",
+      "name": "Sublime Text",
+      "group": "Editors",
+      "description": "Living Code for Sublime Text. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://www.sublimetext.com",
+      "quick": "See installation instructions",
+      "aliases": [
+        "sublime"
+      ],
+      "icon": null,
+      "emoji": "🌅",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Sublime Text running Living Code Night",
+          "src": "/port-images/a9e4f0302af8dcd93dbdd42dfd8b793455f803d46d928eade52522be85610557.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Sublime Text running Living Code Frost",
+          "src": "/port-images/7826a49fe26df1b73b45df76d227def1694bdc49ed76daa4e43171a35562cb1c.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Sublime Text running Living Code Paper",
+          "src": "/port-images/2c26d2634a1e91627e9c430d8fe0f0513f0a0ea4d1151860d0050deb36767313.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Sublime Text running Living Code Signal",
+          "src": "/port-images/8930a0df835a0361f773b71f1228ddf88d8b02e5b11135b6885963260879882d.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/sublime",
+      "repositoryName": "living-code-theme/sublime",
+      "revision": "90df922f1695162fd1d6fc97ce259773c1f82dd1",
+      "readmeUrl": "https://github.com/living-code-theme/sublime/blob/90df922f1695162fd1d6fc97ce259773c1f82dd1/README.md",
+      "content": "ports/sublime.0e43bb2cfb4cf1ceee17f8d7eaa3b6f703fc9dfe56ae325b06c22cda7e688ff5.json"
+    },
+    {
+      "id": "tmtheme",
+      "name": "bat · delta (tmTheme)",
+      "group": "Editors",
+      "description": "Living Code for bat · delta (tmTheme). Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/sharkdp/bat",
+      "quick": "See installation instructions",
+      "aliases": [
+        "tmtheme"
+      ],
+      "icon": null,
+      "emoji": "🦇",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "bat · delta (tmTheme) running Living Code Night",
+          "src": "/port-images/1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "bat · delta (tmTheme) running Living Code Frost",
+          "src": "/port-images/9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "bat · delta (tmTheme) running Living Code Paper",
+          "src": "/port-images/dc0e4cc2bc66371aad6a4715cb7a36e8e3dbd48af7b0891cbdaff9b323220da5.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "bat · delta (tmTheme) running Living Code Signal",
+          "src": "/port-images/af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/tmtheme",
+      "repositoryName": "living-code-theme/tmtheme",
+      "revision": "9abde64f0111a25fc06dcaf1a2d5b0f60e210faf",
+      "readmeUrl": "https://github.com/living-code-theme/tmtheme/blob/9abde64f0111a25fc06dcaf1a2d5b0f60e210faf/README.md",
+      "content": "ports/tmtheme.4bd4f66e70432bef90642982d6092a1e8e46291b6907d028166ebdec83cfd1b4.json"
+    },
+    {
+      "id": "vscode",
+      "name": "VS Code",
+      "group": "Editors",
+      "description": "Living Code for VS Code. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://code.visualstudio.com",
+      "quick": "See installation instructions",
+      "aliases": [
+        "vscode"
+      ],
+      "icon": null,
+      "emoji": "💻",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "VS Code running Living Code Night",
+          "src": "/port-images/153cbd92c4b426df537237265cbee5f04b5cd684d5ddfe006333d62bf0feae4b.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "VS Code running Living Code Frost",
+          "src": "/port-images/433130211385bbad0514e3388626d961d2b9ae30f37aba2b54e312dc25ae756b.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "VS Code running Living Code Paper",
+          "src": "/port-images/b5ad6b58e511f89d5a49ccd90a2e852ed03b4976af562f5994099bdca34bd8af.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "VS Code running Living Code Signal",
+          "src": "/port-images/3c6ebe19b8177d2600eb9e7948426b5eb24f54cb013a8195d0407b75cc74b981.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/vscode",
+      "repositoryName": "living-code-theme/vscode",
+      "revision": "df402f9009095648a430d4e08ddb1e7783e47ea0",
+      "readmeUrl": "https://github.com/living-code-theme/vscode/blob/df402f9009095648a430d4e08ddb1e7783e47ea0/README.md",
+      "content": "ports/vscode.5a094129092b80125403059ef8e9df41f9d6c3304f3d6298f80655393e7d5d3d.json"
+    },
+    {
+      "id": "zed",
+      "name": "Zed",
+      "group": "Editors",
+      "description": "Living Code for Zed. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://zed.dev",
+      "quick": "See installation instructions",
+      "aliases": [
+        "zed"
+      ],
+      "icon": null,
+      "emoji": "⚡",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Zed running Living Code Night",
+          "src": "/port-images/ddb49175f03dbd137896e5d33debdfc105831b2b3c52bed88c7fbfce45b0e1b5.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Zed running Living Code Frost",
+          "src": "/port-images/fc56cd8452e85ec208ed28233d3890f0d9825df45ccb3c93364227945037b393.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Zed running Living Code Paper",
+          "src": "/port-images/07c6495387f49ccec67c97febcbbb832b596762882e9d677d5dcb2c3e6cfe0e3.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Zed running Living Code Signal",
+          "src": "/port-images/5eea1d52e5c56d1ae971e471e933bf9d7c59441f12bf02f70083e2ac9bb43890.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/zed",
+      "repositoryName": "living-code-theme/zed",
+      "revision": "51945f849c61c30275d1ae00310e5067f86808dc",
+      "readmeUrl": "https://github.com/living-code-theme/zed/blob/51945f849c61c30275d1ae00310e5067f86808dc/README.md",
+      "content": "ports/zed.d1ebf5312e83bdc8dec2dce61167e50084a0a2ea5a0cb9b576e2b3d1b59fd56f.json"
+    },
+    {
+      "id": "alacritty",
+      "name": "Alacritty",
+      "group": "Terminals",
+      "description": "Living Code for Alacritty. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://alacritty.org",
+      "quick": "See installation instructions",
+      "aliases": [
+        "alacritty"
+      ],
+      "icon": null,
+      "emoji": "🚀",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Alacritty running Living Code Night",
+          "src": "/port-images/6e31c4e9c6dce718ec7a2aaec3356b8011cd4519519a812bc9679ebf306541b2.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Alacritty running Living Code Frost",
+          "src": "/port-images/9396a3f41c44db3bfe966b06b4513830d3ef5a7d2f3a28844d4d8f719f634b68.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Alacritty running Living Code Paper",
+          "src": "/port-images/7993be376f201524ca3ab103d765a2806ef9cc8c53d56f5645f3c5d03bd759f7.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Alacritty running Living Code Signal",
+          "src": "/port-images/cd351dcdbe3dca4dd8c3207e24c37535cf33be263172b91e0322e12c74309fe9.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/alacritty",
+      "repositoryName": "living-code-theme/alacritty",
+      "revision": "0e05666a67f55b1cfd763ccc0c6c905c5c3a14f7",
+      "readmeUrl": "https://github.com/living-code-theme/alacritty/blob/0e05666a67f55b1cfd763ccc0c6c905c5c3a14f7/README.md",
+      "content": "ports/alacritty.b44c4f310afb2a20ab55a49a67a86bdf06d5b3658c715d8c10f5a116e84117f2.json"
+    },
+    {
+      "id": "foot",
+      "name": "foot",
+      "group": "Terminals",
+      "description": "Living Code for foot. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://codeberg.org/dnkl/foot",
+      "quick": "See installation instructions",
+      "aliases": [
+        "foot"
+      ],
+      "icon": null,
+      "emoji": "🦶",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "foot running Living Code Night",
+          "src": "/port-images/e9cf6ef80592d96294535929989a13ed302f3ad823889dcb431bdeb652c5134c.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "foot running Living Code Frost",
+          "src": "/port-images/985d590cac9387cb07a276296cc4593a70239ddfdca904489c8089b16d932f7d.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "foot running Living Code Paper",
+          "src": "/port-images/ddbc6f08f97a39b446793b24e2243daca4a198dac68501805eca35f9e5e43b97.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "foot running Living Code Signal",
+          "src": "/port-images/4afd32d5f89be5b50bef4e310f58a9a22a954b6d6901f439f7477f7347f3c598.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/foot",
+      "repositoryName": "living-code-theme/foot",
+      "revision": "189dff33641966d8ca80746ebfcdeb5bad15a945",
+      "readmeUrl": "https://github.com/living-code-theme/foot/blob/189dff33641966d8ca80746ebfcdeb5bad15a945/README.md",
+      "content": "ports/foot.87088897a4120673bdb1ff682828c392f96417751744ce316c760d10af87c1a2.json"
+    },
+    {
+      "id": "ghostty",
+      "name": "Ghostty",
+      "group": "Terminals",
+      "description": "Living Code for Ghostty. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://ghostty.org",
+      "quick": "See installation instructions",
+      "aliases": [
+        "ghostty"
+      ],
+      "icon": null,
+      "emoji": "👻",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Ghostty running Living Code Night",
+          "src": "/port-images/38f8956eea1b4e195be4b0c5c8a6920a34a57ce0641b8e35f1c2a47cccb2a8ec.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Ghostty running Living Code Frost",
+          "src": "/port-images/6be02fe115ac71cf8786671d694e3a2773ff91adbcbded56aa924696f6335945.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Ghostty running Living Code Paper",
+          "src": "/port-images/c2a457808fe62b9478f48ab3a0a0bcfff4fd2ec009a602f00c02ad7300631cb0.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Ghostty running Living Code Signal",
+          "src": "/port-images/16ab7e19c531a9c9dc8a098752578b9f444db6406fbebf69420a7c983c71a338.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/ghostty",
+      "repositoryName": "living-code-theme/ghostty",
+      "revision": "4ecad95a01f4a1cc15b0dbfd2e6ff00be2d808e5",
+      "readmeUrl": "https://github.com/living-code-theme/ghostty/blob/4ecad95a01f4a1cc15b0dbfd2e6ff00be2d808e5/README.md",
+      "content": "ports/ghostty.92ce8c3f0c635fd8023aa43247d866fc0be7a63ab3d8fc43ad87eaa659a029ee.json"
+    },
+    {
+      "id": "iterm2",
+      "name": "iTerm2",
+      "group": "Terminals",
+      "description": "Living Code for iTerm2. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://iterm2.com",
+      "quick": "See installation instructions",
+      "aliases": [
+        "iterm2"
+      ],
+      "icon": null,
+      "emoji": "🍎",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/iterm2",
+      "repositoryName": "living-code-theme/iterm2",
+      "revision": "f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2",
+      "readmeUrl": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/README.md",
+      "content": "ports/iterm2.7c31b3d3751319976ee1d2daa0d87996d6a31f0115e79aa93beb88722f5de635.json"
     },
     {
       "id": "kitty",
@@ -124,9 +1522,192 @@
       ],
       "repository": "https://github.com/living-code-theme/kitty",
       "repositoryName": "living-code-theme/kitty",
-      "revision": "ad69f77c7872b752bbc1ffe59d28328f58b3befe",
-      "readmeUrl": "https://github.com/living-code-theme/kitty/blob/ad69f77c7872b752bbc1ffe59d28328f58b3befe/README.md",
-      "content": "ports/kitty.6436b8ff5de2ecdc7bd54a47376a9f82466abd685b018a4e57a16dd0e86702e3.json"
+      "revision": "38374f799d70b55dd14ea098abc3391f35fef4cc",
+      "readmeUrl": "https://github.com/living-code-theme/kitty/blob/38374f799d70b55dd14ea098abc3391f35fef4cc/README.md",
+      "content": "ports/kitty.2ee09b8a8b328b88ca624141802081db7b62818db9019b96688c821c5acf93a6.json"
+    },
+    {
+      "id": "konsole",
+      "name": "Konsole",
+      "group": "Terminals",
+      "description": "Living Code for Konsole. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://konsole.kde.org",
+      "quick": "See installation instructions",
+      "aliases": [
+        "konsole"
+      ],
+      "icon": null,
+      "emoji": "🖥️",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Konsole running Living Code Night",
+          "src": "/port-images/544651f874e496425c168981111f6182b9a9e6f20c3eefa54bc3b455f5549f2a.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Konsole running Living Code Frost",
+          "src": "/port-images/b046277cea3859ef004f7775ed3f017bd9051d00d826cb59f8d5dd694037a38a.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Konsole running Living Code Paper",
+          "src": "/port-images/09bf4ea922991071e4d34528dd5b2ac929a4cfecd4a7275b5fe0ef8f1a6ee13b.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Konsole running Living Code Signal",
+          "src": "/port-images/59e95526b8b0026e79caf00c54f926c70dfd5f7e19cc4583db4fbfc45445c42b.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/konsole",
+      "repositoryName": "living-code-theme/konsole",
+      "revision": "6093f7f2959870f3d795018688e94c23a5cc0f0c",
+      "readmeUrl": "https://github.com/living-code-theme/konsole/blob/6093f7f2959870f3d795018688e94c23a5cc0f0c/README.md",
+      "content": "ports/konsole.6107e2b552419076c86dc5a69a2b9610bdbf62bbdff9cd51142bcdda05157ee8.json"
+    },
+    {
+      "id": "warp",
+      "name": "Warp",
+      "group": "Terminals",
+      "description": "Living Code for Warp. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://www.warp.dev",
+      "quick": "See installation instructions",
+      "aliases": [
+        "warp"
+      ],
+      "icon": null,
+      "emoji": "🌀",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/warp",
+      "repositoryName": "living-code-theme/warp",
+      "revision": "bf7c6854f852fcc37bb53e20eca9148abfac0769",
+      "readmeUrl": "https://github.com/living-code-theme/warp/blob/bf7c6854f852fcc37bb53e20eca9148abfac0769/README.md",
+      "content": "ports/warp.759ebd0566edee193604a4d2d55bb3109f48697288c12d0b068b94f53786fa7d.json"
+    },
+    {
+      "id": "wezterm",
+      "name": "WezTerm",
+      "group": "Terminals",
+      "description": "Living Code for WezTerm. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://wezterm.org",
+      "quick": "See installation instructions",
+      "aliases": [
+        "wezterm"
+      ],
+      "icon": null,
+      "emoji": "🧵",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "WezTerm running Living Code Night",
+          "src": "/port-images/2e86a91bca05961e7d9d77dc751a1797b8c16e02be86c6cf1a09346b3ee5a359.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "WezTerm running Living Code Frost",
+          "src": "/port-images/76e9ed5b07c3c0b9b11ecbd9fec0c1c7e89cfd03cf568cce537552bad4a4cd19.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "WezTerm running Living Code Paper",
+          "src": "/port-images/65b1d81535a0a51c46a7e62ed165d8595a5ee288c006546de55ab69e1fe8c404.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "WezTerm running Living Code Signal",
+          "src": "/port-images/95aaee8efddae58f1f0f8b9f673e047fa833dac3505d413a68def079562a00a7.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/wezterm",
+      "repositoryName": "living-code-theme/wezterm",
+      "revision": "7bc37873bdad05d0bfc5a2dc7caf5b4dfc129976",
+      "readmeUrl": "https://github.com/living-code-theme/wezterm/blob/7bc37873bdad05d0bfc5a2dc7caf5b4dfc129976/README.md",
+      "content": "ports/wezterm.d2140359b7ec6205de2089a1c263959bb91583c8b5492c2c11e981655fbd4d96.json"
+    },
+    {
+      "id": "windows-terminal",
+      "name": "Windows Terminal",
+      "group": "Terminals",
+      "description": "Living Code for Windows Terminal. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/microsoft/terminal",
+      "quick": "See installation instructions",
+      "aliases": [
+        "windows-terminal"
+      ],
+      "icon": null,
+      "emoji": "🪟",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/windows-terminal",
+      "repositoryName": "living-code-theme/windows-terminal",
+      "revision": "7dbe6b7f1b0feb416dedeb13c4eb0669eac70fcb",
+      "readmeUrl": "https://github.com/living-code-theme/windows-terminal/blob/7dbe6b7f1b0feb416dedeb13c4eb0669eac70fcb/README.md",
+      "content": "ports/windows-terminal.76d8282b884e418bd1ab7c25ce594fa28e37fe35a8474815a2bcd77b08ab9dcd.json"
+    },
+    {
+      "id": "base16",
+      "name": "base16 · Stylix · tinted-theming",
+      "group": "Theme systems",
+      "description": "Living Code for base16 · Stylix · tinted-theming. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/tinted-theming/home",
+      "quick": "See installation instructions",
+      "aliases": [
+        "base16"
+      ],
+      "icon": null,
+      "emoji": "🎛️",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/base16",
+      "repositoryName": "living-code-theme/base16",
+      "revision": "c874e9a64c0941928a2d40764936a39d1d473175",
+      "readmeUrl": "https://github.com/living-code-theme/base16/blob/c874e9a64c0941928a2d40764936a39d1d473175/README.md",
+      "content": "ports/base16.89907fde06e2056ab7672363b48037a4222121f203fa2ff7a4dbf7762b0c329b.json"
     },
     {
       "id": "css",
@@ -149,9 +1730,84 @@
       "images": [],
       "repository": "https://github.com/living-code-theme/css",
       "repositoryName": "living-code-theme/css",
-      "revision": "ceb8d6e0fe3b087aaff16dc44a5ac111526a1172",
-      "readmeUrl": "https://github.com/living-code-theme/css/blob/ceb8d6e0fe3b087aaff16dc44a5ac111526a1172/README.md",
-      "content": "ports/css.f5e4f4317e935c9c9243e1dd2f65969d2426f0953260e5ec8672abbb836f2b62.json"
+      "revision": "85b695f86bd553dc371945ab3c6bad761c0bba62",
+      "readmeUrl": "https://github.com/living-code-theme/css/blob/85b695f86bd553dc371945ab3c6bad761c0bba62/README.md",
+      "content": "ports/css.445393219f0d8eea0b09e810d45b66e31c1e168d750d4931b74b08cd3ae554d3.json"
+    },
+    {
+      "id": "expressive-code",
+      "name": "Expressive Code",
+      "group": "Web & code",
+      "description": "Living Code for Expressive Code. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://expressive-code.com",
+      "quick": "Install @living-code/expressive-code",
+      "aliases": [
+        "expressive-code"
+      ],
+      "icon": null,
+      "emoji": "📜",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/expressive-code",
+      "repositoryName": "living-code-theme/expressive-code",
+      "revision": "55e62a771c0b72527267aeff79cc0cead61070b7",
+      "readmeUrl": "https://github.com/living-code-theme/expressive-code/blob/55e62a771c0b72527267aeff79cc0cead61070b7/README.md",
+      "content": "ports/expressive-code.51a3425dcc3d928549dbbf7facfc7a7a2442cc1328924521ebc3c88bc3da2abc.json"
+    },
+    {
+      "id": "json",
+      "name": "JSON / JavaScript",
+      "group": "Web & code",
+      "description": "Living Code for JSON / JavaScript. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://github.com/living-code-theme/palette",
+      "quick": "Install @living-code/palette",
+      "aliases": [
+        "palette"
+      ],
+      "icon": null,
+      "emoji": "🧾",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/palette",
+      "repositoryName": "living-code-theme/palette",
+      "revision": "ba2dde6409016fa1666409caa9211402b8062ccd",
+      "readmeUrl": "https://github.com/living-code-theme/palette/blob/ba2dde6409016fa1666409caa9211402b8062ccd/README.md",
+      "content": "ports/json.bfdebd1d2b816a2791d19e4e0107f5e85cd5613e5475925aef89f8d35a1120a4.json"
+    },
+    {
+      "id": "tailwind",
+      "name": "Tailwind CSS v4",
+      "group": "Web & code",
+      "description": "Living Code for Tailwind CSS v4. Repository-owned theme files, installation instructions and four color flavors.",
+      "homepage": "https://tailwindcss.com",
+      "quick": "Install @living-code/tailwind",
+      "aliases": [
+        "tailwind"
+      ],
+      "icon": null,
+      "emoji": "🌬️",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/tailwind",
+      "repositoryName": "living-code-theme/tailwind",
+      "revision": "b4d9c7a415d016a179c25519194f50c9fe53b1e2",
+      "readmeUrl": "https://github.com/living-code-theme/tailwind/blob/b4d9c7a415d016a179c25519194f50c9fe53b1e2/README.md",
+      "content": "ports/tailwind.a9003abccee78c09ec505285d2bed1a06a31052ab5369812067c9053ac63582f.json"
     }
   ]
 }

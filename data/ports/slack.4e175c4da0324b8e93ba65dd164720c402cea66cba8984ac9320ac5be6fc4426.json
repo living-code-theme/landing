@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "slack",
+    "name": "Slack",
+    "group": "Apps",
+    "description": "Living Code for Slack. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://slack.com",
+    "quick": "See installation instructions",
+    "aliases": [
+      "slack"
+    ],
+    "icon": null,
+    "emoji": "💬",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.txt",
+      "living-code-night.txt",
+      "living-code-paper.txt",
+      "living-code-signal.txt"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Open your profile picture menu → *Preferences → Appearance → Custom theme*, click *Import theme* next to *Theme Colors*, choose *Paste your legacy theme colors*, paste one of these strings and click *Apply*:\n\n- **Night**: `#020405,#12171a,#00a692,#05080b,#12171a,#e2e9ee,#8acb83,#e96560`\n- **Frost**: `#050a0f,#171e24,#43a997,#0a1016,#171e24,#e2e9ee,#a2cb9d,#333c43`\n- **Paper**: `#e0e5e9,#e3e9ed,#187d6e,#f4f7f9,#e3e9ed,#12171a,#3b7a35,#a74541`\n- **Signal**: `#020405,#12171a,#00a692,#05080b,#12171a,#e2e9ee,#c8cfd4,#00a692`\n\nThe eight colors are: column background, menu background hover, active item, active item text, hover item, text color, active presence, mention badge. Slack colors only its own interface, not code. These strings follow Slack's [help article](https://slack.com/help/articles/205166337-Change-your-Slack-theme) and have not been tested in a Slack client.",
+      "configuration": "See [Slack's documentation](https://slack.com) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "Uses Slack's legacy eight-color custom-theme import. It colors Slack's interface, not code. The strings have not been tested in a Slack client.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/slack",
+    "repositoryName": "living-code-theme/slack",
+    "revision": "51fb0025c6ca105287ccee9444ddec1497770934",
+    "readmeUrl": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/README.md",
+    "fileUrls": {
+      "living-code-frost.txt": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/living-code-frost.txt",
+      "living-code-night.txt": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/living-code-night.txt",
+      "living-code-paper.txt": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/living-code-paper.txt",
+      "living-code-signal.txt": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/living-code-signal.txt"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

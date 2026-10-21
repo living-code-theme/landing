@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "iterm2",
+    "name": "iTerm2",
+    "group": "Terminals",
+    "description": "Living Code for iTerm2. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://iterm2.com",
+    "quick": "See installation instructions",
+    "aliases": [
+      "iterm2"
+    ],
+    "icon": null,
+    "emoji": "🍎",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "Living-Code-Frost.itermcolors",
+      "Living-Code-Night.itermcolors",
+      "Living-Code-Paper.itermcolors",
+      "Living-Code-Signal.itermcolors"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Download a preset and `open` it; iTerm2 imports it and names the preset after the file. The command saves the files with spaces so the presets read *Living Code Night*, *Living Code Frost*, *Living Code Paper* and *Living Code Signal*:\n\n```sh\ncurl -fsSL -o \"$HOME/Downloads/Living Code #1.itermcolors\" \"https://raw.githubusercontent.com/living-code-theme/iterm2/main/Living-Code-{Night,Frost,Paper,Signal}.itermcolors\" && open \"$HOME\"/Downloads/Living\\ Code\\ *.itermcolors\n```\n\nThen pick one under *Settings → Profiles → Colors → Color Presets*. Fallback: in that same menu choose *Import...* and select the downloaded files.",
+      "configuration": "See [iTerm2's documentation](https://iterm2.com) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for iTerm2, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/iterm2",
+    "repositoryName": "living-code-theme/iterm2",
+    "revision": "f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2",
+    "readmeUrl": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/README.md",
+    "fileUrls": {
+      "Living-Code-Frost.itermcolors": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/Living-Code-Frost.itermcolors",
+      "Living-Code-Night.itermcolors": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/Living-Code-Night.itermcolors",
+      "Living-Code-Paper.itermcolors": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/Living-Code-Paper.itermcolors",
+      "Living-Code-Signal.itermcolors": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/Living-Code-Signal.itermcolors"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}
