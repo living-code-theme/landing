@@ -31,7 +31,8 @@
 //   While the glyphs rest on an anchor that scrolls with the page, the canvas is laid in the page instead, taller
 //   than the screen, and scrolls with it as the page's own content does; their positions then do not depend on the
 //   scroll at all. Only as the screen nears one of its ends is it moved on (and redrawn, in the same frame). Shapes
-//   that belong to the screen (the faint field) or to something pinned to it keep a canvas fixed to the screen.
+//   that belong to the screen (the faint field) or to something pinned to it (a sticky stage, while it is stuck)
+//   keep a canvas fixed to the screen.
 //   The canvas keeps its size when a phone's toolbars come and go, so scrolling never reallocates or clears it.
 import { COLORS, colorIndex, field, icon, lettering, mark, portSpiral, story, wheel, type Shape } from "./shapes";
 import { chameleon } from "./chameleon";
@@ -300,12 +301,20 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
   // changes size, and once a second in case something moved without either. Frames only read the measurements.
 
   let anchors: HTMLElement[] = [];
-  const rects = new Map<HTMLElement, DOMRect>();
+  const rects = new Map<HTMLElement, DOMRect>(), stuck = new Map<HTMLElement, boolean>();
   // The scroll the rectangles were measured at, and the page's height (its content's, never the canvas's).
   let stale = true, measuredAt = 0, measuredScroll = 0, pageH = 0;
   const measure = () => {
     rects.clear();
-    for (const el of anchors) if (el.isConnected) rects.set(el, el.getBoundingClientRect());
+    stuck.clear();
+    for (const el of anchors) {
+      if (!el.isConnected) continue;
+      rects.set(el, el.getBoundingClientRect());
+      // Inside a sticky stage, whether the stage is stuck to the screen right now, or still scrolling with the
+      // page on its way in or out.
+      const h = holderOf(el);
+      if (h) stuck.set(el, h.fixed || Math.abs(h.el.getBoundingClientRect().top - h.top) < 1);
+    }
     measuredScroll = scrollY;
     pageH = (document.body.getBoundingClientRect?.().bottom ?? 0) + scrollY;
     stale = false;
@@ -331,20 +340,22 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
   // it scrolls with the page. Every position the glyphs are drawn at is in the canvas's own pixels.
   let frameMode: "screen" | "page" = "screen", base = 0;
   const canvasTop = () => (frameMode === "screen" ? 0 : base - scrollY);
-  // Anchors inside something pinned to the screen (a sticky stage) stay put on it as the page scrolls.
-  let pinnedCache = new WeakMap<HTMLElement, boolean>();
-  const pinned = (el: HTMLElement) => {
-    let v = pinnedCache.get(el);
-    if (v === undefined) {
-      v = false;
-      for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
-        const at = getComputedStyle(p).position;
-        if (at === "sticky" || at === "fixed") { v = true; break; }
-      }
-      pinnedCache.set(el, v);
+  // Anchors inside something pinned to the screen stay put on it as the page scrolls: always, inside something
+  // fixed; inside a sticky stage only while it is stuck (at its `top`), not while it scrolls in or out.
+  type Holder = { el: HTMLElement; fixed: boolean; top: number } | null;
+  let holders = new WeakMap<HTMLElement, Holder>();
+  const holderOf = (el: HTMLElement): Holder => {
+    if (holders.has(el)) return holders.get(el)!;
+    let h: Holder = null;
+    for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+      const cs = getComputedStyle(p);
+      if (cs.position === "fixed") { h = { el: p, fixed: true, top: 0 }; break; }
+      if (cs.position === "sticky") { h = { el: p, fixed: false, top: parseFloat(cs.top) || 0 }; break; }
     }
-    return v;
+    holders.set(el, h);
+    return h;
   };
+  const pinned = (el: HTMLElement) => stuck.get(el) ?? false;
   const pointer = { x: -1e4, y: -1e4, attention: 0, goal: 0, at: 0 };
   const bursts = new Float32Array(16);
   let nextBurst = 0, burstAt = -10;
@@ -468,7 +479,9 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
 
   // The shape the glyphs are resting in, or null while they fly.
   const resting = () => {
-    if (pair) return progress >= 1 ? target.key : progress <= 0 ? pair.key : null;
+    // A scrubbed flight that has all but arrived counts as there (the easing has long gone flat), so the next pass of
+    // a quick scroll picks up at once instead of waiting for the last of it to settle and then rushing to catch up.
+    if (pair) return progress >= 0.98 ? target.key : progress <= 0.02 ? pair.key : null;
     return progress >= 1 ? target.key : null;
   };
 
@@ -643,7 +656,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
   const on = { signal: controller.signal, passive: true } as const;
   // On scroll the page has just been laid out: measure the anchors now, while it is free to.
   addEventListener("scroll", () => { measure(); wake(); }, on);
-  addEventListener("resize", () => { resize(); stale = true; wake(); }, on);
+  addEventListener("resize", () => { resize(); holders = new WeakMap(); stale = true; wake(); }, on);
   // A new page replaces this one under the canvas: hold the glyphs on the screen while it does, so they fly on
   // from where they were seen, whatever the new page's scroll.
   document.addEventListener("astro:before-swap", () => reframe("screen", 0), on);
@@ -663,7 +676,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     // Anchors come and go with pages; look for them again, and watch them (and the page) for changes in size.
     refresh() {
       anchors = [...document.querySelectorAll<HTMLElement>("[data-glyph]")];
-      pinnedCache = new WeakMap();
+      holders = new WeakMap();
       sizes.disconnect();
       sizes.observe(document.body);
       anchors.forEach((el) => sizes.observe(el));

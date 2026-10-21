@@ -57,7 +57,7 @@ function browser(t, { reducedMotion = false } = {}) {
     addEventListener: events.addEventListener.bind(events),
     requestAnimationFrame: (fn) => { frames.set(++id, fn); return id; },
     cancelAnimationFrame: (id) => frames.delete(id),
-    getComputedStyle: (el) => ({ position: el.pinned ? "sticky" : "static" }),
+    getComputedStyle: (el) => ({ position: el.pinned ? "sticky" : "static", top: "64px" }),
   };
   for (const [key, value] of Object.entries(globals)) {
     const original = Object.getOwnPropertyDescriptor(globalThis, key);
@@ -69,15 +69,23 @@ function browser(t, { reducedMotion = false } = {}) {
     Object.defineProperty(globalThis, key, { configurable: true, get: () => (key === "scrollY" ? page.scroll : 0) });
     t.after(() => original ? Object.defineProperty(globalThis, key, original) : delete globalThis[key]);
   }
-  // An anchor at `top` in the page, or (pinned) at `top` on the screen, whatever the scroll.
-  const anchor = (glyph, { top = 0, height = 800, pinned = false } = {}) => ({
-    dataset: { glyph }, isConnected: true, setAttribute() {}, removeAttribute() {},
-    parentElement: pinned ? { pinned: true, parentElement: null } : null,
-    getBoundingClientRect: () => {
-      const y = pinned ? top : top - page.scroll;
-      return { left: 0, top: y, width: 1000, height, bottom: y + height };
-    },
-  });
+  // An anchor at `top` in the page; or (pinned) `top` below the top of a sticky stage that sticks 64px from the top
+  // of the screen while the page scrolls through `pinned` ([from, to], in page pixels; the stage starts at from + 64).
+  const anchor = (glyph, { top = 0, height = 800, pinned = null } = {}) => {
+    const stageTop = () => {
+      if (!pinned) return 0;
+      const [from, to] = pinned;
+      return Math.min(Math.max(page.scroll, from), to) + 64 - page.scroll;
+    };
+    return {
+      dataset: { glyph }, isConnected: true, setAttribute() {}, removeAttribute() {},
+      parentElement: pinned ? { pinned: true, parentElement: null, getBoundingClientRect: () => ({ top: stageTop() }) } : null,
+      getBoundingClientRect: () => {
+        const y = pinned ? stageTop() + top : top - page.scroll;
+        return { left: 0, top: y, width: 1000, height, bottom: y + height };
+      },
+    };
+  };
   anchors = [anchor("chameleon")];
   const flavor = { colors: { teal: "#55aaaa" }, roles: { fg: "#eeeeee", comment: "#888888" } };
   return {
@@ -180,16 +188,25 @@ test("a shape on an anchor that scrolls with the page is drawn in a canvas that 
   assert.ok(moved <= 1700 && moved + 1600 >= 1700 + 800, "the canvas covers the screen");
 });
 
-test("screen-wide and pinned shapes keep a canvas fixed to the screen", async (t) => {
+test("screen-wide shapes, and shapes in a sticky stage while it is stuck, keep a canvas fixed to the screen", async (t) => {
   const b = browser(t);
   const field = await b.start();
-  b.target("story:1", { top: 100, height: 300, pinned: true });
+  // The stage is stuck while the page scrolls from 1000 to 3000.
+  b.target("story:1", { top: 100, height: 300, pinned: [1000, 3000] });
   b.scroll(2000);
   field.refresh();
   b.tick();
   b.tick();
   assert.equal(b.canvas.style.position, "fixed");
-  assert.equal(b.uniforms.u_toBox[1], 250, "drawn where it is on the screen");
+  assert.equal(b.uniforms.u_toBox[1], 64 + 100 + 150, "drawn where it is on the screen");
+  // Before it sticks, and after it lets go, the stage scrolls with the page, and so does the canvas.
+  for (const y of [800, 3200]) {
+    b.scroll(y);
+    b.tick();
+    assert.equal(b.canvas.style.position, "absolute", `at scroll ${y}`);
+    const pageY = parseFloat(b.canvas.style.top) + b.uniforms.u_toBox[1];
+    assert.equal(pageY, (y < 1000 ? 1000 : 3000) + 64 + 100 + 150, `at scroll ${y}`);
+  }
   b.target("field", { top: -9000, height: 10 });
   field.refresh();
   b.tick();
