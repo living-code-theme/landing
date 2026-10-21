@@ -14,7 +14,7 @@ import { fill, h2, lead, meta, quiet, section } from "../lib/ui.mjs";
 ---
 
 <Base title="Living Code: a calm color scheme for editors, terminals and the web">
-  <section class="shell pt-[clamp(32px,4.5vw,72px)]" id="hero" aria-labelledby="hero-title">
+  <section class="shell min-h-[calc(100svh-var(--head))] pt-[clamp(32px,4.5vw,72px)]" id="hero" aria-labelledby="hero-title">
     <div class="relative">
       <h1 class="text-display font-semibold" id="hero-title"><span class="line"><span>Living Code<span class="cursor" aria-hidden="true">_</span></span></span></h1>
       <p class="text-display font-semibold text-accent"><span class="line"><span style="--d:1">{SLOGAN}</span></span></p>
@@ -32,7 +32,7 @@ import { fill, h2, lead, meta, quiet, section } from "../lib/ui.mjs";
       </div>
     </div>
 
-    <Glyphs shape="chameleon" class="bleed mt-[clamp(48px,5vw,72px)] h-[clamp(220px,36vw,540px)]" label="The Living Code chameleon on a branch, drawn in code glyphs: it watches the pointer, catches bugs with its tongue and changes its colors">
+    <Glyphs shape="chameleon" class="bleed mt-[clamp(72px,7vw,104px)] h-[clamp(220px,36vw,540px)]" label="The Living Code chameleon on a branch, drawn in code glyphs: it watches the pointer, catches bugs with its tongue and changes its colors">
       <Chameleon class="h-[78%] max-w-[94%] text-accent opacity-20" />
     </Glyphs>
   </section>
