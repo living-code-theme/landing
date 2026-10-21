@@ -6,12 +6,19 @@
 // It is drawn as a terminal would draw it: text on a character grid, shaded with an ASCII ramp, its stripes a hex
 // dump and a run of bits.
 //
-// It moves like a chameleon: in holds and snaps, never a drift. It walks one leg at a time, each foot gripping the
-// branch while the others carry it on, hesitating between steps; the branch slides past beneath it, so it stays in
-// the frame. Then it stops to hunt: its head jerks round to the bug, its eyes jump about on their own, one to the
-// pointer, then both lock on, the tongue shoots out and takes the bug, it gulps, and a new coat is written down it
-// from the snout to the tip of the tail. A click near it drops a fly there, and it eats that at once, spinning round
-// first if the fly is behind it and turning back afterwards to walk on.
+// It moves like a chameleon: slowly and deliberately, in holds and quick looks, never a drift. Nothing starts or
+// stops dead: every motion eases in and settles. It walks one leg at a time. Each foot opens, lifts and reaches, and
+// closes round the bark; now and then it stops in the air while the animal rocks on its other feet, as a leaf
+// rocks in the wind. The body leans off each foot it lifts and eases on as the foot comes down, keeping its height
+// over the bark, so it rises and tips over the branch's bends. The branch slides past beneath it, so it stays in
+// the frame. The branch is not a rod: it wanders, swells and narrows, carries knots, and gives under the animal's
+// weight, springing a little at each footfall.
+//
+// Then it stops to hunt: its head turns sharply to the bug (quick, but it starts and settles), its eyes jump about
+// on their own, one to the pointer, then both lock on. It leans in and parts its jaws, the tongue shoots out and
+// takes the bug, it chews and gulps, and a new coat is written down it from the snout to the tip of the tail. A
+// click near it drops a fly there, and it eats that at once, turning round first if the fly is behind it and back
+// afterwards to walk on.
 //
 // The model is in its own units: x along the body (snout at +x), y up, z away from you. Each frame it is turned a
 // little toward you and tipped so you look down on it, then centered for the anchor.
@@ -44,6 +51,7 @@ function profile(knots: P2[]) {
   };
 }
 
+const TAU = Math.PI * 2;
 const frac = (x: number) => x - Math.floor(x);
 // A cheap, steady hash of a number to [0, 1): integer mixing, no trigonometry (it runs thousands of times a frame).
 const hash = (k: number) => {
@@ -55,8 +63,28 @@ const hash = (k: number) => {
 };
 const clamp = (x: number, a = 0, b = 1) => Math.max(a, Math.min(b, x));
 const smooth = (a: number, b: number, x: number) => { const t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
-// Fast out of the blocks, settling at the end: how a chameleon puts a foot down or turns its head.
+// Fast out of the blocks, settling at the end: how the tongue leaves the mouth.
 const snap = (p: number) => 1 - (1 - clamp(p)) ** 3;
+// Slow in and slow out, with no jolt at either end: how a foot travels, or the body eases on over it.
+const ease = (p: number) => { const x = clamp(p); return x * x * x * (x * (6 * x - 15) + 10); };
+// 0 to 1 by way of a pause: up to `at` over a..b, held there until c, then the rest of the way by d.
+const paused = (p: number, a: number, b: number, c: number, d: number, at: number) =>
+  p < c ? at * ease((p - a) / (b - a)) : at + (1 - at) * ease((p - c) / (d - c));
+
+// A damped spring: `x` is pulled toward a goal and carries on a little by its speed `v`, so a motion gathers and
+// settles instead of starting and stopping dead. `w` is how quick it is (radians a second), `z` how damped it is
+// (1 settles without overshoot; less rings, the way a branch does).
+interface Spring { x: number; v: number }
+const spring = (s: Spring, goal: number, w: number, z: number, dt: number) => {
+  const n = Math.ceil(dt * 240), h = dt / Math.max(1, n);
+  for (let i = 0; i < n; i++) {
+    s.v += (w * w * (goal - s.x) - 2 * z * w * s.v) * h;
+    s.x += s.v * h;
+  }
+  return s.x;
+};
+const still = (x = 0): Spring => ({ x, v: 0 });
+
 // A row of teeth along s, each its own height.
 const teeth = (s: number, count: number, seed: number) => {
   const f = s * count;
@@ -97,11 +125,11 @@ function bodyAt(s: number, th: number, rough: number, center: P3, offset: P3, no
   normal[0] = gx / gl; normal[1] = gy / gl; normal[2] = gz / gl;
 }
 
-// The tail: a sweep back and down out of the body into a spiral, wound tighter or looser by `curl` (-1 to 1).
+// The tail: a sweep back and down out of the body into a spiral.
 const TAIL_M = 120;
-function tailLine(curl: number, out: Float32Array) {
+function tailLine(out: Float32Array) {
   const [rx, ry] = SPINE(0);
-  const turns = 1.38 + 0.16 * curl, R = 0.4 - 0.03 * curl;
+  const turns = 1.38, R = 0.4;
   const cx = -1.62, cy = -0.1 - R, lead = 0.22;
   for (let i = 0; i < TAIL_M; i++) {
     const u = i / (TAIL_M - 1);
@@ -117,10 +145,68 @@ function tailLine(curl: number, out: Float32Array) {
   }
 }
 const tailRadius = (u: number) => 0.112 * (1 - u) + 0.014;
+// The tail at rest, kept as the length of each piece and how far it turns from the last, so it can be wound tighter
+// or looser anywhere along its length, the way a tail coils: a change that starts at the root and runs to the tip.
+const TAIL_REST = new Float32Array(TAIL_M * 2);
+tailLine(TAIL_REST);
+const TAIL_SEG = new Float32Array(TAIL_M - 1), TAIL_TURN = new Float32Array(TAIL_M - 1);
+for (let i = 0, prev = 0; i < TAIL_M - 1; i++) {
+  const dx = TAIL_REST[i * 2 + 2] - TAIL_REST[i * 2], dy = TAIL_REST[i * 2 + 3] - TAIL_REST[i * 2 + 1], a = Math.atan2(dy, dx);
+  TAIL_SEG[i] = Math.hypot(dx, dy);
+  TAIL_TURN[i] = i ? Math.atan2(Math.sin(a - prev), Math.cos(a - prev)) : a;
+  prev = a;
+}
+// The tail laid along its rest shape, each piece's turn wound by `curl` there (-1 to 1, root to tip), with a faint
+// bend running down it (`sway` strong, at `phase`).
+function bendTail(curl: Float32Array, sway: number, phase: number, out: Float32Array) {
+  let a = 0, x = TAIL_REST[0], y = TAIL_REST[1];
+  out[0] = x; out[1] = y;
+  const last = curl.length - 1;
+  for (let i = 0; i < TAIL_M - 1; i++) {
+    const u = i / (TAIL_M - 2), f = u * last, j = Math.min(last - 1, f | 0), c = curl[j] + (curl[j + 1] - curl[j]) * (f - j);
+    a += i ? TAIL_TURN[i] * (1 + 0.12 * c * smooth(0.1, 0.3, u)) + (sway * Math.sin(phase - u * 7) * (0.3 + u)) / TAIL_M : TAIL_TURN[0];
+    x += TAIL_SEG[i] * Math.cos(a);
+    y += TAIL_SEG[i] * Math.sin(a);
+    out[i * 2 + 2] = x; out[i * 2 + 3] = y;
+  }
+}
 
-// The branch it walks, and the legs: shoulder, elbow, foot, on the near side (z < 0) and the far side.
+// The branch it walks: a line that runs toward you and down (fixed in the view), and the branch's own shape along
+// it, which slides past with the bark: it bends up and down and toward and away from you, swells and narrows. Each
+// wave is a whole number of turns over the bark's span, so the bark meets itself where it comes round again.
 const BRANCH_Y = (x: number) => -0.66 + 0.025 * x + 0.02 * Math.sin(x * 0.9);
 const BRANCH_R = 0.085, BARK_FROM = -5, BARK_SPAN = 8.3;
+// Amplitude, turns over the span, phase; three to a wave.
+const BEND_Y = [0.034, 2, 0.7, 0.022, 4, 2.1, 0.008, 9, 4.0];
+const BEND_Z = [0.05, 3, 1.3, 0.02, 7, 0.4];
+const THICK = [0.19, 2, 2.5, 0.08, 5, 0.3, 0.04, 13, 1.1];
+const waves = (u: number, w: number[]) => {
+  let v = 0;
+  for (let i = 0; i < w.length; i += 3) v += w[i] * Math.sin((TAU * w[i + 1] * u) / BARK_SPAN + w[i + 2]);
+  return v;
+};
+// Knots: in some twelfths of the bark a swelling on one side, where a twig once grew. They grow on the side toward
+// you, from the top's edge round to below the middle, never on top where the feet go.
+const KNOTS = 12, KNOT_W = BARK_SPAN / KNOTS;
+const knotQ = (k: number) => Math.PI * (0.68 + 0.75 * hash(k + 33));
+// How far the bark stands out at u, a turn q round the branch, as a share of the branch's thickness there (its grain
+// in low ridges, and the knots), and how much of that is knot.
+function barkAt(u: number, q: number): [number, number] {
+  const c = Math.floor(u / KNOT_W);
+  let knot = 0;
+  for (let cc = c - 1; cc <= c + 1; cc++) {
+    const k = ((cc % KNOTS) + KNOTS) % KNOTS;
+    if (hash(k + 9) < 0.45) continue;
+    const du = (u - (cc + 0.25 + 0.5 * hash(k + 21)) * KNOT_W) / 0.07;
+    const dq = Math.atan2(Math.sin(q - knotQ(k)), Math.cos(q - knotQ(k))) / 0.65;
+    knot = Math.max(knot, (0.35 + 0.5 * hash(k + 45)) * Math.exp(-du * du - dq * dq));
+  }
+  return [1 + 0.035 * Math.sin(q * 7 + Math.sin(u * 1.3) * 2) + knot, knot];
+}
+// How far the branch sags under the animal's weight at rest, and over how much of its length.
+const SAG = 0.022, SAG_W = 1.5;
+
+// The legs: shoulder, elbow, foot, on the near side (z < 0) and the far side.
 const LEGS: P3[][] = [
   [[0.5, 0.04, -0.11], [0.7, -0.26, -0.2], [0.6, BRANCH_Y(0.6) + 0.05, -0.08]],
   [[0.47, 0.04, 0.11], [0.62, -0.27, 0.2], [0.74, BRANCH_Y(0.74) + 0.05, 0.08]],
@@ -129,9 +215,11 @@ const LEGS: P3[][] = [
 ];
 const LEG_S = [0.6, 0.6, 0.2, 0.2];
 const LEG_R = [0.064, 0.05];
+// A foot grips the top of the branch, this share of the branch's thickness above its middle.
+const GRIP_UP = 0.59;
 // A diagonal gait: near front, far hind, far front, near hind.
 const GAIT = [0, 3, 1, 2];
-const STRIDE = 0.3, STEP = 0.36;
+const STRIDE = 0.3;
 const sub = (a: P3, b: P3): P3 => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
 const dot = (a: P3, b: P3) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 const unit = (a: P3): P3 => { const l = Math.hypot(...a) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
@@ -140,8 +228,11 @@ const BONES = LEGS.map(([s, e, f]) => {
   const u = unit(sub(f, s)), m = sub(e, s), along = dot(m, u);
   return { l1: Math.hypot(...sub(e, s)), l2: Math.hypot(...sub(f, e)), bend: unit([m[0] - u[0] * along, m[1] - u[1] * along, m[2] - u[2] * along]) };
 });
+// Where it stands over the branch: its front feet and hind feet, along the body.
+const FORE_X = 0.67, HIND_X = -0.57;
 
-// The head turns about the neck; the eyes stand out of either side of it; the tongue leaves from the snout.
+// The head turns about the neck; the eyes stand out of either side of it; the tongue leaves from the snout. The
+// lower jaw hinges open below the back of the mouth.
 const PIVOT: P3 = [...SPINE(0.66), 0] as P3;
 const headShare = (s: number) => smooth(0.6, 0.72, s);
 const EYE_S = 0.86, EYE_R = 0.118;
@@ -151,6 +242,8 @@ function eyeCenter(side: -1 | 1): P3 {
   return [c[0] + 0.01, c[1] + 0.07, side * (WIDE(EYE_S) * 0.82)];
 }
 const SNOUT: P3 = [...SPINE(0.995), 0] as P3;
+const HINGE: P2 = [1.08, 0.21];
+const jawShare = (s: number, sn: number) => smooth(0.8, 0.88, s) * clamp(-sn * 4);
 
 // Where the bugs it waits for fly, in front of the snout.
 const BUGS: P3[] = [[1.78, 0.62, 0.05], [1.9, 0.3, -0.05], [1.72, 0.82, 0.12], [1.95, 0.5, 0.0]];
@@ -178,14 +271,18 @@ const HEX = "0123456789abcdef";
 const GW = 512, GH = 224, NEIGHBORS = [1, -1, GW, -GW];
 // The line along a surface that faces left, down-left, down, down-right, right, up-right, up, up-left, left.
 const EDGE = ["|", "\\", "_", "/", "|", "\\", "-", "/", "|"];
-// The bark's characters: grain along it, and a knot.
-const BARK = ["=", "-", "@"];
+// The bark's characters: grain along it, the heart of a knot and the swelling round it.
+const BARK = ["=", "-", "@", "o"];
 // How many leaves the branch carries, and how many flies can be in the air at once.
 const LEAVES = 6, FLIES = 4, FLY_PARTS = 6;
+// The branch's middle and thickness are worked out this many times along its span each frame, and read from there.
+const TABLE = 160;
 
 // `turned`: the chameleon has already turned round for this fly, and will not again (it eats it from there).
 interface Fly { on: boolean; born: number; home: P3; eatAt: number; seed: number; wild: boolean; turned: boolean }
-const TURN_X = 0.12, TURN_TIME = 0.42;
+const TURN_X = 0.12, TURN_TIME = 0.72;
+// The strike: the tongue out, held on the fly, and reeled back in.
+const SHOOT = 0.065, HOLD = 0.05, REEL = 0.3;
 
 type PortraitPose = "perched" | "sleeping";
 
@@ -237,13 +334,11 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     // A mouth line back from the snout, on the near side.
     for (let s = 0.87; s < 0.995; s += d * 0.5) {
       if (!counting) bodyAt(s, Math.PI + 0.22, 1.04, c, o, nn);
-      push(K.Mouth, c, o, nn, [s]);
+      push(K.Mouth, c, o, nn, [s, Math.PI + 0.22]);
     }
     // The tail, ring by ring; each frame lays the rings on the tail's current line.
-    const line = new Float32Array(TAIL_M * 2);
-    tailLine(0, line);
     let length = 0;
-    for (let i = 1; i < TAIL_M; i++) length += Math.hypot(line[i * 2] - line[i * 2 - 2], line[i * 2 + 1] - line[i * 2 - 1]);
+    for (let i = 0; i < TAIL_M - 1; i++) length += TAIL_SEG[i];
     const trows = Math.round(length / d);
     for (let j = 0; j < trows; j++) {
       const u0 = (j + 0.5) / trows, m = Math.max(3, Math.round((Math.PI * 2 * tailRadius(u0)) / d));
@@ -288,10 +383,12 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       const m = Math.round((Math.PI * 2 * BRANCH_R) / bd);
       for (let k = 0; k < m; k++) {
         const q = ((k + rnd() * 0.6) / m) * Math.PI * 2;
-        // Its bark, fixed once: a knot here and there, grain that runs along it.
+        // Its bark, fixed once: how far it stands out here, the knots, the grain that runs along it.
         const bx = x + (rnd() - 0.5) * bd * 0.6;
-        const knot = hash(Math.floor(bx * 1.4) + 9) > 0.86 && Math.abs(frac(bx * 1.4) - 0.5) < 0.1;
-        if (!GRID || Math.cos(q) < 0.5) push(K.Branch, ZERO, ZERO, ZERO, [bx, q, 0, knot ? 2 : hash(Math.floor(bx * 9) + Math.floor(q * 2)) > 0.5 ? 0 : 1]);
+        if (GRID && Math.cos(q) >= 0.5) continue;
+        const [r, knot] = counting ? [1, 0] : barkAt(bx, q);
+        const ch = knot > 0.42 ? 2 : knot > 0.12 ? 3 : hash(Math.floor(bx * 9) + Math.floor(q * 2)) > 0.5 ? 0 : 1;
+        push(K.Branch, ZERO, ZERO, ZERO, [bx, q, r, ch]);
       }
     }
     // Leaves, scattered along the branch at no even spacing; each one's size, angle and side change every time
@@ -328,12 +425,28 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   // The walk and the hunt: walk a few steps, stop, wait for a bug, eat it, change coat, walk on.
   type Phase = "walk" | "hunt" | "gone";
   let phase: Phase = "walk", phaseAt = 0, bugs = 0, stepsLeft = 5;
-  // The walk: how far the branch has slid, each foot's grip on it (in branch units), and the step under way.
-  let slid = 0, step = -1, stepAt = 0, stepFrom = 0, stepTo = 0, slidFrom = 0, nextStep = 0.4, gait = 0;
+  // The walk: where the body is easing to along the branch (`glide`, in branch units) and how far it has got
+  // (`slid`: the branch slides back beneath it by as much), each foot's grip on the bark, and the step under way.
+  // A hesitant step stops with the foot in the air for a beat before it is put down.
+  const slide = still();
+  let slid = 0, glide = 0, glideFrom = 0;
+  let step = -1, stepAt = 0, stepLen = 1, stepFrom = 0, stepTo = 0, hesitant = false, nextStep = 0.5, gait = 0;
   const grip = LEGS.map((leg, i) => leg[2][0] + STRIDE / 2 - (3 - GAIT.indexOf(i)) * (STRIDE / 4));
+  // Each foot's lift off the bark and how far its toes have opened (0 closed round the bark, 1 spread).
+  const lifted = new Float32Array(4), opened = new Float32Array(4);
+  // The body on its legs: its height and tip over the bark beneath it (`ride`), and how it carries its weight:
+  // leaning on or back, sinking, swaying away from you, rolling its back away from you. Rocking is a slow sway
+  // back and forth on planted feet, in bouts that end at `rock.until`.
+  const ride = { y: still(), pitch: still() };
+  const lean = still(), sink = still(), sway = still(), roll = still();
+  const rock = { amp: still(), phase: 0, until: 0 };
+  // The branch's give: how far it sags under the animal's middle, ringing on after a jolt.
+  const sag = still(portrait ? 0 : SAG);
   // The flies: the bug it waits for while it hunts, and any you drop in. The tongue takes one at a time.
   const flies: Fly[] = Array.from({ length: FLIES }, () => ({ on: false, born: 0, home: [0, 0, 0] as P3, eatAt: 0, seed: 0, wild: false, turned: false }));
   const tongue = { state: 0, fly: -1, at: 0 };
+  // The jaw: how far open (radians), and when it last swallowed (it chews a few times after).
+  const jaw = still();
   // Turning round: to face a fly that comes behind it, and back again to walk on once it has eaten. The body turns
   // about an upright axis through its middle; `now` is how far round it is (0 facing on, pi facing back).
   const turn = { now: 0, from: 0, goal: 0, at: -1, backAt: -1 };
@@ -346,19 +459,45 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   };
   const toWorld = (p: P3, isDir = false, out: P3 = [0, 0, 0]) => spin3(p, hc, hs, isDir, out);
   const toBody = (p: P3, out: P3 = [0, 0, 0]) => spin3(p, hc, -hs, false, out);
+  // Where a point along its own body is along the view, turned round or not.
+  const viewX = (x: number) => TURN_X + (x - TURN_X) * hc;
   let gulpAt = -1;
-  // The head, the eyes, the tail: each holds a goal for a moment, then snaps to the next.
-  const head = { yaw: 0, pitch: sleeping ? -0.16 : 0, goalYaw: 0, goalPitch: 0, next: 0 };
+  // The head and the eyes each hold a goal for a moment, then turn quickly to the next; the tail winds tighter or
+  // looser now and then, the change running from its root to its tip.
+  const head = { goalYaw: 0, goalPitch: 0, next: 0, yaw: still(), pitch: still(sleeping ? -0.16 : 0) };
   const gaze: P3[] = [[0.3, 0, -1], [0.3, 0.1, 1]], gazeGoal: P3[] = [[0.3, 0, -1], [0.3, 0.1, 1]], gazeNext = [0, 0];
-  const curl = { now: sleeping ? 0.7 : 0, goal: sleeping ? 0.7 : 0, next: 1 };
+  const curl = { goal: sleeping ? 0.7 : 0, next: 1, root: still(sleeping ? 0.7 : 0), along: new Float32Array(5).fill(sleeping ? 0.7 : 0) };
   let blinkAt = 1.8;
   let coat = 0, nextCoat = 1, wave = -1;
   // Where the frame's floor is: the branch and its leaves fade out before they reach it, so nothing spills
   // out of the frame where the branch runs toward you and down.
   let floor = -1e9;
-  // The branch is laid out again only when it has moved; each leaf's look for this time round.
-  let sceneSlid = NaN, sceneTurn = NaN;
+  // The branch along the view this frame: its middle's height and depth and its thickness; and each leaf's look.
+  const bentness = portrait ? 0 : 1;
+  const midY = new Float32Array(TABLE + 1), midZ = new Float32Array(TABLE + 1), thick = new Float32Array(TABLE + 1);
   const leaf = new Float32Array(LEAVES * 8);
+  let sagX = 0;
+  const branchAt = (x: number, out: P3) => {
+    const u = x + slid, g = (x - sagX) / SAG_W;
+    out[0] = BRANCH_Y(x) + bentness * waves(u, BEND_Y) - sag.x * Math.exp(-g * g);
+    out[1] = bentness * waves(u, BEND_Z);
+    out[2] = BRANCH_R * (1 + bentness * waves(u, THICK));
+    return out;
+  };
+  // How far the top of the bark under a point along the body is above where it would be on a straight, unloaded branch.
+  const B: P3 = [0, 0, 0];
+  const rise = (x: number) => { const vx = viewX(x); branchAt(vx, B); return B[0] + GRIP_UP * B[2] - (BRANCH_Y(vx) + GRIP_UP * BRANCH_R); };
+  // The body's pose this frame: a turn (rows of a matrix) and a shift, about the middle of the body.
+  const PC: P3 = [0, 0.05, 0];
+  const stance = new Float32Array(12);
+  stance[0] = stance[4] = stance[8] = 1;
+  const posed = (p: P3, isDir: boolean, out: P3): P3 => {
+    const x = isDir ? p[0] : p[0] - PC[0], y = isDir ? p[1] : p[1] - PC[1], z = p[2];
+    out[0] = stance[0] * x + stance[1] * y + stance[2] * z + (isDir ? 0 : PC[0] + stance[9]);
+    out[1] = stance[3] * x + stance[4] * y + stance[5] * z + (isDir ? 0 : PC[1] + stance[10]);
+    out[2] = stance[6] * x + stance[7] * y + stance[8] * z + (isDir ? 0 : stance[11]);
+    return out;
+  };
   // The grid: which glyph holds each cell this frame, and how near it is.
   const owner = new Int32Array(GW * GH), stamp = new Int32Array(GW * GH), depth = new Float32Array(GW * GH);
   const cell = new Int32Array(used), spare = new Int32Array(used), kindNow = new Uint8Array(used);
@@ -390,6 +529,13 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     out[0] = isDir ? x2 : x2 + PIVOT[0]; out[1] = isDir ? y1 : y1 + PIVOT[1]; out[2] = z2;
     return out;
   };
+  // The lower jaw opened by `a` radians about its hinge, for a point or a direction.
+  let jc = 1, js = 0;
+  const openJaw = (p: P3, share: number, isDir: boolean) => {
+    const c = 1 + (jc - 1) * share, sn = -js * share, x = isDir ? p[0] : p[0] - HINGE[0], y = isDir ? p[1] : p[1] - HINGE[1];
+    p[0] = c * x - sn * y + (isDir ? 0 : HINGE[0]);
+    p[1] = sn * x + c * y + (isDir ? 0 : HINGE[1]);
+  };
   const EYES = [eyeCenter(-1), eyeCenter(1)];
   // Which of a coat's three colors a stripe value falls in: the broad one, the hex stripe or the run of bits.
   const band = (v: number) => { const x = frac(v); return x < 0.56 ? 0 : x < 0.68 ? 1 : x < 0.74 ? 2 : 0; };
@@ -411,37 +557,57 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     frame++;
     const go = (p: Phase) => { phase = p; phaseAt = t; };
 
-    // --- The walk: one foot at a time, a pause between, the branch sliding on as each foot comes down ---------
+    // --- The walk: one foot at a time, a pause between, the body easing on over each foot ----------------------
     if (!portrait && phase === "walk" && step < 0 && t > nextStep && turn.now === 0 && turn.at < 0) {
       if (stepsLeft <= 0) {
         go("hunt");
         spawn(BUGS[bugs++ % BUGS.length], 3.2 + rnd() * 3, true, t);
       } else {
         step = GAIT[gait % 4]; gait++; stepsLeft--; stepAt = t;
-        slidFrom = slid;
+        hesitant = rnd() < 0.3;
+        stepLen = (hesitant ? 1.15 : 0.62) + rnd() * 0.2;
+        glideFrom = glide;
         stepFrom = grip[step];
-        stepTo = LEGS[step][2][0] + STRIDE / 2 + slid + STRIDE / 4;
+        stepTo = LEGS[step][2][0] + STRIDE / 2 + glide + STRIDE / 4;
       }
     }
-    let stepP = 0;
+    let stepP = 0, weight = 0;
+    lifted.fill(0); opened.fill(0);
     if (step >= 0) {
-      stepP = clamp((t - stepAt) / STEP);
-      slid = slidFrom + (STRIDE / 4) * snap(stepP);
-      grip[step] = stepFrom + (stepTo - stepFrom) * snap(stepP * 1.1);
-      if (stepP >= 1) { step = -1; nextStep = t + 0.08 + rnd() * rnd() * 0.7; }
+      stepP = clamp((t - stepAt) / stepLen);
+      // The foot peels off the bark, travels (or stops short in the air a moment) and is put down; the toes part
+      // as it lifts and close round the bark as it lands. The body follows it on, a little behind.
+      const reach = hesitant ? paused(stepP, 0.05, 0.42, 0.7, 0.93, 0.72) : ease((stepP - 0.08) / 0.8);
+      grip[step] = stepFrom + (stepTo - stepFrom) * reach;
+      lifted[step] = smooth(0, 0.22, stepP) * (1 - smooth(hesitant ? 0.82 : 0.7, 0.98, stepP));
+      opened[step] = smooth(0.02, 0.2, stepP) * (1 - smooth(0.84, 1, stepP));
+      glide = glideFrom + (STRIDE / 4) * (hesitant ? paused(stepP, 0.1, 0.45, 0.68, 1, 0.6) : ease((stepP - 0.12) / 0.88));
+      weight = smooth(0, 0.25, stepP) * (1 - smooth(0.7, 1, stepP));
+      if (hesitant && stepP > 0.4 && stepP < 0.7) rock.until = t + 0.1;
+      if (stepP >= 1) {
+        step = -1;
+        // The foot coming down jolts the branch.
+        sag.v -= 0.06;
+        const rest = rnd() * rnd();
+        nextStep = t + 0.12 + rest * 1.2;
+        // A long pause: it rocks on its feet.
+        if (rest > 0.4) rock.until = nextStep - 0.1;
+      }
     }
-    if (phase === "gone" && t - phaseAt > 1.2) { go("walk"); stepsLeft = 3 + Math.floor(rnd() * 4); nextStep = t + 0.25; }
+    if (phase === "gone" && t - phaseAt > 1.2) { go("walk"); stepsLeft = 3 + Math.floor(rnd() * 4); nextStep = t + 0.35; }
+    slid = spring(slide, glide, 11, 1, dt);
 
-    // --- Turning round: a fly behind it (in its own frame) and it spins to face it, a little hop as it goes; ----
+    // --- Turning round: a fly behind it (in its own frame) and it turns to face it, lifting a little as it goes; --
     // with nothing left to eat it waits a moment and turns back to walk on.
     if (turn.at >= 0) {
       const p = clamp((t - turn.at) / TURN_TIME);
-      turn.now = turn.from + (turn.goal - turn.from) * snap(p);
-      hop = 0.06 * Math.sin(Math.PI * p);
-      if (p >= 1) { turn.now = turn.goal; turn.at = -1; hop = 0; }
+      turn.now = turn.from + (turn.goal - turn.from) * ease(p);
+      hop = 0.045 * Math.sin(Math.PI * p) ** 2;
+      if (p >= 1) { turn.now = turn.goal; turn.at = -1; hop = 0; sag.v -= 0.3; }
     }
     hc = Math.cos(turn.now); hs = Math.sin(turn.now);
     cy = Math.cos(yaw * hc); sy = Math.sin(yaw * hc);
+    sagX = viewX(0);
     const anyFly = flies.some((f) => f.on);
     if (turn.at < 0 && tongue.state === 0 && step < 0) {
       let next = -1;
@@ -454,39 +620,54 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       if (next >= 0 && !flies[next].turned && ahead < -0.1 && aheadTurned > 0.05 && aheadTurned > ahead + 0.4) {
         flies[next].turned = true;
         turn.from = turn.now; turn.goal = turn.now < Math.PI / 2 ? Math.PI : 0; turn.at = t; turn.backAt = -1;
-        flies[next].eatAt = Math.max(flies[next].eatAt, t + TURN_TIME + 0.08);
+        flies[next].eatAt = Math.max(flies[next].eatAt, t + TURN_TIME + 0.15);
       } else if (!anyFly && turn.now !== 0) {
-        if (turn.backAt < 0) turn.backAt = t + 0.45;
+        if (turn.backAt < 0) turn.backAt = t + 0.6;
         else if (t > turn.backAt) { turn.from = turn.now; turn.goal = 0; turn.at = t; turn.backAt = -1; }
       }
     }
 
-    // --- The tongue: out at the first fly that is due, back with it, and a gulp -------------------------------
+    // --- The tongue: out at the first fly that is due, held on it a moment, reeled back in with it -------------
     if (tongue.state === 0 && turn.at < 0) {
       let due = -1;
       flies.forEach((f, i) => { if (f.on && f.eatAt <= t && (due < 0 || f.eatAt < flies[due].eatAt)) due = i; });
-      if (due >= 0) { tongue.state = 1; tongue.fly = due; tongue.at = t; }
-    } else if (tongue.state === 1 && t - tongue.at > 0.085) { tongue.state = 2; tongue.at = t; }
-    else if (tongue.state === 2 && t - tongue.at > 0.22) {
+      if (due >= 0) {
+        tongue.state = 1; tongue.fly = due; tongue.at = t;
+        // The kick of the strike: the head and the body thrown back a little, the branch jolted.
+        head.pitch.v += 2.2; lean.v -= 0.35; sag.v += 0.12;
+      }
+    } else if (tongue.state === 1 && t - tongue.at > SHOOT + HOLD) { tongue.state = 2; tongue.at = t; }
+    else if (tongue.state === 2 && t - tongue.at > REEL) {
       const f = flies[tongue.fly];
       f.on = false;
       tongue.state = 0;
       gulpAt = t;
+      sag.v -= 0.05;
       // Each catch puts on a new coat; one already running down finishes at once.
       if (wave >= 0) coat = nextCoat;
       wave = t; nextCoat = (coat + 1) % COATS.length;
       if (f.wild && phase === "hunt") go("gone");
     }
     const tAge = t - tongue.at;
-    const reach = tongue.state === 1 ? snap(tAge / 0.085) : tongue.state === 2 ? 1 - clamp(tAge / 0.22) ** 2 : 0;
+    // Out fast, a touch past the fly and back onto it; reeled in gathering speed and slowing into the mouth, the
+    // tongue bowing under the fly's weight as it comes.
+    let reach = 0, bow = 0;
+    if (tongue.state === 1) reach = tAge < SHOOT ? snap(tAge / SHOOT) * (1 + 0.09 * Math.sin(Math.PI * clamp(tAge / SHOOT))) : 1;
+    else if (tongue.state === 2) { const p = clamp(tAge / REEL); reach = 1 - ease(p); bow = 0.14 * Math.sin(Math.PI * p); }
     // What it is watching: the fly on the tongue, else the one due soonest.
     let focus = tongue.state ? tongue.fly : -1;
     if (focus < 0) flies.forEach((f, i) => { if (f.on && (focus < 0 || f.eatAt < flies[focus].eatAt)) focus = i; });
     // Everything it aims at, in its own frame (it may have turned round).
     const target = focus >= 0 ? toBody(flyAt(flies[focus], t)) : null;
     const intent = focus >= 0 && (tongue.state > 0 || flies[focus].eatAt - t < 0.9);
+    // Just before it strikes it parts its jaws and the tip of the tongue shows; after a catch it chews.
+    const gape = !!target && target[0] > PIVOT[0] && tongue.state === 0 && turn.at < 0 && flies[focus].eatAt - t < 0.3;
+    if (gape) reach = 0.035;
+    const chew = gulpAt >= 0 && t - gulpAt > 0.2 && t - gulpAt < 1.1 ? 0.09 * (0.5 - 0.5 * Math.cos(TAU * 3 * (t - gulpAt - 0.2) / 0.9)) : 0;
+    spring(jaw, tongue.state ? 0.34 : gape ? 0.24 : chew, 26, 0.85, dt);
+    jc = Math.cos(Math.max(0, jaw.x)); js = Math.sin(Math.max(0, jaw.x));
 
-    // --- The head: hold, then jerk round to the next thing ----------------------------------------------------
+    // --- The head: hold, then turn quickly to the next thing, gathering and settling ------------------------
     const pointerAt = toBody(fromScreen(look.x, look.y, -0.7));
     if (t > head.next || (intent && head.next - t > 0.1)) {
       let aim: P3 | null = null;
@@ -504,13 +685,44 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       }
       head.next = t + (intent ? 0.08 : 0.45 + rnd() * 1.2);
     }
-    const hk = 1 - Math.exp(-dt / (intent ? 0.035 : 0.055));
-    head.yaw += (head.goalYaw - head.yaw) * hk;
-    head.pitch += (head.goalPitch - head.pitch) * hk;
-    hcY = Math.cos(head.yaw); hsY = Math.sin(head.yaw); hcP = Math.cos(head.pitch); hsP = Math.sin(head.pitch);
-    const snout = turnHead(SNOUT, 1);
+    spring(head.yaw, head.goalYaw, intent ? 30 : 17, 0.78, dt);
+    spring(head.pitch, head.goalPitch, intent ? 30 : 17, 0.78, dt);
+
+    // --- The body on its legs: riding the bark, carrying its weight off a lifted foot, rocking, leaning in -------
+    spring(sag, portrait ? 0 : SAG + 0.004 * Math.sin(t * 0.7), 13, 0.16, dt);
+    const fore = rise(FORE_X), hind = rise(HIND_X);
+    spring(ride.y, (fore + hind) / 2, 15, 0.85, dt);
+    spring(ride.pitch, Math.atan2(fore - hind, FORE_X - HIND_X), 15, 0.85, dt);
+    const sideOf = step >= 0 && LEGS[step][0][2] > 0 ? 1 : -1, forward = step >= 0 && step < 2 ? 1 : -1;
+    spring(lean, (step >= 0 ? -forward * 0.014 * weight : 0) + (intent ? 0.025 : 0), 7, 0.9, dt);
+    spring(sink, -0.008 * weight + (hesitant ? -0.006 * weight : 0), 7, 0.9, dt);
+    spring(sway, -sideOf * 0.02 * weight, 6, 0.9, dt);
+    spring(roll, -sideOf * 0.05 * weight, 6, 0.9, dt);
+    // Waiting on a bug it sways now and then too, but holds still to strike.
+    if (phase === "hunt" && !intent && t > rock.until + 1.5 && rnd() < dt * 0.3) rock.until = t + 1.2 + rnd() * 1.8;
+    spring(rock.amp, t < rock.until && !intent ? 0.017 : 0, 4, 1, dt);
+    rock.phase += dt * TAU * 1.25;
+    const breath = 0.02 * Math.sin(t * 1.7);
+    const gulp = gulpAt >= 0 ? Math.sin(Math.PI * clamp((t - gulpAt) / 0.45)) : 0;
+    {
+      const pitch = ride.pitch.x, cp = Math.cos(pitch), sp = Math.sin(pitch), cr = Math.cos(roll.x), sr = Math.sin(roll.x);
+      stance[0] = cp; stance[1] = -sp; stance[2] = 0;
+      stance[3] = cr * sp; stance[4] = cr * cp; stance[5] = -sr;
+      stance[6] = sr * sp; stance[7] = sr * cp; stance[8] = cr;
+      stance[9] = lean.x + rock.amp.x * Math.sin(rock.phase);
+      stance[10] = ride.y.x + sink.x;
+      stance[11] = sway.x;
+    }
+    // The head keeps itself level while the body tips beneath it.
+    const headPitch = head.pitch.x - ride.pitch.x * 0.75;
+    hcY = Math.cos(head.yaw.x); hsY = Math.sin(head.yaw.x); hcP = Math.cos(headPitch); hsP = Math.sin(headPitch);
+    const mouth: P3 = [SNOUT[0], SNOUT[1], 0];
+    openJaw(mouth, 0.5, false);
+    const snout = posed(turnHead(mouth, 1), false, mouth);
     const eyes = [turnHead(EYES[0], 1), turnHead(EYES[1], 1)];
     const tip: P3 = target ? [snout[0] + (target[0] - snout[0]) * reach, snout[1] + (target[1] - snout[1]) * reach, snout[2] + (target[2] - snout[2]) * reach] : snout;
+    // The bow is a share of the tongue's length, so a short tongue is near straight.
+    bow *= Math.hypot(...sub(tip, snout));
 
     // --- The eyes: each jumps on its own; when a fly is due both lock on it ----------------------------------
     for (let e = 0; e < 2; e++) {
@@ -532,33 +744,33 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     if (t > blinkAt + 0.14) blinkAt = t + 2.2 + rnd() * 3.5;
     const blink = sleeping ? 1 : t > blinkAt ? Math.sin(Math.PI * clamp((t - blinkAt) / 0.14)) : 0;
 
-    // --- The tail twitches to a new curl now and then, the body rocks on each step, breathes and gulps -------
-    if (t > curl.next) { curl.goal = rnd() * 2 - 1; curl.next = t + 0.8 + rnd() * 2.2; }
-    curl.now += (curl.goal - curl.now) * (1 - Math.exp(-dt / 0.12));
-    tailLine(curl.now, tail);
-    const rocking = step >= 0 ? 0.03 * Math.sin(stepP * Math.PI * 2) : 0;
-    const bob = step >= 0 ? 0.012 * Math.sin(stepP * Math.PI) : 0;
-    const breath = 0.02 * Math.sin(t * 2.1);
-    const gulp = gulpAt >= 0 ? Math.sin(Math.PI * clamp((t - gulpAt) / 0.4)) : 0;
+    // --- The tail winds to a new curl now and then (looser while it walks), the change running down it -------
+    if (t > curl.next) { curl.goal = phase === "walk" ? -0.7 + rnd() * 0.9 : rnd() * 2 - 1; curl.next = t + 1.2 + rnd() * 2.6; }
+    curl.along[0] = spring(curl.root, curl.goal, 3.2, 1, dt);
+    for (let j = 1; j < curl.along.length; j++) curl.along[j] += (curl.along[j - 1] - curl.along[j]) * (1 - Math.exp(-dt / 0.16));
+    bendTail(curl.along, portrait ? 0 : 0.6, t * 1.6, tail);
 
     // --- The legs: each foot where it grips the branch (or in the air, mid-step), the elbow found from there --
+    const S0: P3 = [0, 0, 0];
     const joints = LEGS.map((leg, i) => {
-      const S: P3 = [leg[0][0] + rocking, leg[0][1] + bob, leg[0][2]];
-      const fx = grip[i] - slid;
-      const lift = i === step ? Math.sin(Math.PI * clamp(stepP * 1.1)) : 0;
-      const F: P3 = [fx, BRANCH_Y(TURN_X + (fx - TURN_X) * hc) + 0.05 + lift * 0.11, leg[2][2] * (1 + lift * 0.8)];
+      const S = posed(leg[0], false, S0.slice() as P3);
+      const fx = grip[i] - slid, lift = lifted[i];
+      branchAt(viewX(fx), B);
+      // The foot on top of the bark, gripping round it on its own side; lifted, it swings out a little to clear it.
+      const F: P3 = [fx, B[0] + GRIP_UP * B[2] + lift * 0.1, hc * B[1] + leg[2][2] * (B[2] / BRANCH_R) * (1 + lift * 0.5)];
       const { l1, l2, bend } = BONES[i];
       const toF = sub(F, S), dist = Math.min(Math.hypot(...toF), (l1 + l2) * 0.995), u = unit(toF);
       const a = (l1 * l1 - l2 * l2 + dist * dist) / (2 * dist), h = Math.sqrt(Math.max(0, l1 * l1 - a * a));
-      const b = unit([bend[0] - u[0] * dot(bend, u), bend[1] - u[1] * dot(bend, u), bend[2] - u[2] * dot(bend, u)]);
+      const bd = posed(bend, true, [0, 0, 0]);
+      const b = unit([bd[0] - u[0] * dot(bd, u), bd[1] - u[1] * dot(bd, u), bd[2] - u[2] * dot(bd, u)]);
       const E: P3 = [S[0] + u[0] * a + b[0] * h, S[1] + u[1] * a + b[1] * h, S[2] + u[2] * a + b[2] * h];
       const Fr: P3 = [S[0] + u[0] * dist, S[1] + u[1] * dist, S[2] + u[2] * dist];
-      const across = [[S, E], [E, Fr]].map(([A, B]) => {
-        const T = unit(sub(B, A));
+      const across = [[S, E], [E, Fr]].map(([A, Bn]) => {
+        const T = unit(sub(Bn, A));
         let x = cross(T, [0, 0, 1]);
         if (Math.hypot(...x) < 0.1) x = cross(T, [1, 0, 0]);
         x = unit(x);
-        return { A, B, x, y: cross(T, x) };
+        return { A, B: Bn, x, y: cross(T, x) };
       });
       return { across, F: Fr };
     });
@@ -570,29 +782,35 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       if (front > 1.15) { coat = nextCoat; wave = -1; front = -1; }
     }
 
-    // --- The branch and its leaves: laid out again only when the branch has slid or the view has swung --------
-    const scenery = GRID || slid !== sceneSlid || turn.now !== sceneTurn;
-    sceneSlid = slid; sceneTurn = turn.now;
-    if (scenery && !portrait) for (let slot = 0; slot < LEAVES; slot++) {
-      const at = (leafAt[slot] - slid - BARK_FROM) / BARK_SPAN, lap = Math.floor(at), x = BARK_FROM + frac(at) * BARK_SPAN;
-      // This time round: how long, how wide, which way it hangs, and whether it is there at all.
-      const h1 = hash(slot * 13.7 + lap * 7.1), h2 = hash(slot * 5.3 + lap * 11.9), h3 = hash(slot * 2.1 + lap * 3.7);
-      const up = h3 > 0.72, ang = up ? Math.PI / 2 + (h1 - 0.5) * 1.3 : -Math.PI / 2 + (h1 - 0.5) * 2.2;
-      const ax = Math.cos(ang), ay = Math.sin(ang), o = slot * 8;
-      leaf[o] = x + ax * BRANCH_R; leaf[o + 1] = BRANCH_Y(x) + ay * BRANCH_R; leaf[o + 2] = ax; leaf[o + 3] = ay;
-      leaf[o + 4] = 0.18 + 0.22 * h2; leaf[o + 5] = 0.05 + 0.05 * h1; leaf[o + 6] = up ? 0.1 : h2 > 0.5 ? -0.1 : 0.06;
-      leaf[o + 7] = (h3 < 0.12 ? 0 : 1) * smooth(BARK_FROM, BARK_FROM + 0.9, x) * (1 - smooth(BARK_FROM + BARK_SPAN - 0.8, BARK_FROM + BARK_SPAN, x));
+    // --- The branch and its leaves, as the branch lies this frame ---------------------------------------------
+    if (!portrait) {
+      for (let j = 0; j <= TABLE; j++) {
+        branchAt(BARK_FROM + (j * BARK_SPAN) / TABLE, B);
+        midY[j] = B[0]; midZ[j] = B[1]; thick[j] = B[2];
+      }
+      for (let slot = 0; slot < LEAVES; slot++) {
+        const at = (leafAt[slot] - slid - BARK_FROM) / BARK_SPAN, lap = Math.floor(at), x = BARK_FROM + frac(at) * BARK_SPAN;
+        // This time round: how long, how wide, which way it hangs, and whether it is there at all. It stirs in
+        // the air, each leaf on its own.
+        const h1 = hash(slot * 13.7 + lap * 7.1), h2 = hash(slot * 5.3 + lap * 11.9), h3 = hash(slot * 2.1 + lap * 3.7);
+        const up = h3 > 0.72, stir = 0.07 * Math.sin(t * 1.1 + slot * 2.3) + 0.03 * Math.sin(t * 2.7 + slot * 1.7);
+        const ang = (up ? Math.PI / 2 + (h1 - 0.5) * 1.3 : -Math.PI / 2 + (h1 - 0.5) * 2.2) + stir;
+        const ax = Math.cos(ang), ay = Math.sin(ang), o = slot * 8;
+        branchAt(x, B);
+        leaf[o] = x + ax * B[2]; leaf[o + 1] = B[0] + ay * B[2]; leaf[o + 2] = ax; leaf[o + 3] = ay;
+        leaf[o + 4] = 0.18 + 0.22 * h2; leaf[o + 5] = 0.05 + 0.05 * h1; leaf[o + 6] = B[1] + (up ? 0.1 : h2 > 0.5 ? -0.1 : 0.06);
+        leaf[o + 7] = (h3 < 0.12 ? 0 : 1) * smooth(BARK_FROM, BARK_FROM + 0.9, x) * (1 - smooth(BARK_FROM + BARK_SPAN - 0.8, BARK_FROM + BARK_SPAN, x));
+      }
     }
 
     // --- Every glyph: where it is, which way it faces, what it shows ------------------------------------------
     const P: P3 = [0, 0, 0], N: P3 = [0, 0, 0], Q: P3 = [0, 0, 0], M: P3 = [0, 0, 0];
-    // Screen-space direction of the tongue, for the character that draws it.
+    // Screen-space direction of the tongue, for the characters that draw it.
     const tdx = (cy * (tip[0] - snout[0]) + sy * (tip[2] - snout[2])), tdy = tip[1] - snout[1];
-    const tongueChar = Math.abs(tdy) < Math.abs(tdx) * 0.4 ? "-" : Math.abs(tdx) < Math.abs(tdy) * 0.4 ? "|" : tdx * tdy > 0 ? "/" : "\\";
+    const lineChar = (dx: number, dy: number) => Math.abs(dy) < Math.abs(dx) * 0.4 ? "-" : Math.abs(dx) < Math.abs(dy) * 0.4 ? "|" : dx * dy > 0 ? "/" : "\\";
     for (let i = 0; i < used; i++) {
       const k = kind[i], i3 = i * 3;
-      if (!scenery && (k === K.Branch || k === K.Leaf)) continue;
-      let role: Color = "fg", chars = "", alpha = 1, lit = true, share = 0, bias = 0, mode = 0, flat = false;
+      let role: Color = "fg", chars = "", alpha = 1, lit = true, share = 0, bias = 0, mode = 0, flat = false, body = false;
       let fx = 0;
       const fy = 0;
       const wear = COATS[front >= 0 && paint[i] < front ? nextCoat : coat];
@@ -602,8 +820,9 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         // The gulp swells the throat.
         if (gulp > 0 && sn < 0) puff += 0.3 * gulp * Math.exp(-(((sv - 0.74) / 0.06) ** 2));
         for (let a = 0; a < 3; a++) { P[a] = cen[i3 + a] + off[i3 + a] * puff; N[a] = nor[i3 + a]; }
-        P[0] += rocking * (1 - headShare(sv) * 0.3); P[1] += bob;
+        if (js > 0.003 && sv > 0.8 && sn < 0) { const jw = jawShare(sv, sn); openJaw(P, jw, false); openJaw(N, jw, true); }
         share = headShare(sv);
+        body = true;
         if (k === K.Mouth) { role = "comment"; chars = "_"; bias = -0.05; }
         else {
           mode = band(stripe[i]); role = wear[mode];
@@ -617,8 +836,9 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         const tx = tail[j * 2 + 2] - tail[j * 2], ty = tail[j * 2 + 3] - tail[j * 2 + 1], tl = Math.hypot(tx, ty) || 1;
         const q = a1[i], rad = tailRadius(u) * a2[i];
         N[0] = (-ty / tl) * Math.cos(q); N[1] = (tx / tl) * Math.cos(q); N[2] = Math.sin(q);
-        P[0] = x + N[0] * rad + rocking * (1 - u); P[1] = y + N[1] * rad + bob * (1 - u); P[2] = N[2] * rad;
+        P[0] = x + N[0] * rad; P[1] = y + N[1] * rad; P[2] = N[2] * rad + (portrait ? 0 : 0.03 * u * u * Math.sin(t * 0.9 + 1));
         mode = band(stripe[i]); role = wear[mode];
+        body = true;
       } else if (k === K.Leg) {
         const bone = joints[a0[i]].across[a1[i]], f = a2[i], q = a3[i], r = LEG_R[a1[i]] * (1 + bump[i]);
         const cq = Math.cos(q), sq = Math.sin(q);
@@ -628,8 +848,12 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         }
         mode = band(stripe[i]); role = wear[mode];
       } else if (k === K.Foot) {
-        const F = joints[a0[i]].F;
-        for (let a = 0; a < 3; a++) { P[a] = F[a] + off[i3 + a]; N[a] = nor[i3 + a]; }
+        // A foot closes round the bark; lifted, its two bundles of toes part, fore and aft.
+        const li = a0[i], F = joints[li].F, op = opened[li], ox = off[i3];
+        P[0] = F[0] + ox * (1 + 0.3 * op) + Math.sign(ox) * op * 0.03;
+        P[1] = F[1] + off[i3 + 1] + op * 0.025 * Math.abs(nor[i3]);
+        P[2] = F[2] + off[i3 + 2];
+        N[0] = nor[i3]; N[1] = nor[i3 + 1]; N[2] = nor[i3 + 2];
         mode = band(stripe[i]); role = wear[mode];
       } else if (k === K.Eye) {
         const e = a0[i] > 0 ? 1 : 0, c = eyes[e];
@@ -637,8 +861,9 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         const o = turnHead(Q, 1, true, Q);
         M[0] = nor[i3]; M[1] = nor[i3 + 1]; M[2] = nor[i3 + 2];
         const nn = turnHead(M, 1, true, M);
-        P[0] = c[0] + o[0] + rocking * 0.7; P[1] = c[1] + o[1] + bob; P[2] = c[2] + o[2];
+        P[0] = c[0] + o[0]; P[1] = c[1] + o[1]; P[2] = c[2] + o[2];
         N[0] = nn[0]; N[1] = nn[1]; N[2] = nn[2];
+        body = true;
         const sees = dot(nn, gaze[e]);
         bias = -0.06;
         if (blink < 0.35 && sees > 0.94) { role = "fg"; chars = "@"; mode = 3; }
@@ -648,8 +873,10 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         else { role = wear[band(1 - sees * 2.2)]; chars = band(1 - sees * 2.2) ? "()" : ""; mode = chars ? 3 : 0; }
       } else if (k === K.Branch) {
         const x = BARK_FROM + frac((a0[i] - slid - BARK_FROM) / BARK_SPAN) * BARK_SPAN, q = a1[i];
+        const f = ((x - BARK_FROM) * TABLE) / BARK_SPAN, j = Math.min(TABLE - 1, f | 0), r = f - j;
+        const rad = (thick[j] + (thick[j + 1] - thick[j]) * r) * a2[i];
         N[0] = 0; N[1] = Math.sin(q); N[2] = Math.cos(q);
-        P[0] = x; P[1] = BRANCH_Y(x) + N[1] * BRANCH_R; P[2] = N[2] * BRANCH_R;
+        P[0] = x; P[1] = midY[j] + (midY[j + 1] - midY[j]) * r + N[1] * rad; P[2] = midZ[j] + (midZ[j + 1] - midZ[j]) * r + N[2] * rad;
         // The bark (fixed when it was laid down), the ends fading out.
         role = "copper"; chars = BARK[a3[i]]; mode = 3;
         alpha = smooth(BARK_FROM, BARK_FROM + 0.9, x) * (1 - smooth(BARK_FROM + BARK_SPAN - 0.8, BARK_FROM + BARK_SPAN, x));
@@ -664,10 +891,11 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         role = a3[i] < 0.08 ? "comment" : Math.abs(a1[i]) < 0.15 ? "string" : "success";
         alpha = leaf[o + 7];
       } else if (k === K.Tongue) {
-        const u = a0[i];
+        const u = a0[i], sb = Math.sin(Math.PI * u);
         for (let a = 0; a < 3; a++) P[a] = snout[a] + (tip[a] - snout[a]) * u;
-        P[0] += rocking * 0.7 * (1 - u);
-        role = "rose"; chars = u > 0.97 ? "@" : tongueChar; mode = 3; alpha = reach > 0.03 ? 1 : 0; lit = false; bias = -10;
+        P[1] -= bow * sb;
+        role = "rose"; chars = u > 0.97 ? "@" : lineChar(tdx, tdy - bow * Math.PI * Math.cos(Math.PI * u)); mode = 3;
+        alpha = reach > 0.02 ? 1 : 0; lit = false; bias = -10;
       } else {
         // A fly, drawn the way a terminal would: a body and two wings that beat, and a faint trail behind it.
         const slot = a0[i], part = a1[i], f = flies[slot];
@@ -685,6 +913,8 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         mode = 3; lit = false; bias = part === 0 ? -30 : -20; flat = true;
       }
       if (share > 0) { turnHead(P, share, false, P); turnHead(N, share, true, N); }
+      // The body, the head, the eyes and the tail carried on the legs.
+      if (body) { posed(P, false, P); posed(N, true, N); }
       // The whole animal, turned round if it has turned.
       if (k !== K.Branch && k !== K.Leaf && k !== K.Fly && (turn.now !== 0 || hop)) { toWorld(P, false, P); toWorld(N, true, N); P[1] += hop; }
       const living = k === K.Body || k === K.Tail || k === K.Leg || k === K.Foot;
@@ -789,11 +1019,10 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   s.hh = ((y1 - y0) / 2) * 1.06;
   floor = -s.hh * 1.02;
   // Now framed. In depth the first layout only needs moving by the offsets (no second pass: this runs while the
-  // page loads); on the grid it is laid out again so every glyph lands in its cell. The branch is laid out again on
-  // the first frame either way, to fade at the frame's floor.
-  sceneSlid = NaN;
+  // page loads); on the grid it is laid out again so every glyph lands in its cell. The branch fades at the
+  // frame's floor from the first frame on.
   if (GRID) {
-    last = 0; phaseAt = 0; nextStep = 0.4; frame = 0;
+    last = 0; phaseAt = 0; nextStep = 0.5; frame = 0;
     live(0, { x: 0, y: 0, on: 0 });
   } else for (let i = 0; i < used; i++) { s.pos[i * 3] -= offX; s.pos[i * 3 + 1] -= offY; }
   last = 0;
@@ -813,7 +1042,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   s.touch = (x, y) => {
     if (Math.abs(x) > s.hw * 1.2 || Math.abs(y) > s.hh * 1.35) return true;
     const t = last, queued = flies.filter((f) => f.on && !f.wild && f.eatAt > t).length;
-    spawn(fromScreen(x, y, -0.25), 0.32 + queued * 0.45, false, t);
+    spawn(fromScreen(x, y, -0.25), 0.4 + queued * 0.5, false, t);
     return true;
   };
   return { shape: s, kind, used };
