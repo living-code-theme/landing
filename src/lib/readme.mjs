@@ -1,5 +1,5 @@
 // Repository README content is untrusted data, never MDX or executable HTML.
-import { Marked } from "marked";
+import { Lexer, Marked } from "marked";
 import sanitizeHtml from "sanitize-html";
 import { codeBlock } from "./markdown.mjs";
 import { flavors } from "./theme.mjs";
@@ -33,6 +33,18 @@ function relativeImagePath(href) {
 
 /** The landing is an installation guide, not a second copy of the GitHub repository page. */
 export function renderPortGuide(source, context) {
+  if (typeof source !== "string") {
+    if (source?.schemaVersion !== 1 || !["installation", "configuration", "compatibility"].every((key) => typeof source[key] === "string") || !source.links || typeof source.links !== "object" || Array.isArray(source.links)) throw new Error("Unsupported published guide schema");
+    for (const link of Object.values(source.links)) if (!link || typeof link.href !== "string" || typeof link.title !== "string") throw new Error("Invalid published guide reference");
+    const headings = new Map();
+    return Object.fromEntries(["installation", "configuration", "compatibility"].map((key) => {
+      const lexer = new Lexer({ gfm: true });
+      lexer.tokens.links = Object.assign(Object.create(null), source.links);
+      const tokens = lexer.lex(source[key]);
+      return [key, renderContent(tokens, context, { headings, pinAnchors: true }).trim()];
+    }));
+  }
+  // Read compatibility for the existing catalog; new discovery publishes the versioned guide directly.
   const tokens = new Marked({ gfm: true }).lexer(source);
   const sections = new Map(["installation", "configuration", "compatibility"].map((key) => [key, []]));
   let current;

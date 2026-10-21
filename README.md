@@ -26,7 +26,8 @@ Workflow regression tests also require Git and Bash; they use temporary reposito
 |---|---|
 | `astro.config.mjs`, `src/` | Astro bootstrap, pages, layouts, styling, browser interactions and presentation helpers |
 | `data/theme.json`, `src/styles/theme.css` | Versioned core exports: resolved palettes, roles, contrast measurements, glyph outlines and matching CSS |
-| `data/ports.json`, `public/port-images/` | Validated port snapshots and captures delivered by core's discovery tooling |
+| `data/ports.json`, `data/ports/` | Validated metadata index and immutable per-port guide documents delivered by core |
+| `public/port-images/` | Default local capture store; optional R2 mode pins external capture URLs, dimensions, hashes and sizes instead |
 | `public/port.schema.json` | Static copy of core's schema, served at <https://living-code.dev/port.schema.json> for editor autocomplete |
 | `public/fonts/`, favicon assets | Local website assets; brand sources live in core |
 | `test/` | Website rendering, interactions, build output and standalone-input checks |
@@ -37,10 +38,20 @@ validation, README templates, scaffolding, local-port previews, theme generation
 There are no maintenance scripts or templates here and no runtime dependency on core. Rendering/sanitizing repository
 Markdown, grouping ports and adapting committed data for the UI remain website concerns.
 
-`data/ports.json` is the only port catalog. Only successfully discovered public repositories appear in the finder,
-showcase and generated port pages. There is no legacy catalog, installation-text fallback or legacy screenshot source.
-An empty repository does not count as a published port. A small catalog is intentional while ports migrate.
-The snapshot's `migratedSlugs` field remains compatible with core's discovery format, but does not add website entries.
+`data/ports.json` is the only port index. Schema 2 contains metadata and references into `data/ports/`, not every
+README. Each port page loads and verifies only its own content-addressed guide document. Core derives guide v1's
+Markdown sections from the authoritative README; GitHub table/dropdown presentation is not a website data contract.
+The existing schema-1 catalog remains readable during rollout, without merging any fallback registry.
+
+Only successfully discovered public repositories appear. An empty repository is not a published port. No legacy
+catalog or screenshot source can add entries. Discovery/build never executes port scripts.
+
+The finder opens immediately and loads one shared, content-addressed metadata asset on first use; failure or no
+JavaScript retains the normal full-catalog link. The homepage ships at most five fallback previews, while **every
+captured port stays eligible** for the existing per-browser rotating selection. Only the chosen previews are fetched
+from shared static fragments rendered by the same component. Both complete port lists and all port pages remain
+static and accessible without JavaScript. In external capture mode, visitors load pinned images from the public
+asset origin; the website compiler does not download those images.
 
 ## Refresh website inputs (from core)
 
@@ -57,9 +68,11 @@ GH_TOKEN="$(gh auth token)" pnpm sync:ports --landing ../landing --dry-run
 GH_TOKEN="$(gh auth token)" pnpm sync:ports --landing ../landing
 ```
 
-Authentication is optional for public repositories and increases GitHub rate limits. Invalid port updates retain the
-last working snapshot; incomplete listings and authentication/rate-limit failures abort without removing ports.
-Visitors never contact GitHub. Normal website builds never refresh these inputs.
+Authenticated discovery batches up to 100 repository heads per query and fetches only changed public inputs at
+immutable revisions. Large catalogs require `GH_TOKEN`; small anonymous runs remain supported. Public blob downloads
+use GitHub's fixed CDN origin without an authorization header, not thousands of API content requests. Invalid port
+updates retain the last working snapshot; incomplete listings and authentication/rate-limit failures abort without
+removing ports. Visitors never query GitHub for discovery. Normal website builds never refresh these inputs.
 
 For a manual refresh, review the changed data/assets in the landing checkout, then run `pnpm build` and `pnpm test`
 there before committing. The automated equivalent is configured below; ordinary local builds stay offline.
@@ -75,8 +88,8 @@ locked dependencies and runs `pnpm sync:ports --landing <checkout>` there. Port 
 Discovery validates metadata, README and captures from one published revision per repository, keeping the previous
 working snapshot for an invalid port update. Global listing/authentication failures stop the run without removals.
 
-When publication is needed, the workflow installs landing, builds and tests it, commits **only** `data/ports.json`
-and `public/port-images/`, then deploys the already-tested `dist/` to the `living-code-landing` Cloudflare Worker.
+When publication is needed, the workflow installs landing, builds and tests it, commits **only** `data/ports.json`,
+`data/ports/` and local `public/port-images/` changes, then deploys the already-tested `dist/` to the `living-code-landing` Cloudflare Worker.
 It deploys in the same run because a bot commit made with `GITHUB_TOKEN` does not trigger another Actions workflow.
 Ordinary website pushes also go through this validation/deployment path.
 
@@ -88,7 +101,7 @@ Actions log, rerun the workflow, or let the next scheduled run retry.
 
 ### One-time activation
 
-1. Ensure core's `main` branch includes **commit `538cf1fb5ae98ac060ca1b612b28b7bb449db240`**, the tooling revision
+1. Ensure core's `main` branch includes **commit `9df9115a8fe1c6e1d5a46519dac08d7a31997511`**, the tooling revision
    pinned in the workflow. That commit is published; update the pin explicitly when adopting a reviewed tooling change.
 2. In landing's **Settings → Secrets and variables → Actions**, configure:
    - Secret **`CLOUDFLARE_API_TOKEN`**: a Cloudflare API token allowed to deploy Workers/static assets in this Worker's
@@ -100,6 +113,20 @@ Actions log, rerun the workflow, or let the next scheduled run retry.
    must permit `github-actions[bot]` to push generated inputs. No cross-repository PAT or port-repository secret is needed.
 4. Use Actions → **sync-ports** → **Run workflow** on `main` to verify discovery, tests and Cloudflare deployment.
    Once working, publish ports normally and let the schedule pick them up.
+
+### Scalable publication and optional R2
+
+The pinned core revision supports schema-2 publication and batched discovery. The first updated sync converts a
+schema-1 catalog into the small index and immutable per-port documents; local fixtures are never published.
+For later tooling changes, publish/review core first, then advance the exact SHA in this workflow. Capture storage
+remains local/Git unless a maintainer explicitly enables and configures R2.
+
+For optional R2 capture storage, set Actions variables **`PORT_ASSET_STORAGE=r2`**, **`R2_BUCKET`** and
+**`R2_PUBLIC_URL`**, and secrets **`R2_ACCESS_KEY_ID`** / **`R2_SECRET_ACCESS_KEY`**, scoped to object read/write in that
+bucket. The workflow reuses `CLOUDFLARE_ACCOUNT_ID`. Default **`git`** mode requires none of these optional settings.
+Uploads finish before the index can reference their immutable public URLs; a failed upload does not publish dangling
+captures. Bucket creation, public access/domain setup and remote retention are explicit maintainer operations, not
+part of the workflow. See core's [publication guide](https://github.com/living-code-theme/core/blob/main/docs/PORT-PUBLICATION.md).
 
 Use this workflow as the sole automated production deployer. If Cloudflare Workers Builds was connected directly to
 GitHub, disable its automatic Git deployment trigger to avoid a competing deployment outside this validation flow.
@@ -134,7 +161,7 @@ Previewing validates the draft through the discovery pipeline and builds an isol
 GitHub or edit the production catalog. The page identifies itself as a local preview; its revision is a content
 fingerprint, not a published commit. Re-run after editing the port.
 
-Port pages show an installation guide derived from the repository-owned README, with configuration, compatibility
+Port pages render a versioned installation guide compiled from the repository-owned README, with configuration, compatibility
 and included files in collapsed details. The website's flavor controls replace the README's duplicate flavor grid.
 The GitHub link points to the repository for the full documentation.
 
@@ -148,6 +175,17 @@ pnpm test:standalone --landing ../landing
 Core's runner copies only website inputs to a temporary directory, without dependencies, build output, caches or
 credentials. It installs from the landing lockfile, builds and runs the website tests with no core checkout beside it.
 The runner is tooling owned by core, not part of the website bootstrap.
+
+## Verify 400-port capacity (from core)
+
+```sh
+pnpm test:scale --landing ../landing --keep --report /tmp/living-code-scale.json
+```
+
+This creates a marked, synthetic 400-port fixture in an isolated copy, not the production catalog. It tests cold,
+unchanged, changed, failing and removed ports through the discovery/storage adapters, then performs a real frozen
+install, offline build and website tests. Existing port documentation and real captures are not modified. GitHub/R2
+network responses are simulated; production network latency and credentials still need normal rollout verification.
 
 ## Hosting
 

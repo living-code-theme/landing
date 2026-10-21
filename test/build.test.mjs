@@ -5,7 +5,8 @@ import { join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { flavors } from "../src/lib/theme.mjs";
-import { ports } from "../src/lib/ports.mjs";
+import { ports, readPort } from "../src/lib/ports.mjs";
+import { finderPayload, finderUrl } from "../src/lib/port-finder-data.mjs";
 import { portCount } from "../src/lib/data.mjs";
 import { renderPortGuide } from "../src/lib/readme.mjs";
 
@@ -23,11 +24,12 @@ const walk = (dir) => {
 };
 walk("");
 
-test("every port has a page with its name and every install command", () => {
-  for (const p of ports) {
+test("every port has a page with its name and every install command", async () => {
+  for (const entry of ports) {
+    const p = await readPort(entry);
     const html = main(page(`ports/${p.id}`));
     assert.match(html, new RegExp(`<h1[^>]*>[\\s\\S]*?${escape(p.name).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`), p.id);
-    const commands = Object.values(renderPortGuide(p.readme, { repository: p.repository, revision: p.revision, images: p.readmeImages }))
+    const commands = Object.values(renderPortGuide(p.guide ?? p.readme, { repository: p.repository, revision: p.revision, images: p.guideImages ?? p.readmeImages }))
       .flatMap((section) => [...section.matchAll(/data-copy="([^"]*)"/g)].map((match) => match[1]));
     assert.ok(html.includes(`data-port-revision="${p.revision}"`), `${p.id}: imported revision`);
     assert.doesNotMatch(html, /<dt>Snapshot<\/dt>/, `${p.id}: revision metadata stays out of the visible details`);
@@ -111,7 +113,8 @@ test("the home page credits the creator in the hero, not only the footer", () =>
   assert.ok(hero.indexOf("Made by") < hero.indexOf('data-glyph="chameleon"'), "the credit comes before the hero art");
 });
 
-test("every page has an immediately available finder with direct port links and a no-script fallback", () => {
+test("every page has an immediate finder shell, one shared search asset and a no-script fallback", () => {
+  assert.equal(readFileSync(join(dist, finderUrl), "utf8"), finderPayload);
   for (const path of pages) {
     const html = readFileSync(join(dist, path), "utf8");
     const header = html.match(/<header[\s\S]*?<\/header>/)[0];
@@ -123,9 +126,11 @@ test("every page has an immediately available finder with direct port links and 
     assert.match(finder, /id="port-finder-input"[^>]*data-port-filter[^>]*autofocus/, path);
     assert.doesNotMatch(finder, /data-reveal|data-rise/, `${path}: no delayed results`);
     assert.doesNotMatch(finder, /<details|<summary|data-copy=/, `${path}: results navigate instead of expanding installation steps`);
-    for (const p of ports) {
-      assert.ok(finder.includes(`href="/ports/${p.id}/"`), `${path}: direct link to ${p.id}`);
-    }
+    assert.ok(finder.includes(`data-port-catalog="${finderUrl}"`), `${path}: shared metadata asset`);
+    assert.doesNotMatch(finder, /role="option"/, `${path}: do not repeat the entire catalog in every HTML page`);
+    assert.match(finder, /data-port-loading role="status" hidden/);
+    assert.match(finder, /data-port-error role="alert" hidden/);
+    assert.match(finder, /href="\/ports\/">Browse all ports/);
   }
 });
 
@@ -135,10 +140,13 @@ test("the finder exposes a labelled combobox and selectable options for assistiv
   assert.match(finder, /id="port-finder-results" role="listbox" aria-label="Available ports"/);
   assert.match(finder, /id="port-finder-keys"/);
   assert.match(finder, /class="port-finder__results[^"]*" tabindex="-1"/, "the scroll container does not introduce an extra tab stop");
-  assert.equal([...finder.matchAll(/role="option"/g)].length, ports.length);
-  for (const p of ports) {
-    assert.ok(finder.includes(`id="finder-port-${p.id}" role="option" aria-selected="false" tabindex="-1"`), `${p.id}: named selection target, outside the tab order`);
-  }
+  const data = JSON.parse(readFileSync(join(dist, finderUrl), "utf8"));
+  assert.deepEqual(data.groups.flatMap((group) => group.ports.map((p) => p.id)).sort(), ports.map((p) => p.id).sort());
+  const client = readFileSync(new URL("../src/scripts/port-finder.ts", import.meta.url), "utf8");
+  assert.match(client, /setAttribute\("role", "option"\)/);
+  assert.match(client, /setAttribute\("aria-selected", "false"\)/);
+  assert.match(client, /link\.tabIndex = -1/);
+  assert.doesNotMatch(client, /innerHTML|insertAdjacentHTML/, "metadata never becomes executable markup");
 });
 
 test("each flavor page is shown in its own flavor", () => {

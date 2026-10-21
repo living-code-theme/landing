@@ -1,11 +1,11 @@
 ---
-// Search the registry locally, then go straight to the chosen port's page.
+// Open immediately; load one shared search asset instead of repeating the whole catalog on every page.
 import Arrow from "./Arrow.astro";
-import PortIcon from "./PortIcon.astro";
-import { PORT_REQUEST, REPO, groups, keys, portCount, slug } from "../lib/data.mjs";
+import { PORT_REQUEST, REPO, portCount } from "../lib/data.mjs";
+import { finderUrl } from "../lib/port-finder-data.mjs";
 ---
 
-<dialog class="port-finder" id="port-finder" aria-labelledby="port-finder-title" aria-describedby="port-finder-help" data-port-list>
+<dialog class="port-finder" id="port-finder" aria-labelledby="port-finder-title" aria-describedby="port-finder-help" data-port-list data-port-catalog={finderUrl}>
   <div class="flex items-start justify-between gap-4 px-5 pt-5 sm:px-8 sm:pt-7">
     <div>
       <h2 class="text-2xl font-semibold tracking-tight" id="port-finder-title">Ports &amp; installation</h2>
@@ -27,23 +27,9 @@ import { PORT_REQUEST, REPO, groups, keys, portCount, slug } from "../lib/data.m
     <p class="mt-3 text-sm text-muted" id="port-finder-keys">Use <kbd>↑</kbd> <kbd>↓</kbd> to choose, <kbd>Enter</kbd> to open. Keep typing to search.</p>
   </div>
   <div class="port-finder__results min-h-0 overflow-y-auto overscroll-contain px-5 pb-6 sm:px-8" tabindex="-1">
-    <div id="port-finder-results" role="listbox" aria-label="Available ports">
-      {groups.map((g) => (
-        <section class="not-first:mt-6" data-port-group role="group" aria-labelledby={`finder-${slug(g.title)}`}>
-          <h3 class="mb-2 text-sm font-medium text-muted" id={`finder-${slug(g.title)}`} aria-hidden="true">{g.title}</h3>
-          <ul role="presentation">
-            {g.ports.map((p) => (
-              <li class="border-b border-line" data-port-keys={keys(p)} role="presentation">
-                <a class="port-link flex min-h-14 items-center gap-4 px-3 py-3 font-medium no-underline" href={`/ports/${p.id}/`} id={`finder-port-${p.id}`} role="option" aria-selected="false" tabindex="-1">
-                  <PortIcon port={p} />
-                  <span class="port-name inline-block min-w-0 [overflow-wrap:anywhere]">{p.name}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-    </div>
+    <p class="py-6 text-muted" data-port-loading role="status" hidden>Loading ports…</p>
+    <p class="py-6 text-fg-alt [&_a]:text-accent" data-port-error role="alert" hidden>Search couldn’t load. <a href="/ports/">Browse all ports</a> instead.</p>
+    <div id="port-finder-results" role="listbox" aria-label="Available ports"></div>
     <p class="py-6 text-fg-alt [&_a]:text-accent" data-port-none hidden>
       No port for “<span data-query></span>” yet. Try another app name, <a href={PORT_REQUEST}>request a port</a>, or use the <a href={`${REPO}/blob/main/palette.json`}>palette</a>.
     </p>

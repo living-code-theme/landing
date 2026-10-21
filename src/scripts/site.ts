@@ -8,6 +8,7 @@ import { appShowcases, languagePreviews } from "./language-preview";
 import { showcaseImages } from "./showcase-images";
 import { faqAccordions } from "./faq";
 import { cancelFinderClose, closeFinder } from "./finder-dialog";
+import { loadPortFinder } from "./port-finder";
 
 const root = document.documentElement;
 const still = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -37,6 +38,7 @@ function openPortFinder() {
   }
   input.focus({ preventScroll: true });
   input.select();
+  void loadPortFinder(dialog);
   return true;
 }
 
@@ -388,7 +390,11 @@ function restorePageLayout() {
   if (input && saved) input.value = saved.query;
   // Collapse no-script panels and restore their selection before measuring the story or restoring scroll.
   // Doing this on page-load changes the page's height after Astro has already taken the new snapshot.
-  teardown.push(languagePreviews(), appShowcases());
+  teardown.push(languagePreviews(), appShowcases(() => {
+    syncFlavorUi();
+    if (homeView) restoreHomeChoices(document, homeView);
+    field?.refresh();
+  }));
   if (homeView) restoreHomeChoices(document, homeView);
   teardown.push(showcaseImages());
   story();
@@ -412,8 +418,8 @@ function restorePageLayout() {
 function portFilter() {
   document.querySelectorAll<HTMLElement>("[data-port-list]").forEach((list) => {
     const input = list.querySelector<HTMLInputElement>("[data-port-filter]")!;
-    const rows = [...list.querySelectorAll<HTMLElement>("[data-port-keys]")];
-    const groups = [...list.querySelectorAll<HTMLElement>("[data-port-group]")];
+    let rows = [...list.querySelectorAll<HTMLElement>("[data-port-keys]")];
+    let groups = [...list.querySelectorAll<HTMLElement>("[data-port-group]")];
     const none = list.querySelector<HTMLElement>("[data-port-none]")!;
     const count = list.querySelector<HTMLElement>("[data-port-count]")!;
     const picker = input.getAttribute("role") === "combobox";
@@ -441,6 +447,7 @@ function portFilter() {
       }
     };
     const run = () => {
+      if (list.hasAttribute("data-port-catalog") && !list.dataset.portReady) return;
       const q = input.value.trim().toLowerCase();
       let shown = 0;
       for (const row of rows) {
@@ -483,14 +490,21 @@ function portFilter() {
       const option = e.target instanceof Element ? e.target.closest<HTMLAnchorElement>('[role="option"]') : null;
       if (option && option !== active && visible.includes(option)) select(option);
     };
+    const loaded = () => {
+      rows = [...list.querySelectorAll<HTMLElement>("[data-port-keys]")];
+      groups = [...list.querySelectorAll<HTMLElement>("[data-port-group]")];
+      run();
+    };
     input.addEventListener("input", run);
     input.addEventListener("keydown", jump);
     list.addEventListener("pointermove", point);
+    list.addEventListener("ports:loaded", loaded);
     run();
     teardown.push(() => {
       input.removeEventListener("input", run);
       input.removeEventListener("keydown", jump);
       list.removeEventListener("pointermove", point);
+      list.removeEventListener("ports:loaded", loaded);
     });
   });
 }

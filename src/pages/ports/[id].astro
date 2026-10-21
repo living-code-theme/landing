@@ -10,6 +10,7 @@ import Pager from "../../components/Pager.astro";
 import { files, reportIssue, groupOf, ports, route, shipped, short, shotsOf, slug } from "../../lib/data.mjs";
 import { portIcon } from "../../lib/icons.mjs";
 import { renderPortGuide } from "../../lib/readme.mjs";
+import { readPort } from "../../lib/ports.mjs";
 import { siGithub } from "simple-icons";
 import { back, h3 } from "../../lib/ui.mjs";
 
@@ -18,7 +19,7 @@ export function getStaticPaths() {
 }
 
 const { i } = Astro.props;
-const p = ports[i];
+const p = await readPort(ports[i]);
 const prev = ports[(i - 1 + ports.length) % ports.length];
 const next = ports[(i + 1) % ports.length];
 const ships = shipped(p);
@@ -27,7 +28,7 @@ const icon = portIcon(p);
 
 const all = files(p);
 const host = p.homepage ? new URL(p.homepage).host.replace(/^www\./, "") : null;
-const guide = renderPortGuide(p.readme, { repository: p.repository, revision: p.revision, images: p.readmeImages });
+const guide = renderPortGuide(p.guide ?? p.readme, { repository: p.repository, revision: p.revision, images: p.guideImages ?? p.readmeImages });
 const options = [
   { label: "Configuration", html: guide.configuration },
   { label: "Compatibility", html: guide.compatibility },

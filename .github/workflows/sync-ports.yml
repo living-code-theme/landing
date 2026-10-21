@@ -38,7 +38,8 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: living-code-theme/core
-          ref: 538cf1fb5ae98ac060ca1b612b28b7bb449db240
+          # Reviewed schema-2 publication, batched discovery and optional immutable R2 tooling.
+          ref: 9df9115a8fe1c6e1d5a46519dac08d7a31997511
           path: core
           persist-credentials: false
 
@@ -61,14 +62,25 @@ jobs:
         working-directory: core
         env:
           GH_TOKEN: ${{ github.token }}
-        run: pnpm sync:ports --landing "$GITHUB_WORKSPACE/landing"
+          PORT_ASSET_STORAGE: ${{ vars.PORT_ASSET_STORAGE || 'git' }}
+          R2_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID || secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_BUCKET: ${{ vars.R2_BUCKET }}
+          R2_PUBLIC_URL: ${{ vars.R2_PUBLIC_URL }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          case "$PORT_ASSET_STORAGE" in
+            git) pnpm sync:ports --landing "$GITHUB_WORKSPACE/landing" ;;
+            r2) pnpm sync:ports --landing "$GITHUB_WORKSPACE/landing" --r2 ;;
+            *) echo '::error::PORT_ASSET_STORAGE must be git or r2'; exit 1 ;;
+          esac
 
       - name: Decide whether to publish
         id: changes
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add -- data/ports.json public/port-images
+          git add -- data/ports.json data/ports public/port-images
           changed=false
           if ! git diff --cached --quiet; then changed=true; fi
           # A failed deployment must be retried even when discovery is now unchanged.

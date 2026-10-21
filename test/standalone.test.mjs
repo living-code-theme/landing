@@ -7,6 +7,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import snapshot from "../data/theme.json" with { type: "json" };
 import discovered from "../data/ports.json" with { type: "json" };
+import { ports, readPort } from "../src/lib/ports.mjs";
 import { ACCENT_ORDER, ANSI_ORDER, GLYPHS, NEUTRAL_ORDER, TEXT_ROLES, flavors } from "../src/lib/theme.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
@@ -39,15 +40,24 @@ test("landing theme data, CSS and glyphs are complete without a palette compiler
 });
 
 test("port inputs and real captures are local and pinned to published repository revisions", async () => {
-  assert.equal(discovered.schemaVersion, 1);
-  for (const port of discovered.ports) {
+  assert.ok([1, 2].includes(discovered.schemaVersion));
+  for (const entry of ports) {
+    const port = await readPort(entry);
     assert.equal(port.repository, `https://github.com/${port.repositoryName}`);
     assert.match(port.revision, /^[a-f0-9]{40}$/);
     assert.equal(port.readmeUrl, `${port.repository}/blob/${port.revision}/README.md`);
     for (const path of port.files) assert.ok(port.fileUrls[path].startsWith(`${port.repository}/blob/${port.revision}/`));
     assert.equal(new Set(port.images.map((image) => image.flavor)).size, port.images.length, port.id);
-    for (const image of [...port.images, ...Object.values(port.readmeImages)]) {
-      assert.match(image.src, /^\/port-images\/[a-f0-9]{64}\.webp$/);
+    for (const image of [...port.images, ...Object.values(port.guideImages ?? port.readmeImages)]) {
+      const base = image.src.startsWith("/port-images/") ? "/port-images/" : discovered.assets?.base;
+      assert.ok(base === "/port-images/" || /^https:\/\//.test(base), "only an explicit immutable asset origin");
+      assert.ok(image.src.startsWith(base));
+      const name = image.src.slice(base.length);
+      assert.match(name, /^[a-f0-9]{64}\.webp$/);
+      if (base !== "/port-images/") {
+        assert.ok(discovered.assets.files[name] > 0, "external captures have checked-in size/integrity metadata, not build-time fetches");
+        continue;
+      }
       const bytes = readFileSync(join(root, "public", image.src));
       assert.equal(createHash("sha256").update(bytes).digest("hex"), image.src.split("/").at(-1).replace(/\.webp$/, ""));
       const metadata = await sharp(bytes).metadata();

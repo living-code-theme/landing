@@ -24,7 +24,8 @@ function fixture(t) {
   git("config", "user.email", "workflow@example.test");
   git("config", "commit.gpgsign", "false");
   git("config", "core.hooksPath", "/dev/null");
-  mkdirSync(join(directory, "data"));
+  mkdirSync(join(directory, "data/ports"), { recursive: true });
+  writeFileSync(join(directory, "data/ports/.gitkeep"), "");
   mkdirSync(join(directory, "public/port-images"), { recursive: true });
   writeFileSync(join(directory, "data/ports.json"), '{"ports":[]}\n');
   writeFileSync(join(directory, "public/port-images/original.webp"), "existing capture");
@@ -66,11 +67,15 @@ test("discovery stays in pinned core tooling while website installs and builds s
   const checkout = step("Check out reviewed discovery tooling");
   assert.match(checkout, /repository: living-code-theme\/core/);
   assert.match(checkout, /ref: [a-f0-9]{40}\n/);
+  const revision = checkout.match(/ref: ([a-f0-9]{40})\n/)[1];
+  assert.ok(readFileSync(new URL("../README.md", import.meta.url), "utf8").includes(`commit \`${revision}\``), "README and workflow must describe the same reviewed core pin");
   assert.match(checkout, /persist-credentials: false/);
   const discovery = step("Discover and validate public port repositories");
   assert.match(discovery, /working-directory: core/);
   assert.match(discovery, /pnpm sync:ports --landing "\$GITHUB_WORKSPACE\/landing"/);
-  assert.doesNotMatch(discovery, /CLOUDFLARE/);
+  assert.doesNotMatch(discovery, /CLOUDFLARE_API_TOKEN/, "discovery receives bucket-scoped R2 credentials, not deployment credentials");
+  assert.match(discovery, /vars\.PORT_ASSET_STORAGE \|\| 'git'/);
+  assert.match(discovery, /--r2/);
   for (const action of [...workflow.matchAll(/uses: ([^\s]+)@([^\s]+)/g)]) assert.match(action[2], /^[a-f0-9]{40}$/, action[1]);
 });
 
@@ -107,11 +112,12 @@ test("discovered updates stage only the snapshot and captures, not unrelated fil
   const f = fixture(t);
   writeFileSync(join(f.directory, "data/ports.json"), '{"ports":[{"id":"new"}]}\n');
   writeFileSync(join(f.directory, "public/port-images/new.webp"), "new capture");
+  writeFileSync(join(f.directory, `data/ports/new.${"a".repeat(64)}.json`), '{"schemaVersion":1}\n');
   writeFileSync(join(f.directory, "unrelated.txt"), "not a generated input");
   const result = f.run("Decide whether to publish");
   assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(f.output(), { changed: "true", publish: "true" });
-  assert.deepEqual(f.git("diff", "--cached", "--name-only").split("\n"), ["data/ports.json", "public/port-images/new.webp"]);
+  assert.deepEqual(f.git("diff", "--cached", "--name-only").split("\n"), ["data/ports.json", `data/ports/new.${"a".repeat(64)}.json`, "public/port-images/new.webp"]);
 });
 
 test("a workflow-history API failure aborts rather than treating the deployment as current", (t) => {

@@ -73,11 +73,12 @@ export const flavorData = Object.fromEntries(flavors.map((f) => [f.id, {
 // --- Ports ---------------------------------------------------------------------------------------------
 
 export { ports, groups };
+const portById = new Map(ports.map((port) => [port.id, port]));
 export const portCount = `${ports.length} ${ports.length === 1 ? "port" : "ports"}`;
 export const groupOf = Object.fromEntries(groups.flatMap((g) => g.ports.map((p) => [p.id, g.title])));
 
 // How you get each port, without the README's pointer to the text below it.
-export const route = (id) => escapeHtml(ports.find((port) => port.id === id).quick);
+export const route = (id) => escapeHtml(portById.get(id).quick);
 
 // Supported flavors are declared by each port, independent of its file layout.
 export const shipped = (p) => flavors.filter((f) => p.flavors.includes(f.id));
@@ -111,7 +112,7 @@ export const keys = (p) => [p.name, p.id, ...(p.aliases ?? []), ...(ALIASES[p.id
 // --- Screenshots ---------------------------------------------------------------------------------------
 
 // Captures are cached from the same repository revision as the README and metadata.
-export const shotsOf = (app) => (ports.find((p) => p.id === app)?.images ?? [])
+export const shotsOf = (app) => (portById.get(app)?.images ?? [])
   .map((image) => ({ ...image, f: flavorById[image.flavor] }));
 const featured = [
   { port: "vscode", name: "VS Code" },
@@ -120,8 +121,9 @@ const featured = [
   { port: "obsidian", name: "Obsidian" },
   { port: "chrome", name: "Chromium" },
 ];
+// Every captured port remains eligible; the homepage renders/fetches only its selected previews.
 export const APPS = [
-  ...featured.filter((app) => ports.some((p) => p.id === app.port) && shotsOf(app.port).length),
+  ...featured.filter((app) => portById.has(app.port) && shotsOf(app.port).length),
   ...ports.filter((p) => shotsOf(p.id).length && !featured.some((app) => app.port === p.id)).map((p) => ({ port: p.id, name: p.name })),
 ];
 

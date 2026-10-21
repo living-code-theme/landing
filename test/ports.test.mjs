@@ -1,15 +1,19 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { portCatalog, ports } from "../src/lib/ports.mjs";
+import { decodePortDocument, portCatalog, ports, readPort } from "../src/lib/ports.mjs";
+import { createHash } from "node:crypto";
 import discovered from "../data/ports.json" with { type: "json" };
 
 const snapshot = (ports = [], migratedSlugs = []) => ({ schemaVersion: 1, organization: "living-code-theme", ports, migratedSlugs });
 const neovim = { id: "neovim", name: "Neovim", group: "Editors", repositoryName: "living-code-theme/nvim" };
 const kitty = { id: "kitty", name: "Kitty", group: "Terminals", repositoryName: "living-code-theme/kitty" };
 
-test("the production catalog contains exactly the discovered ports", () => {
+test("the production catalog contains exactly the discovered ports, with local documents", async () => {
   assert.deepEqual(ports, discovered.ports);
-  assert.ok(ports.every((port) => port.repository && port.readme && port.revision));
+  for (const port of ports) {
+    const content = await readPort(port);
+    assert.ok(content.repository && (content.guide || content.readme) && content.revision);
+  }
 });
 
 test("an empty snapshot publishes no placeholder ports or groups", () => {
@@ -46,7 +50,22 @@ test("group labels sharing a route are grouped together, not rendered as duplica
 });
 
 test("unsupported snapshots and duplicate routes are rejected", () => {
-  assert.throws(() => portCatalog({ ...snapshot(), schemaVersion: 2 }), /Unsupported/);
+  assert.throws(() => portCatalog({ ...snapshot(), schemaVersion: 3 }), /Unsupported/);
   assert.throws(() => portCatalog({ schemaVersion: 1 }), /Unsupported/);
   assert.throws(() => portCatalog(snapshot([{ id: "a" }, { id: "a" }])), /Duplicate slug/);
+});
+
+test("the version-2 index contains metadata, not embedded documentation", () => {
+  assert.deepEqual(portCatalog({ schemaVersion: 2, ports: [neovim] }).ports, [neovim]);
+  for (const field of ["guide", "readme", "files"]) assert.throws(() => portCatalog({ schemaVersion: 2, ports: [{ ...neovim, [field]: "not index data" }] }), /must not contain documentation/);
+});
+
+test("pinned documents are decoded independently and verified against their metadata and content hash", () => {
+  const body = { schemaVersion: 1, port: { ...kitty, guide: { schemaVersion: 1, installation: "Install.", configuration: "", compatibility: "", links: {} }, files: ["theme.conf"] } };
+  const raw = JSON.stringify(body) + "\n";
+  const entry = { ...kitty, content: `ports/kitty.${createHash("sha256").update(raw).digest("hex")}.json` };
+  assert.deepEqual(decodePortDocument(entry, raw), body.port);
+  assert.throws(() => decodePortDocument(entry, raw + " "), /fingerprint mismatch/);
+  assert.throws(() => decodePortDocument({ ...entry, name: "Mismatch" }, raw), /index\/document mismatch/);
+  assert.throws(() => decodePortDocument({ ...entry, content: "ports/../../secret.json" }, raw), /Invalid port document reference/);
 });

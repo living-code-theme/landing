@@ -80,6 +80,21 @@ test("the guide uses the same sanitization and pinned links as full README rende
   assert.match(guide.installation, /src="\/port-images\/night.webp"/, "useful installation images are not removed");
 });
 
+test("the published Markdown contract renders identically without inspecting GitHub's README layout", () => {
+  const published = { schemaVersion: 1,
+    installation: '### Notes\n\n[Settings][settings]\n\n```sh\n## Not a heading\n```',
+    configuration: '### Notes\n\n![Capture][capture]\n\n<script>pwned()</script>', compatibility: "Supported.",
+    links: { settings: { href: "docs/options.md", title: "All options" }, capture: { href: "images/night.png", title: "Capture" } },
+  };
+  const authored = `# Port\n\n## Installation\n\n${published.installation}\n\n## Configuration\n\n${published.configuration}\n\n## Compatibility\n\n${published.compatibility}\n\n## License\n\n[settings]: docs/options.md "All options"\n[capture]: images/night.png "Capture"\n`;
+  const html = renderPortGuide(published, context);
+  assert.deepEqual(html, renderPortGuide(authored, context));
+  assert.match(html.installation, /docs\/options.md/);
+  assert.match(html.configuration, /src="\/port-images\/night.webp"/);
+  assert.doesNotMatch(Object.values(html).join(""), /pwned|<script/);
+  assert.throws(() => renderPortGuide({ ...published, schemaVersion: 2 }, context), /Unsupported published guide/);
+});
+
 test("empty optional sections do not produce empty controls", () => {
   assert.deepEqual(renderPortGuide("# A port\n\n## Installation\n\nInstall it.\n\n## Configuration\n\n## Constructor\n\nIgnored.\n\n## __proto__\n\nIgnored.\n\n## License\n\nMIT", context), {
     installation: "<p>Install it.</p>", configuration: "", compatibility: "",
