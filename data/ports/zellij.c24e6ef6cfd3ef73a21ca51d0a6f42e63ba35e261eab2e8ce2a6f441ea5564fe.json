@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "zellij",
+    "name": "zellij",
+    "group": "CLI & TUI",
+    "description": "Living Code for zellij. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://zellij.dev",
+    "quick": "See installation instructions",
+    "aliases": [
+      "zellij"
+    ],
+    "icon": null,
+    "emoji": "🧱",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.kdl",
+      "living-code-night.kdl",
+      "living-code-paper.kdl",
+      "living-code-signal.kdl"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "These use zellij's component-based [theme format](https://zellij.dev/documentation/themes.html), so they need a zellij release that supports it. Download the themes into the `themes` folder of your config directory, then name one in `config.kdl`:\n\n```sh\ncurl -fsSL --create-dirs --output-dir ~/.config/zellij/themes -O \"https://raw.githubusercontent.com/living-code-theme/zellij/main/living-code-{night,frost,paper,signal}.kdl\"\n```\n\n```kdl\ntheme \"living-code-night\"\n```\n\n`zellij setup --check` prints the exact config directory if yours is elsewhere.",
+      "configuration": "See [zellij's documentation](https://zellij.dev) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for zellij, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/zellij",
+    "repositoryName": "living-code-theme/zellij",
+    "revision": "fca6df4b205f8ca79b5f8ce2a4a9fe2c9a68d1e0",
+    "readmeUrl": "https://github.com/living-code-theme/zellij/blob/fca6df4b205f8ca79b5f8ce2a4a9fe2c9a68d1e0/README.md",
+    "fileUrls": {
+      "living-code-frost.kdl": "https://github.com/living-code-theme/zellij/blob/fca6df4b205f8ca79b5f8ce2a4a9fe2c9a68d1e0/living-code-frost.kdl",
+      "living-code-night.kdl": "https://github.com/living-code-theme/zellij/blob/fca6df4b205f8ca79b5f8ce2a4a9fe2c9a68d1e0/living-code-night.kdl",
+      "living-code-paper.kdl": "https://github.com/living-code-theme/zellij/blob/fca6df4b205f8ca79b5f8ce2a4a9fe2c9a68d1e0/living-code-paper.kdl",
+      "living-code-signal.kdl": "https://github.com/living-code-theme/zellij/blob/fca6df4b205f8ca79b5f8ce2a4a9fe2c9a68d1e0/living-code-signal.kdl"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "zellij running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/d7d96c09854279558a8ff4dca1c4d28b384c0f0c67f59a15f3d1348ceace3134.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "zellij running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/cac1af3c9dd47a7ad5861e707330078667df4c0a98abc6ebb031249428ad2fa2.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "zellij running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/ba757cc993c7eb7ac524bc014e18c8cc7aa24b8ad4a7e41f10625597060bef2f.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "zellij running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/592cbdccdd4db18b7420bc1bb5149c4b163d8582856d2d07643ea98552d178a6.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

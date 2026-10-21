@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "k9s",
+    "name": "k9s",
+    "group": "CLI & TUI",
+    "description": "Living Code for k9s. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://k9scli.io",
+    "quick": "See installation instructions",
+    "aliases": [
+      "k9s"
+    ],
+    "icon": null,
+    "emoji": "🐕",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.yaml",
+      "living-code-night.yaml",
+      "living-code-paper.yaml",
+      "living-code-signal.yaml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Download the skins, then select one in `config.yaml`:\n\n```sh\ncurl -fsSL --create-dirs --output-dir \"${XDG_CONFIG_HOME:-$HOME/.config}/k9s/skins\" -O \"https://raw.githubusercontent.com/living-code-theme/k9s/main/living-code-{night,frost,paper,signal}.yaml\"\n```\n\n```yaml\nk9s:\n  ui:\n    skin: living-code-night\n```\n\nOn macOS, where `XDG_CONFIG_HOME` is usually unset, k9s keeps its config in `~/Library/Application Support/k9s`, so use this line instead (and edit `config.yaml` there):\n\n```sh\ncurl -fsSL --create-dirs --output-dir ~/Library/Application\\ Support/k9s/skins -O \"https://raw.githubusercontent.com/living-code-theme/k9s/main/living-code-{night,frost,paper,signal}.yaml\"\n```\n\n`k9s info` prints the directory your install uses.",
+      "configuration": "See [k9s's documentation](https://k9scli.io) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for k9s, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/k9s",
+    "repositoryName": "living-code-theme/k9s",
+    "revision": "635b7d8149ad4a6f93501be64d5d33c76eb671c9",
+    "readmeUrl": "https://github.com/living-code-theme/k9s/blob/635b7d8149ad4a6f93501be64d5d33c76eb671c9/README.md",
+    "fileUrls": {
+      "living-code-frost.yaml": "https://github.com/living-code-theme/k9s/blob/635b7d8149ad4a6f93501be64d5d33c76eb671c9/living-code-frost.yaml",
+      "living-code-night.yaml": "https://github.com/living-code-theme/k9s/blob/635b7d8149ad4a6f93501be64d5d33c76eb671c9/living-code-night.yaml",
+      "living-code-paper.yaml": "https://github.com/living-code-theme/k9s/blob/635b7d8149ad4a6f93501be64d5d33c76eb671c9/living-code-paper.yaml",
+      "living-code-signal.yaml": "https://github.com/living-code-theme/k9s/blob/635b7d8149ad4a6f93501be64d5d33c76eb671c9/living-code-signal.yaml"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "k9s running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/3d7df01497f7588384da12a867bfa8cf19c1d3b10df0baca183bda04038a57a1.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "k9s running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/4ff87fb18ae62d487a788d316c19d1dc35d0cfd7b0102c4444b0b8d2aa8b15c6.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "k9s running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/fd6ef99ae3f1a06c174c98c7157b9975924c6332c45f9be48ea40744783b4c5c.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "k9s running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/b429c2569d4ab2a39b5d2a3ceaa5a106af7821fac9b178102494e7a3623d2756.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

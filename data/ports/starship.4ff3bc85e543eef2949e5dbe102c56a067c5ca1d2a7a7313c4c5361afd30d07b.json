@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "starship",
+    "name": "Starship",
+    "group": "CLI & TUI",
+    "description": "Living Code for Starship. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://starship.rs",
+    "quick": "See installation instructions",
+    "aliases": [
+      "starship"
+    ],
+    "icon": null,
+    "emoji": "🌟",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.toml",
+      "living-code-night.toml",
+      "living-code-paper.toml",
+      "living-code-signal.toml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Starship needs the `palette = ...` line at the top of the file and the palette table after your own settings, so this puts each in place. It is safe to run again with another `flavor=`: it first removes the `palette` line and any earlier Living Code palette table, and keeps everything else (a `palette` line you set yourself is replaced too). If `starship.toml` is a symlink (home-manager, GNU stow, chezmoi), the link is followed and its target is edited, so the link stays in place; if the target is read-only it stops and changes nothing. Starship reads `$STARSHIP_CONFIG` or `~/.config/starship.toml`, not `XDG_CONFIG_HOME`:\n\n```sh\nflavor=night\ncfg=\"${STARSHIP_CONFIG:-$HOME/.config/starship.toml}\"\nmkdir -p \"$(dirname \"$cfg\")\"; t=\"$cfg\"; n=0; while [ -L \"$t\" ] && [ \"$n\" -lt 40 ]; do n=$((n+1)); l=\"$(readlink \"$t\")\"; case \"$l\" in /*) t=\"$l\" ;; *) t=\"$(dirname \"$t\")/$l\" ;; esac; done\nif [ -L \"$t\" ]; then echo \"$cfg is a symlink loop (more than 40 links), so it was left unchanged.\" >&2; false; elif [ -e \"$t\" ] && [ ! -w \"$t\" ]; then echo \"$t is read-only, so it was left unchanged. Add the Living Code palette to its source instead.\" >&2; false; else touch \"$t\" && p=\"$(curl -fsSL \"https://raw.githubusercontent.com/living-code-theme/starship/main/living-code-$flavor.toml\")\" && { printf '%s\\n' \"$p\" | head -n 1; awk 'BEGIN{top=1} /^\\[/{top=0; skip=($0 ~ /^\\[palettes\\.living_code_/)} skip{next} top && /^palette[ \\t]*=/{next} /^[ \\t]*$/{n++; next} {for(;n>0;n--) print \"\"; print}' \"$t\"; printf '\\n'; printf '%s\\n' \"$p\" | tail -n +2; } > \"$t.new\" && cat \"$t.new\" > \"$t\" && rm \"$t.new\"; fi\n```\n\nModule styles can then use names like `\"bold teal\"` or `\"amber\"`.",
+      "configuration": "See [Starship's documentation](https://starship.rs) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for Starship, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/starship",
+    "repositoryName": "living-code-theme/starship",
+    "revision": "6e1558f56c674d7471303d6cb1810238cfc27005",
+    "readmeUrl": "https://github.com/living-code-theme/starship/blob/6e1558f56c674d7471303d6cb1810238cfc27005/README.md",
+    "fileUrls": {
+      "living-code-frost.toml": "https://github.com/living-code-theme/starship/blob/6e1558f56c674d7471303d6cb1810238cfc27005/living-code-frost.toml",
+      "living-code-night.toml": "https://github.com/living-code-theme/starship/blob/6e1558f56c674d7471303d6cb1810238cfc27005/living-code-night.toml",
+      "living-code-paper.toml": "https://github.com/living-code-theme/starship/blob/6e1558f56c674d7471303d6cb1810238cfc27005/living-code-paper.toml",
+      "living-code-signal.toml": "https://github.com/living-code-theme/starship/blob/6e1558f56c674d7471303d6cb1810238cfc27005/living-code-signal.toml"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Starship running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/530ec19b7d7ede91cbc8171e2c8375a1f30b702fc7c52ab7ab2030492d07283b.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Starship running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/3e23d321c596cbe5357a2b4bd474b159f631fc7508d7056a3cfdf9f61b30ae85.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Starship running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/7c26916e0d3910a3ec284ec8830c194b8578e631a9ad4edca3803f7cede4e407.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Starship running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/b82f3d3fc708a4e1aa9bf3508124977d9898d7ccc439b66cb1d9dbb6126d2126.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

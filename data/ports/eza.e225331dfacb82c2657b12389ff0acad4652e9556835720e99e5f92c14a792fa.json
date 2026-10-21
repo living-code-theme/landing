@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "eza",
+    "name": "eza",
+    "group": "CLI & TUI",
+    "description": "Living Code for eza. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://eza.rocks",
+    "quick": "See installation instructions",
+    "aliases": [
+      "eza"
+    ],
+    "icon": null,
+    "emoji": "📁",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.yml",
+      "living-code-night.yml",
+      "living-code-paper.yml",
+      "living-code-signal.yml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Needs eza 0.19 or newer. eza reads a single `theme.yml` from `$EZA_CONFIG_DIR`, or else from `${XDG_CONFIG_HOME:-~/.config}/eza/` on Linux and `~/Library/Application Support/eza/` on macOS, so download the flavor you want under that name:\n\n```sh\nflavor=night\ndir=\"${EZA_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/eza}\"   # macOS: dir=\"$HOME/Library/Application Support/eza\"\ncurl -fsSLo \"$dir/theme.yml\" --create-dirs https://raw.githubusercontent.com/living-code-theme/eza/main/living-code-$flavor.yml\n```\n\nSet `flavor` to `frost`, `paper` or `signal` to use another flavor. eza only colors what `LS_COLORS` / `EZA_COLORS` do not already set, so unset those variables if the theme seems to have no effect.",
+      "configuration": "See [eza's documentation](https://eza.rocks) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "Requires eza 0.19 or newer. LS_COLORS and EZA_COLORS can override theme colors; unset them when checking the theme.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/eza",
+    "repositoryName": "living-code-theme/eza",
+    "revision": "9c0d9024fe17844126de6db69add56d0e7545b11",
+    "readmeUrl": "https://github.com/living-code-theme/eza/blob/9c0d9024fe17844126de6db69add56d0e7545b11/README.md",
+    "fileUrls": {
+      "living-code-frost.yml": "https://github.com/living-code-theme/eza/blob/9c0d9024fe17844126de6db69add56d0e7545b11/living-code-frost.yml",
+      "living-code-night.yml": "https://github.com/living-code-theme/eza/blob/9c0d9024fe17844126de6db69add56d0e7545b11/living-code-night.yml",
+      "living-code-paper.yml": "https://github.com/living-code-theme/eza/blob/9c0d9024fe17844126de6db69add56d0e7545b11/living-code-paper.yml",
+      "living-code-signal.yml": "https://github.com/living-code-theme/eza/blob/9c0d9024fe17844126de6db69add56d0e7545b11/living-code-signal.yml"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "eza running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/987301d5f5193d0afe0a366b4b7cb69d35351b82bfb34f0aaa8daf278b31fe56.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "eza running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/cf8bc5f86cdd60d1302b4489c91687ac8dc23cf428f520a1445dcfa58191d996.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "eza running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/9509951b600c543967392fcc8fd28109add626c477a95fc872705ff658b7109f.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "eza running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/613c8b06ae9014d47527075539c953d094dad6924f04d27ef0fdd01c08732d1c.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

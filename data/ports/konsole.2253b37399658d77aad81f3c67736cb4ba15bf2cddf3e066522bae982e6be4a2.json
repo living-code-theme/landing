@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "konsole",
+    "name": "Konsole",
+    "group": "Terminals",
+    "description": "Living Code for Konsole. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://konsole.kde.org",
+    "quick": "See installation instructions",
+    "aliases": [
+      "konsole"
+    ],
+    "icon": null,
+    "emoji": "🖥️",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.colorscheme",
+      "living-code-night.colorscheme",
+      "living-code-paper.colorscheme",
+      "living-code-signal.colorscheme"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ncurl -fsSL --create-dirs --output-dir ~/.local/share/konsole -O \"https://raw.githubusercontent.com/living-code-theme/konsole/main/living-code-{night,frost,paper,signal}.colorscheme\"\n```\n\nThen open *Settings → Edit Current Profile → Appearance* and select the color scheme. Konsole picks up new files in that folder without a restart.",
+      "configuration": "See [Konsole's documentation](https://konsole.kde.org) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for Konsole, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/konsole",
+    "repositoryName": "living-code-theme/konsole",
+    "revision": "6093f7f2959870f3d795018688e94c23a5cc0f0c",
+    "readmeUrl": "https://github.com/living-code-theme/konsole/blob/6093f7f2959870f3d795018688e94c23a5cc0f0c/README.md",
+    "fileUrls": {
+      "living-code-frost.colorscheme": "https://github.com/living-code-theme/konsole/blob/6093f7f2959870f3d795018688e94c23a5cc0f0c/living-code-frost.colorscheme",
+      "living-code-night.colorscheme": "https://github.com/living-code-theme/konsole/blob/6093f7f2959870f3d795018688e94c23a5cc0f0c/living-code-night.colorscheme",
+      "living-code-paper.colorscheme": "https://github.com/living-code-theme/konsole/blob/6093f7f2959870f3d795018688e94c23a5cc0f0c/living-code-paper.colorscheme",
+      "living-code-signal.colorscheme": "https://github.com/living-code-theme/konsole/blob/6093f7f2959870f3d795018688e94c23a5cc0f0c/living-code-signal.colorscheme"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Konsole running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/544651f874e496425c168981111f6182b9a9e6f20c3eefa54bc3b455f5549f2a.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Konsole running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/b046277cea3859ef004f7775ed3f017bd9051d00d826cb59f8d5dd694037a38a.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Konsole running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/09bf4ea922991071e4d34528dd5b2ac929a4cfecd4a7275b5fe0ef8f1a6ee13b.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Konsole running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/59e95526b8b0026e79caf00c54f926c70dfd5f7e19cc4583db4fbfc45445c42b.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}
