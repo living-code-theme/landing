@@ -32,6 +32,30 @@ test("ports appear incrementally without any website registry change", () => {
   ]);
 });
 
+test("category order is fixed regardless of discovery order, without reordering ports", () => {
+  const titles = ["Editors", "Terminals", "CLI & TUI", "Browsers", "Apps", "Web", "Theme systems"];
+  const entries = titles.map((group, id) => ({ id: String(id), group }));
+  for (const input of [entries, [...entries].reverse(), [...entries.slice(3), ...entries.slice(0, 3)]]) {
+    const result = portCatalog(snapshot(input));
+    assert.deepEqual(result.groups.map((g) => g.title), titles);
+    assert.deepEqual(result.ports, input);
+  }
+});
+
+test("partial catalogs sort known categories first and retain new categories in discovery order", () => {
+  const result = portCatalog(snapshot([
+    { id: "music", group: "Music players" },
+    { id: "systems", group: "Theme systems" },
+    { id: "web", group: "Web & code" },
+    { id: "other", group: "Other" },
+    kitty,
+    { id: "editor", group: "editors" },
+    neovim,
+  ]));
+  assert.deepEqual(result.groups.map((g) => g.title), ["editors", "Terminals", "Web & code", "Theme systems", "Music players", "Other"]);
+  assert.deepEqual(result.groups[0].ports.map((p) => p.id), ["editor", "neovim"]);
+});
+
 test("removed ports stay absent even when discovery retains migration history", () => {
   assert.deepEqual(portCatalog(snapshot([kitty], ["neovim", "kitty"])).ports, [kitty]);
   assert.deepEqual(portCatalog(snapshot([], ["neovim", "kitty"])).ports, []);

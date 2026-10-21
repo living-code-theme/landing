@@ -7,6 +7,13 @@ import { lstat, readFile } from "node:fs/promises";
 // Astro uses lazy, raw imports; plain Node tests read the same local bytes. Neither path uses GitHub or core.
 const documents = import.meta.env?.SSR ? import.meta.glob("../../data/ports/*.json", { query: "?raw", import: "default" }) : null;
 
+const groupKey = (title) => title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+// Presentation order belongs here, not in the generated discovery snapshot.
+const groupOrder = new Map([
+  ["editors", 0], ["terminals", 1], ["cli-tui", 2], ["browsers", 3],
+  ["apps", 4], ["web", 5], ["web-code", 5], ["theme-systems", 6],
+]);
+
 export function portCatalog(snapshot) {
   if (![1, 2].includes(snapshot.schemaVersion) || !Array.isArray(snapshot.ports)) throw new Error("Unsupported port snapshot schema");
   const ports = snapshot.ports;
@@ -14,11 +21,13 @@ export function portCatalog(snapshot) {
   if (snapshot.schemaVersion === 2 && ports.some((p) => "readme" in p || "guide" in p || "files" in p)) throw new Error("Port index must not contain documentation");
   const groups = [], byGroup = new Map();
   for (const port of ports) {
-    const key = port.group.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const key = groupKey(port.group);
     let group = byGroup.get(key);
     if (!group) { group = { title: port.group, ports: [] }; byGroup.set(key, group); groups.push(group); }
     group.ports.push(port);
   }
+  // Unknown categories remain discoverable after the established ones, in snapshot order.
+  groups.sort((a, b) => (groupOrder.get(groupKey(a.title)) ?? Infinity) - (groupOrder.get(groupKey(b.title)) ?? Infinity));
   return { ports, groups };
 }
 export const { ports, groups } = portCatalog(snapshot);

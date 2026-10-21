@@ -46,6 +46,11 @@ The existing schema-1 catalog remains readable during rollout, without merging a
 Only successfully discovered public repositories appear. An empty repository is not a published port. No legacy
 catalog or screenshot source can add entries. Discovery/build never executes port scripts.
 
+Category presentation order is fixed in `src/lib/ports.mjs`: Editors, Terminals, CLI & TUI, Browsers, Apps,
+Web (including Web & code), then Theme systems. Input refreshes do not change this order. Only populated
+categories appear; new categories follow the established ones in discovery order, and ports within each
+category retain their discovery order.
+
 The finder opens immediately and loads one shared, content-addressed metadata asset on first use; failure or no
 JavaScript retains the normal full-catalog link. The homepage ships at most five fallback previews, while **every
 captured port stays eligible** for the existing per-browser rotating selection. Only the chosen previews are fetched
