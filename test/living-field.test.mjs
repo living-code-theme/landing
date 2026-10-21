@@ -29,18 +29,23 @@ function browser(t, { reducedMotion = false } = {}) {
   const document = new EventTarget();
   document.documentElement = new EventTarget();
   document.documentElement.dataset = {};
-  document.body = {};
+  // A page taller than the screen; anchors keep their place in it and their rectangles follow the scroll.
+  const page = { height: 5000, scroll: 0 };
+  document.body = { getBoundingClientRect: () => ({ top: -page.scroll, bottom: page.height - page.scroll }) };
   document.hidden = false;
   let anchors = [];
   document.querySelectorAll = () => anchors;
   document.createElement = () => ({ getContext: () => ({ fillText() {} }) });
+  const uniforms = {};
   const gl = new Proxy({
     ALIASED_POINT_SIZE_RANGE: 1, LINK_STATUS: 2,
+    getUniformLocation: (program, name) => name,
+    uniform4fv: (name, value) => { uniforms[name] = [...value]; },
     getExtension: () => null,
     getParameter: () => new Float32Array([1, 64]),
     getProgramParameter: () => true,
   }, { get: (object, key) => key in object ? object[key] : () => ({}) });
-  const canvas = { getContext: () => gl, clientWidth: 1000, clientHeight: 800, dataset: {}, addEventListener() {} };
+  const canvas = { getContext: () => gl, clientWidth: 1000, clientHeight: 800, dataset: {}, style: {}, addEventListener() {} };
   const frames = new Map();
   let id = 0, now = 0;
   const motion = new EventTarget();
@@ -52,22 +57,35 @@ function browser(t, { reducedMotion = false } = {}) {
     addEventListener: events.addEventListener.bind(events),
     requestAnimationFrame: (fn) => { frames.set(++id, fn); return id; },
     cancelAnimationFrame: (id) => frames.delete(id),
+    getComputedStyle: (el) => ({ position: el.pinned ? "sticky" : "static" }),
   };
   for (const [key, value] of Object.entries(globals)) {
     const original = Object.getOwnPropertyDescriptor(globalThis, key);
     Object.defineProperty(globalThis, key, { configurable: true, writable: true, value });
     t.after(() => original ? Object.defineProperty(globalThis, key, original) : delete globalThis[key]);
   }
-  const anchor = (glyph) => ({
+  for (const key of ["scrollY", "scrollX"]) {
+    const original = Object.getOwnPropertyDescriptor(globalThis, key);
+    Object.defineProperty(globalThis, key, { configurable: true, get: () => (key === "scrollY" ? page.scroll : 0) });
+    t.after(() => original ? Object.defineProperty(globalThis, key, original) : delete globalThis[key]);
+  }
+  // An anchor at `top` in the page, or (pinned) at `top` on the screen, whatever the scroll.
+  const anchor = (glyph, { top = 0, height = 800, pinned = false } = {}) => ({
     dataset: { glyph }, isConnected: true, setAttribute() {}, removeAttribute() {},
-    getBoundingClientRect: () => ({ left: 0, top: 0, width: 1000, height: 800, bottom: 800 }),
+    parentElement: pinned ? { pinned: true, parentElement: null } : null,
+    getBoundingClientRect: () => {
+      const y = pinned ? top : top - page.scroll;
+      return { left: 0, top: y, width: 1000, height, bottom: y + height };
+    },
   });
   anchors = [anchor("chameleon")];
   const flavor = { colors: { teal: "#55aaaa" }, roles: { fg: "#eeeeee", comment: "#888888" } };
   return {
     document, events, canvas,
     start: async () => (field = await createField(canvas, { night: flavor }, "night")),
-    target: (glyph) => { anchors = [anchor(glyph)]; },
+    target: (glyph, options) => { anchors = [anchor(glyph, options)]; },
+    uniforms,
+    scroll(y) { page.scroll = y; events.dispatchEvent(new Event("scroll")); },
     scrub: (glyph) => { anchors[0].dataset.glyphTo = glyph; anchors[0].dataset.glyphMix = "0.5"; },
     pending: () => frames.size,
     tick() {
@@ -132,4 +150,61 @@ test("hiding and resuming the page does not strand or duplicate the loop", async
   assert.equal(b.pending(), 1);
   b.tick();
   assert.equal(b.pending(), 1);
+});
+
+test("a shape on an anchor that scrolls with the page is drawn in a canvas that scrolls with it", async (t) => {
+  const b = browser(t);
+  const field = await b.start();
+  b.target("chameleon", { top: 1200, height: 1400 });
+  b.scroll(1000);
+  field.refresh();
+  for (let i = 0; i < 3; i++) b.tick();
+  assert.equal(b.canvas.style.position, "absolute", "laid in the page, so the browser scrolls it");
+  const top = parseFloat(b.canvas.style.top), box = b.uniforms.u_toBox;
+  // Where the anchor's middle is in the page: the canvas's top plus the box's middle.
+  assert.equal(top + box[1], 1900);
+  // Scrolling within the canvas changes nothing that is drawn: the page carries it.
+  for (const y of [1060, 1120, 980]) {
+    b.scroll(y);
+    b.tick();
+    assert.equal(parseFloat(b.canvas.style.top), top);
+    assert.deepEqual(b.uniforms.u_toBox, box, `at scroll ${y}`);
+  }
+  // Far enough on, the canvas moves on, and the shape stays where it is in the page.
+  b.scroll(1700);
+  b.tick();
+  const moved = parseFloat(b.canvas.style.top);
+  assert.notEqual(moved, top);
+  assert.equal(b.canvas.dataset.shape, "chameleon");
+  assert.equal(moved + b.uniforms.u_toBox[1], 1900);
+  assert.ok(moved <= 1700 && moved + 1600 >= 1700 + 800, "the canvas covers the screen");
+});
+
+test("screen-wide and pinned shapes keep a canvas fixed to the screen", async (t) => {
+  const b = browser(t);
+  const field = await b.start();
+  b.target("story:1", { top: 100, height: 300, pinned: true });
+  b.scroll(2000);
+  field.refresh();
+  b.tick();
+  b.tick();
+  assert.equal(b.canvas.style.position, "fixed");
+  assert.equal(b.uniforms.u_toBox[1], 250, "drawn where it is on the screen");
+  b.target("field", { top: -9000, height: 10 });
+  field.refresh();
+  b.tick();
+  assert.equal(b.canvas.style.position, "fixed");
+  assert.equal(b.canvas.dataset.shape, "field");
+});
+
+test("the canvas keeps its size while a phone's toolbars come and go", async (t) => {
+  const b = browser(t);
+  await b.start();
+  const size = [b.canvas.width, b.canvas.height];
+  for (const h of [760, 800, 720, 800]) {
+    globalThis.innerHeight = h;
+    b.events.dispatchEvent(new Event("resize"));
+    b.tick();
+  }
+  assert.deepEqual([b.canvas.width, b.canvas.height], size);
 });

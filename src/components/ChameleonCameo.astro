@@ -25,19 +25,21 @@ const portrait = chameleonPortrait(pose);
   .chameleon-cameo { display: block; overflow: visible; pointer-events: none; user-select: none; }
   /* taste-skill-ignore: actual code glyphs sampled from the hero's 3D mascot. */
   .chameleon-cameo text { font-family: var(--font-mono); font-weight: 600; font-variant-ligatures: none; text-anchor: middle; dominant-baseline: central; transition: fill 400ms var(--ease-out); }
-  .chameleon-cameo__breath { transform-origin: 50% 85%; animation: cameo-breathe 5s ease-in-out infinite; }
+  /* The breath moves the whole drawing, so it is on the svg itself: a transform the browser composites, where one
+     inside the svg (Safari above all) repaints every glyph each frame. */
+  .chameleon-cameo { transform-origin: 50% 85%; animation: cameo-breathe 5s ease-in-out infinite; }
   [data-cameo-part="tail"] { transform-origin: 67% 53%; animation: cameo-tail 9s ease-in-out infinite; }
   [data-cameo-part="eye"] { transform-origin: var(--eye-x) var(--eye-y); animation: cameo-blink 7s linear infinite; }
-  [data-chameleon-cameo="sleeping"] .chameleon-cameo__breath { animation-duration: 7s; }
+  [data-chameleon-cameo="sleeping"] { animation-duration: 7s; }
   [data-chameleon-cameo="sleeping"] [data-cameo-part="tail"] { transform-origin: 33% 53%; animation-duration: 13s; }
   [data-chameleon-cameo="sleeping"] [data-cameo-part="eye"] { animation: none; }
-  .chameleon-cameo__breath, [data-cameo-part] { animation-play-state: paused; }
-  [data-cameo-running] .chameleon-cameo__breath, [data-cameo-running] [data-cameo-part] { animation-play-state: running; }
+  .chameleon-cameo, [data-cameo-part] { animation-play-state: paused; }
+  [data-cameo-running], [data-cameo-running] [data-cameo-part] { animation-play-state: running; }
   @keyframes cameo-breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.018); } }
   @keyframes cameo-tail { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(-2deg); } 82% { transform: rotate(0.7deg); } }
   @keyframes cameo-blink { 0%, 92%, 96%, 100% { transform: scaleY(1); } 94% { transform: scaleY(0.12); } }
   @media (prefers-reduced-motion: reduce) {
-    .chameleon-cameo__breath, [data-cameo-part] { animation: none; }
+    .chameleon-cameo, [data-cameo-part] { animation: none; }
     .chameleon-cameo text { transition: none; }
   }
 </style>

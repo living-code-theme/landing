@@ -26,6 +26,13 @@
 // - At rest (nothing flying, nothing alive, no wave) the field draws at half rate.
 // - It adapts: fewer glyphs and a lower resolution on low-memory devices, the resolution steps down if frames
 //   start to drop, and a living shape moves at half rate if its own work runs over budget.
+// - Scrolling never waits on it. A phone (Safari above all) scrolls the page on its own, ahead of the page's
+//   script, so a canvas fixed to the screen and redrawn to follow a scrolling anchor always trails it and judders.
+//   While the glyphs rest on an anchor that scrolls with the page, the canvas is laid in the page instead, taller
+//   than the screen, and scrolls with it as the page's own content does; their positions then do not depend on the
+//   scroll at all. Only as the screen nears one of its ends is it moved on (and redrawn, in the same frame). Shapes
+//   that belong to the screen (the faint field) or to something pinned to it keep a canvas fixed to the screen.
+//   The canvas keeps its size when a phone's toolbars come and go, so scrolling never reallocates or clears it.
 import { COLORS, colorIndex, field, icon, lettering, mark, portSpiral, story, wheel, type Shape } from "./shapes";
 import { chameleon } from "./chameleon";
 
@@ -294,10 +301,13 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
 
   let anchors: HTMLElement[] = [];
   const rects = new Map<HTMLElement, DOMRect>();
-  let stale = true, measuredAt = 0;
+  // The scroll the rectangles were measured at, and the page's height (its content's, never the canvas's).
+  let stale = true, measuredAt = 0, measuredScroll = 0, pageH = 0;
   const measure = () => {
     rects.clear();
     for (const el of anchors) if (el.isConnected) rects.set(el, el.getBoundingClientRect());
+    measuredScroll = scrollY;
+    pageH = (document.body.getBoundingClientRect?.().bottom ?? 0) + scrollY;
     stale = false;
     measuredAt = performance.now();
   };
@@ -315,16 +325,66 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
   let progress = 0, clock = 0, last = 0, raf = 0, alive = true, ready = false, visible = !document.hidden;
   // A scrubbed flight: from `pair` to the target, both in the target's anchor, held at `mixGoal` by the page.
   let pair: { key: string; shape: Shape } | null = null, mixGoal = 0;
-  const view = { w: 1, h: 1 };
+  // The canvas's size and the screen's, in CSS pixels.
+  const view = { w: 1, h: 1 }, screen = { w: 1, h: 1 };
+  // Where the canvas is. "screen": fixed to it at its top. "page": laid in the page with its top at `base`, so
+  // it scrolls with the page. Every position the glyphs are drawn at is in the canvas's own pixels.
+  let frameMode: "screen" | "page" = "screen", base = 0;
+  const canvasTop = () => (frameMode === "screen" ? 0 : base - scrollY);
+  // Anchors inside something pinned to the screen (a sticky stage) stay put on it as the page scrolls.
+  let pinnedCache = new WeakMap<HTMLElement, boolean>();
+  const pinned = (el: HTMLElement) => {
+    let v = pinnedCache.get(el);
+    if (v === undefined) {
+      v = false;
+      for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+        const at = getComputedStyle(p).position;
+        if (at === "sticky" || at === "fixed") { v = true; break; }
+      }
+      pinnedCache.set(el, v);
+    }
+    return v;
+  };
   const pointer = { x: -1e4, y: -1e4, attention: 0, goal: 0, at: 0 };
   const bursts = new Float32Array(16);
   let nextBurst = 0, burstAt = -10;
 
   const boxOf = (t: typeof target) => {
-    if (!t.el || t.shape.viewport) return [view.w / 2, view.h / 2, view.w / 2, view.h / 2];
+    if (!t.el || t.shape.viewport) return [screen.w / 2, screen.h / 2 - canvasTop(), screen.w / 2, screen.h / 2];
     const r = rectOf(t.el);
     const s = Math.min(r.width / (2 * t.shape.hw), r.height / (2 * t.shape.hh)) * 0.92;
-    return [r.left + r.width / 2, r.top + r.height / 2, s, s];
+    // On the page, the anchor's place in the page: the same however far it has scrolled since.
+    const y = r.top + r.height / 2 + (frameMode === "page" ? measuredScroll - base : 0);
+    return [r.left + r.width / 2, y, s, s];
+  };
+
+  // Move the canvas, keeping every glyph where it is on the screen now.
+  const reframe = (mode: typeof frameMode, top: number) => {
+    const before = canvasTop();
+    if (mode !== frameMode) canvas.style.position = mode === "screen" ? "fixed" : "absolute";
+    frameMode = mode; base = top;
+    canvas.style.top = `${mode === "screen" ? 0 : top}px`;
+    const dy = before - canvasTop();
+    if (!dy) return;
+    for (let k = 0; k < 4; k++) bursts[k * 4 + 1] += dy;
+    // A scrubbed flight starts from a shape in the anchor's box, which moves with the canvas by itself.
+    if (pair) return;
+    for (let i = 0; i < N; i++) from[i * 3 + 1] += dy;
+    upload(FROM, from);
+  };
+  // The canvas the target wants: on the page under an anchor that scrolls with it (moved on when the screen nears
+  // either end of it), on the screen otherwise, or where the page is too short to hold it.
+  const anchorCanvas = () => {
+    const el = target.el;
+    if (!el || target.shape.viewport || pinned(el) || pageH < view.h + 1) {
+      if (frameMode !== "screen") reframe("screen", 0);
+      return;
+    }
+    const slack = view.h - screen.h, edge = slack * 0.2;
+    // (Or the page has grown shorter under it: it must never reach past the page's end and lengthen it.)
+    const near = frameMode !== "page" || scrollY - base < edge || base + view.h - (scrollY + screen.h) < edge || base + view.h > pageH;
+    const next = Math.round(Math.max(0, Math.min(pageH - view.h, scrollY - slack / 2)));
+    if (near && (frameMode !== "page" || Math.abs(next - base) > 1)) reframe("page", next);
   };
   const sizeOf = (t: { shape: Shape }, box: number[]) => Math.min(maxPoint / dpr, t.shape.sizePx ?? t.shape.size * box[2]);
   const turnOf = (t: typeof target) => [clock * t.shape.spin, t.shape.tilt];
@@ -372,6 +432,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     target.el?.removeAttribute("data-glyph-active");
     el?.setAttribute("data-glyph-active", "");
     target = { el, key, shape: s };
+    anchorCanvas();
     become(s);
     upload(FROM, from);
     upload(TO, s.pos);
@@ -398,6 +459,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     upload(NEXT, next);
     target = { el, key: b, shape: B };
     pair = { key: a, shape: A };
+    anchorCanvas();
     progress = mixGoal = at;
     follow(boxOf(target));
     canvas.dataset.shape = b;
@@ -439,7 +501,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     for (const el of anchors) {
       const r = rects.get(el);
       if (!r || !r.height) continue;
-      const seen = Math.max(0, Math.min(r.bottom, view.h) - Math.max(r.top, 0)) / Math.min(r.height, view.h);
+      const seen = Math.max(0, Math.min(r.bottom, screen.h) - Math.max(r.top, 0)) / Math.min(r.height, screen.h);
       const focus = Number(el.dataset.glyphFocus) || 0.5;
       const centered = 1 - Math.min(1, Math.abs(r.top + r.height / 2 - view.h * focus) / view.h);
       const value = seen + centered * 0.25 + (el === target.el ? 0.15 : 0);
@@ -459,7 +521,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
   const live = (box: number[]) => {
     const s = target.shape;
     if (!s.animate) return;
-    s.animate(clock, { x: (pointer.x - box[0]) / box[2], y: (box[1] - pointer.y) / box[3], on: pointer.attention });
+    s.animate(clock, { x: (pointer.x - box[0]) / box[2], y: (box[1] - (pointer.y - canvasTop())) / box[3], on: pointer.attention });
     for (let i = 0; i < N; i++) {
       next[i * 4] = s.glyph[i];
       next[i * 4 + 1] = s.role[i];
@@ -474,12 +536,25 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
 
   // --- Drawing ------------------------------------------------------------------------------------------------
 
-  const resize = () => {
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    view.w = w || innerWidth;
-    view.h = h || innerHeight;
-    canvas.width = Math.round(view.w * dpr);
-    canvas.height = Math.round(view.h * dpr);
+  // The canvas: as wide as the page and taller than the screen (by its whole height on a touch screen, which
+  // flings further between frames), sized from the tallest the screen has been at this width, so a phone's
+  // toolbars sliding away and back never resize it. A new width (the phone turned) starts again.
+  const coarse = matchMedia("(pointer: coarse)").matches;
+  let tallest = 0;
+  const resize = (force = false) => {
+    const w = document.documentElement.clientWidth || innerWidth;
+    if (w !== screen.w) tallest = 0;
+    screen.w = w;
+    screen.h = innerHeight;
+    tallest = Math.max(tallest, innerHeight);
+    const h = Math.ceil(tallest * (coarse ? 2 : 1.6));
+    if (!force && w === view.w && h === view.h) return;
+    view.w = w;
+    view.h = h;
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
     gl.viewport(0, 0, canvas.width, canvas.height);
   };
 
@@ -499,7 +574,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     gl.uniform1f(u("u_progress"), progress);
     gl.uniform1f(u("u_time"), clock);
     gl.uniform1f(u("u_wobble"), motion() ? wobbleOf(target) : 0);
-    gl.uniform3f(u("u_pointer"), pointer.x, pointer.y, target.shape.calm ? 0 : pointer.attention);
+    gl.uniform3f(u("u_pointer"), pointer.x, pointer.y - canvasTop(), target.shape.calm ? 0 : pointer.attention);
     gl.uniform4fv(u("u_bursts[0]"), bursts);
     gl.uniform3fv(u("u_colors[0]"), colors);
     gl.drawArrays(gl.POINTS, 0, N);
@@ -516,7 +591,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     late = gap > 24 && clock > 2 ? late + 1 : 0;
     if (late > 60 && dpr > minDpr) {
       dpr = Math.max(minDpr, dpr - 0.25);
-      resize();
+      resize(true);
       late = 0;
       gap = 16.7;
     }
@@ -534,6 +609,8 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     count++;
     if (stale || began - measuredAt > 1000) measure();
     choose();
+    // Under an anchor that scrolls with the page, the canvas is moved on as the screen nears its ends.
+    anchorCanvas();
     if (pair) {
       // A scrubbed flight trails the scroll a little, so a flick still reads as a flight rather than a cut.
       progress += (mixGoal - progress) * (1 - Math.exp(-dt / 0.12));
@@ -567,6 +644,9 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
   // On scroll the page has just been laid out: measure the anchors now, while it is free to.
   addEventListener("scroll", () => { measure(); wake(); }, on);
   addEventListener("resize", () => { resize(); stale = true; wake(); }, on);
+  // A new page replaces this one under the canvas: hold the glyphs on the screen while it does, so they fly on
+  // from where they were seen, whatever the new page's scroll.
+  document.addEventListener("astro:before-swap", () => reframe("screen", 0), on);
   addEventListener("pointermove", (e) => {
     if (e.pointerType === "touch" || !motion()) return;
     pointer.x = e.clientX;
@@ -583,6 +663,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     // Anchors come and go with pages; look for them again, and watch them (and the page) for changes in size.
     refresh() {
       anchors = [...document.querySelectorAll<HTMLElement>("[data-glyph]")];
+      pinnedCache = new WeakMap();
       sizes.disconnect();
       sizes.observe(document.body);
       anchors.forEach((el) => sizes.observe(el));
@@ -592,6 +673,8 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     burst(x, y) {
       if (!motion()) return;
       // A living shape may take the click for itself (the chameleon drops a fly there) instead of a wave.
+      // From the screen to the canvas.
+      y -= canvasTop();
       const s = target.shape;
       if (s.touch && !pair) {
         const box = boxOf(target);
@@ -640,7 +723,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
   // The first flight: glyphs rise from below the fold into the first shape, fading in as they come.
   for (let i = 0; i < N; i++) {
     from[i * 3] = Math.random() * view.w;
-    from[i * 3 + 1] = view.h * (0.55 + Math.random() * 0.9);
+    from[i * 3 + 1] = screen.h * (0.55 + Math.random() * 0.9);
     prev[i * 4] = Math.floor(Math.random() * 94);
     prev[i * 4 + 1] = colorIndex("comment");
     prev[i * 4 + 2] = 0;

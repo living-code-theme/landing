@@ -54,7 +54,7 @@ const json = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
   </head>
   <body>
     <a class="fixed left-(--margin) top-3 z-[200] -translate-y-[160%] bg-accent px-4 py-2.5 text-bg transition-transform focus:translate-y-0" href="#main">Skip to content</a>
-    <canvas class="pointer-events-none fixed inset-0 -z-10 h-full w-full" data-living-field transition:persist="living-field" aria-hidden="true"></canvas>
+    <canvas class="pointer-events-none fixed left-0 top-0 -z-10 h-full w-full" data-living-field transition:persist="living-field" aria-hidden="true"></canvas>
     <Header />
     <PortFinder />
     <main id="main">
