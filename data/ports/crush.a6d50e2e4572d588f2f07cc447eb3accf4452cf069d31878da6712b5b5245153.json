@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "crush",
+    "name": "Crush",
+    "group": "AI & Agents",
+    "description": "Living Code for Crush: complete native palette files with UI surfaces, status colors, review diffs and all sixteen ANSI colors.",
+    "homepage": "https://github.com/charmbracelet/crush",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "crush",
+      "charm crush",
+      "charmbracelet"
+    ],
+    "icon": null,
+    "emoji": "💘",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.json",
+      "themes/living-code-frost.json",
+      "themes/living-code-paper.json",
+      "themes/living-code-signal.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/crush.git\ncd crush\n```\n\nOn Linux with the default config location:\n\n```sh\nmkdir -p \"${XDG_CONFIG_HOME:-$HOME/.config}/crush/themes\"\ncp themes/*.json \"${XDG_CONFIG_HOME:-$HOME/.config}/crush/themes/\"\n```\n\nOpen Crush, press **Ctrl+P**, choose **Themes**, and select `living-code-night`. If you use `CRUSH_GLOBAL_CONFIG`, place `themes/` alongside that global config file instead. On other platforms, use the `themes/` directory beside Crush’s global config.",
+      "configuration": "For a persistent config selection, merge the following into your existing Crush config:\n\n```json\n{ \"options\": { \"tui\": { \"active_theme\": \"living-code-night\" } } }\n```\n\nThe files specify every public `Palette` field and do not rely on an unrelated base theme. Diff code and gutter backgrounds have independent tints, and raw terminal output gets all sixteen Living Code ANSI colors.",
+      "compatibility": "Requires a Crush release supporting standalone JSON theme files and `options.tui.active_theme`. This API was verified against the source revision recorded in `test/fixtures/upstream.json`; older builds without custom themes need an update. The field contract is extracted from Crush’s own palette implementation. No custom providers or credentials are installed.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/crush",
+    "repositoryName": "living-code-theme/crush",
+    "revision": "5b2f9322b92e142ecfe3dbbf0380eec1cfe19004",
+    "readmeUrl": "https://github.com/living-code-theme/crush/blob/5b2f9322b92e142ecfe3dbbf0380eec1cfe19004/README.md",
+    "fileUrls": {
+      "themes/living-code-night.json": "https://github.com/living-code-theme/crush/blob/5b2f9322b92e142ecfe3dbbf0380eec1cfe19004/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/crush/blob/5b2f9322b92e142ecfe3dbbf0380eec1cfe19004/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/crush/blob/5b2f9322b92e142ecfe3dbbf0380eec1cfe19004/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/crush/blob/5b2f9322b92e142ecfe3dbbf0380eec1cfe19004/themes/living-code-signal.json"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

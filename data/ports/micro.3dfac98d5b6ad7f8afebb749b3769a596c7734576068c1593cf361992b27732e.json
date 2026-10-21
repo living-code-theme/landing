@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "micro",
+    "name": "micro",
+    "group": "Editors",
+    "description": "Living Code for micro: native color-link schemes for syntax groups, editor chrome, selections, diagnostics and search matches.",
+    "homepage": "https://micro-editor.github.io",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "micro",
+      "micro editor",
+      "micro-editor"
+    ],
+    "icon": "microeditor",
+    "emoji": "🔬",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.micro",
+      "themes/living-code-frost.micro",
+      "themes/living-code-paper.micro",
+      "themes/living-code-signal.micro"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/micro.git\ncd micro\n```\n\n```sh\nmkdir -p \"${XDG_CONFIG_HOME:-$HOME/.config}/micro/colorschemes\"\ncp themes/*.micro \"${XDG_CONFIG_HOME:-$HOME/.config}/micro/colorschemes/\"\n```\n\nOpen micro, press **Ctrl+E**, and run `set colorscheme living-code-night`. If your terminal’s truecolor support is not detected, also run `set truecolor on`.",
+      "configuration": "The `.micro` files contain only native `color-link` directives. Default body colors, selected text, status lines, tabs, cursor line, search and trailing whitespace are explicitly configured. Built-in syntax subgroups preserve string/number/boolean and operator distinctions. `identifier.class` is used by some micro grammars for functions as well as classes, so it follows the function role.",
+      "compatibility": "For micro’s documented color-link format, with truecolor enabled for exact hex colors. In reduced-color terminals micro approximates the palette. Highlight precision depends on the filetype’s built-in syntax rules: the colorscheme does not install new grammars. Tests validate directive grammar, native group names and semantic colors.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/micro",
+    "repositoryName": "living-code-theme/micro",
+    "revision": "5f48612b83f212e8258072f6b532cb3f5485f324",
+    "readmeUrl": "https://github.com/living-code-theme/micro/blob/5f48612b83f212e8258072f6b532cb3f5485f324/README.md",
+    "fileUrls": {
+      "themes/living-code-night.micro": "https://github.com/living-code-theme/micro/blob/5f48612b83f212e8258072f6b532cb3f5485f324/themes/living-code-night.micro",
+      "themes/living-code-frost.micro": "https://github.com/living-code-theme/micro/blob/5f48612b83f212e8258072f6b532cb3f5485f324/themes/living-code-frost.micro",
+      "themes/living-code-paper.micro": "https://github.com/living-code-theme/micro/blob/5f48612b83f212e8258072f6b532cb3f5485f324/themes/living-code-paper.micro",
+      "themes/living-code-signal.micro": "https://github.com/living-code-theme/micro/blob/5f48612b83f212e8258072f6b532cb3f5485f324/themes/living-code-signal.micro"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

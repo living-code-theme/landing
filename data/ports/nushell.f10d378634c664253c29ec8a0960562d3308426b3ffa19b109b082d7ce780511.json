@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "nushell",
+    "name": "Nushell",
+    "group": "CLI & TUI",
+    "description": "Living Code for Nushell: native modules for syntax shapes, structured values, tables, search matches and command-line hints.",
+    "homepage": "https://www.nushell.sh",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "nushell",
+      "nu",
+      "nu shell"
+    ],
+    "icon": null,
+    "emoji": "🐚",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.nu",
+      "themes/living-code-frost.nu",
+      "themes/living-code-paper.nu",
+      "themes/living-code-signal.nu"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/nushell.git\ncd nushell\n```\n\nFrom the clone, run these commands **inside Nushell**:\n\n```nu\nmkdir ($nu.default-config-dir | path join \"themes\")\ncp themes/*.nu ($nu.default-config-dir | path join \"themes\")\n```\n\nOn Linux’s default config path, add this to `config.nu`:\n\n```nu\nuse ~/.config/nushell/themes/living-code-night.nu\n$env.config.color_config = (living-code-night)\n```\n\nOn other platforms, replace the module path with the installed path under `$nu.default-config-dir`. Restart Nu or evaluate the same two lines in your current shell.",
+      "configuration": "Each file exports `main`, returning a color record without mutating `$env`. Set `color_config` explicitly as shown, or merge the returned record into your existing color configuration. Syntax shapes include keyword, literal, constant, function, type, string, variable, parameter and operator distinctions. Search results have explicit foreground/background pairs.",
+      "compatibility": "Uses Nushell’s native module syntax and `color_config` API. The exported record follows the current shape-color contract; unknown supplemental record keys are inert. The theme does not configure prompts, LS_COLORS or the terminal emulator palette. Its `background`, `foreground` and `cursor` record entries are metadata used by theme tooling, not commands that recolor the host terminal. Native module loading can be tested with `pnpm test:native` when `nu` is installed.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/nushell",
+    "repositoryName": "living-code-theme/nushell",
+    "revision": "d0310a5e099cc451b26b1bcd4010f67d98ead88b",
+    "readmeUrl": "https://github.com/living-code-theme/nushell/blob/d0310a5e099cc451b26b1bcd4010f67d98ead88b/README.md",
+    "fileUrls": {
+      "themes/living-code-night.nu": "https://github.com/living-code-theme/nushell/blob/d0310a5e099cc451b26b1bcd4010f67d98ead88b/themes/living-code-night.nu",
+      "themes/living-code-frost.nu": "https://github.com/living-code-theme/nushell/blob/d0310a5e099cc451b26b1bcd4010f67d98ead88b/themes/living-code-frost.nu",
+      "themes/living-code-paper.nu": "https://github.com/living-code-theme/nushell/blob/d0310a5e099cc451b26b1bcd4010f67d98ead88b/themes/living-code-paper.nu",
+      "themes/living-code-signal.nu": "https://github.com/living-code-theme/nushell/blob/d0310a5e099cc451b26b1bcd4010f67d98ead88b/themes/living-code-signal.nu"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "lazydocker",
+    "name": "Lazydocker",
+    "group": "CLI & TUI",
+    "description": "Living Code for Lazydocker: native YAML overrides for active/inactive borders, selected rows and option text in four flavors.",
+    "homepage": "https://github.com/jesseduffield/lazydocker",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "lazydocker",
+      "lazy docker",
+      "docker tui"
+    ],
+    "icon": null,
+    "emoji": "🐳",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.yml",
+      "themes/living-code-frost.yml",
+      "themes/living-code-paper.yml",
+      "themes/living-code-signal.yml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/lazydocker.git\ncd lazydocker\n```\n\nOpen your Lazydocker config using the project panel’s **o** action. Merge `gui.theme` from the selected file in `themes/`, replacing existing theme keys while preserving all Docker commands and other settings.\n\nDefault locations: Linux `~/.config/lazydocker/config.yml`; macOS `~/Library/Application Support/jesseduffield/lazydocker/config.yml`; Windows `%APPDATA%\\lazydocker\\config.yml`. Restart Lazydocker after saving.",
+      "configuration": "Only the four exposed theme attributes are changed: `activeBorderColor`, `inactiveBorderColor`, `selectedLineBgColor`, and `optionsTextColor`. Each is the native array of color/style attributes. Active borders are bold. Do not replace your full config with the fragment unless you intentionally want all other settings to return to defaults.",
+      "compatibility": "For Lazydocker’s `gui.theme` attribute API with hex-color support. This is intentionally a partial UI theme: terminal foreground/background, container health labels and other hard-coded colors are not individually configurable by this API. Use a matching Living Code terminal palette. Tests validate native YAML and the exact field contract; no Docker daemon is needed for maintenance.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/lazydocker",
+    "repositoryName": "living-code-theme/lazydocker",
+    "revision": "6d25e95944291e3c524045b2789c60ae171834c4",
+    "readmeUrl": "https://github.com/living-code-theme/lazydocker/blob/6d25e95944291e3c524045b2789c60ae171834c4/README.md",
+    "fileUrls": {
+      "themes/living-code-night.yml": "https://github.com/living-code-theme/lazydocker/blob/6d25e95944291e3c524045b2789c60ae171834c4/themes/living-code-night.yml",
+      "themes/living-code-frost.yml": "https://github.com/living-code-theme/lazydocker/blob/6d25e95944291e3c524045b2789c60ae171834c4/themes/living-code-frost.yml",
+      "themes/living-code-paper.yml": "https://github.com/living-code-theme/lazydocker/blob/6d25e95944291e3c524045b2789c60ae171834c4/themes/living-code-paper.yml",
+      "themes/living-code-signal.yml": "https://github.com/living-code-theme/lazydocker/blob/6d25e95944291e3c524045b2789c60ae171834c4/themes/living-code-signal.yml"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

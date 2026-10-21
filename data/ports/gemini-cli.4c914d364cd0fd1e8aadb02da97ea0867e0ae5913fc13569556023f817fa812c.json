@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "gemini-cli",
+    "name": "Gemini CLI",
+    "group": "AI & Agents",
+    "description": "Living Code for Gemini CLI: standalone custom theme files for conversational text, borders, status indicators and diff backgrounds.",
+    "homepage": "https://github.com/google-gemini/gemini-cli",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "gemini-cli",
+      "gemini",
+      "google gemini"
+    ],
+    "icon": "googlegemini",
+    "emoji": "♊",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.json",
+      "themes/living-code-frost.json",
+      "themes/living-code-paper.json",
+      "themes/living-code-signal.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/gemini-cli.git\ncd gemini-cli\n```\n\n```sh\nmkdir -p \"$HOME/.gemini/themes\"\ncp themes/*.json \"$HOME/.gemini/themes/\"\nprintf \"%s\\n\" \"$HOME/.gemini/themes/living-code-night.json\"\n```\n\nCopy the printed absolute path into `ui.theme` in your existing `~/.gemini/settings.json`, preserving all other settings. Example shape:\n\n```json\n{\n  \"ui\": {\n    \"theme\": \"/home/you/.gemini/themes/living-code-night.json\"\n  }\n}\n```\n\nReplace `/home/you` with your actual home directory, then restart Gemini CLI.",
+      "configuration": "The distributable files are standalone `type: \"custom\"` theme documents, not full settings files. As an alternative, insert a document into `ui.customThemes` using its `name` as the object key, then select it by name. A path selected through `ui.theme` must be removed before changing themes with `/theme`.",
+      "compatibility": "Uses the documented standalone-file custom theme API. Gemini CLI permits theme paths only within the home directory: do not point it at a clone under `/tmp` or a system-wide location. Text, background, diff, border, status and UI groups are provided; code highlighting follows Gemini CLI’s derived theme behavior. Tests validate the nested format, not provider access or model output.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/gemini-cli",
+    "repositoryName": "living-code-theme/gemini-cli",
+    "revision": "4d3025f2e3ffbd874380abde3de07e6c411f72bc",
+    "readmeUrl": "https://github.com/living-code-theme/gemini-cli/blob/4d3025f2e3ffbd874380abde3de07e6c411f72bc/README.md",
+    "fileUrls": {
+      "themes/living-code-night.json": "https://github.com/living-code-theme/gemini-cli/blob/4d3025f2e3ffbd874380abde3de07e6c411f72bc/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/gemini-cli/blob/4d3025f2e3ffbd874380abde3de07e6c411f72bc/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/gemini-cli/blob/4d3025f2e3ffbd874380abde3de07e6c411f72bc/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/gemini-cli/blob/4d3025f2e3ffbd874380abde3de07e6c411f72bc/themes/living-code-signal.json"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

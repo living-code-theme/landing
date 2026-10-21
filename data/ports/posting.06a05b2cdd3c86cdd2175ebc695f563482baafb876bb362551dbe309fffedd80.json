@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "posting",
+    "name": "Posting",
+    "group": "CLI & TUI",
+    "description": "Living Code for Posting: native YAML palettes for HTTP requests, response status, syntax colors, focus and layered UI surfaces.",
+    "homepage": "https://posting.sh",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "posting",
+      "http client",
+      "posting tui"
+    ],
+    "icon": null,
+    "emoji": "📮",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.yaml",
+      "themes/living-code-frost.yaml",
+      "themes/living-code-paper.yaml",
+      "themes/living-code-signal.yaml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/posting.git\ncd posting\n```\n\nRun `posting locate themes` to find your theme directory. On Linux with the default location:\n\n```sh\nmkdir -p \"$HOME/.local/share/posting/themes\"\ncp themes/*.yaml \"$HOME/.local/share/posting/themes/\"\nPOSTING_THEME=living-code-night posting\n```\n\nUse the path reported by `posting locate themes` if it differs. Restart Posting after adding files.",
+      "configuration": "To keep a flavor permanently, set `theme: living-code-night` in Posting’s existing config. You can preview themes through **Ctrl+P → Theme…**. Each YAML file declares its name, light/dark appearance and all supported base palette colors. Posting derives HTTP method and syntax colors from those palette fields; no ignored legacy syntax blocks are shipped.",
+      "compatibility": "Targets Posting 3’s native palette API; the same base fields are also understood by Posting 2, but version-specific rendering is not claimed. Paper explicitly sets `dark: false`. `load_user_themes` must be enabled, and `theme_directory` may override the default location. Tests parse YAML and verify the documented supported field set.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/posting",
+    "repositoryName": "living-code-theme/posting",
+    "revision": "c9e588244d8e6a185ff2b28a276f2f50b0401d3b",
+    "readmeUrl": "https://github.com/living-code-theme/posting/blob/c9e588244d8e6a185ff2b28a276f2f50b0401d3b/README.md",
+    "fileUrls": {
+      "themes/living-code-night.yaml": "https://github.com/living-code-theme/posting/blob/c9e588244d8e6a185ff2b28a276f2f50b0401d3b/themes/living-code-night.yaml",
+      "themes/living-code-frost.yaml": "https://github.com/living-code-theme/posting/blob/c9e588244d8e6a185ff2b28a276f2f50b0401d3b/themes/living-code-frost.yaml",
+      "themes/living-code-paper.yaml": "https://github.com/living-code-theme/posting/blob/c9e588244d8e6a185ff2b28a276f2f50b0401d3b/themes/living-code-paper.yaml",
+      "themes/living-code-signal.yaml": "https://github.com/living-code-theme/posting/blob/c9e588244d8e6a185ff2b28a276f2f50b0401d3b/themes/living-code-signal.yaml"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

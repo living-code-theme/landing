@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "television",
+    "name": "Television",
+    "group": "CLI & TUI",
+    "description": "Living Code for Television: complete native TOML palettes for search results, matches, previews, selections and mode indicators.",
+    "homepage": "https://github.com/alexpasmantier/television",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "television",
+      "tv",
+      "fuzzy finder"
+    ],
+    "icon": null,
+    "emoji": "📺",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.toml",
+      "themes/living-code-frost.toml",
+      "themes/living-code-paper.toml",
+      "themes/living-code-signal.toml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/television.git\ncd television\n```\n\n```sh\nmkdir -p \"${XDG_CONFIG_HOME:-$HOME/.config}/television/themes\"\ncp themes/*.toml \"${XDG_CONFIG_HOME:-$HOME/.config}/television/themes/\"\n```\n\nMerge this into the existing `config.toml` in your Television config directory:\n\n```toml\n[ui]\ntheme = \"living-code-night\"\n```\n\nRestart `tv`. If you configured a different config directory, put `themes/` beside that `config.toml`.",
+      "configuration": "A theme file has flat color keys; `[ui]` belongs only in `config.toml`. Existing `[ui.theme_overrides]` entries override the installed palette, so remove conflicting values if the colors do not match. The port sets both foreground and background on selected results and every mode badge.",
+      "compatibility": "Targets Television’s documented flat TOML custom-theme API and all required fields in its `Theme` struct. The `send_to_channel_mode_fg` fallback in newer documentation is not needed by the pinned contract. Truecolor is recommended. Tests check the full required field set, native parsing, semantic colors and selected-row contrast.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/television",
+    "repositoryName": "living-code-theme/television",
+    "revision": "6645cb923d4c8cddad1113169a8ddca5ddfad7bc",
+    "readmeUrl": "https://github.com/living-code-theme/television/blob/6645cb923d4c8cddad1113169a8ddca5ddfad7bc/README.md",
+    "fileUrls": {
+      "themes/living-code-night.toml": "https://github.com/living-code-theme/television/blob/6645cb923d4c8cddad1113169a8ddca5ddfad7bc/themes/living-code-night.toml",
+      "themes/living-code-frost.toml": "https://github.com/living-code-theme/television/blob/6645cb923d4c8cddad1113169a8ddca5ddfad7bc/themes/living-code-frost.toml",
+      "themes/living-code-paper.toml": "https://github.com/living-code-theme/television/blob/6645cb923d4c8cddad1113169a8ddca5ddfad7bc/themes/living-code-paper.toml",
+      "themes/living-code-signal.toml": "https://github.com/living-code-theme/television/blob/6645cb923d4c8cddad1113169a8ddca5ddfad7bc/themes/living-code-signal.toml"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

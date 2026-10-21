@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "rio",
+    "name": "Rio",
+    "group": "Terminals",
+    "description": "Living Code for Rio: native terminal palettes with all sixteen ANSI slots, cursor, selections, split dividers and search colors.",
+    "homepage": "https://rioterm.com",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "rio",
+      "rio terminal",
+      "rioterm"
+    ],
+    "icon": null,
+    "emoji": "🏞️",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.toml",
+      "themes/living-code-frost.toml",
+      "themes/living-code-paper.toml",
+      "themes/living-code-signal.toml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/rio.git\ncd rio\n```\n\n```sh\nmkdir -p \"$HOME/.config/rio/themes\"\ncp themes/*.toml \"$HOME/.config/rio/themes/\"\n```\n\nIn your existing Rio `config.toml`, set the top-level theme name before any tables:\n\n```toml\ntheme = \"living-code-night\"\n```\n\nReload or restart Rio. If your Rio installation uses a custom configuration location, put the `themes/` folder alongside that config.",
+      "configuration": "Each theme contains a native `[colors]` table. Rio names bright ANSI colors `light-black` through `light-white`, not `bright-*`. Cursor, vi cursor, tabs, active/inactive split dividers, selections, search matches and hints are all supplied. Remove conflicting `[colors]` entries from your main config if they override the selected theme.",
+      "compatibility": "Verified against Rio’s native `Theme` and `Colors` structures at the pinned upstream revision. No terminal font, renderer, keybinding or shell setting is changed. These are static TOML themes and need no build tool at runtime. All ANSI slots are tested for order and exact agreement with the pinned palette.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/rio",
+    "repositoryName": "living-code-theme/rio",
+    "revision": "72859895e20826a33b188e4c960d5ac20dddae87",
+    "readmeUrl": "https://github.com/living-code-theme/rio/blob/72859895e20826a33b188e4c960d5ac20dddae87/README.md",
+    "fileUrls": {
+      "themes/living-code-night.toml": "https://github.com/living-code-theme/rio/blob/72859895e20826a33b188e4c960d5ac20dddae87/themes/living-code-night.toml",
+      "themes/living-code-frost.toml": "https://github.com/living-code-theme/rio/blob/72859895e20826a33b188e4c960d5ac20dddae87/themes/living-code-frost.toml",
+      "themes/living-code-paper.toml": "https://github.com/living-code-theme/rio/blob/72859895e20826a33b188e4c960d5ac20dddae87/themes/living-code-paper.toml",
+      "themes/living-code-signal.toml": "https://github.com/living-code-theme/rio/blob/72859895e20826a33b188e4c960d5ac20dddae87/themes/living-code-signal.toml"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

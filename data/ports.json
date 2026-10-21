@@ -114,6 +114,224 @@
   },
   "ports": [
     {
+      "id": "aider",
+      "name": "Aider",
+      "group": "AI & Agents",
+      "description": "Living Code for Aider: native YAML colors for user and assistant messages, warnings, errors and completion-menu states.",
+      "homepage": "https://aider.chat",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "aider",
+        "aider chat",
+        "aider ai"
+      ],
+      "icon": null,
+      "emoji": "🛠️",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/aider",
+      "repositoryName": "living-code-theme/aider",
+      "revision": "a91a7ef336b2616168f4c3c379b4ccb8f6806a87",
+      "readmeUrl": "https://github.com/living-code-theme/aider/blob/a91a7ef336b2616168f4c3c379b4ccb8f6806a87/README.md",
+      "content": "ports/aider.7f01a828a39e03abede9fdacea34a7670ff6471ec1ffc7171147353478ea5094.json"
+    },
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "group": "AI & Agents",
+      "description": "Living Code for Claude Code: prompt accents, permissions, messages, diffs and subagent colors in four native custom themes.",
+      "homepage": "https://code.claude.com",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "claude-code",
+        "claude",
+        "anthropic"
+      ],
+      "icon": "claudecode",
+      "emoji": "✳️",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/claude-code",
+      "repositoryName": "living-code-theme/claude-code",
+      "revision": "695323173b54b8a307ab48ad7e2a900a3a78d80b",
+      "readmeUrl": "https://github.com/living-code-theme/claude-code/blob/695323173b54b8a307ab48ad7e2a900a3a78d80b/README.md",
+      "content": "ports/claude-code.913fc5e6924a2aaac7629d15334d0cc54e14750f5f9c9f5440b5d302e66e5778.json"
+    },
+    {
+      "id": "codex",
+      "name": "Codex",
+      "group": "AI & Agents",
+      "description": "Living Code for the Codex CLI: native TextMate syntax themes with coordinated Markdown, selections and added/removed diff backgrounds.",
+      "homepage": "https://github.com/openai/codex",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "codex",
+        "openai",
+        "codex cli"
+      ],
+      "icon": null,
+      "emoji": "🤖",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/codex",
+      "repositoryName": "living-code-theme/codex",
+      "revision": "7f533d074b5a10c184d9878821e0cb1cdfbacb74",
+      "readmeUrl": "https://github.com/living-code-theme/codex/blob/7f533d074b5a10c184d9878821e0cb1cdfbacb74/README.md",
+      "content": "ports/codex.c50017069dd42d232bab024b57480fa7316c0420c22e115b0f16274d2cf623a7.json"
+    },
+    {
+      "id": "crush",
+      "name": "Crush",
+      "group": "AI & Agents",
+      "description": "Living Code for Crush: complete native palette files with UI surfaces, status colors, review diffs and all sixteen ANSI colors.",
+      "homepage": "https://github.com/charmbracelet/crush",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "crush",
+        "charm crush",
+        "charmbracelet"
+      ],
+      "icon": null,
+      "emoji": "💘",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/crush",
+      "repositoryName": "living-code-theme/crush",
+      "revision": "5b2f9322b92e142ecfe3dbbf0380eec1cfe19004",
+      "readmeUrl": "https://github.com/living-code-theme/crush/blob/5b2f9322b92e142ecfe3dbbf0380eec1cfe19004/README.md",
+      "content": "ports/crush.a6d50e2e4572d588f2f07cc447eb3accf4452cf069d31878da6712b5b5245153.json"
+    },
+    {
+      "id": "gemini-cli",
+      "name": "Gemini CLI",
+      "group": "AI & Agents",
+      "description": "Living Code for Gemini CLI: standalone custom theme files for conversational text, borders, status indicators and diff backgrounds.",
+      "homepage": "https://github.com/google-gemini/gemini-cli",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "gemini-cli",
+        "gemini",
+        "google gemini"
+      ],
+      "icon": "googlegemini",
+      "emoji": "♊",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/gemini-cli",
+      "repositoryName": "living-code-theme/gemini-cli",
+      "revision": "4d3025f2e3ffbd874380abde3de07e6c411f72bc",
+      "readmeUrl": "https://github.com/living-code-theme/gemini-cli/blob/4d3025f2e3ffbd874380abde3de07e6c411f72bc/README.md",
+      "content": "ports/gemini-cli.4c914d364cd0fd1e8aadb02da97ea0867e0ae5913fc13569556023f817fa812c.json"
+    },
+    {
+      "id": "herdr",
+      "name": "Herdr",
+      "group": "AI & Agents",
+      "description": "Living Code for Herdr: complete native theme overrides for the sidebar, panels, selections, status indicators and workspace chrome.",
+      "homepage": "https://herdr.dev",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "herdr",
+        "herd",
+        "herdrdev",
+        "agent workspace"
+      ],
+      "icon": null,
+      "emoji": "🐑",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/herdr",
+      "repositoryName": "living-code-theme/herdr",
+      "revision": "7ec459119a5a993feec5b831df0670febecb1d01",
+      "readmeUrl": "https://github.com/living-code-theme/herdr/blob/7ec459119a5a993feec5b831df0670febecb1d01/README.md",
+      "content": "ports/herdr.470261d5811c6f0fcc3217b80b65aab76491f9c400e29d3f61ceeb8cc2371e47.json"
+    },
+    {
+      "id": "opencode",
+      "name": "OpenCode",
+      "group": "AI & Agents",
+      "description": "Living Code for OpenCode TUI: complete native JSON palettes for UI, Markdown, syntax highlighting, selections and review diffs.",
+      "homepage": "https://opencode.ai",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "opencode",
+        "open code",
+        "opencode tui"
+      ],
+      "icon": null,
+      "emoji": "🔓",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/opencode",
+      "repositoryName": "living-code-theme/opencode",
+      "revision": "f9fdcb56c365a16b38dcd44ff09bad0dc00725b8",
+      "readmeUrl": "https://github.com/living-code-theme/opencode/blob/f9fdcb56c365a16b38dcd44ff09bad0dc00725b8/README.md",
+      "content": "ports/opencode.6b0cbffaea3fd752327607daf3751e52e9fc123646ebe3d13d440c02f1581500.json"
+    },
+    {
+      "id": "pi",
+      "name": "Pi",
+      "group": "AI & Agents",
+      "description": "Living Code for Pi: schema-complete custom themes for messages, tools, thinking levels, syntax, Markdown and HTML exports.",
+      "homepage": "https://pi.dev",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "pi",
+        "pi coding agent",
+        "pi agent",
+        "pi-mono"
+      ],
+      "icon": null,
+      "emoji": "🥧",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/pi",
+      "repositoryName": "living-code-theme/pi",
+      "revision": "771f0e6c86c4f91e93363448815076bdc0aee2f8",
+      "readmeUrl": "https://github.com/living-code-theme/pi/blob/771f0e6c86c4f91e93363448815076bdc0aee2f8/README.md",
+      "content": "ports/pi.c05358500cd90fe10317ae754406a4afffe8fbae6015e4a9b51bdfb3e03cbefb.json"
+    },
+    {
       "id": "obsidian",
       "name": "Obsidian",
       "group": "Apps",
@@ -253,6 +471,33 @@
       "revision": "0bed16a3d1633760ec0908faa8afe222c71cd190",
       "readmeUrl": "https://github.com/living-code-theme/firefox/blob/0bed16a3d1633760ec0908faa8afe222c71cd190/README.md",
       "content": "ports/firefox.87b1bf92c15881935cbc8dcf24d982fc5ca24de44807c78cc2b1ce8bb351bced.json"
+    },
+    {
+      "id": "bottom",
+      "name": "bottom",
+      "group": "CLI & TUI",
+      "description": "Living Code for bottom: native TOML styles for CPU, memory, network, batteries, graphs, tables and selected widgets.",
+      "homepage": "https://github.com/ClementTsang/bottom",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "bottom",
+        "btm",
+        "system monitor"
+      ],
+      "icon": null,
+      "emoji": "📊",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/bottom",
+      "repositoryName": "living-code-theme/bottom",
+      "revision": "ef86eafe9e35d64ceebb7b6a958f32019845648e",
+      "readmeUrl": "https://github.com/living-code-theme/bottom/blob/ef86eafe9e35d64ceebb7b6a958f32019845648e/README.md",
+      "content": "ports/bottom.3329c3130c146f993e9c09ed9429c78335cf47bd125f01909395970548da7af2.json"
     },
     {
       "id": "btop",
@@ -525,6 +770,33 @@
       "content": "ports/fzf.859b62adb636cf25b1527e7796c029b444ecd6683a46a4f5c188e0bc3abf0352.json"
     },
     {
+      "id": "gitui",
+      "name": "GitUI",
+      "group": "CLI & TUI",
+      "description": "Living Code for GitUI: RON interface themes and matching native TextMate syntax palettes for commit, status and diff views.",
+      "homepage": "https://github.com/gitui-org/gitui",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "gitui",
+        "git ui",
+        "git tui"
+      ],
+      "icon": null,
+      "emoji": "🌳",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/gitui",
+      "repositoryName": "living-code-theme/gitui",
+      "revision": "bc90ea3564ebb1a3bf0931869f5e9e28c9587325",
+      "readmeUrl": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/README.md",
+      "content": "ports/gitui.c3642680fd3ce2aea0a5d38ff6b976fbe6dcbd220e1439c6db05ea013962cf8f.json"
+    },
+    {
       "id": "hunk",
       "name": "Hunk",
       "group": "CLI & TUI",
@@ -633,6 +905,33 @@
       "content": "ports/k9s.d94acdf76060296ea24fbfca7309be6c9d1e2484345ad9b90dc2146fe10f856d.json"
     },
     {
+      "id": "lazydocker",
+      "name": "Lazydocker",
+      "group": "CLI & TUI",
+      "description": "Living Code for Lazydocker: native YAML overrides for active/inactive borders, selected rows and option text in four flavors.",
+      "homepage": "https://github.com/jesseduffield/lazydocker",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "lazydocker",
+        "lazy docker",
+        "docker tui"
+      ],
+      "icon": null,
+      "emoji": "🐳",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/lazydocker",
+      "repositoryName": "living-code-theme/lazydocker",
+      "revision": "6d25e95944291e3c524045b2789c60ae171834c4",
+      "readmeUrl": "https://github.com/living-code-theme/lazydocker/blob/6d25e95944291e3c524045b2789c60ae171834c4/README.md",
+      "content": "ports/lazydocker.2539095d19fa84de9e5cc9f43945cec9cf18a44d97c1b0154b7c1cb059559546.json"
+    },
+    {
       "id": "lazygit",
       "name": "lazygit",
       "group": "CLI & TUI",
@@ -687,6 +986,60 @@
       "content": "ports/lazygit.6ba17cb2a173c8c92c9073ac1ad98ab6583b5363706e81b18ddc57cf4bc4634c.json"
     },
     {
+      "id": "nushell",
+      "name": "Nushell",
+      "group": "CLI & TUI",
+      "description": "Living Code for Nushell: native modules for syntax shapes, structured values, tables, search matches and command-line hints.",
+      "homepage": "https://www.nushell.sh",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "nushell",
+        "nu",
+        "nu shell"
+      ],
+      "icon": null,
+      "emoji": "🐚",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/nushell",
+      "repositoryName": "living-code-theme/nushell",
+      "revision": "d0310a5e099cc451b26b1bcd4010f67d98ead88b",
+      "readmeUrl": "https://github.com/living-code-theme/nushell/blob/d0310a5e099cc451b26b1bcd4010f67d98ead88b/README.md",
+      "content": "ports/nushell.f10d378634c664253c29ec8a0960562d3308426b3ffa19b109b082d7ce780511.json"
+    },
+    {
+      "id": "posting",
+      "name": "Posting",
+      "group": "CLI & TUI",
+      "description": "Living Code for Posting: native YAML palettes for HTTP requests, response status, syntax colors, focus and layered UI surfaces.",
+      "homepage": "https://posting.sh",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "posting",
+        "http client",
+        "posting tui"
+      ],
+      "icon": null,
+      "emoji": "📮",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/posting",
+      "repositoryName": "living-code-theme/posting",
+      "revision": "c9e588244d8e6a185ff2b28a276f2f50b0401d3b",
+      "readmeUrl": "https://github.com/living-code-theme/posting/blob/c9e588244d8e6a185ff2b28a276f2f50b0401d3b/README.md",
+      "content": "ports/posting.06a05b2cdd3c86cdd2175ebc695f563482baafb876bb362551dbe309fffedd80.json"
+    },
+    {
       "id": "starship",
       "name": "Starship",
       "group": "CLI & TUI",
@@ -739,6 +1092,33 @@
       "revision": "6e1558f56c674d7471303d6cb1810238cfc27005",
       "readmeUrl": "https://github.com/living-code-theme/starship/blob/6e1558f56c674d7471303d6cb1810238cfc27005/README.md",
       "content": "ports/starship.4ff3bc85e543eef2949e5dbe102c56a067c5ca1d2a7a7313c4c5361afd30d07b.json"
+    },
+    {
+      "id": "television",
+      "name": "Television",
+      "group": "CLI & TUI",
+      "description": "Living Code for Television: complete native TOML palettes for search results, matches, previews, selections and mode indicators.",
+      "homepage": "https://github.com/alexpasmantier/television",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "television",
+        "tv",
+        "fuzzy finder"
+      ],
+      "icon": null,
+      "emoji": "📺",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/television",
+      "repositoryName": "living-code-theme/television",
+      "revision": "6645cb923d4c8cddad1113169a8ddca5ddfad7bc",
+      "readmeUrl": "https://github.com/living-code-theme/television/blob/6645cb923d4c8cddad1113169a8ddca5ddfad7bc/README.md",
+      "content": "ports/television.e1d9156595fb5952542b6b85ba98d04cd087f27ae030a8a352e0a5b4056b600e.json"
     },
     {
       "id": "tmux",
@@ -1009,6 +1389,33 @@
       "revision": "c6e64dac1d4ffc960026e7f8028882121b0dfd4d",
       "readmeUrl": "https://github.com/living-code-theme/jetbrains/blob/c6e64dac1d4ffc960026e7f8028882121b0dfd4d/README.md",
       "content": "ports/jetbrains.95fef026e96a9647d577af4edbaf42c2ecee2c6123bc023a9262ca64c7d36594.json"
+    },
+    {
+      "id": "micro",
+      "name": "micro",
+      "group": "Editors",
+      "description": "Living Code for micro: native color-link schemes for syntax groups, editor chrome, selections, diagnostics and search matches.",
+      "homepage": "https://micro-editor.github.io",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "micro",
+        "micro editor",
+        "micro-editor"
+      ],
+      "icon": "microeditor",
+      "emoji": "🔬",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/micro",
+      "repositoryName": "living-code-theme/micro",
+      "revision": "5f48612b83f212e8258072f6b532cb3f5485f324",
+      "readmeUrl": "https://github.com/living-code-theme/micro/blob/5f48612b83f212e8258072f6b532cb3f5485f324/README.md",
+      "content": "ports/micro.3dfac98d5b6ad7f8afebb749b3769a596c7734576068c1593cf361992b27732e.json"
     },
     {
       "id": "neovim",
@@ -1579,6 +1986,33 @@
       "revision": "6093f7f2959870f3d795018688e94c23a5cc0f0c",
       "readmeUrl": "https://github.com/living-code-theme/konsole/blob/6093f7f2959870f3d795018688e94c23a5cc0f0c/README.md",
       "content": "ports/konsole.2253b37399658d77aad81f3c67736cb4ba15bf2cddf3e066522bae982e6be4a2.json"
+    },
+    {
+      "id": "rio",
+      "name": "Rio",
+      "group": "Terminals",
+      "description": "Living Code for Rio: native terminal palettes with all sixteen ANSI slots, cursor, selections, split dividers and search colors.",
+      "homepage": "https://rioterm.com",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "rio",
+        "rio terminal",
+        "rioterm"
+      ],
+      "icon": null,
+      "emoji": "🏞️",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [],
+      "repository": "https://github.com/living-code-theme/rio",
+      "repositoryName": "living-code-theme/rio",
+      "revision": "72859895e20826a33b188e4c960d5ac20dddae87",
+      "readmeUrl": "https://github.com/living-code-theme/rio/blob/72859895e20826a33b188e4c960d5ac20dddae87/README.md",
+      "content": "ports/rio.8f635017454c6d0f5fa7d32c9683733561a9f16f68e775cceba1c02e96c1db42.json"
     },
     {
       "id": "warp",

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "gitui",
+    "name": "GitUI",
+    "group": "CLI & TUI",
+    "description": "Living Code for GitUI: RON interface themes and matching native TextMate syntax palettes for commit, status and diff views.",
+    "homepage": "https://github.com/gitui-org/gitui",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "gitui",
+      "git ui",
+      "git tui"
+    ],
+    "icon": null,
+    "emoji": "🌳",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.ron",
+      "themes/living-code-night.tmTheme",
+      "themes/living-code-frost.ron",
+      "themes/living-code-frost.tmTheme",
+      "themes/living-code-paper.ron",
+      "themes/living-code-paper.tmTheme",
+      "themes/living-code-signal.ron",
+      "themes/living-code-signal.tmTheme"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/gitui.git\ncd gitui\n```\n\nOn Linux or macOS with the default location:\n\n```sh\nmkdir -p \"${XDG_CONFIG_HOME:-$HOME/.config}/gitui\"\ncp themes/*.ron themes/*.tmTheme \"${XDG_CONFIG_HOME:-$HOME/.config}/gitui/\"\ngitui -t living-code-night.ron\n```\n\nOn Windows, use `%APPDATA%\\gitui`. Both the RON and corresponding `.tmTheme` file must be in that same directory.",
+      "configuration": "To make a flavor the default, copy its `.ron` file to `theme.ron` in the GitUI configuration directory; keep the named `.tmTheme` there too. Every override uses the required `Some(...)` representation. The RON `syntax` setting is the TextMate filename stem. Syntax palettes distinguish values, variables, functions, types, properties, comments and diff scopes.",
+      "compatibility": "Requires GitUI’s optional-override RON format introduced in 0.23, plus custom TextMate syntax loading. Verified against the pinned upstream `Theme` fields. GitUI does not expose a general body foreground/background override: configure a matching Living Code terminal palette for unpainted areas, especially with Paper. The port includes UI and syntax files rather than merely renaming an existing generic theme.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/gitui",
+    "repositoryName": "living-code-theme/gitui",
+    "revision": "bc90ea3564ebb1a3bf0931869f5e9e28c9587325",
+    "readmeUrl": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/README.md",
+    "fileUrls": {
+      "themes/living-code-night.ron": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/themes/living-code-night.ron",
+      "themes/living-code-night.tmTheme": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/themes/living-code-night.tmTheme",
+      "themes/living-code-frost.ron": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/themes/living-code-frost.ron",
+      "themes/living-code-frost.tmTheme": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/themes/living-code-frost.tmTheme",
+      "themes/living-code-paper.ron": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/themes/living-code-paper.ron",
+      "themes/living-code-paper.tmTheme": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/themes/living-code-paper.tmTheme",
+      "themes/living-code-signal.ron": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/themes/living-code-signal.ron",
+      "themes/living-code-signal.tmTheme": "https://github.com/living-code-theme/gitui/blob/bc90ea3564ebb1a3bf0931869f5e9e28c9587325/themes/living-code-signal.tmTheme"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

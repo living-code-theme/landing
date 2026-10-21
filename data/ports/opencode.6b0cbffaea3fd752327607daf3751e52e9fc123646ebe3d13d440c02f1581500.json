@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "opencode",
+    "name": "OpenCode",
+    "group": "AI & Agents",
+    "description": "Living Code for OpenCode TUI: complete native JSON palettes for UI, Markdown, syntax highlighting, selections and review diffs.",
+    "homepage": "https://opencode.ai",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "opencode",
+      "open code",
+      "opencode tui"
+    ],
+    "icon": null,
+    "emoji": "🔓",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.json",
+      "themes/living-code-frost.json",
+      "themes/living-code-paper.json",
+      "themes/living-code-signal.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ngit clone https://github.com/living-code-theme/opencode.git\ncd opencode\n```\n\n```sh\nmkdir -p \"${XDG_CONFIG_HOME:-$HOME/.config}/opencode/themes\"\ncp themes/*.json \"${XDG_CONFIG_HOME:-$HOME/.config}/opencode/themes/\"\n```\n\nRestart OpenCode and run `/theme`, then choose `living-code-night`. For project-only installation, copy the files into `.opencode/themes/` instead.",
+      "configuration": "The files use the OpenCode v1 `{ \"theme\": { … } }` JSON format. They provide every required color, explicit selected-item text and menu backgrounds. Every flavor is a separate theme, so Paper stays light even in a dark terminal. Put configuration in `tui.json`, not in the theme file; preserve any existing keybindings.",
+      "compatibility": "Targets the TUI theme format verified against OpenCode 1.19.0. This is not the web/desktop theme format. Truecolor gives the intended colors; reduced-color terminals approximate them. OpenCode 2 theme documents are a different API and are not claimed here. Syntax, Markdown and diff color contracts are checked independently of generation.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/opencode",
+    "repositoryName": "living-code-theme/opencode",
+    "revision": "f9fdcb56c365a16b38dcd44ff09bad0dc00725b8",
+    "readmeUrl": "https://github.com/living-code-theme/opencode/blob/f9fdcb56c365a16b38dcd44ff09bad0dc00725b8/README.md",
+    "fileUrls": {
+      "themes/living-code-night.json": "https://github.com/living-code-theme/opencode/blob/f9fdcb56c365a16b38dcd44ff09bad0dc00725b8/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/opencode/blob/f9fdcb56c365a16b38dcd44ff09bad0dc00725b8/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/opencode/blob/f9fdcb56c365a16b38dcd44ff09bad0dc00725b8/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/opencode/blob/f9fdcb56c365a16b38dcd44ff09bad0dc00725b8/themes/living-code-signal.json"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}

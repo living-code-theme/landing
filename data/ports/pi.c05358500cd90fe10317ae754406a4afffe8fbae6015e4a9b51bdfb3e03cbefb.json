@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "pi",
+    "name": "Pi",
+    "group": "AI & Agents",
+    "description": "Living Code for Pi: schema-complete custom themes for messages, tools, thinking levels, syntax, Markdown and HTML exports.",
+    "homepage": "https://pi.dev",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "pi",
+      "pi coding agent",
+      "pi agent",
+      "pi-mono"
+    ],
+    "icon": null,
+    "emoji": "🥧",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.json",
+      "themes/living-code-frost.json",
+      "themes/living-code-paper.json",
+      "themes/living-code-signal.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Install as a theme-only Pi package:\n\n```sh\npi install git:github.com/living-code-theme/pi\n```\n\nRun `/reload` and choose `living-code-night` under `/settings` → **Theme**. Alternatively, copy `themes/*.json` into `~/.pi/agent/themes/` (or your custom `PI_CODING_AGENT_DIR` followed by `/themes/`).",
+      "configuration": "Themes include every required color and the optional search, scrollbar and maximum-thinking colors. Export page/panel backgrounds are explicit. In `~/.pi/agent/settings.json`, `\"theme\": \"living-code-paper/living-code-night\"` follows the terminal appearance, with the light theme first. Package resources declare only themes: no tools, extensions or prompts are installed.",
+      "compatibility": "Verified against the Pi 1.1.0 theme schema and native JSON validator. Requires a Pi release supporting these theme roles. User themes hot-reload when the theme name matches the JSON filename; package themes can be refreshed with `/reload`. Project-scoped resources require project trust. Truecolor is recommended. No provider login or model call is needed to use or validate the theme.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/pi",
+    "repositoryName": "living-code-theme/pi",
+    "revision": "771f0e6c86c4f91e93363448815076bdc0aee2f8",
+    "readmeUrl": "https://github.com/living-code-theme/pi/blob/771f0e6c86c4f91e93363448815076bdc0aee2f8/README.md",
+    "fileUrls": {
+      "themes/living-code-night.json": "https://github.com/living-code-theme/pi/blob/771f0e6c86c4f91e93363448815076bdc0aee2f8/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/pi/blob/771f0e6c86c4f91e93363448815076bdc0aee2f8/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/pi/blob/771f0e6c86c4f91e93363448815076bdc0aee2f8/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/pi/blob/771f0e6c86c4f91e93363448815076bdc0aee2f8/themes/living-code-signal.json"
+    },
+    "images": [],
+    "guideImages": {}
+  }
+}
