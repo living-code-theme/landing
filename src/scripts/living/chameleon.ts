@@ -158,13 +158,15 @@ for (let i = 0, prev = 0; i < TAIL_M - 1; i++) {
 }
 // The tail laid along its rest shape, each piece's turn wound by `curl` there (-1 to 1, root to tip), with a faint
 // bend running down it (`sway` strong, at `phase`).
-function bendTail(curl: Float32Array, sway: number, phase: number, out: Float32Array) {
+// `arch` bends the sweep out of the body by that many radians more, so the root flexes too.
+function bendTail(curl: Float32Array, sway: number, phase: number, arch: number, out: Float32Array) {
   let a = 0, x = TAIL_REST[0], y = TAIL_REST[1];
   out[0] = x; out[1] = y;
   const last = curl.length - 1;
   for (let i = 0; i < TAIL_M - 1; i++) {
     const u = i / (TAIL_M - 2), f = u * last, j = Math.min(last - 1, f | 0), c = curl[j] + (curl[j + 1] - curl[j]) * (f - j);
-    a += i ? TAIL_TURN[i] * (1 + 0.12 * c * smooth(0.1, 0.3, u)) + (sway * Math.sin(phase - u * 7) * (0.3 + u)) / TAIL_M : TAIL_TURN[0];
+    a += i ? TAIL_TURN[i] * (1 + 0.12 * c * smooth(0.1, 0.3, u)) + (sway * Math.sin(phase - u * 7) * (0.3 + u)) / TAIL_M
+      + (u < 0.22 ? (arch * Math.PI * Math.sin((Math.PI * u) / 0.22)) / (0.44 * (TAIL_M - 2)) : 0) : TAIL_TURN[0];
     x += TAIL_SEG[i] * Math.cos(a);
     y += TAIL_SEG[i] * Math.sin(a);
     out[i * 2 + 2] = x; out[i * 2 + 3] = y;
@@ -244,6 +246,10 @@ function eyeCenter(side: -1 | 1): P3 {
 const SNOUT: P3 = [...SPINE(0.995), 0] as P3;
 const HINGE: P2 = [1.08, 0.21];
 const jawShare = (s: number, sn: number) => smooth(0.8, 0.88, s) * clamp(-sn * 4);
+// The tail swings from a hinge just inside the body, and the rump goes with it, all of it at the root and none
+// by the hips.
+const TAIL_HINGE: P2 = SPINE(0.12);
+const rumpShare = (s: number) => 1 - smooth(0, 0.14, s);
 
 // Where the bugs it waits for fly, in front of the snout.
 const BUGS: P3[] = [[1.78, 0.62, 0.05], [1.9, 0.3, -0.05], [1.72, 0.82, 0.12], [1.95, 0.5, 0.0]];
@@ -466,7 +472,11 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   // looser now and then, the change running from its root to its tip.
   const head = { goalYaw: 0, goalPitch: 0, next: 0, yaw: still(), pitch: still(sleeping ? -0.16 : 0) };
   const gaze: P3[] = [[0.3, 0, -1], [0.3, 0.1, 1]], gazeGoal: P3[] = [[0.3, 0, -1], [0.3, 0.1, 1]], gazeNext = [0, 0];
+  // Between those changes it is never quite still: a slow coiling runs down it, and now and then the tip flicks
+  // (`flick`, a curl of the end that springs back), as it does at a footfall.
   const curl = { goal: sleeping ? 0.7 : 0, next: 1, root: still(sleeping ? 0.7 : 0), along: new Float32Array(5).fill(sleeping ? 0.7 : 0) };
+  const wound = new Float32Array(9).fill(sleeping ? 0.7 : 0), flick = still();
+  let flickAt = 2.5;
   let blinkAt = 1.8;
   let coat = 0, nextCoat = 1, wave = -1;
   // Where the frame's floor is: the branch and its leaves fade out before they reach it, so nothing spills
@@ -503,6 +513,15 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   const cell = new Int32Array(used), spare = new Int32Array(used), kindNow = new Uint8Array(used);
   const cellK = new Float32Array(used), faceX = new Float32Array(used), faceY = new Float32Array(used);
   let frame = 0;
+  // The animal's outline on the screen this frame, in coarse cells: the leaves grow behind it, and a leaf glyph
+  // in a cell it covers (or next to one) is hidden, so the animal passes in front of them. The glyphs are drawn
+  // without depth, so this is what keeps them behind.
+  const SHADE = 0.04, SW = 160, SH = 110;
+  const shadeAt = new Int32Array(SW * SH);
+  const shadeCell = (x: number, y: number) => {
+    const cx = Math.floor(x / SHADE) + (SW >> 1), cy = Math.floor(y / SHADE) + (SH >> 1);
+    return cx > 0 && cx < SW - 1 && cy > 0 && cy < SH - 1 ? cy * SW + cx : -1;
+  };
 
   const spawn = (home: P3, delay: number, wild: boolean, t: number) => {
     let k = flies.findIndex((f) => !f.on);
@@ -530,6 +549,15 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     return out;
   };
   // The lower jaw opened by `a` radians about its hinge, for a point or a direction.
+  // The tail's root: raised (`lift`, radians) and swung toward or away from you (`wag`) about its hinge.
+  const lift = still(), wag = still();
+  const swingRoot = (p: P3, share: number, isDir: boolean) => {
+    const al = lift.x * share, aw = wag.x * share, cl = Math.cos(al), sl = Math.sin(al), cw = Math.cos(aw), sw = Math.sin(aw);
+    const x = isDir ? p[0] : p[0] - TAIL_HINGE[0], y = isDir ? p[1] : p[1] - TAIL_HINGE[1];
+    // Raised: the tail turns up about the hinge (it lies behind it, toward -x). Swung: it turns in depth.
+    const x1 = cl * x + sl * y, y1 = -sl * x + cl * y, x2 = cw * x1 - sw * p[2], z2 = sw * x1 + cw * p[2];
+    p[0] = x2 + (isDir ? 0 : TAIL_HINGE[0]); p[1] = y1 + (isDir ? 0 : TAIL_HINGE[1]); p[2] = z2;
+  };
   let jc = 1, js = 0;
   const openJaw = (p: P3, share: number, isDir: boolean) => {
     const c = 1 + (jc - 1) * share, sn = -js * share, x = isDir ? p[0] : p[0] - HINGE[0], y = isDir ? p[1] : p[1] - HINGE[1];
@@ -586,8 +614,9 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       if (hesitant && stepP > 0.4 && stepP < 0.7) rock.until = t + 0.1;
       if (stepP >= 1) {
         step = -1;
-        // The foot coming down jolts the branch.
+        // The foot coming down jolts the branch, and the tail with it.
         sag.v -= 0.06;
+        flick.v += (rnd() - 0.5) * 1.6;
         const rest = rnd() * rnd();
         nextStep = t + 0.12 + rest * 1.2;
         // A long pause: it rocks on its feet.
@@ -748,7 +777,18 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     if (t > curl.next) { curl.goal = phase === "walk" ? -0.7 + rnd() * 0.9 : rnd() * 2 - 1; curl.next = t + 1.2 + rnd() * 2.6; }
     curl.along[0] = spring(curl.root, curl.goal, 3.2, 1, dt);
     for (let j = 1; j < curl.along.length; j++) curl.along[j] += (curl.along[j - 1] - curl.along[j]) * (1 - Math.exp(-dt / 0.16));
-    bendTail(curl.along, portrait ? 0 : 0.6, t * 1.6, tail);
+    if (!portrait && t > flickAt) { flick.v += (rnd() < 0.5 ? -1 : 1) * (2.5 + rnd() * 2.5); flickAt = t + 2 + rnd() * 4.5; }
+    spring(flick, 0, 9, 0.45, dt);
+    for (let j = 0; j < wound.length; j++) {
+      const u = j / (wound.length - 1), f = u * (curl.along.length - 1), k = Math.min(curl.along.length - 2, f | 0);
+      const coil = portrait ? 0 : (0.22 * Math.sin(t * 0.85 - u * 3.2) + 0.12 * Math.sin(t * 1.9 - u * 5.5 + 1.3)) * (0.4 + u);
+      wound[j] = curl.along[k] + (curl.along[k + 1] - curl.along[k]) * (f - k) + coil + flick.x * u * u;
+    }
+    // The root: it lifts and swings slowly on its own, raises the tail a little while a foot is up (for balance),
+    // swings against the body's sway and gives with each flick.
+    spring(lift, portrait ? 0 : 0.1 * Math.sin(t * 0.7) + 0.045 * Math.sin(t * 1.63 + 0.5) + 0.07 * weight + 0.03 * flick.x, 5, 0.9, dt);
+    spring(wag, portrait ? 0 : 0.09 * Math.sin(t * 0.53 + 2) + 0.04 * Math.sin(t * 1.31) - 2 * sway.x, 5, 0.9, dt);
+    bendTail(wound, portrait ? 0 : 1.4 + 0.6 * Math.sin(t * 0.37), t * 1.6, portrait ? 0 : 0.2 * Math.sin(t * 0.9 + 0.8), tail);
 
     // --- The legs: each foot where it grips the branch (or in the air, mid-step), the elbow found from there --
     const S0: P3 = [0, 0, 0];
@@ -798,7 +838,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         const ax = Math.cos(ang), ay = Math.sin(ang), o = slot * 8;
         branchAt(x, B);
         leaf[o] = x + ax * B[2]; leaf[o + 1] = B[0] + ay * B[2]; leaf[o + 2] = ax; leaf[o + 3] = ay;
-        leaf[o + 4] = 0.18 + 0.22 * h2; leaf[o + 5] = 0.05 + 0.05 * h1; leaf[o + 6] = B[1] + (up ? 0.1 : h2 > 0.5 ? -0.1 : 0.06);
+        leaf[o + 4] = 0.18 + 0.22 * h2; leaf[o + 5] = 0.05 + 0.05 * h1; leaf[o + 6] = B[1] + (up ? 0.1 : h2 > 0.5 ? 0.12 : 0.07);
         leaf[o + 7] = (h3 < 0.12 ? 0 : 1) * smooth(BARK_FROM, BARK_FROM + 0.9, x) * (1 - smooth(BARK_FROM + BARK_SPAN - 0.8, BARK_FROM + BARK_SPAN, x));
       }
     }
@@ -821,6 +861,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         if (gulp > 0 && sn < 0) puff += 0.3 * gulp * Math.exp(-(((sv - 0.74) / 0.06) ** 2));
         for (let a = 0; a < 3; a++) { P[a] = cen[i3 + a] + off[i3 + a] * puff; N[a] = nor[i3 + a]; }
         if (js > 0.003 && sv > 0.8 && sn < 0) { const jw = jawShare(sv, sn); openJaw(P, jw, false); openJaw(N, jw, true); }
+        if (sv < 0.14 && (lift.x || wag.x)) { const w = rumpShare(sv); swingRoot(P, w, false); swingRoot(N, w, true); }
         share = headShare(sv);
         body = true;
         if (k === K.Mouth) { role = "comment"; chars = "_"; bias = -0.05; }
@@ -836,7 +877,8 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         const tx = tail[j * 2 + 2] - tail[j * 2], ty = tail[j * 2 + 3] - tail[j * 2 + 1], tl = Math.hypot(tx, ty) || 1;
         const q = a1[i], rad = tailRadius(u) * a2[i];
         N[0] = (-ty / tl) * Math.cos(q); N[1] = (tx / tl) * Math.cos(q); N[2] = Math.sin(q);
-        P[0] = x + N[0] * rad; P[1] = y + N[1] * rad; P[2] = N[2] * rad + (portrait ? 0 : 0.03 * u * u * Math.sin(t * 0.9 + 1));
+        P[0] = x + N[0] * rad; P[1] = y + N[1] * rad; P[2] = N[2] * rad + (portrait ? 0 : u * u * (0.04 * Math.sin(t * 0.9 + 1) + 0.015 * Math.sin(t * 2.3 - u * 4)));
+        if (lift.x || wag.x) { swingRoot(P, 1, false); swingRoot(N, 1, true); }
         mode = band(stripe[i]); role = wear[mode];
         body = true;
       } else if (k === K.Leg) {
@@ -953,6 +995,18 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       const sx = ((x1 - offX) * kk) / CW + fx * (GRID ? 1 : 0.7), sy2 = ((y2 - offY) * kk) / CH + fy;
       const gx = GRID ? Math.round(sx) : sx, gy = GRID ? Math.round(sy2) : sy2;
       if (k === K.Branch || k === K.Leaf) alpha *= smooth(floor, floor + 0.14, (y2 - offY) * kk);
+      if (!GRID && (living || k === K.Mouth || k === K.Eye)) {
+        const c = shadeCell((x1 - offX) * kk, (y2 - offY) * kk);
+        if (c >= 0) shadeAt[c] = frame;
+      } else if (!GRID && k === K.Leaf && alpha > 0.01) {
+        // Hidden where the animal covers it, fading over the cells along its edge.
+        const c = shadeCell((x1 - offX) * kk, (y2 - offY) * kk);
+        if (c >= 0) {
+          let hid = shadeAt[c] === frame ? 4 : 0;
+          for (const o of [1, -1, SW, -SW, SW + 1, SW - 1, 1 - SW, -1 - SW]) if (shadeAt[c + o] === frame) hid++;
+          alpha *= 1 - clamp(hid / 4);
+        }
+      }
       s.pos[i3] = (gx * CW) / kk; s.pos[i3 + 1] = (gy * CH) / kk; s.pos[i3 + 2] = z2;
       if (!lit) { faceX[i] = 0; faceY[i] = 0; }
       cellK[i] = living || k === K.Branch || k === K.Leaf || k === K.Eye ? kk : 0;
