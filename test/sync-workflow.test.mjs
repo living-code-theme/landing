@@ -75,6 +75,12 @@ test("discovery stays in pinned core tooling while website installs and builds s
   assert.match(discovery, /pnpm sync:ports --landing "\$GITHUB_WORKSPACE\/landing"/);
   assert.doesNotMatch(discovery, /CLOUDFLARE_API_TOKEN/, "discovery receives bucket-scoped R2 credentials, not deployment credentials");
   assert.match(discovery, /vars\.PORT_ASSET_STORAGE \|\| 'git'/);
+  for (const name of ["R2_BUCKET", "R2_PUBLIC_URL"]) {
+    assert.ok(discovery.includes(`${name}: \${{ vars.${name} || secrets.${name} }}`), `${name} accepts either an Actions variable or secret`);
+  }
+  for (const name of ["R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY"]) {
+    assert.ok(discovery.includes(`${name}: \${{ secrets.${name} }}`), `${name} stays secret-only`);
+  }
   assert.match(discovery, /--r2/);
   for (const action of [...workflow.matchAll(/uses: ([^\s]+)@([^\s]+)/g)]) assert.match(action[2], /^[a-f0-9]{40}$/, action[1]);
 });

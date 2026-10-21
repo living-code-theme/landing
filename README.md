@@ -126,9 +126,12 @@ schema-1 catalog into the small index and immutable per-port documents; local fi
 For later tooling changes, publish/review core first, then advance the exact SHA in this workflow. Capture storage
 remains local/Git unless a maintainer explicitly enables and configures R2.
 
-For optional R2 capture storage, set Actions variables **`PORT_ASSET_STORAGE=r2`**, **`R2_BUCKET`** and
-**`R2_PUBLIC_URL`**, and secrets **`R2_ACCESS_KEY_ID`** / **`R2_SECRET_ACCESS_KEY`**, scoped to object read/write in that
-bucket. The workflow reuses `CLOUDFLARE_ACCOUNT_ID`. Default **`git`** mode requires none of these optional settings.
+For optional R2 capture storage, set the Actions variable **`PORT_ASSET_STORAGE=r2`**, plus **`R2_BUCKET`** and
+**`R2_PUBLIC_URL`** as Actions variables or secrets (variables take precedence). Store **`R2_ACCESS_KEY_ID`** /
+**`R2_SECRET_ACCESS_KEY`** as secrets, scoped to object read/write in that bucket. The workflow reuses
+`CLOUDFLARE_ACCOUNT_ID`. Set the storage mode last, after the bucket, public domain and credentials are ready.
+Without `PORT_ASSET_STORAGE=r2`, the workflow stays in **`git`** mode and does not upload. Default **`git`** mode
+requires none of these optional settings.
 Uploads finish before the index can reference their immutable public URLs; a failed upload does not publish dangling
 captures. Bucket creation, public access/domain setup and remote retention are explicit maintainer operations, not
 part of the workflow. See core's [publication guide](https://github.com/living-code-theme/core/blob/main/docs/PORT-PUBLICATION.md).
