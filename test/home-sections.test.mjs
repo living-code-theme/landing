@@ -78,6 +78,9 @@ test("the FAQ sits after the port catalog, at the end of the page content", () =
   assert.ok(main.indexOf('id="faq"') > main.indexOf("data-port-results"));
   assert.match(main, /id="faq"[\s\S]*<\/section>\s*$/);
   assert.match(faq, /A few things<br[^>]*><span[^>]*>before you switch\./);
+  const heading = faq.match(/<h2\b[^>]*id="faq-title"[^>]*>/)?.[0];
+  assert.ok(heading);
+  assert.doesNotMatch(heading, /sticky|fixed|(?:\w+:)?top-/, "FAQ heading scrolls normally at every breakpoint");
   const items = [...faq.matchAll(/<details\b[^>]*>/g)].map(([tag]) => tag);
   assert.equal(items.length, 5);
   assert.equal([...faq.matchAll(/<summary\b/g)].length, 5);

@@ -6,20 +6,20 @@ const page = (path = "") => readFileSync(new URL(`../dist/${path ? `${path}/` : 
 const cameo = (html, pose) => html.match(new RegExp(`<svg[^>]*data-chameleon-cameo="${pose}"[\\s\\S]*?<\\/svg>`))?.[0];
 const source = readFileSync(new URL("../src/components/ChameleonCameo.astro", import.meta.url), "utf8");
 
-test("the landing page has a perched flavor companion and a sleeping footer companion", () => {
+test("the flavor section has no chameleon while the hero and sleeping footer companion remain", () => {
   const html = page();
   const flavors = html.match(/<section[^>]*id="flavors"[\s\S]*?<\/section>/)[0];
   const footer = html.match(/<footer[\s\S]*?<\/footer>/)[0];
-  assert.ok(cameo(flavors, "perched"));
+  assert.doesNotMatch(flavors, /data-chameleon-cameo|data-glyph="chameleon"/);
+  assert.match(flavors, /role="tablist"/);
   assert.ok(cameo(footer, "sleeping"));
-  assert.ok(flavors.indexOf('data-chameleon-cameo="perched"') < flavors.indexOf('role="tablist"'));
   assert.match(html, /data-glyph="chameleon"/, "the hero keeps its original living-field shape");
   assert.match(footer, /data-glyph="mark"/, "the footer keeps its existing mark");
-  assert.equal([...html.matchAll(/data-chameleon-cameo=/g)].length, 2);
+  assert.equal([...html.matchAll(/data-chameleon-cameo=/g)].length, 1);
 });
 
 test("the small sleeping cameo sits directly above the footer colorscheme command", () => {
-  const footer = page().match(/<footer[\s\S]*?<\/footer>/)[0];
+  const footer = page().match(/<footer[\s\S]*?<\/footer>/)[0].replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
   const sleeping = footer.indexOf('data-chameleon-cameo="sleeping"');
   assert.ok(sleeping > footer.lastIndexOf("</nav>"), "the mascot follows the navigation, not the title");
   assert.ok(sleeping < footer.indexOf(":colorscheme"), "the command follows the small mascot");
@@ -30,7 +30,8 @@ test("the small sleeping cameo sits directly above the footer colorscheme comman
 test("cameos use the hero's surface model instead of a separate silhouette or glyph mask", () => {
   assert.match(source, /import \{ chameleonPortrait \} from "\.\.\/scripts\/living\/chameleon"/);
   const html = page();
-  for (const pose of ["perched", "sleeping"]) {
+  const poses = new Set([...html.matchAll(/data-chameleon-cameo="([^"]+)"/g)].map((match) => match[1]));
+  for (const pose of poses) {
     const svg = cameo(html, pose);
     assert.match(svg, /aria-hidden="true" focusable="false"/);
     assert.doesNotMatch(svg, /data-glyph=|<canvas|<script|<image|<mask|<clipPath|<path|tabindex=/);
@@ -49,7 +50,6 @@ test("cameos use the hero's surface model instead of a separate silhouette or gl
     assert.ok(new Set(runs.map((run) => run[4])).size > 1, "depth affects glyph size");
     assert.match(svg, /fill="var\(--lc-keyword\)"/, "skin follows the site's flavor");
   }
-  assert.notEqual(cameo(html, "perched"), cameo(html, "sleeping"));
 });
 
 test("cameo movement is subtle, visibility-gated, cleaned up on navigation, and reduced-motion aware", () => {

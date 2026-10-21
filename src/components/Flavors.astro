@@ -4,7 +4,6 @@
 // new accents, so Frost visibly pulls in toward the gray center and Signal folds everything into the slate.
 import Arrow from "./Arrow.astro";
 import FlavorWheel from "./FlavorWheel.astro";
-import ChameleonCameo from "./ChameleonCameo.astro";
 import Glyphs from "./Glyphs.astro";
 import { CLAUSES, contrastRange, flavors, short, wheel } from "../lib/data.mjs";
 import { highlight } from "../lib/highlight.mjs";
@@ -21,9 +20,6 @@ const line = (id: string) => highlight(`const ${id} = palette("${id}");`, "js");
     <p class={lead} data-reveal style="--d:1">Every flavor is the same roles on a different ground. Pick one and this whole site repaints in it, the way your editor will.</p>
   </div>
 
-  <div class="flex justify-end" aria-hidden="true">
-    <ChameleonCameo pose="perched" class="w-[clamp(240px,30vw,380px)]" />
-  </div>
   <div class="grid grid-cols-2 gap-0.5 lg:grid-cols-4" role="tablist" aria-label="Flavor for this site" data-reveal style="--d:2">
     {flavors.map((f) => (
       <button type="button" role="tab" data-bar data-theme={f.slug} data-set-flavor={f.id} aria-selected={f.id === "night" ? "true" : "false"} aria-controls="flavor-panel" id={`tab-${f.id}`}
