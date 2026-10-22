@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "jetbrains",
+    "name": "JetBrains IDEs",
+    "group": "Editors",
+    "description": "Living Code for JetBrains IDEs. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://www.jetbrains.com/ides/",
+    "quick": "See installation instructions",
+    "aliases": [
+      "jetbrains"
+    ],
+    "icon": null,
+    "emoji": "🧠",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "META-INF/plugin.xml",
+      "META-INF/pluginIcon.svg",
+      "META-INF/pluginIcon_dark.svg",
+      "OFL-JetBrainsMono.txt",
+      "themes/living-code-frost.theme.json",
+      "themes/living-code-frost.xml",
+      "themes/living-code-night.theme.json",
+      "themes/living-code-night.xml",
+      "themes/living-code-paper.theme.json",
+      "themes/living-code-paper.xml",
+      "themes/living-code-signal.theme.json",
+      "themes/living-code-signal.xml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "One plugin, four themes, for IntelliJ IDEA, PyCharm, WebStorm, GoLand, Rider, CLion, RubyMine, PhpStorm, DataGrip and Android Studio (2024.1 or newer).\n\nIn the IDE open *Settings | Plugins | Marketplace*, search for **Living Code** and click **Install**, then pick **Living Code Night** (or Frost, Paper, Signal) in *Settings | Appearance & Behavior | Appearance | Theme*; the matching editor color scheme is applied with it.\n\n**Without a marketplace:** download `living-code-jetbrains-0.1.1.zip` from the [latest GitHub release](https://github.com/living-code-theme/jetbrains/releases/latest) (or build it with `pnpm run package:jetbrains` from a checkout, which writes it to `dist/`). In *Settings | Plugins*, click the gear icon, choose *Install Plugin from Disk...*, pick the zip and restart.\n\nThe sources in the repository root are the plugin's layout: `META-INF/plugin.xml`, one `themes/living-code-<flavor>.theme.json` UI theme and one `themes/living-code-<flavor>.xml` editor scheme per flavor.",
+      "configuration": "See [JetBrains IDEs's documentation](https://www.jetbrains.com/ides/) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "One plugin for JetBrains IDEs 2024.1 or newer, including IntelliJ IDEA, PyCharm, WebStorm, GoLand, Rider, CLion, RubyMine, PhpStorm, DataGrip and Android Studio. Plugin ID: `dev.livingcode.theme`, vendor **Living Code**. All four theme-provider IDs are unchanged.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/jetbrains",
+    "repositoryName": "living-code-theme/jetbrains",
+    "revision": "e04584207334aecb025bc5e493049f8a24c3ec15",
+    "readmeUrl": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/README.md",
+    "fileUrls": {
+      "META-INF/plugin.xml": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/META-INF/plugin.xml",
+      "META-INF/pluginIcon.svg": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/META-INF/pluginIcon.svg",
+      "META-INF/pluginIcon_dark.svg": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/META-INF/pluginIcon_dark.svg",
+      "OFL-JetBrainsMono.txt": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/OFL-JetBrainsMono.txt",
+      "themes/living-code-frost.theme.json": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/themes/living-code-frost.theme.json",
+      "themes/living-code-frost.xml": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/themes/living-code-frost.xml",
+      "themes/living-code-night.theme.json": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/themes/living-code-night.theme.json",
+      "themes/living-code-night.xml": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/themes/living-code-night.xml",
+      "themes/living-code-paper.theme.json": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/themes/living-code-paper.theme.json",
+      "themes/living-code-paper.xml": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/themes/living-code-paper.xml",
+      "themes/living-code-signal.theme.json": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/themes/living-code-signal.theme.json",
+      "themes/living-code-signal.xml": "https://github.com/living-code-theme/jetbrains/blob/e04584207334aecb025bc5e493049f8a24c3ec15/themes/living-code-signal.xml"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "JetBrains IDEs running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/231838869115c5bf3992ba595f6902775c932bf73029fc836adfe0785b6e4785.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "JetBrains IDEs running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/cb801cabb79f1f1ab09c6cc204fa575b33e1f67511bc290da1c82b3b9949aaaf.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "JetBrains IDEs running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/459b0df221f5c1150eb6c10531f2ad49bc6a3fbdc9285e19ec384dd7736ced28.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "JetBrains IDEs running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/a807da908421448b8430569b27102d7b10c7954c08850d666062fe44aa2745ae.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

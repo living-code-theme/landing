@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "tmux",
+    "name": "tmux",
+    "group": "CLI & TUI",
+    "description": "Living Code for tmux. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://github.com/tmux/tmux",
+    "quick": "See installation instructions",
+    "aliases": [
+      "tmux"
+    ],
+    "icon": null,
+    "emoji": "🧩",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.conf",
+      "living-code-night.conf",
+      "living-code-paper.conf",
+      "living-code-signal.conf"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night\ncurl -fsSL --create-dirs -o \"${XDG_CONFIG_HOME:-$HOME/.config}/tmux/living-code-$flavor.conf\" \"https://raw.githubusercontent.com/living-code-theme/tmux/main/living-code-$flavor.conf\"\n```\n\nThen load it from `tmux.conf`:\n\n```tmux\nsource-file ~/.config/tmux/living-code-night.conf\n```\n\nIf you set `XDG_CONFIG_HOME`, use that path in the line above.",
+      "configuration": "See [tmux's documentation](https://github.com/tmux/tmux) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for tmux, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/tmux",
+    "repositoryName": "living-code-theme/tmux",
+    "revision": "2d180edadbb06ef557acb183d7526e8375cd9b22",
+    "readmeUrl": "https://github.com/living-code-theme/tmux/blob/2d180edadbb06ef557acb183d7526e8375cd9b22/README.md",
+    "fileUrls": {
+      "living-code-frost.conf": "https://github.com/living-code-theme/tmux/blob/2d180edadbb06ef557acb183d7526e8375cd9b22/living-code-frost.conf",
+      "living-code-night.conf": "https://github.com/living-code-theme/tmux/blob/2d180edadbb06ef557acb183d7526e8375cd9b22/living-code-night.conf",
+      "living-code-paper.conf": "https://github.com/living-code-theme/tmux/blob/2d180edadbb06ef557acb183d7526e8375cd9b22/living-code-paper.conf",
+      "living-code-signal.conf": "https://github.com/living-code-theme/tmux/blob/2d180edadbb06ef557acb183d7526e8375cd9b22/living-code-signal.conf"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "tmux running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/6d457120f14ae1dccb74d888613882912c6ff735822d19004da41f36fd3f25c1.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "tmux running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/3f0682959b657f8eb5e6cc9475170f0a50392d3f6ed6e83d29541f5f9ee83bb5.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "tmux running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/1a5b45683b946a3e81950600c85ef7b008a7b4fb7f9bc107e67546af21c0b6ff.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "tmux running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/f1a3bdc89a6b1cbe3693f9847ea681d57dbb3867d844813bf7a4203edf028ac5.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

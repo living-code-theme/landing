@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "ghostty",
+    "name": "Ghostty",
+    "group": "Terminals",
+    "description": "Living Code for Ghostty. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://ghostty.org",
+    "quick": "See installation instructions",
+    "aliases": [
+      "ghostty"
+    ],
+    "icon": null,
+    "emoji": "👻",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost",
+      "living-code-night",
+      "living-code-paper",
+      "living-code-signal"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\ncurl -fsSL --create-dirs --output-dir \"${XDG_CONFIG_HOME:-$HOME/.config}/ghostty/themes\" -O \"https://raw.githubusercontent.com/living-code-theme/ghostty/main/living-code-{night,frost,paper,signal}\"\n```\n\nThen name one in the Ghostty config, or a light and a dark one:\n\n```conf\ntheme = dark:living-code-night,light:living-code-paper\n```",
+      "configuration": "See [Ghostty's documentation](https://ghostty.org) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for Ghostty, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/ghostty",
+    "repositoryName": "living-code-theme/ghostty",
+    "revision": "0320bea27936e440524d2e25eab89b8d4c1d1777",
+    "readmeUrl": "https://github.com/living-code-theme/ghostty/blob/0320bea27936e440524d2e25eab89b8d4c1d1777/README.md",
+    "fileUrls": {
+      "living-code-frost": "https://github.com/living-code-theme/ghostty/blob/0320bea27936e440524d2e25eab89b8d4c1d1777/living-code-frost",
+      "living-code-night": "https://github.com/living-code-theme/ghostty/blob/0320bea27936e440524d2e25eab89b8d4c1d1777/living-code-night",
+      "living-code-paper": "https://github.com/living-code-theme/ghostty/blob/0320bea27936e440524d2e25eab89b8d4c1d1777/living-code-paper",
+      "living-code-signal": "https://github.com/living-code-theme/ghostty/blob/0320bea27936e440524d2e25eab89b8d4c1d1777/living-code-signal"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Ghostty running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/38f8956eea1b4e195be4b0c5c8a6920a34a57ce0641b8e35f1c2a47cccb2a8ec.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Ghostty running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/6be02fe115ac71cf8786671d694e3a2773ff91adbcbded56aa924696f6335945.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Ghostty running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/c2a457808fe62b9478f48ab3a0a0bcfff4fd2ec009a602f00c02ad7300631cb0.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Ghostty running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/16ab7e19c531a9c9dc8a098752578b9f444db6406fbebf69420a7c983c71a338.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}
