@@ -16,7 +16,7 @@
     "homepage": { "type": "string", "maxLength": 300, "pattern": "^https://[^\\s]+$" },
     "quick": { "type": "string", "minLength": 1, "maxLength": 120, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" },
     "icon": { "type": "string", "maxLength": 80, "pattern": "^[a-z0-9]+$" },
-    "emoji": { "description": "A single port-specific emoji for its README title. The chameleon mascot belongs to Living Code branding.", "type": "string", "minLength": 1, "maxLength": 20, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" },
+    "emoji": { "description": "A single port-specific emoji (or non-ASCII symbol such as π) for its README title. The chameleon mascot belongs to Living Code branding.", "type": "string", "minLength": 1, "maxLength": 20, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" },
     "aliases": {
       "type": "array", "maxItems": 20, "uniqueItems": true,
       "items": { "type": "string", "minLength": 1, "maxLength": 60, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" }

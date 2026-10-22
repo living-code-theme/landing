@@ -106,9 +106,9 @@ Actions log, rerun the workflow, or let the next scheduled run retry.
 
 ### One-time activation
 
-1. Ensure core's `main` branch includes **commit `d8041301f5449521f4ad6ff197626db4806c3f25`**, the tooling revision
-   pinned in the workflow. It supports optional preview sections for image-free READMEs while retaining strict
-   validation of declared captures. That commit is published; update the pin explicitly when adopting a reviewed tooling change.
+1. Ensure core's `main` branch includes **commit `ee6b2324148015d5c4e0c3de683b3eb658e23f46`**, the tooling revision
+   pinned in the workflow. It supports optional preview sections for image-free READMEs, the branded README header,
+   and single-symbol port emoji such as π, while retaining strict validation of declared captures. That commit is published; update the pin explicitly when adopting a reviewed tooling change.
 2. In landing's **Settings → Secrets and variables → Actions**, configure:
    - Secret **`CLOUDFLARE_API_TOKEN`**: a Cloudflare API token allowed to deploy Workers/static assets in this Worker's
      account (the **Edit Cloudflare Workers** template, scoped to that account). Do not copy a personal Wrangler OAuth
