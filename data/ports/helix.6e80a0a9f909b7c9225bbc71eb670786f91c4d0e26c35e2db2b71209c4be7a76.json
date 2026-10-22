@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "helix",
+    "name": "Helix",
+    "group": "Editors",
+    "description": "Living Code for Helix. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://helix-editor.com",
+    "quick": "See installation instructions",
+    "aliases": [
+      "helix"
+    ],
+    "icon": null,
+    "emoji": "🧬",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.toml",
+      "living-code-night.toml",
+      "living-code-paper.toml",
+      "living-code-signal.toml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night\ncurl -fsSL --create-dirs -o \"${XDG_CONFIG_HOME:-$HOME/.config}/helix/themes/living-code-$flavor.toml\" \"https://raw.githubusercontent.com/living-code-theme/helix/main/living-code-$flavor.toml\"\n```\n\nThen set the theme in `config.toml`:\n\n```toml\ntheme = \"living-code-night\"\n```\n\nOn Windows the folder is `%AppData%\\helix\\themes`.",
+      "configuration": "See [Helix's documentation](https://helix-editor.com) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for Helix, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/helix",
+    "repositoryName": "living-code-theme/helix",
+    "revision": "fc53da26021a73a13b4ced46c7166365ead5c476",
+    "readmeUrl": "https://github.com/living-code-theme/helix/blob/fc53da26021a73a13b4ced46c7166365ead5c476/README.md",
+    "fileUrls": {
+      "living-code-frost.toml": "https://github.com/living-code-theme/helix/blob/fc53da26021a73a13b4ced46c7166365ead5c476/living-code-frost.toml",
+      "living-code-night.toml": "https://github.com/living-code-theme/helix/blob/fc53da26021a73a13b4ced46c7166365ead5c476/living-code-night.toml",
+      "living-code-paper.toml": "https://github.com/living-code-theme/helix/blob/fc53da26021a73a13b4ced46c7166365ead5c476/living-code-paper.toml",
+      "living-code-signal.toml": "https://github.com/living-code-theme/helix/blob/fc53da26021a73a13b4ced46c7166365ead5c476/living-code-signal.toml"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Helix running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/de0b25823efc4d8528acbbe65a59820b217c5ea692fc7e94a0964f58674bdeb5.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Helix running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/c46cd100b0634b8d2a990c6a07c396e095244f91288d3d306f4abeacb20e6a91.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Helix running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/9e7f8d041d794319d81e1060a7d8b324b8ee480eea38e22f7727493b69f8d3b9.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Helix running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/8ce91db6c80bd4efdd7b6446ac58bb062fa28457bc7b530293ac0add7a32f64a.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

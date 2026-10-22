@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "fzf",
+    "name": "fzf",
+    "group": "CLI & TUI",
+    "description": "Living Code for fzf. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://github.com/junegunn/fzf",
+    "quick": "See installation instructions",
+    "aliases": [
+      "fzf"
+    ],
+    "icon": null,
+    "emoji": "🔎",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.fish",
+      "living-code-frost.sh",
+      "living-code-night.fish",
+      "living-code-night.sh",
+      "living-code-paper.fish",
+      "living-code-paper.sh",
+      "living-code-signal.fish",
+      "living-code-signal.sh"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night\ncurl -fsSL --create-dirs -o \"${XDG_CONFIG_HOME:-$HOME/.config}/fzf/living-code-$flavor.sh\" \"https://raw.githubusercontent.com/living-code-theme/fzf/main/living-code-$flavor.sh\"\n```\n\nThen source it from `~/.bashrc` or `~/.zshrc`:\n\n```sh\n. \"${XDG_CONFIG_HOME:-$HOME/.config}/fzf/living-code-night.sh\"\n```\n\nFor fish, download `living-code-$flavor.fish` from the same folder of the repository instead and `source` it from `config.fish`. Source it after any line that sets `FZF_DEFAULT_OPTS`.",
+      "configuration": "See [fzf's documentation](https://github.com/junegunn/fzf) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for fzf, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/fzf",
+    "repositoryName": "living-code-theme/fzf",
+    "revision": "b8be8b6120b92257453c132a5cce03a7e586ca9a",
+    "readmeUrl": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/README.md",
+    "fileUrls": {
+      "living-code-frost.fish": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/living-code-frost.fish",
+      "living-code-frost.sh": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/living-code-frost.sh",
+      "living-code-night.fish": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/living-code-night.fish",
+      "living-code-night.sh": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/living-code-night.sh",
+      "living-code-paper.fish": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/living-code-paper.fish",
+      "living-code-paper.sh": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/living-code-paper.sh",
+      "living-code-signal.fish": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/living-code-signal.fish",
+      "living-code-signal.sh": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/living-code-signal.sh"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "fzf running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/6e00e2fe5f6c6515c0e4152beed62f1eaeb44babeb58efed14d2ea84164110f7.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "fzf running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/dfedbcb9fa1e0a2b3ae8eba5ee036fb959c2979d8270b795064d4bbdb2318fbf.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "fzf running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/7f890f520c66bafced9cd350bef9a3da70f53af6d682cf984b4d864102f3fddb.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "fzf running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/d23a22f8d5cb1d666e8cee28e090ac0406a1c6d78c00294740ed362488f67000.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

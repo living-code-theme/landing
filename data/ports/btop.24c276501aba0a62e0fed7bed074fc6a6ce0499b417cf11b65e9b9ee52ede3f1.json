@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "btop",
+    "name": "btop",
+    "group": "CLI & TUI",
+    "description": "Living Code for btop. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://github.com/aristocratos/btop",
+    "quick": "See installation instructions",
+    "aliases": [
+      "btop"
+    ],
+    "icon": null,
+    "emoji": "📊",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.theme",
+      "living-code-night.theme",
+      "living-code-paper.theme",
+      "living-code-signal.theme"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night\ncurl -fsSL --create-dirs -o \"${XDG_CONFIG_HOME:-$HOME/.config}/btop/themes/living-code-$flavor.theme\" \"https://raw.githubusercontent.com/living-code-theme/btop/main/living-code-$flavor.theme\"\n```\n\nThen pick it under *Options → Color theme*, or set `color_theme = \"living-code-night\"` in `btop.conf`.",
+      "configuration": "See [btop's documentation](https://github.com/aristocratos/btop) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for btop, not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/btop",
+    "repositoryName": "living-code-theme/btop",
+    "revision": "f96203a4c6718dfed9bf669ee782656de728fb89",
+    "readmeUrl": "https://github.com/living-code-theme/btop/blob/f96203a4c6718dfed9bf669ee782656de728fb89/README.md",
+    "fileUrls": {
+      "living-code-frost.theme": "https://github.com/living-code-theme/btop/blob/f96203a4c6718dfed9bf669ee782656de728fb89/living-code-frost.theme",
+      "living-code-night.theme": "https://github.com/living-code-theme/btop/blob/f96203a4c6718dfed9bf669ee782656de728fb89/living-code-night.theme",
+      "living-code-paper.theme": "https://github.com/living-code-theme/btop/blob/f96203a4c6718dfed9bf669ee782656de728fb89/living-code-paper.theme",
+      "living-code-signal.theme": "https://github.com/living-code-theme/btop/blob/f96203a4c6718dfed9bf669ee782656de728fb89/living-code-signal.theme"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "btop running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/6a91c9847cac368f87cb2ae29a3983556aeeadb6ad16d3cc554f4d443f3cf414.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "btop running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/1fd9aee9d3ae6485c11c8763b0352c4075ccb5eb924a0a4b549d6a6583f541a5.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "btop running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/b5a8f7401ccc1347dc46f4e6b23ad229c6c4b7880f6a968193b2ff72fd78e182.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "btop running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/e20855f8a52ebaf98e0e9e35dde50f715589040bda9a445cadc03536477fd0f8.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

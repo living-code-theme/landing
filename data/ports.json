@@ -5,7 +5,6 @@
     "base": "https://assets.living-code.dev/port-images/",
     "files": {
       "02c18315856f97160546bfac80205bcc47be3de83318325b0ec296bb1df58ede.webp": 155376,
-      "0388eed18f6d9a4b5caf1cf1466b640a4a9ac7886d2f1c9903b6045b52ea579a.webp": 79688,
       "0420c441c06755d36b4d6a05af70030b07af83455ab0b4f1d3174a892ddfbd19.webp": 182532,
       "07c6495387f49ccec67c97febcbbb832b596762882e9d677d5dcb2c3e6cfe0e3.webp": 150034,
       "09bf4ea922991071e4d34528dd5b2ac929a4cfecd4a7275b5fe0ef8f1a6ee13b.webp": 158476,
@@ -21,14 +20,13 @@
       "1dd100781e2603489d27ed009a04fed17789bc3956a640f881b781dbdabd8960.webp": 65828,
       "1e63668dc941980d1ca5bf056c060375bdaedc36419542ac788e8c6710609b34.webp": 117446,
       "1fd9aee9d3ae6485c11c8763b0352c4075ccb5eb924a0a4b549d6a6583f541a5.webp": 196204,
-      "21b9bc614e14b0077cc848abb1427272926fccde3e28fbcad02d824e20d00cc9.webp": 78102,
       "231838869115c5bf3992ba595f6902775c932bf73029fc836adfe0785b6e4785.webp": 162338,
       "254fc6bfa8294b78d9d04dac2c268ec67a6f8266f2370b86cb1db4c8c5c2ba63.webp": 118294,
       "26cc4bb9ae05c9523a0babe53eee4df1715307e3e1936554316e32a4348789b6.webp": 76230,
       "2a1168a12c55350e200a8b70a44c33701a1f75ccc36268bd5803e5eb7635f6bf.webp": 78426,
       "2c26d2634a1e91627e9c430d8fe0f0513f0a0ea4d1151860d0050deb36767313.webp": 139678,
       "2e86a91bca05961e7d9d77dc751a1797b8c16e02be86c6cf1a09346b3ee5a359.webp": 170974,
-      "32a029dbaaea29ab69f8c52bff1144c32f6fdeab55946af273f40d4759df6ed2.webp": 78510,
+      "30e13466c4f177595265d2cee1ef1c48f86116f96864ac2466701903a40dfe43.webp": 79680,
       "35c0bbaae4b9f2157ac4da6b1b064b585b659bff3de2668ee83549e96023ba78.webp": 127056,
       "366aa07b965f2cc902a44d3326495a0bae381bfda394d7c6b51c788cdb275611.webp": 69868,
       "38d395097740497480df3a244ec1afa74866b7bfedc32237f4c9cd5da9834a0e.webp": 100626,
@@ -36,6 +34,7 @@
       "3a0e2905fc278d6d912545fbe9b8a581218957fd07f57a054fb09c6ae629a5cb.webp": 105846,
       "3a445505cdc858b8de04c3f17d31e6022fdb1f1a213d88cd4b35d600155b87b7.webp": 118268,
       "3c6ebe19b8177d2600eb9e7948426b5eb24f54cb013a8195d0407b75cc74b981.webp": 132860,
+      "3cf58b36d515aa6a21a364ba49da7d7bc6f023edd0bc570ecfc966254c27d7e7.webp": 78096,
       "3d7df01497f7588384da12a867bfa8cf19c1d3b10df0baca183bda04038a57a1.webp": 67736,
       "3e23d321c596cbe5357a2b4bd474b159f631fc7508d7056a3cfdf9f61b30ae85.webp": 56604,
       "3f0682959b657f8eb5e6cc9475170f0a50392d3f6ed6e83d29541f5f9ee83bb5.webp": 87744,
@@ -103,12 +102,14 @@
       "8b2c66b7d673591b9f4c5b0f8bf450b53f9b7a9ca3f2bc6dda93b19ad9e022d2.webp": 121178,
       "8c3f40eb662cfd4b698e027ae35339888bb4be9d418d05d4ec4f5a01fa0cd61b.webp": 161990,
       "8ce91db6c80bd4efdd7b6446ac58bb062fa28457bc7b530293ac0add7a32f64a.webp": 127256,
+      "8ff1dc0535b134135eae51a25981b5db6993a7621e2f47c8da351cc02b2092d7.webp": 78600,
       "9396a3f41c44db3bfe966b06b4513830d3ef5a7d2f3a28844d4d8f719f634b68.webp": 158592,
       "9509951b600c543967392fcc8fd28109add626c477a95fc872705ff658b7109f.webp": 76302,
       "95841bbfc4682025c6c3a049796e8ec8c00eea1dabe78ad7798ee23e4db330a6.webp": 107814,
       "95aaee8efddae58f1f0f8b9f673e047fa833dac3505d413a68def079562a00a7.webp": 153222,
       "985d590cac9387cb07a276296cc4593a70239ddfdca904489c8089b16d932f7d.webp": 158280,
       "987301d5f5193d0afe0a366b4b7cb69d35351b82bfb34f0aaa8daf278b31fe56.webp": 80226,
+      "98d79d715376cba0c6ac0d3213640f4fa70c4fa940a174f50f0d797f4abad18a.webp": 81380,
       "9b0e4757076ff555a190cc9a97da899b02bfd8d7e476e85a0cfdbcc775afb053.webp": 144354,
       "9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp": 127284,
       "9e7f8d041d794319d81e1060a7d8b324b8ee480eea38e22f7727493b69f8d3b9.webp": 134020,
@@ -143,7 +144,6 @@
       "cac1af3c9dd47a7ad5861e707330078667df4c0a98abc6ebb031249428ad2fa2.webp": 105042,
       "cb801cabb79f1f1ab09c6cc204fa575b33e1f67511bc290da1c82b3b9949aaaf.webp": 159954,
       "cd351dcdbe3dca4dd8c3207e24c37535cf33be263172b91e0322e12c74309fe9.webp": 150032,
-      "cf067dcc232d8c122ffb045703b4560b7124250095a870f2e192ebc45a9dc52f.webp": 81368,
       "cf56084de35fb7724aea48434c90696e71761a2d3511cb9280b12434e199b6de.webp": 66048,
       "cf8bc5f86cdd60d1302b4489c91687ac8dc23cf428f520a1445dcfa58191d996.webp": 75454,
       "d1e0ed25ba57c3ddf3640dbeeb4d61c17eecb1011a9f6be5e08eff2cda426866.webp": 137280,
@@ -228,9 +228,9 @@
       ],
       "repository": "https://github.com/living-code-theme/aider",
       "repositoryName": "living-code-theme/aider",
-      "revision": "c578c8611c339a20ceaa1e19cf35810618ce8d63",
-      "readmeUrl": "https://github.com/living-code-theme/aider/blob/c578c8611c339a20ceaa1e19cf35810618ce8d63/README.md",
-      "content": "ports/aider.2db48a4e74a143705e7eea32904c3f6fb1c6c22fe72c0ac4fb7cc4be5d2ef7b5.json"
+      "revision": "ea4531929e92a3ec2f0220b7b51bbcfc7574e791",
+      "readmeUrl": "https://github.com/living-code-theme/aider/blob/ea4531929e92a3ec2f0220b7b51bbcfc7574e791/README.md",
+      "content": "ports/aider.a5f740c60192611e48ed8cc14f2b4f0c044359869c21f8683d3d2718aade564a.json"
     },
     {
       "id": "claude-code",
@@ -284,9 +284,9 @@
       ],
       "repository": "https://github.com/living-code-theme/claude-code",
       "repositoryName": "living-code-theme/claude-code",
-      "revision": "1ba18954168871e7ba775fd2ff742045d0e47ad8",
-      "readmeUrl": "https://github.com/living-code-theme/claude-code/blob/1ba18954168871e7ba775fd2ff742045d0e47ad8/README.md",
-      "content": "ports/claude-code.145b6cf6e2f887d42e245c7410f89ae4b869dd2823bc316518c09557482fbe5c.json"
+      "revision": "e4bc4716c0ad8af8c86973895edc75f4c0979456",
+      "readmeUrl": "https://github.com/living-code-theme/claude-code/blob/e4bc4716c0ad8af8c86973895edc75f4c0979456/README.md",
+      "content": "ports/claude-code.d8fc00fe92cfb94c5c78c59dc4c94f40fed7de9adf31a6861000e8a6a0b3e631.json"
     },
     {
       "id": "codex",
@@ -340,9 +340,9 @@
       ],
       "repository": "https://github.com/living-code-theme/codex",
       "repositoryName": "living-code-theme/codex",
-      "revision": "54869dfae2aff13f89ef11be263fbb75d0635cc9",
-      "readmeUrl": "https://github.com/living-code-theme/codex/blob/54869dfae2aff13f89ef11be263fbb75d0635cc9/README.md",
-      "content": "ports/codex.d04953c839d31de1106bf1f58b1b95977bf055d92494f19332728be1ffacc582.json"
+      "revision": "73ea64041312de95cce4582d27f42ae2513963ed",
+      "readmeUrl": "https://github.com/living-code-theme/codex/blob/73ea64041312de95cce4582d27f42ae2513963ed/README.md",
+      "content": "ports/codex.0a8d46f4348c96b073c4b5071242db92dba7d0ed5d777f8fa5376d0509e07b47.json"
     },
     {
       "id": "crush",
@@ -396,9 +396,9 @@
       ],
       "repository": "https://github.com/living-code-theme/crush",
       "repositoryName": "living-code-theme/crush",
-      "revision": "5e44faec36ef2549ed1f360b3d3164d3a5823347",
-      "readmeUrl": "https://github.com/living-code-theme/crush/blob/5e44faec36ef2549ed1f360b3d3164d3a5823347/README.md",
-      "content": "ports/crush.defcd8e1ac48fb9596dce45382186b03e786571cef177b9c7dd36b5688e37cf0.json"
+      "revision": "45655faae3fcf1d2c80a984084b28ed6a24a48a4",
+      "readmeUrl": "https://github.com/living-code-theme/crush/blob/45655faae3fcf1d2c80a984084b28ed6a24a48a4/README.md",
+      "content": "ports/crush.f8df049d1dd86a6bd4b9878b9980f34939d4445dd53513c2f37154317e656463.json"
     },
     {
       "id": "gemini-cli",
@@ -452,9 +452,9 @@
       ],
       "repository": "https://github.com/living-code-theme/gemini-cli",
       "repositoryName": "living-code-theme/gemini-cli",
-      "revision": "5a10c5a7fd7f532fdfbbf12fed24dacd9f7791be",
-      "readmeUrl": "https://github.com/living-code-theme/gemini-cli/blob/5a10c5a7fd7f532fdfbbf12fed24dacd9f7791be/README.md",
-      "content": "ports/gemini-cli.e4c2df5d77f04c2cf358276b32aaf37a46a2788de78e269aeb3adc79a523843e.json"
+      "revision": "1f2100fca557a6976b2bee8076f2352a337d8d9b",
+      "readmeUrl": "https://github.com/living-code-theme/gemini-cli/blob/1f2100fca557a6976b2bee8076f2352a337d8d9b/README.md",
+      "content": "ports/gemini-cli.d35544dd64055230aa09535433da388ec3202e91dfa254013a9a319d9172660f.json"
     },
     {
       "id": "herdr",
@@ -509,9 +509,9 @@
       ],
       "repository": "https://github.com/living-code-theme/herdr",
       "repositoryName": "living-code-theme/herdr",
-      "revision": "c6694e668f2b0013a0198d604a49583ede89474d",
-      "readmeUrl": "https://github.com/living-code-theme/herdr/blob/c6694e668f2b0013a0198d604a49583ede89474d/README.md",
-      "content": "ports/herdr.e754fe6783e855d9c132176112798da7f1ec2f0047ce8d885cbad4ced7f73bb3.json"
+      "revision": "41c193cf517f47a3feeced5beec6d7a360d84b48",
+      "readmeUrl": "https://github.com/living-code-theme/herdr/blob/41c193cf517f47a3feeced5beec6d7a360d84b48/README.md",
+      "content": "ports/herdr.f5aaf21ae6e5ccbd8daecf2eeedf86223cb52cd16b73fc4cefdd7eb30ff0aca7.json"
     },
     {
       "id": "opencode",
@@ -565,9 +565,9 @@
       ],
       "repository": "https://github.com/living-code-theme/opencode",
       "repositoryName": "living-code-theme/opencode",
-      "revision": "ef51b40cf250cb0a889fe3881ae5d8f965d0845c",
-      "readmeUrl": "https://github.com/living-code-theme/opencode/blob/ef51b40cf250cb0a889fe3881ae5d8f965d0845c/README.md",
-      "content": "ports/opencode.4c39e2b32cea20d1e7484c760c892901b479ae4a25cf07688e5cde0acb0173b3.json"
+      "revision": "ced03b2d0208a4222d5aae4389b6a7c1ec806e35",
+      "readmeUrl": "https://github.com/living-code-theme/opencode/blob/ced03b2d0208a4222d5aae4389b6a7c1ec806e35/README.md",
+      "content": "ports/opencode.5bdab5e941a8bac881e855519b2b49077038275d1237078bf3191d2130b34f66.json"
     },
     {
       "id": "pi",
@@ -594,37 +594,37 @@
         {
           "flavor": "night",
           "alt": "Pi running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/cf067dcc232d8c122ffb045703b4560b7124250095a870f2e192ebc45a9dc52f.webp",
+          "src": "https://assets.living-code.dev/port-images/98d79d715376cba0c6ac0d3213640f4fa70c4fa940a174f50f0d797f4abad18a.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Pi running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/32a029dbaaea29ab69f8c52bff1144c32f6fdeab55946af273f40d4759df6ed2.webp",
+          "src": "https://assets.living-code.dev/port-images/8ff1dc0535b134135eae51a25981b5db6993a7621e2f47c8da351cc02b2092d7.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Pi running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/21b9bc614e14b0077cc848abb1427272926fccde3e28fbcad02d824e20d00cc9.webp",
+          "src": "https://assets.living-code.dev/port-images/3cf58b36d515aa6a21a364ba49da7d7bc6f023edd0bc570ecfc966254c27d7e7.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Pi running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/0388eed18f6d9a4b5caf1cf1466b640a4a9ac7886d2f1c9903b6045b52ea579a.webp",
+          "src": "https://assets.living-code.dev/port-images/30e13466c4f177595265d2cee1ef1c48f86116f96864ac2466701903a40dfe43.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/pi",
       "repositoryName": "living-code-theme/pi",
-      "revision": "2adb3e761f862205e08542c7cae23aa887eb2b05",
-      "readmeUrl": "https://github.com/living-code-theme/pi/blob/2adb3e761f862205e08542c7cae23aa887eb2b05/README.md",
-      "content": "ports/pi.d6f4500962e4ce1a1764976c195ba4c0b7902c005bec71fc69e2349374284ab6.json"
+      "revision": "a5ba01cb99c3805b329e0e32eda782e17b52083e",
+      "readmeUrl": "https://github.com/living-code-theme/pi/blob/a5ba01cb99c3805b329e0e32eda782e17b52083e/README.md",
+      "content": "ports/pi.d877f1b6d6bac978185a027591f4998c6a129e1b9cf569d3dd446248d85d8c57.json"
     },
     {
       "id": "obsidian",
@@ -662,9 +662,9 @@
       ],
       "repository": "https://github.com/living-code-theme/obsidian",
       "repositoryName": "living-code-theme/obsidian",
-      "revision": "64492c912e3c63a53547c8182715d37f0c7580cc",
-      "readmeUrl": "https://github.com/living-code-theme/obsidian/blob/64492c912e3c63a53547c8182715d37f0c7580cc/README.md",
-      "content": "ports/obsidian.28fe7bda89afc3e8624e6357380b4f4c94063f67c1d3fdee7b1a22e7f22317d5.json"
+      "revision": "340e65ccb06f9a1bfc2269df37edd755570022de",
+      "readmeUrl": "https://github.com/living-code-theme/obsidian/blob/340e65ccb06f9a1bfc2269df37edd755570022de/README.md",
+      "content": "ports/obsidian.6e5dde3456776775ef6e183fb666d92e3bda2823adff27f0c188241a2713a5c0.json"
     },
     {
       "id": "slack",
@@ -725,9 +725,9 @@
       ],
       "repository": "https://github.com/living-code-theme/chrome",
       "repositoryName": "living-code-theme/chrome",
-      "revision": "ba4d37675ccca947644fb965a31ce407438476e6",
-      "readmeUrl": "https://github.com/living-code-theme/chrome/blob/ba4d37675ccca947644fb965a31ce407438476e6/README.md",
-      "content": "ports/chrome.492aefc8938338e862513c17f24f3909ffe515f6a5694be6eeeb818d40461b4b.json"
+      "revision": "f31e63cb8644095e8e8acbbe5eb1af1dcf2f14f9",
+      "readmeUrl": "https://github.com/living-code-theme/chrome/blob/f31e63cb8644095e8e8acbbe5eb1af1dcf2f14f9/README.md",
+      "content": "ports/chrome.192a81585d3499b4e72c99dfe02e514e10f91b8fddabb3a6e965e48f039d1f90.json"
     },
     {
       "id": "firefox",
@@ -763,9 +763,9 @@
       ],
       "repository": "https://github.com/living-code-theme/firefox",
       "repositoryName": "living-code-theme/firefox",
-      "revision": "5fe23dac84685bacfa74b848cc2022b5092b9eaa",
-      "readmeUrl": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/README.md",
-      "content": "ports/firefox.f16cab1ba4bca75e4c096490c48b520805504baa4285ef17d27255c90e29a306.json"
+      "revision": "963fc08ba4eefcfb9304844c31294ba5b011ac7d",
+      "readmeUrl": "https://github.com/living-code-theme/firefox/blob/963fc08ba4eefcfb9304844c31294ba5b011ac7d/README.md",
+      "content": "ports/firefox.2a96dac2b3fcccffd807c94a69eb7fe232f81c18e8a6c8f8b935250aa2149870.json"
     },
     {
       "id": "bottom",
@@ -819,9 +819,9 @@
       ],
       "repository": "https://github.com/living-code-theme/bottom",
       "repositoryName": "living-code-theme/bottom",
-      "revision": "01da238b0475a3cea489f83bc0e58e87d5266d4e",
-      "readmeUrl": "https://github.com/living-code-theme/bottom/blob/01da238b0475a3cea489f83bc0e58e87d5266d4e/README.md",
-      "content": "ports/bottom.567c183abcb2961bf80146107e009fe9691a37a90404a097606a2f5591aa5f5e.json"
+      "revision": "5832b9fbd6fd5695283a521ffe4a3711692d066c",
+      "readmeUrl": "https://github.com/living-code-theme/bottom/blob/5832b9fbd6fd5695283a521ffe4a3711692d066c/README.md",
+      "content": "ports/bottom.eb33c51cdad49119b6d209f4dc9abd5c2f362bb85e219d5c7e886b14b8544d9c.json"
     },
     {
       "id": "btop",
@@ -873,9 +873,9 @@
       ],
       "repository": "https://github.com/living-code-theme/btop",
       "repositoryName": "living-code-theme/btop",
-      "revision": "36e39175e6b01c1e10d35a465bc5cc2aee1fb41d",
-      "readmeUrl": "https://github.com/living-code-theme/btop/blob/36e39175e6b01c1e10d35a465bc5cc2aee1fb41d/README.md",
-      "content": "ports/btop.f845c2cb05eaf8e14da3d51029ba3b15999e3fda6a50dafd3e13fafd0baf3801.json"
+      "revision": "f96203a4c6718dfed9bf669ee782656de728fb89",
+      "readmeUrl": "https://github.com/living-code-theme/btop/blob/f96203a4c6718dfed9bf669ee782656de728fb89/README.md",
+      "content": "ports/btop.24c276501aba0a62e0fed7bed074fc6a6ce0499b417cf11b65e9b9ee52ede3f1.json"
     },
     {
       "id": "delta",
@@ -927,9 +927,9 @@
       ],
       "repository": "https://github.com/living-code-theme/delta",
       "repositoryName": "living-code-theme/delta",
-      "revision": "3a8c7e51e4c8715ef6cf80e9a2362fa15530e457",
-      "readmeUrl": "https://github.com/living-code-theme/delta/blob/3a8c7e51e4c8715ef6cf80e9a2362fa15530e457/README.md",
-      "content": "ports/delta.dcc6f5244d4cead381f46c0e62c23b16d224a2ca51969d686c57126ef11b3cbe.json"
+      "revision": "50fe01c829daa3a7e1b2746b4babfd253545ee96",
+      "readmeUrl": "https://github.com/living-code-theme/delta/blob/50fe01c829daa3a7e1b2746b4babfd253545ee96/README.md",
+      "content": "ports/delta.e9c6579017a7d84eb51db4ff67bd22c8b155b8e4efb1456103ae62c8ae1ba960.json"
     },
     {
       "id": "eza",
@@ -981,9 +981,9 @@
       ],
       "repository": "https://github.com/living-code-theme/eza",
       "repositoryName": "living-code-theme/eza",
-      "revision": "39433f26876cb8815096163b42045cbafd863a01",
-      "readmeUrl": "https://github.com/living-code-theme/eza/blob/39433f26876cb8815096163b42045cbafd863a01/README.md",
-      "content": "ports/eza.0f249d4ec0eb053a4f477ea25820d458ec6128a49fbb8c22ad435a6f824e0000.json"
+      "revision": "608b7e6d49a3a1203350e39a391eff014caf83a9",
+      "readmeUrl": "https://github.com/living-code-theme/eza/blob/608b7e6d49a3a1203350e39a391eff014caf83a9/README.md",
+      "content": "ports/eza.b87511616b29c9a918151dc73b8088a94810c3fbc53f6f466c1e0e292ceb4169.json"
     },
     {
       "id": "fish",
@@ -1035,9 +1035,9 @@
       ],
       "repository": "https://github.com/living-code-theme/fish",
       "repositoryName": "living-code-theme/fish",
-      "revision": "b752bdfa92494fa01d28d1ca9d0d52dfe706be4b",
-      "readmeUrl": "https://github.com/living-code-theme/fish/blob/b752bdfa92494fa01d28d1ca9d0d52dfe706be4b/README.md",
-      "content": "ports/fish.b61b9fdb166e14460450673011d207b4dea3b51bff5ea20c0f514442913cffe6.json"
+      "revision": "f3470f3bd8e7347a83ce3f0d5e4bf002ad2b2cb7",
+      "readmeUrl": "https://github.com/living-code-theme/fish/blob/f3470f3bd8e7347a83ce3f0d5e4bf002ad2b2cb7/README.md",
+      "content": "ports/fish.2ad1011be26fff731405bcbc219e44cf3953b11b083dba251f3876a0eebbb6d3.json"
     },
     {
       "id": "fzf",
@@ -1089,9 +1089,9 @@
       ],
       "repository": "https://github.com/living-code-theme/fzf",
       "repositoryName": "living-code-theme/fzf",
-      "revision": "83d49981e05ca53565fc043a34d9673294e51c1c",
-      "readmeUrl": "https://github.com/living-code-theme/fzf/blob/83d49981e05ca53565fc043a34d9673294e51c1c/README.md",
-      "content": "ports/fzf.80c5dbdc011b27416e6e0be1c4f2026a11adca69f14603b476240af8522ac5e1.json"
+      "revision": "b8be8b6120b92257453c132a5cce03a7e586ca9a",
+      "readmeUrl": "https://github.com/living-code-theme/fzf/blob/b8be8b6120b92257453c132a5cce03a7e586ca9a/README.md",
+      "content": "ports/fzf.e4d796abd195b43a03fc5adff1ca8ca153565a65ebf2eb27de12b4a085354a25.json"
     },
     {
       "id": "gitui",
@@ -1145,9 +1145,9 @@
       ],
       "repository": "https://github.com/living-code-theme/gitui",
       "repositoryName": "living-code-theme/gitui",
-      "revision": "af2edbc9216be5b87188aae6ecfa38b95e6a8c1b",
-      "readmeUrl": "https://github.com/living-code-theme/gitui/blob/af2edbc9216be5b87188aae6ecfa38b95e6a8c1b/README.md",
-      "content": "ports/gitui.7849c453ded10cf3cade43593f92d3794f7181f4f966298b099c1142c0c01ac1.json"
+      "revision": "fb1e67a3153d5ec3f4373fc2617b24a86fda6a21",
+      "readmeUrl": "https://github.com/living-code-theme/gitui/blob/fb1e67a3153d5ec3f4373fc2617b24a86fda6a21/README.md",
+      "content": "ports/gitui.defcd848852b43468bc40a0686433c149626686b4bb39d94280bec2a0a4bab3c.json"
     },
     {
       "id": "hunk",
@@ -1199,9 +1199,9 @@
       ],
       "repository": "https://github.com/living-code-theme/hunk",
       "repositoryName": "living-code-theme/hunk",
-      "revision": "312b219fad6b426e2044dc20edc62c599aa461bd",
-      "readmeUrl": "https://github.com/living-code-theme/hunk/blob/312b219fad6b426e2044dc20edc62c599aa461bd/README.md",
-      "content": "ports/hunk.4079330c11ed61241d97be56faa7a1945e4bfb0bc53a43a23644d64b1023edb5.json"
+      "revision": "9d21f2e8809847c8b25d5b9ec2d007f5314ef22f",
+      "readmeUrl": "https://github.com/living-code-theme/hunk/blob/9d21f2e8809847c8b25d5b9ec2d007f5314ef22f/README.md",
+      "content": "ports/hunk.5b2ca135a883bfcbefd9d2e5159338af4f1ee3bf53c574e57ac3006dd58ce996.json"
     },
     {
       "id": "k9s",
@@ -1253,9 +1253,9 @@
       ],
       "repository": "https://github.com/living-code-theme/k9s",
       "repositoryName": "living-code-theme/k9s",
-      "revision": "95c5c81a6155fd7ce6b4c2018ca46b88439a11c4",
-      "readmeUrl": "https://github.com/living-code-theme/k9s/blob/95c5c81a6155fd7ce6b4c2018ca46b88439a11c4/README.md",
-      "content": "ports/k9s.069336321303121fd9b7038a339eac9050ccf060a7b0a879dfe1fff59198a036.json"
+      "revision": "9e70aa137598d05006f4d4011b791cab79dc55e0",
+      "readmeUrl": "https://github.com/living-code-theme/k9s/blob/9e70aa137598d05006f4d4011b791cab79dc55e0/README.md",
+      "content": "ports/k9s.d1d6083ee0ce8a9699b40a14a287616dccaaeed9d8e5d457c69158f48e3c13c7.json"
     },
     {
       "id": "lazydocker",
@@ -1309,9 +1309,9 @@
       ],
       "repository": "https://github.com/living-code-theme/lazydocker",
       "repositoryName": "living-code-theme/lazydocker",
-      "revision": "aaf96cc71c10be6624d1e28fc41f6592d1b70bad",
-      "readmeUrl": "https://github.com/living-code-theme/lazydocker/blob/aaf96cc71c10be6624d1e28fc41f6592d1b70bad/README.md",
-      "content": "ports/lazydocker.cf49512cfd8fe9f3cb6a2b37c961440622d903703f4f952f1374b2812ea924a0.json"
+      "revision": "b98922c750424fb6e5b51df9970b707532672710",
+      "readmeUrl": "https://github.com/living-code-theme/lazydocker/blob/b98922c750424fb6e5b51df9970b707532672710/README.md",
+      "content": "ports/lazydocker.75e7becc01ec6ad0d5a80dd94b0cb9962f13cf6a49637769df84aa5fb8d53ab6.json"
     },
     {
       "id": "lazygit",
@@ -1363,9 +1363,9 @@
       ],
       "repository": "https://github.com/living-code-theme/lazygit",
       "repositoryName": "living-code-theme/lazygit",
-      "revision": "e1804012d87c79010af73ad45c7f4a4733b1f7ea",
-      "readmeUrl": "https://github.com/living-code-theme/lazygit/blob/e1804012d87c79010af73ad45c7f4a4733b1f7ea/README.md",
-      "content": "ports/lazygit.46ac61338a9c1e12e40e75a1a665efb2137fdc4e29d14a899a6db443704f8474.json"
+      "revision": "7bc2f816c24b3a177df3bae5a5792a38f78663c6",
+      "readmeUrl": "https://github.com/living-code-theme/lazygit/blob/7bc2f816c24b3a177df3bae5a5792a38f78663c6/README.md",
+      "content": "ports/lazygit.e3a3fafb73446821566a16f86697891b1e183557ca7ad0238b55f97c052c87ec.json"
     },
     {
       "id": "nushell",
@@ -1419,9 +1419,9 @@
       ],
       "repository": "https://github.com/living-code-theme/nushell",
       "repositoryName": "living-code-theme/nushell",
-      "revision": "7849362a835051443a0da828d1e85217b69f01c8",
-      "readmeUrl": "https://github.com/living-code-theme/nushell/blob/7849362a835051443a0da828d1e85217b69f01c8/README.md",
-      "content": "ports/nushell.bb5b6c53423bd020fe0e1d8a7842df60228f2f1e957c536985378317468a951f.json"
+      "revision": "09317350c31ac423b1530e0bbb9ad380de7fabe1",
+      "readmeUrl": "https://github.com/living-code-theme/nushell/blob/09317350c31ac423b1530e0bbb9ad380de7fabe1/README.md",
+      "content": "ports/nushell.31b9f704eae23bac4f831c1101806c97962a6253b9355340c49377c6b72a9510.json"
     },
     {
       "id": "posting",
@@ -1475,9 +1475,9 @@
       ],
       "repository": "https://github.com/living-code-theme/posting",
       "repositoryName": "living-code-theme/posting",
-      "revision": "a4f4b8d9f94d46a92a7fe9234644fdf1507bc1dd",
-      "readmeUrl": "https://github.com/living-code-theme/posting/blob/a4f4b8d9f94d46a92a7fe9234644fdf1507bc1dd/README.md",
-      "content": "ports/posting.5fabaaf6eef3845b0fe31667852cddf787a4f68b0df78f903e1dc9e18735962a.json"
+      "revision": "e1c3a1710e6869802faaf0afb9f7ba3204b2eb92",
+      "readmeUrl": "https://github.com/living-code-theme/posting/blob/e1c3a1710e6869802faaf0afb9f7ba3204b2eb92/README.md",
+      "content": "ports/posting.d8d73cf476baef861189a1e8c92c960a23c79be6ae5922831be0db5fe3e61b93.json"
     },
     {
       "id": "starship",
@@ -1801,9 +1801,9 @@
       ],
       "repository": "https://github.com/living-code-theme/helix",
       "repositoryName": "living-code-theme/helix",
-      "revision": "de2d810cc6382f91f5e4c89da70cd26412407565",
-      "readmeUrl": "https://github.com/living-code-theme/helix/blob/de2d810cc6382f91f5e4c89da70cd26412407565/README.md",
-      "content": "ports/helix.622497cfd8d9fc533ea544e7709e18315dc599fe290200711a8af224cbbf71bb.json"
+      "revision": "fc53da26021a73a13b4ced46c7166365ead5c476",
+      "readmeUrl": "https://github.com/living-code-theme/helix/blob/fc53da26021a73a13b4ced46c7166365ead5c476/README.md",
+      "content": "ports/helix.6e80a0a9f909b7c9225bbc71eb670786f91c4d0e26c35e2db2b71209c4be7a76.json"
     },
     {
       "id": "jetbrains",
@@ -1855,9 +1855,9 @@
       ],
       "repository": "https://github.com/living-code-theme/jetbrains",
       "repositoryName": "living-code-theme/jetbrains",
-      "revision": "c5563283df48b0e07800731064c946b14ed34aa8",
-      "readmeUrl": "https://github.com/living-code-theme/jetbrains/blob/c5563283df48b0e07800731064c946b14ed34aa8/README.md",
-      "content": "ports/jetbrains.427f3f870ecab9177da6e7f2322b4da8c030727010d215ac6703ba4d9a6064e4.json"
+      "revision": "77f5af4ef888f79150a57773b99b837ef1c53f8a",
+      "readmeUrl": "https://github.com/living-code-theme/jetbrains/blob/77f5af4ef888f79150a57773b99b837ef1c53f8a/README.md",
+      "content": "ports/jetbrains.5a830c3b9b0cde99ef55fefed46d83c5d486b1671d4b7f9ed7d65117692b363b.json"
     },
     {
       "id": "micro",
@@ -1911,9 +1911,9 @@
       ],
       "repository": "https://github.com/living-code-theme/micro",
       "repositoryName": "living-code-theme/micro",
-      "revision": "440964d18e8bf9e20aed9ff92e87c2b5c99bca42",
-      "readmeUrl": "https://github.com/living-code-theme/micro/blob/440964d18e8bf9e20aed9ff92e87c2b5c99bca42/README.md",
-      "content": "ports/micro.42368400e29232cffad8908b984c47dd1f4848fdd50eaae4b0d7326374b0cb97.json"
+      "revision": "3d020b226c313a9e34f348dac1baface703b9612",
+      "readmeUrl": "https://github.com/living-code-theme/micro/blob/3d020b226c313a9e34f348dac1baface703b9612/README.md",
+      "content": "ports/micro.6715937eea91cb348c5dbf7cd8f3f31c5adee89a1f76b6434440450f8cf5eaab.json"
     },
     {
       "id": "neovim",
@@ -1968,9 +1968,9 @@
       ],
       "repository": "https://github.com/living-code-theme/nvim",
       "repositoryName": "living-code-theme/nvim",
-      "revision": "ad37a5710af7269f4fc36b575305d6211aea543e",
-      "readmeUrl": "https://github.com/living-code-theme/nvim/blob/ad37a5710af7269f4fc36b575305d6211aea543e/README.md",
-      "content": "ports/neovim.3513fa9653c804ac0508061e0dd614d0679624706cfe6ebaa9a1b37a233c92c0.json"
+      "revision": "cee6e734c83a03ddaa9cb420b120436301f15458",
+      "readmeUrl": "https://github.com/living-code-theme/nvim/blob/cee6e734c83a03ddaa9cb420b120436301f15458/README.md",
+      "content": "ports/neovim.7359b5273d09859c4f11033698f01d7aa7f523c44178e1ba8b6774a751f2a9ab.json"
     },
     {
       "id": "sublime",
@@ -2238,9 +2238,9 @@
       ],
       "repository": "https://github.com/living-code-theme/alacritty",
       "repositoryName": "living-code-theme/alacritty",
-      "revision": "cce8e7ecf38f4f93ab1b72f246469a1f79d359dc",
-      "readmeUrl": "https://github.com/living-code-theme/alacritty/blob/cce8e7ecf38f4f93ab1b72f246469a1f79d359dc/README.md",
-      "content": "ports/alacritty.25e6f9238eca7837d5f9588d80609181c8a1b7be3bd1b19a227c32b442505efd.json"
+      "revision": "2f8ab101d84e594c33c09ad3d08a6410b2652a1a",
+      "readmeUrl": "https://github.com/living-code-theme/alacritty/blob/2f8ab101d84e594c33c09ad3d08a6410b2652a1a/README.md",
+      "content": "ports/alacritty.89341c960bd061711efcf2131d3ba04595f3abf13c313e7d4d1773e2796801bc.json"
     },
     {
       "id": "foot",
@@ -2292,9 +2292,9 @@
       ],
       "repository": "https://github.com/living-code-theme/foot",
       "repositoryName": "living-code-theme/foot",
-      "revision": "1aa8a9b33c3f847e1964c1521d49b47c88e4c9ab",
-      "readmeUrl": "https://github.com/living-code-theme/foot/blob/1aa8a9b33c3f847e1964c1521d49b47c88e4c9ab/README.md",
-      "content": "ports/foot.bea1f8f13ff2ceaff526de03a814ae2f00816f023a9fbeb11ce6721a585282bb.json"
+      "revision": "43587acd8c106c870333320c8412e333639e667a",
+      "readmeUrl": "https://github.com/living-code-theme/foot/blob/43587acd8c106c870333320c8412e333639e667a/README.md",
+      "content": "ports/foot.95b428a8f83cecc94a3a8462f9f780212877dc97ccbafb94721a5448d036587a.json"
     },
     {
       "id": "ghostty",
@@ -2346,9 +2346,9 @@
       ],
       "repository": "https://github.com/living-code-theme/ghostty",
       "repositoryName": "living-code-theme/ghostty",
-      "revision": "55f3810f9ff60764b46332b881e1fe01157e4fb4",
-      "readmeUrl": "https://github.com/living-code-theme/ghostty/blob/55f3810f9ff60764b46332b881e1fe01157e4fb4/README.md",
-      "content": "ports/ghostty.8320921e31577f088012c372f364a4f7096aa882f164bbe3de2f3605f8a23da7.json"
+      "revision": "667343251570074342bfc7ceb33cf4bfb7b54ba3",
+      "readmeUrl": "https://github.com/living-code-theme/ghostty/blob/667343251570074342bfc7ceb33cf4bfb7b54ba3/README.md",
+      "content": "ports/ghostty.b8858d6c1ecf3d51b3d3200deb7f161fbb2ce0a6b9c53377b6c23f94fbd27301.json"
     },
     {
       "id": "iterm2",
@@ -2371,9 +2371,9 @@
       "images": [],
       "repository": "https://github.com/living-code-theme/iterm2",
       "repositoryName": "living-code-theme/iterm2",
-      "revision": "cae05e432736cf3d6905cc1077a6884e5f422fdd",
-      "readmeUrl": "https://github.com/living-code-theme/iterm2/blob/cae05e432736cf3d6905cc1077a6884e5f422fdd/README.md",
-      "content": "ports/iterm2.37dc037c69a1896c0942b3884869bac5bfe7d9d01db8ca763890b1f5efe678d7.json"
+      "revision": "e21c2f9759040ee5e50e9db0eb608cae37397a5f",
+      "readmeUrl": "https://github.com/living-code-theme/iterm2/blob/e21c2f9759040ee5e50e9db0eb608cae37397a5f/README.md",
+      "content": "ports/iterm2.9029e74115e0b2225ab36c6aadf3909358774a7cd1e808e8eb010229b7446691.json"
     },
     {
       "id": "kitty",
@@ -2427,9 +2427,9 @@
       ],
       "repository": "https://github.com/living-code-theme/kitty",
       "repositoryName": "living-code-theme/kitty",
-      "revision": "5c3f75b8fe3d3331b37148e97937e642efb8607d",
-      "readmeUrl": "https://github.com/living-code-theme/kitty/blob/5c3f75b8fe3d3331b37148e97937e642efb8607d/README.md",
-      "content": "ports/kitty.af3069c7cb32ec0ccfae5c3686e061aebef00937737e366211219f6dc99e28ff.json"
+      "revision": "aa34097b0114b8ea3b16afabed9cd8e06c3a63b0",
+      "readmeUrl": "https://github.com/living-code-theme/kitty/blob/aa34097b0114b8ea3b16afabed9cd8e06c3a63b0/README.md",
+      "content": "ports/kitty.62c18f14f0af1c5a877d71822c9bb22d37cd6e66139fd07cd6f18bf81398008c.json"
     },
     {
       "id": "konsole",
@@ -2481,9 +2481,9 @@
       ],
       "repository": "https://github.com/living-code-theme/konsole",
       "repositoryName": "living-code-theme/konsole",
-      "revision": "ed76a0b73ad34c73e37e5a3c7acef755664190ff",
-      "readmeUrl": "https://github.com/living-code-theme/konsole/blob/ed76a0b73ad34c73e37e5a3c7acef755664190ff/README.md",
-      "content": "ports/konsole.682f65a3efd6d9912d7fe3d2cb93715cd1bc02b1dfe1f3a5ceed8528312bb956.json"
+      "revision": "bb72c1285653290ba26823b1fe5f12993268279d",
+      "readmeUrl": "https://github.com/living-code-theme/konsole/blob/bb72c1285653290ba26823b1fe5f12993268279d/README.md",
+      "content": "ports/konsole.b6dce72f6397441b3e1993cff68f34897c248c55160b59eb79b63be8449d7a9d.json"
     },
     {
       "id": "rio",
@@ -2666,9 +2666,9 @@
       "images": [],
       "repository": "https://github.com/living-code-theme/base16",
       "repositoryName": "living-code-theme/base16",
-      "revision": "8131be1cd207bde7ac5414e37a93139cca5afa78",
-      "readmeUrl": "https://github.com/living-code-theme/base16/blob/8131be1cd207bde7ac5414e37a93139cca5afa78/README.md",
-      "content": "ports/base16.72eb1d1d0b91734e936584f2179300be1b9f13b0b3a889a44e11c6cd6730e2a4.json"
+      "revision": "ee6e9afc1ca784ca59330820624592b4e442a87a",
+      "readmeUrl": "https://github.com/living-code-theme/base16/blob/ee6e9afc1ca784ca59330820624592b4e442a87a/README.md",
+      "content": "ports/base16.8088ceaf5b5b78579de0c383c99effb577d181d0bbc7261fff7910f613d2341c.json"
     },
     {
       "id": "css",
@@ -2691,9 +2691,9 @@
       "images": [],
       "repository": "https://github.com/living-code-theme/css",
       "repositoryName": "living-code-theme/css",
-      "revision": "aae1a1cb86a1de71dfdc11e9bace001b27d95217",
-      "readmeUrl": "https://github.com/living-code-theme/css/blob/aae1a1cb86a1de71dfdc11e9bace001b27d95217/README.md",
-      "content": "ports/css.9b55dd978eddd184bff1a57ff6c0e6e984ad16fb5614e8128bcbc74e76972a51.json"
+      "revision": "53d189611041035fe93bf473e4b27310325061cb",
+      "readmeUrl": "https://github.com/living-code-theme/css/blob/53d189611041035fe93bf473e4b27310325061cb/README.md",
+      "content": "ports/css.d8f233fcb2b9fa4d5e0e0f96692970e2597b41d07439d23dd0adc9f888855778.json"
     },
     {
       "id": "expressive-code",
@@ -2716,9 +2716,9 @@
       "images": [],
       "repository": "https://github.com/living-code-theme/expressive-code",
       "repositoryName": "living-code-theme/expressive-code",
-      "revision": "2a8d3c216b72f3dd4dc2ee67d6e0ddff40dbad1d",
-      "readmeUrl": "https://github.com/living-code-theme/expressive-code/blob/2a8d3c216b72f3dd4dc2ee67d6e0ddff40dbad1d/README.md",
-      "content": "ports/expressive-code.3ed139bd7fbfab2f24a1a9e278ad84506d0b1aef60dcd2d5dc6f86b17618ac28.json"
+      "revision": "658847ea3a22620f9f3d1313582a71b5c75c1a7f",
+      "readmeUrl": "https://github.com/living-code-theme/expressive-code/blob/658847ea3a22620f9f3d1313582a71b5c75c1a7f/README.md",
+      "content": "ports/expressive-code.f929a2da4913850d4f9a558f3f89cc3c319dfea3fd2c00fc715f84e8a62077f2.json"
     },
     {
       "id": "json",
@@ -2741,9 +2741,9 @@
       "images": [],
       "repository": "https://github.com/living-code-theme/palette",
       "repositoryName": "living-code-theme/palette",
-      "revision": "921480390f9101337d0477de6a9329dc5e0e0f2b",
-      "readmeUrl": "https://github.com/living-code-theme/palette/blob/921480390f9101337d0477de6a9329dc5e0e0f2b/README.md",
-      "content": "ports/json.7fb84df1f00e46ac8ea3fb608dcc2e0e4e1648245061c4f731d18999eb8b25ce.json"
+      "revision": "b09f2793b8933e7eb0330eaaaf32fc7150dd0c01",
+      "readmeUrl": "https://github.com/living-code-theme/palette/blob/b09f2793b8933e7eb0330eaaaf32fc7150dd0c01/README.md",
+      "content": "ports/json.77a15a484c4a3f0b997575533e94f423f30c23fbd3b11a5baf96a3dc7e2b8738.json"
     },
     {
       "id": "tailwind",

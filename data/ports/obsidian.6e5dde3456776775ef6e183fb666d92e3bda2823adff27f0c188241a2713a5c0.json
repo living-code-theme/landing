@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "obsidian",
+    "name": "Obsidian",
+    "group": "Apps",
+    "description": "Living Code for Obsidian. Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://obsidian.md",
+    "quick": "See installation instructions",
+    "aliases": [
+      "obsidian"
+    ],
+    "icon": null,
+    "emoji": "💎",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "manifest.json",
+      "screenshot.png",
+      "snippets/living-code-frost.css",
+      "snippets/living-code-signal.css",
+      "theme.css"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Obsidian's dark mode is **Night** and its light mode is **Paper**; the theme follows *Appearance → Base color scheme*.\n\n1. Open *Settings → Appearance → Themes → Manage*, search for **Living Code** and click **Install and use**.\n2. **Without the directory:** copy `manifest.json` and `theme.css` from [the repository root](.) into `<vault>/.obsidian/themes/Living Code/`, then pick **Living Code** under *Appearance → Themes*.\n\n**Frost and Signal** are dark flavors, so they ship as CSS snippets rather than as a Style Settings option, which would need a second plugin: copy `snippets/living-code-frost.css` or `snippets/living-code-signal.css` into `<vault>/.obsidian/snippets/` and enable it under *Appearance → CSS snippets*.",
+      "configuration": "See [Obsidian's documentation](https://obsidian.md) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "The theme manifest retains version 1.0.0 and minAppVersion 1.0.0. Night and Paper follow Obsidian's base color scheme; Frost and Signal are optional dark-mode snippets. The existing Living Code community-theme and release identities are preserved.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/obsidian",
+    "repositoryName": "living-code-theme/obsidian",
+    "revision": "340e65ccb06f9a1bfc2269df37edd755570022de",
+    "readmeUrl": "https://github.com/living-code-theme/obsidian/blob/340e65ccb06f9a1bfc2269df37edd755570022de/README.md",
+    "fileUrls": {
+      "manifest.json": "https://github.com/living-code-theme/obsidian/blob/340e65ccb06f9a1bfc2269df37edd755570022de/manifest.json",
+      "screenshot.png": "https://github.com/living-code-theme/obsidian/blob/340e65ccb06f9a1bfc2269df37edd755570022de/screenshot.png",
+      "snippets/living-code-frost.css": "https://github.com/living-code-theme/obsidian/blob/340e65ccb06f9a1bfc2269df37edd755570022de/snippets/living-code-frost.css",
+      "snippets/living-code-signal.css": "https://github.com/living-code-theme/obsidian/blob/340e65ccb06f9a1bfc2269df37edd755570022de/snippets/living-code-signal.css",
+      "theme.css": "https://github.com/living-code-theme/obsidian/blob/340e65ccb06f9a1bfc2269df37edd755570022de/theme.css"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Obsidian running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/4f54ba65980898cb563a5de7ac4a6383c801bb2212f795b32d63dd6e1ec85cac.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Obsidian running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/1c06462d91c5c50185ff678e34795c82346971616a01a99fa218d85041bd45a3.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

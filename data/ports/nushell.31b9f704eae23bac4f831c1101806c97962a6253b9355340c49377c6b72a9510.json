@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "nushell",
+    "name": "Nushell",
+    "group": "CLI & TUI",
+    "description": "Living Code for Nushell: native modules for syntax shapes, structured values, tables, search matches and command-line hints.",
+    "homepage": "https://www.nushell.sh",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "nushell",
+      "nu",
+      "nu shell"
+    ],
+    "icon": null,
+    "emoji": "🐚",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.nu",
+      "themes/living-code-frost.nu",
+      "themes/living-code-paper.nu",
+      "themes/living-code-signal.nu"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night # night, frost, paper, or signal\ntheme_dir=\"$(nu --no-config-file -c '$nu.default-config-dir')/themes\"\ncurl -fsSL --create-dirs -o \"$theme_dir/living-code-$flavor.nu\" \"https://raw.githubusercontent.com/living-code-theme/nushell/main/themes/living-code-$flavor.nu\"\n```\n\nRun that download block in Bash/Zsh; `nu` reports the native config directory, including custom or platform-specific locations. Then add these lines **inside Nushell** to `config.nu` (adjust the module path to the directory reported above):\n\n```nu\nuse ~/.config/nushell/themes/living-code-night.nu\n$env.config.color_config = (living-code-night)\n```\n\nRestart Nu or evaluate the same two lines in the current session. Existing config and environment settings are not overwritten.",
+      "configuration": "Each file exports `main`, returning a color record without mutating `$env`. Set `color_config` explicitly as shown, or merge the returned record into your existing color configuration. Syntax shapes include keyword, literal, constant, function, type, string, variable, parameter and operator distinctions. Search results have explicit foreground/background pairs.",
+      "compatibility": "Uses Nushell’s native module syntax and `color_config` API. The exported record follows the current shape-color contract; unknown supplemental record keys are inert. The theme does not configure prompts, LS_COLORS or the terminal emulator palette. Its `background`, `foreground` and `cursor` record entries are metadata used by theme tooling, not commands that recolor the host terminal. Native module loading can be tested with `pnpm test:native` when `nu` is installed.\n\nPreviews are captured programmatically from the actual application in an isolated profile. See [`capture/app.py`](capture/app.py) for the app-owned recipe and [`images/capture.json`](images/capture.json) for runtime, palette and image provenance. No mock interface is drawn.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/nushell",
+    "repositoryName": "living-code-theme/nushell",
+    "revision": "09317350c31ac423b1530e0bbb9ad380de7fabe1",
+    "readmeUrl": "https://github.com/living-code-theme/nushell/blob/09317350c31ac423b1530e0bbb9ad380de7fabe1/README.md",
+    "fileUrls": {
+      "themes/living-code-night.nu": "https://github.com/living-code-theme/nushell/blob/09317350c31ac423b1530e0bbb9ad380de7fabe1/themes/living-code-night.nu",
+      "themes/living-code-frost.nu": "https://github.com/living-code-theme/nushell/blob/09317350c31ac423b1530e0bbb9ad380de7fabe1/themes/living-code-frost.nu",
+      "themes/living-code-paper.nu": "https://github.com/living-code-theme/nushell/blob/09317350c31ac423b1530e0bbb9ad380de7fabe1/themes/living-code-paper.nu",
+      "themes/living-code-signal.nu": "https://github.com/living-code-theme/nushell/blob/09317350c31ac423b1530e0bbb9ad380de7fabe1/themes/living-code-signal.nu"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Nushell running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/444a736951f8695b894305f343d74b0f623c99d0e426214c53b8335ce5a366cd.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Nushell running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/26cc4bb9ae05c9523a0babe53eee4df1715307e3e1936554316e32a4348789b6.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Nushell running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/77f5a00cec5b58d1a05c849d8c93511004b8aa0b2442d0f423a2506b249d0968.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Nushell running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/1dd100781e2603489d27ed009a04fed17789bc3956a640f881b781dbdabd8960.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}
