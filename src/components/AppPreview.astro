@@ -3,17 +3,15 @@
 import Arrow from "./Arrow.astro";
 import PortIcon from "./PortIcon.astro";
 import Shot from "./Shot.astro";
-import { flavors, ports, route, short, shotsOf } from "../lib/data.mjs";
+import { flavors, ports, short, shotsOf } from "../lib/data.mjs";
 import { fill } from "../lib/ui.mjs";
 interface Props { app: { port: string; name: string }; part?: "tab" | "panel" | "both"; selected?: boolean }
 const { app: a, part = "both", selected = false } = Astro.props;
 const port = ports.find((p) => p.id === a.port)!;
-const contexts: Record<string, string> = { vscode: "Code editor", jetbrains: "Development environment", sublime: "Text editor", obsidian: "Notes & knowledge", chrome: "Web browser" };
-const captureLabel = (flavor: typeof flavors[number]) => {
-  const shots = shotsOf(a.port), own = shots.find((shot) => shot.f.id === flavor.id);
-  const shot = own ?? shots.find((shot) => shot.f.id === "night") ?? shots[0];
-  return `${short(shot.f)}${own ? "" : ` · No ${short(flavor)} capture yet`}`;
-};
+// Only flavors without their own capture get a note, saying which one is shown instead.
+const shots = shotsOf(a.port);
+const fallback = shots.find((shot) => shot.f.id === "night") ?? shots[0];
+const missing = flavors.filter((f) => !shots.some((shot) => shot.f.id === f.id));
 ---
 
 {part !== "panel" && <button type="button" role="tab" id={`app-tab-${a.port}`} aria-controls={`app-panel-${a.port}`}
@@ -22,19 +20,15 @@ const captureLabel = (flavor: typeof flavors[number]) => {
   <span class="app-showcase__tab-label"><PortIcon port={port} /><span>{a.name}</span><span class="app-showcase__tab-mark" aria-hidden="true" /></span>
 </button>}
 {part !== "tab" && <section class="app-showcase__panel" id={`app-panel-${a.port}`} aria-label={a.name} data-app-panel={a.port}>
-  <div class="app-showcase__stage">
-    <div class="app-showcase__identity">
-      <div class="app-showcase__app-name"><PortIcon port={port} /><h3>{a.name}</h3></div>
-      <p>{contexts[a.port] ?? port.group}<span aria-hidden="true"> / </span><span class="text-fg-alt" data-flavor-name>Night</span></p>
-    </div>
-    <div class="app-showcase__capture">
-      <Shot app={a.port} sizes="(min-width: 1536px) 1376px, (min-width: 768px) 88vw, 100vw" caption={false} />
-      <span class="app-showcase__image-status" data-image-status role="status" aria-live="polite" />
-    </div>
-    <div class="app-showcase__capture-note"><span class="app-showcase__status" aria-hidden="true" /><span>From the port repository.</span><span>{flavors.map((f) => <span data-only={f.id}>{captureLabel(f)}</span>)}</span></div>
+  <div class="app-showcase__capture">
+    <Shot app={a.port} sizes="(min-width: 1536px) 1376px, (min-width: 768px) 88vw, 100vw" caption={false} />
+    <span class="app-showcase__image-status" data-image-status role="status" aria-live="polite" />
   </div>
   <div class="app-showcase__install">
-    <p><span class="app-showcase__install-label">Make yourself at home.</span><span class="app-showcase__route" set:html={route(a.port)} /></p>
+    <div>
+      <h3 class="app-showcase__app-name"><PortIcon port={port} />{a.name}</h3>
+      {missing.map((f) => <p class="app-showcase__note" data-only={f.id}>No {short(f)} capture yet, showing {short(fallback.f)}.</p>)}
+    </div>
     <a class:list={[fill, "app-showcase__install-link"]} href={`/ports/${a.port}/`}>Install for {a.name} <Arrow /></a>
   </div>
 </section>}

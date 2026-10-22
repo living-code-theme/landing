@@ -62,12 +62,11 @@ test("the gallery exposes every flavor and labels screenshot fallbacks honestly"
   for (const app of APPS) {
     const panel = showcase.match(new RegExp(`<section[^>]*id="app-panel-${app}"[\\s\\S]*?<\\/section>`))[0];
     const shots = shotsOf(app);
+    const fallback = shots.find((shot) => shot.f.id === "night") ?? shots[0];
     for (const flavor of flavors) {
-      const own = shots.find((shot) => shot.f.id === flavor.id);
-      const shot = own ?? shots.find((shot) => shot.f.id === "night") ?? shots[0];
-      const label = `${short(shot.f)}${own ? "" : ` · No ${short(flavor)} capture yet`}`;
-      const rendered = panel.match(new RegExp(`<span data-only="${flavor.id}"[^>]*>([^<]*)</span>`))?.[1];
-      assert.equal(rendered, label, `${app}: ${flavor.id} capture label`);
+      const own = shots.some((shot) => shot.f.id === flavor.id);
+      const rendered = panel.match(new RegExp(`<p[^>]*data-only="${flavor.id}"[^>]*>([^<]*)</p>`))?.[1];
+      assert.equal(rendered, own ? undefined : `No ${short(flavor)} capture yet, showing ${short(fallback.f)}.`, `${app}: ${flavor.id} capture note`);
     }
   }
 });

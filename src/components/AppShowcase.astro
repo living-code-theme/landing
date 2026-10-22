@@ -17,7 +17,6 @@ const catalog = APPS.length > 5 ? (await showcaseData).indexUrl : undefined;
 
   <div class="app-showcase" data-app-showcase data-app-catalog={catalog}>
     <div class="app-showcase__toolbar">
-      <p class="app-showcase__label">Your tools. <span>Your colors.</span></p>
       <div class="app-showcase__flavors" role="group" aria-label="Preview flavor">
         {flavors.map((f) => (
           <button type="button" data-set-flavor={f.id} aria-pressed={f.id === "night" ? "true" : "false"}>
@@ -48,11 +47,8 @@ const catalog = APPS.length > 5 ? (await showcaseData).indexUrl : undefined;
   .app-showcase { display: grid; grid-template-columns: minmax(0, 1fr); }
   .app-showcase [hidden] { display: none; }
   .app-showcase__toolbar {
-    display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    padding-block: 20px; border-top: 1px solid var(--lc-border);
+    display: flex; padding-block: 0 20px;
   }
-  .app-showcase__label { font-size: 0.9375rem; font-weight: 500; }
-  .app-showcase__label > span { color: var(--lc-fg-muted); }
   .app-showcase__flavors { display: flex; gap: 4px; }
   .app-showcase__flavors button {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -67,28 +63,17 @@ const catalog = APPS.length > 5 ? (await showcaseData).indexUrl : undefined;
     background: var(--lc-bg);
   }
   .app-showcase__panels { display: grid; gap: 56px; min-width: 0; }
-  .app-showcase__stage { padding: clamp(16px, 2.25vw, 32px); background: var(--lc-bg-alt); }
-  .app-showcase__identity { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
-  .app-showcase__app-name { display: flex; align-items: center; gap: 12px; }
-  .app-showcase__app-name h3 { font-size: clamp(1.125rem, 1.6vw, 1.5rem); font-weight: 500; letter-spacing: -0.025em; }
+  .app-showcase__app-name { display: flex; align-items: center; gap: 12px; font-size: clamp(1.125rem, 1.6vw, 1.5rem); font-weight: 500; letter-spacing: -0.025em; }
   .app-showcase__app-name [data-port-icon] { color: var(--lc-accent); }
-  .app-showcase__identity > p { color: var(--lc-fg-muted); font-size: 0.8125rem; }
-  .app-showcase__identity > p > span[aria-hidden] { padding-inline: 12px; color: var(--lc-overlay); }
-  .app-showcase__capture { position: relative; box-shadow: 0 16px 40px -12px color-mix(in oklch, var(--lc-bg-deep) 70%, transparent); }
+  .app-showcase__note { margin-top: 4px; color: var(--lc-fg-muted); font-size: 0.8125rem; }
+  .app-showcase__capture { position: relative; padding: clamp(8px, 1.25vw, 16px); background: var(--lc-bg-alt); }
   .app-showcase__capture [data-shot] { overflow: hidden; background-image: var(--capture-preview, none); background-size: cover; background-position: center; }
   .app-showcase__capture[data-image-state="loading"] img,
   .app-showcase__capture[data-image-state="error"] img { opacity: 0; }
   .app-showcase__image-status { position: absolute; inset-inline: 16px; bottom: 16px; width: fit-content; max-width: calc(100% - 32px); padding: 8px 12px; background: var(--lc-bg-alt); color: var(--lc-fg); font-size: 0.8125rem; }
   .app-showcase__image-status:empty { display: none; }
   .app-showcase__capture img { transition: none; transform: none; scale: 1; }
-  .app-showcase__capture-note { display: flex; align-items: center; gap: 8px; margin-top: 20px; color: var(--lc-fg-muted); font-size: 0.75rem; }
-  .app-showcase__capture-note > :last-child { margin-left: auto; }
-  .app-showcase__status { width: 6px; height: 6px; flex: none; background: var(--lc-accent); }
-  .app-showcase__install { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-block: 28px; }
-  .app-showcase__install > p { display: grid; gap: 5px; min-width: 0; }
-  .app-showcase__install-label { color: var(--lc-fg); font-size: 1rem; font-weight: 500; }
-  .app-showcase__route { color: var(--lc-fg-muted); font-size: 0.8125rem; overflow-wrap: anywhere; }
-  .app-showcase__route code { color: var(--lc-fg-alt); }
+  .app-showcase__install { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-block: 24px; }
   .app-showcase__install-link { flex: none; }
   .app-showcase__tabs {
     display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 1.75vw, 24px);
@@ -114,16 +99,10 @@ const catalog = APPS.length > 5 ? (await showcaseData).indexUrl : undefined;
   }
   @media (max-width: 767px) {
     .workspace-gallery__intro { grid-template-columns: minmax(0, 1fr); gap: 24px; }
-    .app-showcase__toolbar { flex-direction: column; align-items: start; gap: 12px; padding-block: 20px; }
     .app-showcase__flavors { width: 100%; justify-content: space-between; }
     .app-showcase__flavors button { padding-inline: 8px; }
-    .app-showcase__stage { margin-inline: calc(-1 * var(--margin)); padding: 20px var(--margin) 16px; }
-    .app-showcase__identity { align-items: start; flex-direction: column; gap: 4px; margin-bottom: 18px; }
-    .app-showcase__identity > p { padding-left: 36px; }
-    .app-showcase__identity > p > span[aria-hidden] { padding-inline: 6px; }
-    .app-showcase__capture { margin-inline: calc(-1 * var(--margin)); box-shadow: none; }
-    .app-showcase__capture-note { margin-top: 16px; font-size: 0.6875rem; }
-    .app-showcase__install { align-items: stretch; flex-direction: column; gap: 20px; padding-block: 24px; }
+    .app-showcase__capture { margin-inline: calc(-1 * var(--margin)); padding: 0; }
+    .app-showcase__install { align-items: stretch; flex-direction: column; gap: 16px; padding-block: 20px; }
     .app-showcase__tabs {
       display: flex; gap: 12px; overflow-x: auto; margin-inline: calc(-1 * var(--margin));
       padding: 0 var(--margin) 20px; scroll-padding-inline: var(--margin); scroll-snap-type: x proximity;
