@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "crush",
+    "name": "Crush",
+    "group": "AI & Agents",
+    "description": "Living Code for Crush: complete native palette files with UI surfaces, status colors, review diffs and all sixteen ANSI colors.",
+    "homepage": "https://github.com/charmbracelet/crush",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "crush",
+      "charm crush",
+      "charmbracelet"
+    ],
+    "icon": null,
+    "emoji": "💘",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.json",
+      "themes/living-code-frost.json",
+      "themes/living-code-paper.json",
+      "themes/living-code-signal.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night # night, frost, paper, or signal\ntheme_dir=\"${CRUSH_GLOBAL_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/crush}/themes\"\ncurl -fsSL --create-dirs -o \"$theme_dir/living-code-$flavor.json\" \"https://raw.githubusercontent.com/living-code-theme/crush/main/themes/living-code-$flavor.json\"\n```\n\nOpen Crush, press **Ctrl+P**, choose **Themes**, and select `living-code-night` or the flavor you downloaded. `CRUSH_GLOBAL_CONFIG` is a **directory**, not a config filename; its `themes/` subdirectory is used when set. On other platforms, place `themes/` inside Crush’s global config directory. Existing config is not replaced.",
+      "configuration": "For a persistent config selection, merge the following into your existing Crush config:\n\n```json\n{ \"options\": { \"tui\": { \"active_theme\": \"living-code-night\" } } }\n```\n\nThe files specify every public `Palette` field and do not rely on an unrelated base theme. Diff code and gutter backgrounds have independent tints, and raw terminal output gets all sixteen Living Code ANSI colors.",
+      "compatibility": "Requires a Crush release supporting standalone JSON theme files and `options.tui.active_theme`. This API was verified against the source revision recorded in `test/fixtures/upstream.json`; older builds without custom themes need an update. The field contract is extracted from Crush’s own palette implementation. No custom providers or credentials are installed.\n\nPreviews are captured programmatically from the actual application in an isolated profile. See [`capture/app.py`](capture/app.py) for the app-owned recipe and [`images/capture.json`](images/capture.json) for runtime, palette and image provenance. No mock interface is drawn.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/crush",
+    "repositoryName": "living-code-theme/crush",
+    "revision": "a24b5875ece92ee3a75e5f9f7736166b2f5a33ac",
+    "readmeUrl": "https://github.com/living-code-theme/crush/blob/a24b5875ece92ee3a75e5f9f7736166b2f5a33ac/README.md",
+    "fileUrls": {
+      "themes/living-code-night.json": "https://github.com/living-code-theme/crush/blob/a24b5875ece92ee3a75e5f9f7736166b2f5a33ac/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/crush/blob/a24b5875ece92ee3a75e5f9f7736166b2f5a33ac/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/crush/blob/a24b5875ece92ee3a75e5f9f7736166b2f5a33ac/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/crush/blob/a24b5875ece92ee3a75e5f9f7736166b2f5a33ac/themes/living-code-signal.json"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Crush running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/fd0ccf3740470932d199dd182aecffc371e9e9c3373da51f2c9e7f3d79c603b6.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Crush running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/38d395097740497480df3a244ec1afa74866b7bfedc32237f4c9cd5da9834a0e.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Crush running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/40de5137c72468b78ebecdaeb298cbf03e31e6806593e797fb7fdeb085f22b12.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Crush running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/95841bbfc4682025c6c3a049796e8ec8c00eea1dabe78ad7798ee23e4db330a6.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

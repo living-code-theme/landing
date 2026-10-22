@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "bottom",
+    "name": "bottom",
+    "group": "CLI & TUI",
+    "description": "Living Code for bottom: native TOML styles for CPU, memory, network, batteries, graphs, tables and selected widgets.",
+    "homepage": "https://github.com/ClementTsang/bottom",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "bottom",
+      "btm",
+      "system monitor"
+    ],
+    "icon": null,
+    "emoji": "📊",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.toml",
+      "themes/living-code-frost.toml",
+      "themes/living-code-paper.toml",
+      "themes/living-code-signal.toml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night # night, frost, paper, or signal\ncurl -fsSL --create-dirs -o \"${XDG_CONFIG_HOME:-$HOME/.config}/bottom/themes/living-code-$flavor.toml\" \"https://raw.githubusercontent.com/living-code-theme/bottom/main/themes/living-code-$flavor.toml\"\nbtm --config \"${XDG_CONFIG_HOME:-$HOME/.config}/bottom/themes/living-code-$flavor.toml\"\n```\n\nThis leaves your normal `bottom.toml` untouched. To retain its monitor layout and process settings, merge the downloaded file’s `[styles]` tables into that config instead. Remove duplicate style tables and do not pass a built-in `--color` override.",
+      "configuration": "The file contains only `[styles]` and its child tables. Remove existing duplicates before merging. Do not pass `--color` when testing the custom palette: a built-in-theme command-line override takes precedence. CPU, temperature and GPU series use a consistent set of Living Code semantic hues. Widget text and selected text use explicit foreground/background pairs.",
+      "compatibility": "Targets bottom’s current `[styles]` format, verified against its complete upstream valid-style fixture. Older releases using different styling keys are not claimed. Truecolor is recommended. Tests parse TOML, check section/field names against the fixture and verify foreground/selection contrast; the native application is also captured automatically.\n\nPreviews are captured programmatically from the actual application in an isolated profile. See [`capture/app.py`](capture/app.py) for the app-owned recipe and [`images/capture.json`](images/capture.json) for runtime, palette and image provenance. No mock interface is drawn.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/bottom",
+    "repositoryName": "living-code-theme/bottom",
+    "revision": "032d0edbcf599cd1a5b23820c307a13b22e36ea4",
+    "readmeUrl": "https://github.com/living-code-theme/bottom/blob/032d0edbcf599cd1a5b23820c307a13b22e36ea4/README.md",
+    "fileUrls": {
+      "themes/living-code-night.toml": "https://github.com/living-code-theme/bottom/blob/032d0edbcf599cd1a5b23820c307a13b22e36ea4/themes/living-code-night.toml",
+      "themes/living-code-frost.toml": "https://github.com/living-code-theme/bottom/blob/032d0edbcf599cd1a5b23820c307a13b22e36ea4/themes/living-code-frost.toml",
+      "themes/living-code-paper.toml": "https://github.com/living-code-theme/bottom/blob/032d0edbcf599cd1a5b23820c307a13b22e36ea4/themes/living-code-paper.toml",
+      "themes/living-code-signal.toml": "https://github.com/living-code-theme/bottom/blob/032d0edbcf599cd1a5b23820c307a13b22e36ea4/themes/living-code-signal.toml"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "bottom running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/b796884c52a33bb35cbd9f9bb9d784dbb494993fc0ff9821a6b0e501e84b6983.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "bottom running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/02c18315856f97160546bfac80205bcc47be3de83318325b0ec296bb1df58ede.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "bottom running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/7814e4fc4bb0c384bba38ce7a8d341ea05f044a4899b78c49e6970ab291a7c60.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "bottom running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/f4e71acf0238bfabf7a7fb1bb6876ec3462f77926b24012613f9f4ef53f59fd5.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

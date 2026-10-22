@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "posting",
+    "name": "Posting",
+    "group": "CLI & TUI",
+    "description": "Living Code for Posting: native YAML palettes for HTTP requests, response status, syntax colors, focus and layered UI surfaces.",
+    "homepage": "https://posting.sh",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "posting",
+      "http client",
+      "posting tui"
+    ],
+    "icon": null,
+    "emoji": "📮",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.yaml",
+      "themes/living-code-frost.yaml",
+      "themes/living-code-paper.yaml",
+      "themes/living-code-signal.yaml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night # night, frost, paper, or signal\ntheme_dir=\"$(posting locate themes | tail -n 1)\"\ncurl -fsSL --create-dirs -o \"$theme_dir/living-code-$flavor.yaml\" \"https://raw.githubusercontent.com/living-code-theme/posting/main/themes/living-code-$flavor.yaml\"\nPOSTING_THEME=\"living-code-$flavor\" posting\n```\n\n`posting locate themes` prints a heading followed by the application’s actual theme directory; `tail -n 1` selects only that path. The download therefore works with custom and platform-specific data locations. Restart an already running Posting instance after adding a new file. No existing config or collection is replaced.",
+      "configuration": "To keep a flavor permanently, set `theme: living-code-night` in Posting’s existing config. You can preview themes through **Ctrl+P → Theme…**. Each YAML file declares its name, light/dark appearance and all supported base palette colors. Posting derives HTTP method and syntax colors from those palette fields; no ignored legacy syntax blocks are shipped.",
+      "compatibility": "Targets Posting 2.11+’s native palette API; the same base fields are also understood by Posting 2, but version-specific rendering is not claimed. Paper explicitly sets `dark: false`. `load_user_themes` must be enabled, and `theme_directory` may override the default location. Tests parse YAML and verify the documented supported field set.\n\nPreviews are captured programmatically from the actual application in an isolated profile. See [`capture/app.py`](capture/app.py) for the app-owned recipe and [`images/capture.json`](images/capture.json) for runtime, palette and image provenance. No mock interface is drawn.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/posting",
+    "repositoryName": "living-code-theme/posting",
+    "revision": "c11c7eff32021bce8ded64cbdf9d73226deeb082",
+    "readmeUrl": "https://github.com/living-code-theme/posting/blob/c11c7eff32021bce8ded64cbdf9d73226deeb082/README.md",
+    "fileUrls": {
+      "themes/living-code-night.yaml": "https://github.com/living-code-theme/posting/blob/c11c7eff32021bce8ded64cbdf9d73226deeb082/themes/living-code-night.yaml",
+      "themes/living-code-frost.yaml": "https://github.com/living-code-theme/posting/blob/c11c7eff32021bce8ded64cbdf9d73226deeb082/themes/living-code-frost.yaml",
+      "themes/living-code-paper.yaml": "https://github.com/living-code-theme/posting/blob/c11c7eff32021bce8ded64cbdf9d73226deeb082/themes/living-code-paper.yaml",
+      "themes/living-code-signal.yaml": "https://github.com/living-code-theme/posting/blob/c11c7eff32021bce8ded64cbdf9d73226deeb082/themes/living-code-signal.yaml"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Posting running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/89e22996ccdbadd440866a3e8bc4dc021a6e9b1237c4b98ec259319a5d98c3e8.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Posting running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/7dfb703e5ebedcbc60cd4a70eea54bcab36e1f714842850b0d1fe9399756ebbc.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Posting running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/fa892b67abfc4018893f8d18c1f30d3053738fde7e6b3ac8bb0b1cf1f688d0a7.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Posting running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/d2201eb619ace268fb2ddeb386ad517f542f35c9983ca6e011b0a533b1eae84d.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

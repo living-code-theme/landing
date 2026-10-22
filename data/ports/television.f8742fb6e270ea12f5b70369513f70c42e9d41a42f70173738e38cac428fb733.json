@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "television",
+    "name": "Television",
+    "group": "CLI & TUI",
+    "description": "Living Code for Television: complete native TOML palettes for search results, matches, previews, selections and mode indicators.",
+    "homepage": "https://github.com/alexpasmantier/television",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "television",
+      "tv",
+      "fuzzy finder"
+    ],
+    "icon": null,
+    "emoji": "📺",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.toml",
+      "themes/living-code-frost.toml",
+      "themes/living-code-paper.toml",
+      "themes/living-code-signal.toml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night # night, frost, paper, or signal\ncurl -fsSL --create-dirs -o \"${XDG_CONFIG_HOME:-$HOME/.config}/television/themes/living-code-$flavor.toml\" \"https://raw.githubusercontent.com/living-code-theme/television/main/themes/living-code-$flavor.toml\"\n```\n\nSet the downloaded filename stem in the existing `[ui]` table of Television’s `config.toml`:\n\n```toml\n[ui]\ntheme = \"living-code-night\"\n```\n\nRestart `tv`. Preserve other config settings; if you use a different Television config directory, put `themes/` beside that `config.toml`.",
+      "configuration": "A theme file has flat color keys; `[ui]` belongs only in `config.toml`. Existing `[ui.theme_overrides]` entries override the installed palette, so remove conflicting values if the colors do not match. The port sets both foreground and background on selected results and every mode badge.",
+      "compatibility": "Targets Television’s documented flat TOML custom-theme API and all required fields in its `Theme` struct. The `send_to_channel_mode_fg` fallback in newer documentation is not needed by the pinned contract. Truecolor is recommended. Tests check the full required field set, native parsing, semantic colors and selected-row contrast.\n\nPreviews are captured programmatically from the actual application in an isolated profile. See [`capture/app.py`](capture/app.py) for the app-owned recipe and [`images/capture.json`](images/capture.json) for runtime, palette and image provenance. No mock interface is drawn.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/television",
+    "repositoryName": "living-code-theme/television",
+    "revision": "6c8dda3a0a01ca723cbe8dfb96951e8bb00ebb9f",
+    "readmeUrl": "https://github.com/living-code-theme/television/blob/6c8dda3a0a01ca723cbe8dfb96951e8bb00ebb9f/README.md",
+    "fileUrls": {
+      "themes/living-code-night.toml": "https://github.com/living-code-theme/television/blob/6c8dda3a0a01ca723cbe8dfb96951e8bb00ebb9f/themes/living-code-night.toml",
+      "themes/living-code-frost.toml": "https://github.com/living-code-theme/television/blob/6c8dda3a0a01ca723cbe8dfb96951e8bb00ebb9f/themes/living-code-frost.toml",
+      "themes/living-code-paper.toml": "https://github.com/living-code-theme/television/blob/6c8dda3a0a01ca723cbe8dfb96951e8bb00ebb9f/themes/living-code-paper.toml",
+      "themes/living-code-signal.toml": "https://github.com/living-code-theme/television/blob/6c8dda3a0a01ca723cbe8dfb96951e8bb00ebb9f/themes/living-code-signal.toml"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Television running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/b7843532647f256dc11a3f87e73407c681fc6853b57c5cf0f3bfa87863d24e73.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Television running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/8559eed573325259e81cfcf91e527d0f2b1b904defe21217b403d4702a78e4fb.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Television running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/73f51a3553ed9fe453fc820a4c00bfc1a1ec8fada7c9c71dfcbfbe757786cb37.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Television running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/b7843532647f256dc11a3f87e73407c681fc6853b57c5cf0f3bfa87863d24e73.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}
