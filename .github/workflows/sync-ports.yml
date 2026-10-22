@@ -38,8 +38,8 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: living-code-theme/core
-          # Reviewed schema-2 publication, batched discovery and optional immutable R2 tooling.
-          ref: 9df9115a8fe1c6e1d5a46519dac08d7a31997511
+          # Reviewed schema-2/R2 publication and optional previews for image-free READMEs.
+          ref: d8041301f5449521f4ad6ff197626db4806c3f25
           path: core
           persist-credentials: false
 

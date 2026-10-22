@@ -46,7 +46,7 @@ The existing schema-1 catalog remains readable during rollout, without merging a
 Only successfully discovered public repositories appear. An empty repository is not a published port. No legacy
 catalog or screenshot source can add entries. Discovery/build never executes port scripts.
 
-Category presentation order is fixed in `src/lib/ports.mjs`: Editors, Terminals, CLI & TUI, Browsers, Apps,
+Category presentation order is fixed in `src/lib/ports.mjs`: Editors, AI & Agents, Terminals, CLI & TUI, Browsers, Apps,
 Web (including Web & code), then Theme systems. Input refreshes do not change this order. Only populated
 categories appear; new categories follow the established ones in discovery order, and ports within each
 category retain their discovery order.
@@ -106,8 +106,9 @@ Actions log, rerun the workflow, or let the next scheduled run retry.
 
 ### One-time activation
 
-1. Ensure core's `main` branch includes **commit `9df9115a8fe1c6e1d5a46519dac08d7a31997511`**, the tooling revision
-   pinned in the workflow. That commit is published; update the pin explicitly when adopting a reviewed tooling change.
+1. Ensure core's `main` branch includes **commit `d8041301f5449521f4ad6ff197626db4806c3f25`**, the tooling revision
+   pinned in the workflow. It supports optional preview sections for image-free READMEs while retaining strict
+   validation of declared captures. That commit is published; update the pin explicitly when adopting a reviewed tooling change.
 2. In landing's **Settings → Secrets and variables → Actions**, configure:
    - Secret **`CLOUDFLARE_API_TOKEN`**: a Cloudflare API token allowed to deploy Workers/static assets in this Worker's
      account (the **Edit Cloudflare Workers** template, scoped to that account). Do not copy a personal Wrangler OAuth
