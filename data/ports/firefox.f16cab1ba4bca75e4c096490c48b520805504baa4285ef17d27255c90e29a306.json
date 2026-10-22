@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "firefox",
+    "name": "Firefox",
+    "group": "Browsers",
+    "description": "Living Code for Firefox. Repository-owned theme files, installation instructions and Night and Paper.",
+    "homepage": "https://www.firefox.com",
+    "quick": "See installation instructions",
+    "aliases": [
+      "firefox"
+    ],
+    "icon": null,
+    "emoji": "🦊",
+    "flavors": [
+      "night",
+      "paper"
+    ],
+    "files": [
+      "OFL-JetBrainsMono.txt",
+      "living-code-night/icons/icon-128.png",
+      "living-code-night/icons/icon-256.png",
+      "living-code-night/icons/icon-48.png",
+      "living-code-night/icons/icon-512.png",
+      "living-code-night/icons/icon-96.png",
+      "living-code-night/icons/icon.svg",
+      "living-code-night/manifest.json",
+      "living-code-paper/icons/icon-128.png",
+      "living-code-paper/icons/icon-256.png",
+      "living-code-paper/icons/icon-48.png",
+      "living-code-paper/icons/icon-512.png",
+      "living-code-paper/icons/icon-96.png",
+      "living-code-paper/icons/icon.svg",
+      "living-code-paper/manifest.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Choose **Night** for a dark browser or **Paper** for a light one.\n\nThe organization-owned themes are not listed yet. Once published, find **Living Code Night** or **Living Code Paper** from **Living Code** on [Firefox Add-ons](https://addons.mozilla.org/firefox/themes/) and click **Install Theme**.\n\nTo switch themes, open **Add-ons and themes → Themes** (`about:addons`) and enable your preferred variant.\n\nFor packaging, run `node scripts/package.mjs` from a checkout. It writes `dist/living-code-firefox-night.xpi` and `dist/living-code-firefox-paper.xpi`. These files are unsigned; standard release Firefox requires AMO signing before installation.",
+      "configuration": "See [Firefox's documentation](https://www.firefox.com) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "Firefox 106 or newer. Only Night and Paper ship: Firefox's theme slots cannot meaningfully distinguish the other dark flavors. Release Firefox requires an AMO-signed theme; locally packaged XPI files are unsigned.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/firefox",
+    "repositoryName": "living-code-theme/firefox",
+    "revision": "5fe23dac84685bacfa74b848cc2022b5092b9eaa",
+    "readmeUrl": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/README.md",
+    "fileUrls": {
+      "OFL-JetBrainsMono.txt": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/OFL-JetBrainsMono.txt",
+      "living-code-night/icons/icon-128.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-night/icons/icon-128.png",
+      "living-code-night/icons/icon-256.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-night/icons/icon-256.png",
+      "living-code-night/icons/icon-48.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-night/icons/icon-48.png",
+      "living-code-night/icons/icon-512.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-night/icons/icon-512.png",
+      "living-code-night/icons/icon-96.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-night/icons/icon-96.png",
+      "living-code-night/icons/icon.svg": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-night/icons/icon.svg",
+      "living-code-night/manifest.json": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-night/manifest.json",
+      "living-code-paper/icons/icon-128.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-paper/icons/icon-128.png",
+      "living-code-paper/icons/icon-256.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-paper/icons/icon-256.png",
+      "living-code-paper/icons/icon-48.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-paper/icons/icon-48.png",
+      "living-code-paper/icons/icon-512.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-paper/icons/icon-512.png",
+      "living-code-paper/icons/icon-96.png": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-paper/icons/icon-96.png",
+      "living-code-paper/icons/icon.svg": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-paper/icons/icon.svg",
+      "living-code-paper/manifest.json": "https://github.com/living-code-theme/firefox/blob/5fe23dac84685bacfa74b848cc2022b5092b9eaa/living-code-paper/manifest.json"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Firefox running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/b2d1c7a67634352b48a1b8226629fa0a38c70d09ab14a51c86a91dbf2b95623b.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Firefox running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/e259763b05b5fe6a66fbb90856fc239e836bddc1b49b6606b34bf531ae3fcc96.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

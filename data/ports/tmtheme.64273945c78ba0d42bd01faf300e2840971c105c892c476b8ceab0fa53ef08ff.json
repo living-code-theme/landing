@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "tmtheme",
+    "name": "bat · delta (tmTheme)",
+    "group": "Editors",
+    "description": "Living Code for bat · delta (tmTheme). Repository-owned theme files, installation instructions and four color flavors.",
+    "homepage": "https://github.com/sharkdp/bat",
+    "quick": "See installation instructions",
+    "aliases": [
+      "tmtheme"
+    ],
+    "icon": null,
+    "emoji": "🦇",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.tmTheme",
+      "living-code-night.tmTheme",
+      "living-code-paper.tmTheme",
+      "living-code-signal.tmTheme"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "**bat / delta**\n\n```sh\ncurl -fsSL --create-dirs --output-dir \"$(bat --config-dir)/themes\" -O \"https://raw.githubusercontent.com/living-code-theme/tmtheme/main/living-code-{night,frost,paper,signal}.tmTheme\" && bat cache --build\nbat --list-themes | grep living-code\n```\n\nThen `--theme=\"living-code-night\"` in `$(bat --config-dir)/config`, and `syntax-theme = living-code-night` under `[delta]` in `~/.gitconfig`. For delta's diff backgrounds, headers and gutters, also use the dedicated [delta port](https://github.com/living-code-theme/delta).\n\n**Sublime Text** has its own native color scheme: use the dedicated [Sublime Text port](https://github.com/living-code-theme/sublime). The `.tmTheme` files are kept for bat and delta.",
+      "configuration": "See [bat · delta (tmTheme)'s documentation](https://github.com/sharkdp/bat) for application settings and reload behavior. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies theme files for bat · delta (tmTheme), not the application itself. Install the application separately and follow the installation instructions for its supported configuration format.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/tmtheme",
+    "repositoryName": "living-code-theme/tmtheme",
+    "revision": "9bb9e9fb0ef5a2889548417c871660ca1285f7d7",
+    "readmeUrl": "https://github.com/living-code-theme/tmtheme/blob/9bb9e9fb0ef5a2889548417c871660ca1285f7d7/README.md",
+    "fileUrls": {
+      "living-code-frost.tmTheme": "https://github.com/living-code-theme/tmtheme/blob/9bb9e9fb0ef5a2889548417c871660ca1285f7d7/living-code-frost.tmTheme",
+      "living-code-night.tmTheme": "https://github.com/living-code-theme/tmtheme/blob/9bb9e9fb0ef5a2889548417c871660ca1285f7d7/living-code-night.tmTheme",
+      "living-code-paper.tmTheme": "https://github.com/living-code-theme/tmtheme/blob/9bb9e9fb0ef5a2889548417c871660ca1285f7d7/living-code-paper.tmTheme",
+      "living-code-signal.tmTheme": "https://github.com/living-code-theme/tmtheme/blob/9bb9e9fb0ef5a2889548417c871660ca1285f7d7/living-code-signal.tmTheme"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "bat · delta (tmTheme) running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "bat · delta (tmTheme) running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "bat · delta (tmTheme) running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/dc0e4cc2bc66371aad6a4715cb7a36e8e3dbd48af7b0891cbdaff9b323220da5.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "bat · delta (tmTheme) running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}
