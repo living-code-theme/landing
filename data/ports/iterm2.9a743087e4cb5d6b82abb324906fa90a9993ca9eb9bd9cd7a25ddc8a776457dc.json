@@ -33,13 +33,13 @@
     },
     "repository": "https://github.com/living-code-theme/iterm2",
     "repositoryName": "living-code-theme/iterm2",
-    "revision": "f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2",
-    "readmeUrl": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/README.md",
+    "revision": "1df2b33db2c8cb614db8dc855f57822825c123ef",
+    "readmeUrl": "https://github.com/living-code-theme/iterm2/blob/1df2b33db2c8cb614db8dc855f57822825c123ef/README.md",
     "fileUrls": {
-      "Living-Code-Frost.itermcolors": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/Living-Code-Frost.itermcolors",
-      "Living-Code-Night.itermcolors": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/Living-Code-Night.itermcolors",
-      "Living-Code-Paper.itermcolors": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/Living-Code-Paper.itermcolors",
-      "Living-Code-Signal.itermcolors": "https://github.com/living-code-theme/iterm2/blob/f1a6aa24de8f3b58eb4210778d00fc2e4cc375a2/Living-Code-Signal.itermcolors"
+      "Living-Code-Frost.itermcolors": "https://github.com/living-code-theme/iterm2/blob/1df2b33db2c8cb614db8dc855f57822825c123ef/Living-Code-Frost.itermcolors",
+      "Living-Code-Night.itermcolors": "https://github.com/living-code-theme/iterm2/blob/1df2b33db2c8cb614db8dc855f57822825c123ef/Living-Code-Night.itermcolors",
+      "Living-Code-Paper.itermcolors": "https://github.com/living-code-theme/iterm2/blob/1df2b33db2c8cb614db8dc855f57822825c123ef/Living-Code-Paper.itermcolors",
+      "Living-Code-Signal.itermcolors": "https://github.com/living-code-theme/iterm2/blob/1df2b33db2c8cb614db8dc855f57822825c123ef/Living-Code-Signal.itermcolors"
     },
     "images": [],
     "guideImages": {}

@@ -31,11 +31,11 @@
     },
     "repository": "https://github.com/living-code-theme/palette",
     "repositoryName": "living-code-theme/palette",
-    "revision": "ba2dde6409016fa1666409caa9211402b8062ccd",
-    "readmeUrl": "https://github.com/living-code-theme/palette/blob/ba2dde6409016fa1666409caa9211402b8062ccd/README.md",
+    "revision": "f62ee4baed7f40887791b03aafb0ac30c043f2c1",
+    "readmeUrl": "https://github.com/living-code-theme/palette/blob/f62ee4baed7f40887791b03aafb0ac30c043f2c1/README.md",
     "fileUrls": {
-      "palette.json": "https://github.com/living-code-theme/palette/blob/ba2dde6409016fa1666409caa9211402b8062ccd/palette.json",
-      "palette.mjs": "https://github.com/living-code-theme/palette/blob/ba2dde6409016fa1666409caa9211402b8062ccd/palette.mjs"
+      "palette.json": "https://github.com/living-code-theme/palette/blob/f62ee4baed7f40887791b03aafb0ac30c043f2c1/palette.json",
+      "palette.mjs": "https://github.com/living-code-theme/palette/blob/f62ee4baed7f40887791b03aafb0ac30c043f2c1/palette.mjs"
     },
     "images": [],
     "guideImages": {}

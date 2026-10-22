@@ -33,13 +33,13 @@
     },
     "repository": "https://github.com/living-code-theme/warp",
     "repositoryName": "living-code-theme/warp",
-    "revision": "bf7c6854f852fcc37bb53e20eca9148abfac0769",
-    "readmeUrl": "https://github.com/living-code-theme/warp/blob/bf7c6854f852fcc37bb53e20eca9148abfac0769/README.md",
+    "revision": "3bfcb287f795056c8f62c37c3b8e89bc8bdd6ec8",
+    "readmeUrl": "https://github.com/living-code-theme/warp/blob/3bfcb287f795056c8f62c37c3b8e89bc8bdd6ec8/README.md",
     "fileUrls": {
-      "living-code-frost.yaml": "https://github.com/living-code-theme/warp/blob/bf7c6854f852fcc37bb53e20eca9148abfac0769/living-code-frost.yaml",
-      "living-code-night.yaml": "https://github.com/living-code-theme/warp/blob/bf7c6854f852fcc37bb53e20eca9148abfac0769/living-code-night.yaml",
-      "living-code-paper.yaml": "https://github.com/living-code-theme/warp/blob/bf7c6854f852fcc37bb53e20eca9148abfac0769/living-code-paper.yaml",
-      "living-code-signal.yaml": "https://github.com/living-code-theme/warp/blob/bf7c6854f852fcc37bb53e20eca9148abfac0769/living-code-signal.yaml"
+      "living-code-frost.yaml": "https://github.com/living-code-theme/warp/blob/3bfcb287f795056c8f62c37c3b8e89bc8bdd6ec8/living-code-frost.yaml",
+      "living-code-night.yaml": "https://github.com/living-code-theme/warp/blob/3bfcb287f795056c8f62c37c3b8e89bc8bdd6ec8/living-code-night.yaml",
+      "living-code-paper.yaml": "https://github.com/living-code-theme/warp/blob/3bfcb287f795056c8f62c37c3b8e89bc8bdd6ec8/living-code-paper.yaml",
+      "living-code-signal.yaml": "https://github.com/living-code-theme/warp/blob/3bfcb287f795056c8f62c37c3b8e89bc8bdd6ec8/living-code-signal.yaml"
     },
     "images": [],
     "guideImages": {}

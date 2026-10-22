@@ -33,13 +33,13 @@
     },
     "repository": "https://github.com/living-code-theme/slack",
     "repositoryName": "living-code-theme/slack",
-    "revision": "51fb0025c6ca105287ccee9444ddec1497770934",
-    "readmeUrl": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/README.md",
+    "revision": "d3cab25e29a2011a2f58e10b7f6cad11c8cd4931",
+    "readmeUrl": "https://github.com/living-code-theme/slack/blob/d3cab25e29a2011a2f58e10b7f6cad11c8cd4931/README.md",
     "fileUrls": {
-      "living-code-frost.txt": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/living-code-frost.txt",
-      "living-code-night.txt": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/living-code-night.txt",
-      "living-code-paper.txt": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/living-code-paper.txt",
-      "living-code-signal.txt": "https://github.com/living-code-theme/slack/blob/51fb0025c6ca105287ccee9444ddec1497770934/living-code-signal.txt"
+      "living-code-frost.txt": "https://github.com/living-code-theme/slack/blob/d3cab25e29a2011a2f58e10b7f6cad11c8cd4931/living-code-frost.txt",
+      "living-code-night.txt": "https://github.com/living-code-theme/slack/blob/d3cab25e29a2011a2f58e10b7f6cad11c8cd4931/living-code-night.txt",
+      "living-code-paper.txt": "https://github.com/living-code-theme/slack/blob/d3cab25e29a2011a2f58e10b7f6cad11c8cd4931/living-code-paper.txt",
+      "living-code-signal.txt": "https://github.com/living-code-theme/slack/blob/d3cab25e29a2011a2f58e10b7f6cad11c8cd4931/living-code-signal.txt"
     },
     "images": [],
     "guideImages": {}

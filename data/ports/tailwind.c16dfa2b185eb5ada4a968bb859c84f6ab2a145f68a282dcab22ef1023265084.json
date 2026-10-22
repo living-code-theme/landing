@@ -30,10 +30,10 @@
     },
     "repository": "https://github.com/living-code-theme/tailwind",
     "repositoryName": "living-code-theme/tailwind",
-    "revision": "b4d9c7a415d016a179c25519194f50c9fe53b1e2",
-    "readmeUrl": "https://github.com/living-code-theme/tailwind/blob/b4d9c7a415d016a179c25519194f50c9fe53b1e2/README.md",
+    "revision": "3230b981aacf75ce468efa9b16d694d73e2f39f1",
+    "readmeUrl": "https://github.com/living-code-theme/tailwind/blob/3230b981aacf75ce468efa9b16d694d73e2f39f1/README.md",
     "fileUrls": {
-      "living-code.css": "https://github.com/living-code-theme/tailwind/blob/b4d9c7a415d016a179c25519194f50c9fe53b1e2/living-code.css"
+      "living-code.css": "https://github.com/living-code-theme/tailwind/blob/3230b981aacf75ce468efa9b16d694d73e2f39f1/living-code.css"
     },
     "images": [],
     "guideImages": {}
