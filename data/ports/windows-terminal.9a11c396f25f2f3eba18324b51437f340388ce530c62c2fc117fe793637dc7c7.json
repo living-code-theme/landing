@@ -34,14 +34,14 @@
     },
     "repository": "https://github.com/living-code-theme/windows-terminal",
     "repositoryName": "living-code-theme/windows-terminal",
-    "revision": "4d2ed208f2aae489a365638b98ae51e8d776791f",
-    "readmeUrl": "https://github.com/living-code-theme/windows-terminal/blob/4d2ed208f2aae489a365638b98ae51e8d776791f/README.md",
+    "revision": "753a4346ff43953b76bdc755201073a21243fdb6",
+    "readmeUrl": "https://github.com/living-code-theme/windows-terminal/blob/753a4346ff43953b76bdc755201073a21243fdb6/README.md",
     "fileUrls": {
-      "living-code-frost.json": "https://github.com/living-code-theme/windows-terminal/blob/4d2ed208f2aae489a365638b98ae51e8d776791f/living-code-frost.json",
-      "living-code-night.json": "https://github.com/living-code-theme/windows-terminal/blob/4d2ed208f2aae489a365638b98ae51e8d776791f/living-code-night.json",
-      "living-code-paper.json": "https://github.com/living-code-theme/windows-terminal/blob/4d2ed208f2aae489a365638b98ae51e8d776791f/living-code-paper.json",
-      "living-code-signal.json": "https://github.com/living-code-theme/windows-terminal/blob/4d2ed208f2aae489a365638b98ae51e8d776791f/living-code-signal.json",
-      "living-code.json": "https://github.com/living-code-theme/windows-terminal/blob/4d2ed208f2aae489a365638b98ae51e8d776791f/living-code.json"
+      "living-code-frost.json": "https://github.com/living-code-theme/windows-terminal/blob/753a4346ff43953b76bdc755201073a21243fdb6/living-code-frost.json",
+      "living-code-night.json": "https://github.com/living-code-theme/windows-terminal/blob/753a4346ff43953b76bdc755201073a21243fdb6/living-code-night.json",
+      "living-code-paper.json": "https://github.com/living-code-theme/windows-terminal/blob/753a4346ff43953b76bdc755201073a21243fdb6/living-code-paper.json",
+      "living-code-signal.json": "https://github.com/living-code-theme/windows-terminal/blob/753a4346ff43953b76bdc755201073a21243fdb6/living-code-signal.json",
+      "living-code.json": "https://github.com/living-code-theme/windows-terminal/blob/753a4346ff43953b76bdc755201073a21243fdb6/living-code.json"
     },
     "images": [],
     "guideImages": {}

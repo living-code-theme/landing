@@ -38,18 +38,18 @@
     },
     "repository": "https://github.com/living-code-theme/vscode",
     "repositoryName": "living-code-theme/vscode",
-    "revision": "a5f25e99b09ac2c552d06915f96d5e0fd0ab0533",
-    "readmeUrl": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/README.md",
+    "revision": "5e150e234c7bc6673df16b18cf56c3d66e32023e",
+    "readmeUrl": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/README.md",
     "fileUrls": {
-      ".vscodeignore": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/.vscodeignore",
-      "CHANGELOG.md": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/CHANGELOG.md",
-      "OFL-JetBrainsMono.txt": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/OFL-JetBrainsMono.txt",
-      "images/icon.png": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/images/icon.png",
-      "package.json": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/package.json",
-      "themes/living-code-frost-color-theme.json": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/themes/living-code-frost-color-theme.json",
-      "themes/living-code-night-color-theme.json": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/themes/living-code-night-color-theme.json",
-      "themes/living-code-paper-color-theme.json": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/themes/living-code-paper-color-theme.json",
-      "themes/living-code-signal-color-theme.json": "https://github.com/living-code-theme/vscode/blob/a5f25e99b09ac2c552d06915f96d5e0fd0ab0533/themes/living-code-signal-color-theme.json"
+      ".vscodeignore": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/.vscodeignore",
+      "CHANGELOG.md": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/CHANGELOG.md",
+      "OFL-JetBrainsMono.txt": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/OFL-JetBrainsMono.txt",
+      "images/icon.png": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/images/icon.png",
+      "package.json": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/package.json",
+      "themes/living-code-frost-color-theme.json": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/themes/living-code-frost-color-theme.json",
+      "themes/living-code-night-color-theme.json": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/themes/living-code-night-color-theme.json",
+      "themes/living-code-paper-color-theme.json": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/themes/living-code-paper-color-theme.json",
+      "themes/living-code-signal-color-theme.json": "https://github.com/living-code-theme/vscode/blob/5e150e234c7bc6673df16b18cf56c3d66e32023e/themes/living-code-signal-color-theme.json"
     },
     "images": [
       {

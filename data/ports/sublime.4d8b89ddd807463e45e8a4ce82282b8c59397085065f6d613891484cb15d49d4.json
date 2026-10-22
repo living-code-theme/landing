@@ -33,13 +33,13 @@
     },
     "repository": "https://github.com/living-code-theme/sublime",
     "repositoryName": "living-code-theme/sublime",
-    "revision": "cd2a9605750d2f197c0fa4ad213a430943e87f3c",
-    "readmeUrl": "https://github.com/living-code-theme/sublime/blob/cd2a9605750d2f197c0fa4ad213a430943e87f3c/README.md",
+    "revision": "288e61b5f6406702222563c0d79f1eac31d58cc2",
+    "readmeUrl": "https://github.com/living-code-theme/sublime/blob/288e61b5f6406702222563c0d79f1eac31d58cc2/README.md",
     "fileUrls": {
-      "living-code-frost.sublime-color-scheme": "https://github.com/living-code-theme/sublime/blob/cd2a9605750d2f197c0fa4ad213a430943e87f3c/living-code-frost.sublime-color-scheme",
-      "living-code-night.sublime-color-scheme": "https://github.com/living-code-theme/sublime/blob/cd2a9605750d2f197c0fa4ad213a430943e87f3c/living-code-night.sublime-color-scheme",
-      "living-code-paper.sublime-color-scheme": "https://github.com/living-code-theme/sublime/blob/cd2a9605750d2f197c0fa4ad213a430943e87f3c/living-code-paper.sublime-color-scheme",
-      "living-code-signal.sublime-color-scheme": "https://github.com/living-code-theme/sublime/blob/cd2a9605750d2f197c0fa4ad213a430943e87f3c/living-code-signal.sublime-color-scheme"
+      "living-code-frost.sublime-color-scheme": "https://github.com/living-code-theme/sublime/blob/288e61b5f6406702222563c0d79f1eac31d58cc2/living-code-frost.sublime-color-scheme",
+      "living-code-night.sublime-color-scheme": "https://github.com/living-code-theme/sublime/blob/288e61b5f6406702222563c0d79f1eac31d58cc2/living-code-night.sublime-color-scheme",
+      "living-code-paper.sublime-color-scheme": "https://github.com/living-code-theme/sublime/blob/288e61b5f6406702222563c0d79f1eac31d58cc2/living-code-paper.sublime-color-scheme",
+      "living-code-signal.sublime-color-scheme": "https://github.com/living-code-theme/sublime/blob/288e61b5f6406702222563c0d79f1eac31d58cc2/living-code-signal.sublime-color-scheme"
     },
     "images": [
       {

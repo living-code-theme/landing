@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "chrome",
+    "name": "Chrome, Brave and Chromium",
+    "group": "Browsers",
+    "description": "Dark Night and light Paper themes with neutral slate surfaces and restrained teal accents.",
+    "homepage": "https://chromewebstore.google.com/category/themes",
+    "quick": "See installation instructions",
+    "aliases": [
+      "chrome"
+    ],
+    "icon": null,
+    "emoji": "🌐",
+    "flavors": [
+      "night",
+      "paper"
+    ],
+    "files": [
+      "OFL-JetBrainsMono.txt",
+      "living-code-night/icons/icon-128.png",
+      "living-code-night/icons/icon-48.png",
+      "living-code-night/manifest.json",
+      "living-code-paper/icons/icon-128.png",
+      "living-code-paper/icons/icon-48.png",
+      "living-code-paper/manifest.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Choose **Night** for a dark browser or **Paper** for a light one. They are Manifest V3 themes for Chrome and Chromium; Brave installs Chrome themes too. Vivaldi does not apply Chrome themes, and Edge, Opera and Arc have not been tested.\n\n1. **Release zip:** download `living-code-chrome-night.zip` or `living-code-chrome-paper.zip` from the latest [GitHub release](https://github.com/living-code-theme/chrome/releases/latest) and unzip it. Open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** and select the folder. (From a checkout, select `living-code-night` or `living-code-paper`.)\n2. **Chrome Web Store, once listed:** Neither theme is listed yet. When they are, search for **Living Code Night** or **Living Code Paper** and click **Add to Chrome**.\n\nTo switch themes, install the other one, or use **Settings → Appearance → Reset to default**.",
+      "configuration": "Neutral slate tab strips, toolbar surfaces and navigation icons follow the Firefox port's surface hierarchy.\nTeal is limited to small active-tab details and supported New Tab links, rather than tinting whole surfaces.\nNight stays dark; Paper stays near-white.\n\nChrome's theme API does not expose Firefox's tab-outline or address-field focus-border colors. Chrome also\ncontrols profile buttons and parts of its New Tab search/customization UI independently. A theme does not\nrecolor websites or change your browser's language. Brave and other Chromium versions may apply these mappings\ndifferently.\n\nUse the activation instructions above and keep your other application configuration.",
+      "compatibility": "Manifest V3 themes for Chrome, Chromium and Brave. Only Night and Paper ship. Vivaldi does not apply Chrome themes; Edge, Opera and Arc have not been tested.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/chrome",
+    "repositoryName": "living-code-theme/chrome",
+    "revision": "7bb7b677f7d67ab27a4633f8307e25ac123ab549",
+    "readmeUrl": "https://github.com/living-code-theme/chrome/blob/7bb7b677f7d67ab27a4633f8307e25ac123ab549/README.md",
+    "fileUrls": {
+      "OFL-JetBrainsMono.txt": "https://github.com/living-code-theme/chrome/blob/7bb7b677f7d67ab27a4633f8307e25ac123ab549/OFL-JetBrainsMono.txt",
+      "living-code-night/icons/icon-128.png": "https://github.com/living-code-theme/chrome/blob/7bb7b677f7d67ab27a4633f8307e25ac123ab549/living-code-night/icons/icon-128.png",
+      "living-code-night/icons/icon-48.png": "https://github.com/living-code-theme/chrome/blob/7bb7b677f7d67ab27a4633f8307e25ac123ab549/living-code-night/icons/icon-48.png",
+      "living-code-night/manifest.json": "https://github.com/living-code-theme/chrome/blob/7bb7b677f7d67ab27a4633f8307e25ac123ab549/living-code-night/manifest.json",
+      "living-code-paper/icons/icon-128.png": "https://github.com/living-code-theme/chrome/blob/7bb7b677f7d67ab27a4633f8307e25ac123ab549/living-code-paper/icons/icon-128.png",
+      "living-code-paper/icons/icon-48.png": "https://github.com/living-code-theme/chrome/blob/7bb7b677f7d67ab27a4633f8307e25ac123ab549/living-code-paper/icons/icon-48.png",
+      "living-code-paper/manifest.json": "https://github.com/living-code-theme/chrome/blob/7bb7b677f7d67ab27a4633f8307e25ac123ab549/living-code-paper/manifest.json"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Real Chromium in English with Living Code Night: dark slate surfaces and a small teal active-tab accent",
+        "src": "https://assets.living-code.dev/port-images/301ee98b06f023939edf080aeddd66f7b7f49c1067e4fdc24358b4281508f9dc.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Real Chromium in English with Living Code Paper: light slate surfaces and a small teal active-tab accent",
+        "src": "https://assets.living-code.dev/port-images/7e2891b84b37d74727a4cfe3cb9efb4a042ecb2f712bd44b1db1bf9903ade613.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

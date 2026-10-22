@@ -31,11 +31,11 @@
     },
     "repository": "https://github.com/living-code-theme/zed",
     "repositoryName": "living-code-theme/zed",
-    "revision": "9c458f84d22bf0785752298cb7f1763d282f7bfa",
-    "readmeUrl": "https://github.com/living-code-theme/zed/blob/9c458f84d22bf0785752298cb7f1763d282f7bfa/README.md",
+    "revision": "ffeecdb963535defc4335b431df4e175f2aef53b",
+    "readmeUrl": "https://github.com/living-code-theme/zed/blob/ffeecdb963535defc4335b431df4e175f2aef53b/README.md",
     "fileUrls": {
-      "extension.toml": "https://github.com/living-code-theme/zed/blob/9c458f84d22bf0785752298cb7f1763d282f7bfa/extension.toml",
-      "themes/living-code.json": "https://github.com/living-code-theme/zed/blob/9c458f84d22bf0785752298cb7f1763d282f7bfa/themes/living-code.json"
+      "extension.toml": "https://github.com/living-code-theme/zed/blob/ffeecdb963535defc4335b431df4e175f2aef53b/extension.toml",
+      "themes/living-code.json": "https://github.com/living-code-theme/zed/blob/ffeecdb963535defc4335b431df4e175f2aef53b/themes/living-code.json"
     },
     "images": [
       {

@@ -33,13 +33,13 @@
     },
     "repository": "https://github.com/living-code-theme/starship",
     "repositoryName": "living-code-theme/starship",
-    "revision": "c954f5e10ab0b5801504b5df1e6abb42f811d03b",
-    "readmeUrl": "https://github.com/living-code-theme/starship/blob/c954f5e10ab0b5801504b5df1e6abb42f811d03b/README.md",
+    "revision": "96f08e3e8a0c904218671304b914a5a2294e884f",
+    "readmeUrl": "https://github.com/living-code-theme/starship/blob/96f08e3e8a0c904218671304b914a5a2294e884f/README.md",
     "fileUrls": {
-      "living-code-frost.toml": "https://github.com/living-code-theme/starship/blob/c954f5e10ab0b5801504b5df1e6abb42f811d03b/living-code-frost.toml",
-      "living-code-night.toml": "https://github.com/living-code-theme/starship/blob/c954f5e10ab0b5801504b5df1e6abb42f811d03b/living-code-night.toml",
-      "living-code-paper.toml": "https://github.com/living-code-theme/starship/blob/c954f5e10ab0b5801504b5df1e6abb42f811d03b/living-code-paper.toml",
-      "living-code-signal.toml": "https://github.com/living-code-theme/starship/blob/c954f5e10ab0b5801504b5df1e6abb42f811d03b/living-code-signal.toml"
+      "living-code-frost.toml": "https://github.com/living-code-theme/starship/blob/96f08e3e8a0c904218671304b914a5a2294e884f/living-code-frost.toml",
+      "living-code-night.toml": "https://github.com/living-code-theme/starship/blob/96f08e3e8a0c904218671304b914a5a2294e884f/living-code-night.toml",
+      "living-code-paper.toml": "https://github.com/living-code-theme/starship/blob/96f08e3e8a0c904218671304b914a5a2294e884f/living-code-paper.toml",
+      "living-code-signal.toml": "https://github.com/living-code-theme/starship/blob/96f08e3e8a0c904218671304b914a5a2294e884f/living-code-signal.toml"
     },
     "images": [
       {

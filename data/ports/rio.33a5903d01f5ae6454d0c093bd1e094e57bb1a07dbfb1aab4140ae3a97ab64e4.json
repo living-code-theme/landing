@@ -35,13 +35,13 @@
     },
     "repository": "https://github.com/living-code-theme/rio",
     "repositoryName": "living-code-theme/rio",
-    "revision": "e8680195fc863e24fce542b0e09ddf9b72e21361",
-    "readmeUrl": "https://github.com/living-code-theme/rio/blob/e8680195fc863e24fce542b0e09ddf9b72e21361/README.md",
+    "revision": "faf784483176148f1b2bae29a05b928e845baa42",
+    "readmeUrl": "https://github.com/living-code-theme/rio/blob/faf784483176148f1b2bae29a05b928e845baa42/README.md",
     "fileUrls": {
-      "themes/living-code-night.toml": "https://github.com/living-code-theme/rio/blob/e8680195fc863e24fce542b0e09ddf9b72e21361/themes/living-code-night.toml",
-      "themes/living-code-frost.toml": "https://github.com/living-code-theme/rio/blob/e8680195fc863e24fce542b0e09ddf9b72e21361/themes/living-code-frost.toml",
-      "themes/living-code-paper.toml": "https://github.com/living-code-theme/rio/blob/e8680195fc863e24fce542b0e09ddf9b72e21361/themes/living-code-paper.toml",
-      "themes/living-code-signal.toml": "https://github.com/living-code-theme/rio/blob/e8680195fc863e24fce542b0e09ddf9b72e21361/themes/living-code-signal.toml"
+      "themes/living-code-night.toml": "https://github.com/living-code-theme/rio/blob/faf784483176148f1b2bae29a05b928e845baa42/themes/living-code-night.toml",
+      "themes/living-code-frost.toml": "https://github.com/living-code-theme/rio/blob/faf784483176148f1b2bae29a05b928e845baa42/themes/living-code-frost.toml",
+      "themes/living-code-paper.toml": "https://github.com/living-code-theme/rio/blob/faf784483176148f1b2bae29a05b928e845baa42/themes/living-code-paper.toml",
+      "themes/living-code-signal.toml": "https://github.com/living-code-theme/rio/blob/faf784483176148f1b2bae29a05b928e845baa42/themes/living-code-signal.toml"
     },
     "images": [
       {

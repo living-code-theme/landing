@@ -33,13 +33,13 @@
     },
     "repository": "https://github.com/living-code-theme/zellij",
     "repositoryName": "living-code-theme/zellij",
-    "revision": "8867505fba9bc0b51b24f074bd7250b20d4e3bb6",
-    "readmeUrl": "https://github.com/living-code-theme/zellij/blob/8867505fba9bc0b51b24f074bd7250b20d4e3bb6/README.md",
+    "revision": "7b989134ce9f9492457772cb1da67596dd51a552",
+    "readmeUrl": "https://github.com/living-code-theme/zellij/blob/7b989134ce9f9492457772cb1da67596dd51a552/README.md",
     "fileUrls": {
-      "living-code-frost.kdl": "https://github.com/living-code-theme/zellij/blob/8867505fba9bc0b51b24f074bd7250b20d4e3bb6/living-code-frost.kdl",
-      "living-code-night.kdl": "https://github.com/living-code-theme/zellij/blob/8867505fba9bc0b51b24f074bd7250b20d4e3bb6/living-code-night.kdl",
-      "living-code-paper.kdl": "https://github.com/living-code-theme/zellij/blob/8867505fba9bc0b51b24f074bd7250b20d4e3bb6/living-code-paper.kdl",
-      "living-code-signal.kdl": "https://github.com/living-code-theme/zellij/blob/8867505fba9bc0b51b24f074bd7250b20d4e3bb6/living-code-signal.kdl"
+      "living-code-frost.kdl": "https://github.com/living-code-theme/zellij/blob/7b989134ce9f9492457772cb1da67596dd51a552/living-code-frost.kdl",
+      "living-code-night.kdl": "https://github.com/living-code-theme/zellij/blob/7b989134ce9f9492457772cb1da67596dd51a552/living-code-night.kdl",
+      "living-code-paper.kdl": "https://github.com/living-code-theme/zellij/blob/7b989134ce9f9492457772cb1da67596dd51a552/living-code-paper.kdl",
+      "living-code-signal.kdl": "https://github.com/living-code-theme/zellij/blob/7b989134ce9f9492457772cb1da67596dd51a552/living-code-signal.kdl"
     },
     "images": [
       {

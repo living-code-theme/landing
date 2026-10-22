@@ -33,13 +33,13 @@
     },
     "repository": "https://github.com/living-code-theme/tmux",
     "repositoryName": "living-code-theme/tmux",
-    "revision": "3ac9f7f8b3105d4aac9d9ff963ad43d2bb898f64",
-    "readmeUrl": "https://github.com/living-code-theme/tmux/blob/3ac9f7f8b3105d4aac9d9ff963ad43d2bb898f64/README.md",
+    "revision": "8b99dc7533633e2399f7fb8369239fec4fcccb96",
+    "readmeUrl": "https://github.com/living-code-theme/tmux/blob/8b99dc7533633e2399f7fb8369239fec4fcccb96/README.md",
     "fileUrls": {
-      "living-code-frost.conf": "https://github.com/living-code-theme/tmux/blob/3ac9f7f8b3105d4aac9d9ff963ad43d2bb898f64/living-code-frost.conf",
-      "living-code-night.conf": "https://github.com/living-code-theme/tmux/blob/3ac9f7f8b3105d4aac9d9ff963ad43d2bb898f64/living-code-night.conf",
-      "living-code-paper.conf": "https://github.com/living-code-theme/tmux/blob/3ac9f7f8b3105d4aac9d9ff963ad43d2bb898f64/living-code-paper.conf",
-      "living-code-signal.conf": "https://github.com/living-code-theme/tmux/blob/3ac9f7f8b3105d4aac9d9ff963ad43d2bb898f64/living-code-signal.conf"
+      "living-code-frost.conf": "https://github.com/living-code-theme/tmux/blob/8b99dc7533633e2399f7fb8369239fec4fcccb96/living-code-frost.conf",
+      "living-code-night.conf": "https://github.com/living-code-theme/tmux/blob/8b99dc7533633e2399f7fb8369239fec4fcccb96/living-code-night.conf",
+      "living-code-paper.conf": "https://github.com/living-code-theme/tmux/blob/8b99dc7533633e2399f7fb8369239fec4fcccb96/living-code-paper.conf",
+      "living-code-signal.conf": "https://github.com/living-code-theme/tmux/blob/8b99dc7533633e2399f7fb8369239fec4fcccb96/living-code-signal.conf"
     },
     "images": [
       {
