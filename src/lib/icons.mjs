@@ -2,6 +2,7 @@
 // Emoji belong to the source READMEs, not web icons. Use lettering only where no logo is available.
 import * as simpleIcons from "simple-icons";
 import { portAppIcons } from "./port-app-icons.mjs";
+import { expandedPortIcons } from "./expanded-port-icons.mjs";
 
 const bySlug = new Map(Object.values(simpleIcons).filter((i) => i?.slug).map((i) => [i.slug, i]));
 
@@ -15,6 +16,7 @@ const LOGOS = {
 // Retained Simple Icons paths (CC0), plus upstream app marks normalized to a 24 × 24 monochrome outline.
 const LOCAL_LOGOS = {
   ...portAppIcons,
+  ...expandedPortIcons,
   // https://github.com/kovidgoyal/kitty/blob/master/logo/kitty.svg
   // Keep the cat, paws, whiskers and terminal cutouts; omit the original colored backing rectangle.
   kitty: {

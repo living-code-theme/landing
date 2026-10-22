@@ -1,0 +1,21 @@
+---
+// CSS follows the same root attribute as the palette and screenshot, including before hydration and Astro swaps.
+// Each variant owns its code and copy payload together; no DOM rewriting or stale clipboard commands.
+const { guides, section } = Astro.props;
+const entries = Object.entries(guides).map(([flavor, guide]) => ({ flavor, html: guide[section] }));
+const shared = new Set(entries.map((entry) => entry.html)).size === 1;
+---
+{shared ? <Fragment set:html={entries[0].html} /> : entries.map(({ flavor, html }) => (
+  <div class="guide-flavor prose" data-guide-flavor={flavor} set:html={html} />
+))}
+
+<style>
+  .guide-flavor { display: none; }
+  .guide-flavor[data-guide-flavor="night"] { display: block; }
+  :global(html[data-theme="living-code-frost"]) .guide-flavor,
+  :global(html[data-theme="living-code-paper"]) .guide-flavor,
+  :global(html[data-theme="living-code-signal"]) .guide-flavor { display: none; }
+  :global(html[data-theme="living-code-frost"]) .guide-flavor[data-guide-flavor="frost"],
+  :global(html[data-theme="living-code-paper"]) .guide-flavor[data-guide-flavor="paper"],
+  :global(html[data-theme="living-code-signal"]) .guide-flavor[data-guide-flavor="signal"] { display: block; }
+</style>

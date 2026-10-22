@@ -2,8 +2,10 @@ PORT APP ICONS
 
 These app marks identify the applications supported by Living Code. They are
 not Living Code branding, and no endorsement or trademark rights are implied.
-The monochrome adaptations are bundled locally in src/lib/port-app-icons.mjs;
-normal website builds do not download artwork or run vectorization tools.
+The monochrome adaptations are bundled locally in src/lib/port-app-icons.mjs
+and src/lib/expanded-port-icons.mjs. Normal website builds do not download
+artwork or run vectorization tools. Expanded-catalog upstream license texts
+are retained in /port-icons/LICENSES.txt.
 
 foot
   Original artwork: Lennard Hofmann, 2020, "foot logo".
@@ -50,3 +52,69 @@ K9s
   Changes: the official dog/glasses mascot converted to a monochrome outline,
   retaining the Kubernetes wheel cutouts, and normalized.
   Source SHA-256: e4b574962491c993502fb4145f16e772ddae0e7c57dd002cecc17154110a9424
+
+EXPANDED CATALOG
+
+All marks below are normalized to a 24 x 24 viewBox. Contours retain their
+cutouts under SVG and Canvas nonzero filling. Color and shading are omitted.
+
+Codex
+  Source: https://github.com/lobehub/lobe-icons/blob/master/packages/static-svg/icons/codex.svg
+  Upstream terms: https://github.com/lobehub/lobe-icons/blob/master/LICENSE
+  Changes: Codex mark, terminal cutouts retained; contour winding normalized.
+  Source SHA-256: d08b4e824cd6727e89617f59e4737273ff53e44c1da849d016dd64dfd08b33e1
+
+Aider
+  Source: https://github.com/Aider-AI/aider/blob/main/aider/website/assets/logo.svg
+  Upstream terms: https://github.com/Aider-AI/aider/blob/main/LICENSE.txt
+  Changes: Upstream embedded-font wordmark outlined; green glow omitted.
+  Source SHA-256: c2012ba0a3141ef162f6bc6f4cc8cb4ab19444dba0408c975f58ceeda4ed79b1
+
+Crush
+  Source: https://github.com/charmbracelet/crush/blob/main/internal/cmd/stats/heartbit.svg
+  Upstream terms: https://github.com/charmbracelet/crush/blob/main/LICENSE.md
+  Copyright 2025-2026 Charmbracelet, Inc. (FSL-1.1-MIT).
+  Changes: Flat HeartBit mascot retained, eyes and mouth made transparent; cheek tints omitted.
+  Source SHA-256: 18dbd031c970bd501f8e420896f4bf34b27bd2c460352286384f33cb61aad21f
+
+Herdr
+  Source: https://github.com/herdrdev/herdr/blob/HEAD/assets/logo.svg
+  Upstream terms: https://github.com/herdrdev/herdr/blob/HEAD/LICENSE
+  Changes: Ram/terminal silhouette retained; square background omitted.
+  Source SHA-256: f4a8400d515fcf50112a952a5b48f5fa6e6b02b4dcb0b483ca92be39f7d7f7a1
+
+bottom
+  Source: https://github.com/ClementTsang/bottom/blob/master/assets/icons/bottom-system-monitor.svg
+  Upstream terms: https://github.com/ClementTsang/bottom/blob/main/LICENSE
+  Changes: Dot-matrix BTM wordmark retained; terminal backing omitted.
+  Source SHA-256: 98839723b809349a383c5c3ba70faffcc8edb3f6e2d97b7557b7bc8d664dd149
+
+GitUI
+  Source: https://github.com/gitui-org/gitui/blob/master/assets/logo.svg
+  Upstream terms: https://github.com/gitui-org/gitui/blob/master/LICENSE.md
+  Changes: Gear and G retained; trailing wordmark and shadow omitted.
+  Source SHA-256: 7c20eb87c2eca04922aab42d15b17b46186909cdbdff642358e58fe77abd5481
+
+Lazydocker
+  Source: https://user-images.githubusercontent.com/8456633/59972109-8e9c8480-95cc-11e9-8350-38f7f86ba76d.png
+  Upstream terms: https://github.com/jesseduffield/lazydocker/blob/master/LICENSE
+  Changes: Original README whale/container artwork converted to a monochrome silhouette; colored brush fringe omitted.
+  Source SHA-256: 9e5b789534bf227859ca61f6acedfd3fcd6578f293ee0b3cfe024e455abac818
+
+Television
+  Source: https://github.com/alexpasmantier/television/blob/main/website/static/img/logo.svg
+  Upstream terms: https://github.com/alexpasmantier/television/blob/main/LICENSE
+  Changes: TV body and aerial retained; screen made transparent.
+  Source SHA-256: 7e75be1122249265716c9a68911b18de8ccffc31eb07128b05411925bf712e0d
+
+Rio
+  Source: https://github.com/raphamorim/rio/blob/main/misc/logo-2024.svg
+  Upstream terms: https://github.com/raphamorim/rio/blob/main/LICENSE
+  Changes: Terminal frame and eyes retained; gradient omitted and screen made transparent.
+  Source SHA-256: 2ff40bf65b68d8d9dabc4c44349ed7875f5c657021c02031bf5dc62dc99558e8
+
+Posting
+  Source: https://posting.sh/
+  Upstream terms: https://creativecommons.org/licenses/by/4.0/
+  Changes: Paper-plane mark used by the official website (Font Awesome Free 7.1.0, Fonticons, Inc.; CC BY 4.0). Normalized to monochrome. Source hash is the extracted header SVG, not the whole page.
+  Source SHA-256: cdd7d7c8d8a02a84eb910395470c0041cf189411a7f1fd30f2bd30e86245d848

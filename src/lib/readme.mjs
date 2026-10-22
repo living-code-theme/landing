@@ -3,12 +3,13 @@ import { Lexer, Marked } from "marked";
 import sanitizeHtml from "sanitize-html";
 import { codeBlock } from "./markdown.mjs";
 import { flavors } from "./theme.mjs";
+import { hasFlavorExample, selectGuideFlavor } from "./guide-flavors.mjs";
 
 const PORT_FLAVORS = flavors.map((flavor) => flavor.id);
 
 const anchor = (s) => s.replace(/<[^>]*>/g, "").replace(/&[^;]+;/g, "").toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, "").trim().replace(/\s/g, "-");
 const attributes = (object) => Object.fromEntries(Object.entries(object).filter(([, value]) => value !== undefined));
-function parseReadme(source, headings = new Map()) {
+function parseReadme(source, headings = new Map(), namespace = "readme") {
   const parser = new Marked({
     gfm: true,
     renderer: {
@@ -18,7 +19,7 @@ function parseReadme(source, headings = new Map()) {
         const slug = anchor(text);
         const count = headings.get(slug) ?? 0;
         headings.set(slug, count + 1);
-        return `<h${level} id="readme-${slug}${count ? `-${count}` : ""}">${this.parser.parseInline(tokens)}</h${level}>\n`;
+        return `<h${level} id="${namespace}-${slug}${count ? `-${count}` : ""}">${this.parser.parseInline(tokens)}</h${level}>\n`;
       },
     },
   });
@@ -33,6 +34,10 @@ function relativeImagePath(href) {
 
 /** The landing is an installation guide, not a second copy of the GitHub repository page. */
 export function renderPortGuide(source, context) {
+  if (context.flavor && !PORT_FLAVORS.includes(context.flavor)) throw new Error("Invalid guide flavor");
+  const installation = typeof source === "string" ? source : source?.installation ?? "";
+  const selected = context.flavor && hasFlavorExample(installation) ? context.flavor : null;
+  const select = (tokens, key) => selected && key !== "compatibility" ? selectGuideFlavor(tokens, selected) : tokens;
   if (typeof source !== "string") {
     if (source?.schemaVersion !== 1 || !["installation", "configuration", "compatibility"].every((key) => typeof source[key] === "string") || !source.links || typeof source.links !== "object" || Array.isArray(source.links)) throw new Error("Unsupported published guide schema");
     for (const link of Object.values(source.links)) if (!link || typeof link.href !== "string" || typeof link.title !== "string") throw new Error("Invalid published guide reference");
@@ -41,7 +46,7 @@ export function renderPortGuide(source, context) {
       const lexer = new Lexer({ gfm: true });
       lexer.tokens.links = Object.assign(Object.create(null), source.links);
       const tokens = lexer.lex(source[key]);
-      return [key, renderContent(tokens, context, { headings, pinAnchors: true }).trim()];
+      return [key, renderContent(select(tokens, key), context, { headings, pinAnchors: true }).trim()];
     }));
   }
   // Read compatibility for the existing catalog; new discovery publishes the versioned guide directly.
@@ -57,7 +62,7 @@ export function renderPortGuide(source, context) {
   return Object.fromEntries([...sections].map(([key, content]) => {
     // Keep reference-style links, even when their definitions live in an omitted section.
     content.links = tokens.links;
-    return [key, renderContent(content, context, { headings, pinAnchors: true }).trim()];
+    return [key, renderContent(select(content, key), context, { headings, pinAnchors: true }).trim()];
   }));
 }
 
@@ -65,7 +70,7 @@ export function renderReadme(source, context) {
   return renderContent(source, context);
 }
 
-function renderContent(source, { repository, revision, images = {} }, { headings, pinAnchors = false } = {}) {
+function renderContent(source, { repository, revision, images = {}, flavor }, { headings, pinAnchors = false } = {}) {
   const root = `${repository}/blob/${revision}/`;
   const hrefFor = (href) => {
     if (!href) return undefined;
@@ -84,7 +89,7 @@ function renderContent(source, { repository, revision, images = {} }, { headings
     tagName: tagName === "h1" ? "h2" : tagName,
     attribs: attrs.id ? { id: attrs.id.startsWith("readme-") ? attrs.id : `readme-${anchor(attrs.id)}` } : {},
   });
-  return sanitizeHtml(parseReadme(source, headings), {
+  return sanitizeHtml(parseReadme(source, headings, flavor ? `readme-${flavor}` : "readme"), {
     allowedTags: [...sanitizeHtml.defaults.allowedTags, "img", "details", "summary", "button"],
     allowedAttributes: {
       a: ["href", "title"], img: ["src", "alt", "title", "width", "height", "loading", "decoding"],

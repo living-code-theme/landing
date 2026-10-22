@@ -5,6 +5,7 @@ import Base from "../../layouts/Base.astro";
 import Arrow from "../../components/Arrow.astro";
 import DisclosureIcon from "../../components/DisclosureIcon.astro";
 import Shot from "../../components/Shot.astro";
+import FlavorGuide from "../../components/FlavorGuide.astro";
 import Glyphs from "../../components/Glyphs.astro";
 import Pager from "../../components/Pager.astro";
 import { files, reportIssue, groupOf, ports, route, shipped, short, shotsOf, slug } from "../../lib/data.mjs";
@@ -28,11 +29,14 @@ const icon = portIcon(p);
 
 const all = files(p);
 const host = p.homepage ? new URL(p.homepage).host.replace(/^www\./, "") : null;
-const guide = renderPortGuide(p.guide ?? p.readme, { repository: p.repository, revision: p.revision, images: p.guideImages ?? p.readmeImages });
+const guides = Object.fromEntries(["night", "frost", "paper", "signal"].map((flavor) => [flavor,
+  renderPortGuide(p.guide ?? p.readme, { repository: p.repository, revision: p.revision, images: p.guideImages ?? p.readmeImages, flavor: p.flavors.includes(flavor) ? flavor : "night" }),
+]));
+const guide = guides.night;
 const options = [
-  { label: "Configuration", html: guide.configuration },
-  { label: "Compatibility", html: guide.compatibility },
-].filter((option) => option.html);
+  { label: "Configuration", section: "configuration" },
+  { label: "Compatibility", section: "compatibility" },
+].filter((option) => guide[option.section]);
 ---
 
 <Base title={`Living Code for ${p.name}`} description={p.description}>
@@ -73,14 +77,14 @@ const options = [
         <div class="mb-6 flex min-h-11 items-center justify-between gap-4">
           <h2 class={h3} id="install-h">Install</h2>
         </div>
-        {guide.installation ? <Fragment set:html={guide.installation} /> : <p>See the repository for installation instructions.</p>}
+        {guide.installation ? <FlavorGuide guides={guides} section="installation" /> : <p>See the repository for installation instructions.</p>}
       </section>
       {(options.length > 0 || all.length > 0) && (
         <section aria-labelledby="options-h" data-reveal style="--d:1">
           <h2 class:list={[h3, "mb-6 flex min-h-11 items-center"]} id="options-h">Details</h2>
           {options.map((option) => <details class="port-option">
             <summary>{option.label}<DisclosureIcon /></summary>
-            <div class="prose port-readme" set:html={option.html} />
+            <div class="prose port-readme"><FlavorGuide guides={guides} section={option.section} /></div>
           </details>)}
           {all.length > 0 && <details class="port-option">
             <summary>Included files <span class="ml-auto text-sm text-muted">{all.length}</span><DisclosureIcon /></summary>

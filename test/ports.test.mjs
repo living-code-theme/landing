@@ -33,7 +33,7 @@ test("ports appear incrementally without any website registry change", () => {
 });
 
 test("category order is fixed regardless of discovery order, without reordering ports", () => {
-  const titles = ["Editors", "Terminals", "CLI & TUI", "Browsers", "Apps", "Web", "Theme systems"];
+  const titles = ["Editors", "AI & Agents", "Terminals", "CLI & TUI", "Browsers", "Apps", "Web", "Theme systems"];
   const entries = titles.map((group, id) => ({ id: String(id), group }));
   for (const input of [entries, [...entries].reverse(), [...entries.slice(3), ...entries.slice(0, 3)]]) {
     const result = portCatalog(snapshot(input));

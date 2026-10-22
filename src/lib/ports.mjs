@@ -10,8 +10,8 @@ const documents = import.meta.env?.SSR ? import.meta.glob("../../data/ports/*.js
 const groupKey = (title) => title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 // Presentation order belongs here, not in the generated discovery snapshot.
 const groupOrder = new Map([
-  ["editors", 0], ["terminals", 1], ["cli-tui", 2], ["browsers", 3],
-  ["apps", 4], ["web", 5], ["web-code", 5], ["theme-systems", 6],
+  ["editors", 0], ["ai-agents", 1], ["terminals", 2], ["cli-tui", 3], ["browsers", 4],
+  ["apps", 5], ["web", 6], ["web-code", 6], ["theme-systems", 7],
 ]);
 
 export function portCatalog(snapshot) {

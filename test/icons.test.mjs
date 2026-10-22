@@ -26,6 +26,8 @@ test("bat's shared tmTheme port uses the real bat logo", () => {
 for (const [id, title] of [
   ["kitty", "Kitty"], ["vscode", "Visual Studio Code"], ["windows-terminal", "Windows Terminal"], ["hunk", "Hunk"],
   ["foot", "foot"], ["btop", "btop++"], ["zellij", "Zellij"], ["expressive-code", "Expressive Code"], ["fzf", "fzf"], ["k9s", "K9s"],
+  ["codex", "Codex"], ["aider", "Aider"], ["crush", "Crush"], ["herdr", "Herdr"], ["bottom", "bottom"],
+  ["gitui", "GitUI"], ["lazydocker", "Lazydocker"], ["television", "Television"], ["rio", "Rio"], ["posting", "Posting"],
 ]) {
   test(`${id} uses its own locally retained logo instead of initials`, () => {
     const icon = portIcon({ id, name: title });
@@ -58,7 +60,7 @@ test("unrecognized apps retain a readable lettering fallback", () => {
 test("the remaining app icons keep their logo silhouettes in the catalog, finder and port artwork", () => {
   const catalog = readFileSync(new URL("../dist/ports/index.html", import.meta.url), "utf8");
   const finder = JSON.parse(finderPayload).groups.flatMap((group) => group.ports);
-  for (const id of ["foot", "btop", "zellij", "expressive-code", "fzf", "k9s"]) {
+  for (const id of ["foot", "btop", "zellij", "expressive-code", "fzf", "k9s", "claude-code", "codex", "opencode", "pi", "gemini-cli", "aider", "crush", "herdr", "bottom", "gitui", "lazydocker", "television", "nushell", "rio", "micro", "posting"]) {
     const port = ports.find((p) => p.id === id);
     if (!port) continue;
     const icon = portIcon(port);
