@@ -91,7 +91,11 @@ test("validation and a non-force push precede deployment of the already-tested a
   assert.ok(positions.every((position, i) => position >= 0 && (!i || position > positions[i - 1])));
   const commit = step(names[4]);
   assert.match(commit, /if: steps\.changes\.outputs\.changed == 'true'/);
-  assert.match(commit, /git push origin HEAD:main/);
+  // Only this step authenticates: the production checkout does not leave the write token in .git/config
+  // while dependencies install and the site builds.
+  assert.match(step("Check out the latest production website"), /persist-credentials: false/);
+  assert.match(commit, /GH_TOKEN: \$\{\{ github\.token \}\}/);
+  assert.match(commit, /git -c "http\.https:\/\/github\.com\/\.extraheader=AUTHORIZATION: basic \$authorization" push origin HEAD:main/);
   assert.doesNotMatch(commit, /--force|git (?:pull|rebase)|git add/);
   const deploy = step(names[6]);
   assert.match(deploy, /if: steps\.changes\.outputs\.publish == 'true'/);
