@@ -39,6 +39,38 @@ test("every port has a page with its name and every install command", async () =
   }
 });
 
+test("Get it links directly to live listings and keeps other ports' install summaries", () => {
+  const listings = {
+    vscode: ["https://marketplace.visualstudio.com/items?itemName=living-code-theme.living-code-theme"],
+    jetbrains: ["https://plugins.jetbrains.com/plugin/35394-living-code"],
+    chrome: [
+      "https://chromewebstore.google.com/detail/living-code-night/dfegjgpjaagflbfonmcgoamfidmpalfp",
+      "https://chromewebstore.google.com/detail/living-code-paper/mafompleidaidnoemlhpjkkdliofbopa",
+    ],
+    firefox: [
+      "https://addons.mozilla.org/firefox/addon/living-code-night/",
+      "https://addons.mozilla.org/firefox/addon/living-code-paper/",
+    ],
+    obsidian: ["obsidian://show-theme?name=Living%20Code"],
+    css: ["https://www.npmjs.com/package/@living-code/css"],
+    "expressive-code": ["https://www.npmjs.com/package/@living-code/expressive-code"],
+    json: ["https://www.npmjs.com/package/@living-code/palette"],
+    tailwind: ["https://www.npmjs.com/package/@living-code/tailwind"],
+  };
+  for (const p of ports) {
+    const getIt = main(page(`ports/${p.id}`)).match(/<dt>Get it<\/dt>\s*<dd[^>]*>([\s\S]*?)<\/dd>/)?.[1];
+    assert.ok(getIt, `${p.id}: Get it summary`);
+    if (listings[p.id]) {
+      const links = [...getIt.matchAll(/<a href="([^"]+)">([^<]+)<\/a>/g)];
+      assert.deepEqual(links.map((link) => link[1]), listings[p.id], p.id);
+      assert.doesNotMatch(getIt, /See installation instructions/, p.id);
+      for (const link of links) assert.ok(link[2].trim(), `${p.id}: descriptive link label`);
+    } else {
+      assert.equal(getIt, escape(p.quick), `${p.id}: unpublished ports stay unchanged`);
+    }
+  }
+});
+
 test("port pages omit file excerpts while retaining installation", () => {
   for (const p of ports) {
     const html = main(page(`ports/${p.id}`));

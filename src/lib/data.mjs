@@ -77,8 +77,30 @@ const portById = new Map(ports.map((port) => [port.id, port]));
 export const portCount = `${ports.length} ${ports.length === 1 ? "port" : "ports"}`;
 export const groupOf = Object.fromEntries(groups.flatMap((g) => g.ports.map((p) => [p.id, g.title])));
 
-// How you get each port, without the README's pointer to the text below it.
-export const route = (id) => escapeHtml(portById.get(id).quick);
+// Only verified, live listings belong here—not submission pages or planned publication channels.
+// Keep these website-owned links separate from the generated port snapshots.
+const listings = {
+  vscode: [["VS Code Marketplace", "https://marketplace.visualstudio.com/items?itemName=living-code-theme.living-code-theme"]],
+  jetbrains: [["JetBrains Marketplace", "https://plugins.jetbrains.com/plugin/35394-living-code"]],
+  chrome: [
+    ["Chrome Web Store (Night)", "https://chromewebstore.google.com/detail/living-code-night/dfegjgpjaagflbfonmcgoamfidmpalfp"],
+    ["Chrome Web Store (Paper)", "https://chromewebstore.google.com/detail/living-code-paper/mafompleidaidnoemlhpjkkdliofbopa"],
+  ],
+  firefox: [
+    ["Firefox Add-ons (Night)", "https://addons.mozilla.org/firefox/addon/living-code-night/"],
+    ["Firefox Add-ons (Paper)", "https://addons.mozilla.org/firefox/addon/living-code-paper/"],
+  ],
+  obsidian: [["Obsidian community themes", "obsidian://show-theme?name=Living%20Code"]],
+  css: [["npm", "https://www.npmjs.com/package/@living-code/css"]],
+  "expressive-code": [["npm", "https://www.npmjs.com/package/@living-code/expressive-code"]],
+  json: [["npm", "https://www.npmjs.com/package/@living-code/palette"]],
+  tailwind: [["npm", "https://www.npmjs.com/package/@living-code/tailwind"]],
+};
+
+// Published ports go straight to their listing; other ports retain their install summary.
+export const route = (id) => listings[id]
+  ? listings[id].map(([label, url]) => `<a href="${escapeHtml(url)}">${escapeHtml(label)}</a>`).join("<br>")
+  : escapeHtml(portById.get(id).quick);
 
 // Supported flavors are declared by each port, independent of its file layout.
 export const shipped = (p) => flavors.filter((f) => p.flavors.includes(f.id));
