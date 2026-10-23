@@ -19,8 +19,8 @@ test("JSON / JavaScript uses the JavaScript logo", () => {
   assert.deepEqual(json, { path: siJavascript.path, title: siJavascript.title });
 });
 
-test("bat's shared tmTheme port uses the real bat logo", () => {
-  assert.deepEqual(portIcon({ id: "tmtheme", name: "bat" }), { path: siBat.path, title: siBat.title });
+test("the bat port uses the real bat logo", () => {
+  assert.deepEqual(portIcon({ id: "bat", name: "bat" }), { path: siBat.path, title: siBat.title });
 });
 
 for (const [id, title] of [

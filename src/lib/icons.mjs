@@ -10,7 +10,7 @@ const LOGOS = {
   neovim: "neovim", jetbrains: "jetbrains", zed: "zedindustries", helix: "helix", sublime: "sublimetext",
   ghostty: "ghostty", alacritty: "alacritty", wezterm: "wezterm", iterm2: "iterm2", warp: "warp", konsole: "kde",
   tmux: "tmux", starship: "starship", fish: "fishshell", firefox: "firefoxbrowser", chrome: "googlechrome",
-  obsidian: "obsidian", css: "css", tailwind: "tailwindcss", json: "javascript", tmtheme: "bat",
+  obsidian: "obsidian", css: "css", tailwind: "tailwindcss", json: "javascript",
   delta: "git-delta", // The Simple Icons slug "delta" belongs to Delta Air Lines, not the diff viewer.
 };
 // Retained Simple Icons paths (CC0), plus upstream app marks normalized to a 24 × 24 monochrome outline.
