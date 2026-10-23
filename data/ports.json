@@ -768,6 +768,63 @@
       "content": "ports/firefox.6de4d10680ac8ed0dfaedb8a7189372e39ef6287b987991739e37f416b07ecdf.json"
     },
     {
+      "id": "bat",
+      "name": "bat",
+      "group": "CLI & TUI",
+      "description": "Living Code for bat: TextMate .tmTheme syntax themes, also used by delta, in four color flavors.",
+      "homepage": "https://github.com/sharkdp/bat",
+      "quick": "Install the tmTheme files into bat",
+      "aliases": [
+        "bat",
+        "tmtheme",
+        "textmate",
+        "syntect"
+      ],
+      "icon": null,
+      "emoji": "🦇",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "bat running Living Code Night",
+          "src": "https://assets.living-code.dev/port-images/1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "bat running Living Code Frost",
+          "src": "https://assets.living-code.dev/port-images/9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "bat running Living Code Paper",
+          "src": "https://assets.living-code.dev/port-images/dc0e4cc2bc66371aad6a4715cb7a36e8e3dbd48af7b0891cbdaff9b323220da5.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "bat running Living Code Signal",
+          "src": "https://assets.living-code.dev/port-images/af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/bat",
+      "repositoryName": "living-code-theme/bat",
+      "revision": "0ebcc3ae2d3f888272895656f3ff2445a51f9d61",
+      "readmeUrl": "https://github.com/living-code-theme/bat/blob/0ebcc3ae2d3f888272895656f3ff2445a51f9d61/README.md",
+      "content": "ports/bat.d715c49c49dea9271168ef3d2eb50643e01254267e6a578d36862af8c825ff6e.json"
+    },
+    {
       "id": "bottom",
       "name": "bottom",
       "group": "CLI & TUI",
@@ -928,9 +985,9 @@
       ],
       "repository": "https://github.com/living-code-theme/delta",
       "repositoryName": "living-code-theme/delta",
-      "revision": "b292e1c9b77e238581c1aeb66729a6e4f773fa41",
-      "readmeUrl": "https://github.com/living-code-theme/delta/blob/b292e1c9b77e238581c1aeb66729a6e4f773fa41/README.md",
-      "content": "ports/delta.d24e15c8342339e1b74486dbfac64d0487d7a148ae6e2c7adaa3b2828afee280.json"
+      "revision": "88aab92e1647054344fc4125b37d055d392bd2ae",
+      "readmeUrl": "https://github.com/living-code-theme/delta/blob/88aab92e1647054344fc4125b37d055d392bd2ae/README.md",
+      "content": "ports/delta.4bd0d030bf8eed6a01e72463d4e1ee76af7f9db7eb35aa96372ca67014b870a8.json"
     },
     {
       "id": "eza",
@@ -1591,63 +1648,6 @@
       "content": "ports/television.ffe7fdb2f80e41f88e3cc59c8bc5e6453ae87cee5c60b562a26c172dd5ee0c2b.json"
     },
     {
-      "id": "tmtheme",
-      "name": "bat",
-      "group": "CLI & TUI",
-      "description": "Living Code for bat: TextMate .tmTheme syntax themes, also used by delta, in four color flavors.",
-      "homepage": "https://github.com/sharkdp/bat",
-      "quick": "Install the tmTheme files into bat",
-      "aliases": [
-        "tmtheme",
-        "bat",
-        "textmate",
-        "syntect"
-      ],
-      "icon": null,
-      "emoji": "🦇",
-      "flavors": [
-        "night",
-        "frost",
-        "paper",
-        "signal"
-      ],
-      "images": [
-        {
-          "flavor": "night",
-          "alt": "bat running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        {
-          "flavor": "frost",
-          "alt": "bat running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        {
-          "flavor": "paper",
-          "alt": "bat running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/dc0e4cc2bc66371aad6a4715cb7a36e8e3dbd48af7b0891cbdaff9b323220da5.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        {
-          "flavor": "signal",
-          "alt": "bat running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp",
-          "width": 2560,
-          "height": 1600
-        }
-      ],
-      "repository": "https://github.com/living-code-theme/tmtheme",
-      "repositoryName": "living-code-theme/tmtheme",
-      "revision": "8785bf3d9c08bc1351d16a435790cf10dbf54007",
-      "readmeUrl": "https://github.com/living-code-theme/tmtheme/blob/8785bf3d9c08bc1351d16a435790cf10dbf54007/README.md",
-      "content": "ports/tmtheme.ae18a99d0749f3918231548f59a929be6e654eee160290884f53d1610410df0e.json"
-    },
-    {
       "id": "tmux",
       "name": "tmux",
       "group": "CLI & TUI",
@@ -2080,9 +2080,9 @@
       ],
       "repository": "https://github.com/living-code-theme/sublime",
       "repositoryName": "living-code-theme/sublime",
-      "revision": "7da1c709ad06ee84c217e2f43041bbcb556f3b1f",
-      "readmeUrl": "https://github.com/living-code-theme/sublime/blob/7da1c709ad06ee84c217e2f43041bbcb556f3b1f/README.md",
-      "content": "ports/sublime.06f3e1253786b8fa1267878ec59f3a0ad17eeb3d89588b70ee6ee7433807a03c.json"
+      "revision": "5728fc8c058dcfea056f926280187df00387e768",
+      "readmeUrl": "https://github.com/living-code-theme/sublime/blob/5728fc8c058dcfea056f926280187df00387e768/README.md",
+      "content": "ports/sublime.7999797ca00831f757e8458d9c77d7557b18034f1192d2660f17621c276339f7.json"
     },
     {
       "id": "vscode",
