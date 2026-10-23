@@ -293,13 +293,7 @@ html.js [data-reveal-media]:not(.is-in) [data-shot] { clip-path: inset(14% 0 0 0
 }
 .draw:hover::after, .draw:focus-visible::after { transform: scaleX(1); transform-origin: left; }
 
-/* Catalog links share the header's underline motion, tinted by the selected flavor.
-   Finder selection uses a stable surface tint and accent text instead. */
-.port-link .port-name.draw::after { background: var(--lc-accent); }
-.port-link:is(:hover, :focus-visible) .port-name.draw::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
+/* Finder selection uses a stable surface tint and accent text (the catalog's row hover lives in PortList). */
 .port-finder [role="option"]:is([aria-selected="true"], :focus-visible) { background: var(--lc-surface0); }
 .port-finder [role="option"][aria-selected="true"] .port-name,
 .port-finder [role="option"][aria-selected="true"] [data-port-icon] { color: var(--lc-accent); }

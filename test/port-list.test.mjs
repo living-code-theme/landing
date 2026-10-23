@@ -17,7 +17,7 @@ for (const path of ["", "ports/"]) {
     for (const [anchor, id, row] of rows) {
       const port = ports.find((p) => p.id === id);
       assert.ok(port, id);
-      assert.match(row, new RegExp(`class="port-name draw[^\"]*"[^>]*data-port-name="${id}"`));
+      assert.match(row, new RegExp(`class="port-name[^\"]*"[^>]*data-port-name="${id}"`));
       assert.match(row, /<span class="[^"]*text-muted"[^>]*data-port-icon aria-hidden="true"/, `${id}: decorative muted icon`);
       const icon = portIcon(port);
       if (icon.path) assert.ok(row.includes(`d="${icon.path}"`), `${id}: the app's own logo`);

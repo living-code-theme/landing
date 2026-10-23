@@ -28,7 +28,7 @@ import PortIcon from "./PortIcon.astro";
               <a class="port-row port-link no-underline" href={`/ports/${p.id}/`}>
                 <PortIcon port={p} />
                 <span class="flex min-w-0 flex-col items-start gap-1">
-                  <span class="port-name draw inline-block max-w-full text-xl font-medium tracking-tight [overflow-wrap:anywhere]" data-port-name={p.id}>{p.name}</span>
+                  <span class="port-name inline-block max-w-full text-xl font-medium tracking-tight [overflow-wrap:anywhere]" data-port-name={p.id}>{p.name}</span>
                   {ships.length < flavors.length && (
                     <span class="text-sm text-muted" data-port-flavor-note>{ships.map(short).join(" & ")} only</span>
                   )}
@@ -90,6 +90,20 @@ import PortIcon from "./PortIcon.astro";
     align-items: center;
     gap: 16px;
     padding: 16px;
+    transition: background-color 0.3s var(--ease-out);
+  }
+  /* Hover: the row tints and the icon and name take the accent. */
+  .port-row :global([data-port-icon]),
+  .port-row .port-name {
+    transition: color 0.25s ease-out, translate 0.4s var(--ease-out);
+  }
+  .port-row:is(:hover, :focus-visible) { background: var(--lc-surface0); }
+  .port-row:is(:hover, :focus-visible) :global([data-port-icon]),
+  .port-row:is(:hover, :focus-visible) .port-name { color: var(--lc-accent); }
+  .port-row:is(:hover, :focus-visible) .port-name { translate: 2px 0; }
+  .port-row:focus-visible { outline-offset: -2px; }
+  @media (prefers-reduced-motion: reduce) {
+    .port-row, .port-row .port-name { transition-duration: 0.01ms; }
   }
   .port-group, .port-row { scroll-margin-top: calc(var(--port-toolbar-height) + 24px); }
   [data-port-none] { margin-top: 32px; }
