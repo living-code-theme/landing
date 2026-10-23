@@ -92,7 +92,7 @@ export const ALIASES = {
   vscode: ["code", "visual studio code", "cursor", "vscodium", "windsurf", "open vsx", "shiki"],
   jetbrains: ["intellij", "idea", "pycharm", "webstorm", "goland", "rider", "clion", "rubymine", "phpstorm", "datagrip", "android studio"],
   sublime: ["sublime text", "subl"],
-  tmtheme: ["bat", "textmate"],
+  tmtheme: ["bat", "textmate", "tmtheme", "syntect"],
   "windows-terminal": ["wt", "windows"],
   iterm2: ["iterm", "mac terminal"],
   chrome: ["chromium", "brave", "google chrome", "edge"],
