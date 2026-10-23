@@ -30,6 +30,7 @@ Workflow regression tests also require Git and Bash; they use temporary reposito
 | `public/port-images/` | Default local capture store; optional R2 mode pins external capture URLs, dimensions, hashes and sizes instead |
 | `public/port.schema.json` | Static copy of core's schema, served at <https://living-code.dev/port.schema.json> for editor autocomplete |
 | `public/fonts/`, favicon assets | Local website assets; brand sources live in core |
+| `public/social/<slug>.jpg` | Optional 1280×640 share cards; matching port pages emit Open Graph and Twitter image metadata. Update the card when its app preview changes. |
 | `test/` | Website rendering, interactions, build output and standalone-input checks |
 | `wrangler.jsonc` | Website deployment configuration |
 

@@ -1,6 +1,7 @@
 ---
 // One page per port: its install text, a real screenshot when available, and every file it is made of.
 // The title is the row you clicked, carried over by the transition.
+import { existsSync } from "node:fs";
 import Base from "../../layouts/Base.astro";
 import Arrow from "../../components/Arrow.astro";
 import DisclosureIcon from "../../components/DisclosureIcon.astro";
@@ -26,6 +27,10 @@ const next = ports[(i + 1) % ports.length];
 const ships = shipped(p);
 const hasShot = shotsOf(p.id).length > 0;
 const icon = portIcon(p);
+// Optional, checked-in share cards keep ordinary builds offline and other ports unchanged.
+const socialImage = existsSync(new URL(`../../../public/social/${p.id}.jpg`, import.meta.url))
+  ? { src: `/social/${p.id}.jpg`, alt: `Living Code for ${p.name}: teal accents and a native application preview`, width: 1280, height: 640 }
+  : undefined;
 
 const all = files(p);
 const host = p.homepage ? new URL(p.homepage).host.replace(/^www\./, "") : null;
@@ -39,7 +44,7 @@ const options = [
 ].filter((option) => guide[option.section]);
 ---
 
-<Base title={`Living Code for ${p.name}`} description={p.description}>
+<Base title={`Living Code for ${p.name}`} description={p.description} socialImage={socialImage}>
   <article>
     <header data-port-revision={p.revision} class="shell grid grid-cols-[minmax(0,1fr)] items-end gap-x-[clamp(40px,6vw,96px)] gap-y-8 pt-[clamp(40px,6vw,88px)] lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
       <div>

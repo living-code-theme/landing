@@ -14,9 +14,10 @@ interface Props {
   description?: string;
   // A flavor page is always shown in its own flavor, whatever the visitor picked elsewhere.
   flavor?: string;
+  socialImage?: { src: string; alt: string; width: number; height: number };
 }
 
-const { title, description = `Living Code is a color scheme for editors, terminals and the web: a calm slate background, living color in the code, four flavors and ports for ${ports.length} apps.`, flavor } = Astro.props;
+const { title, description = `Living Code is a color scheme for editors, terminals and the web: a calm slate background, living color in the code, four flavors and ports for ${ports.length} apps.`, flavor, socialImage } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const theme = flavorById[flavor ?? "night"];
 const json = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
@@ -35,6 +36,15 @@ const json = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    {socialImage && <>
+      <meta property="og:image" content={new URL(socialImage.src, Astro.site)} />
+      <meta property="og:image:alt" content={socialImage.alt} />
+      <meta property="og:image:width" content={socialImage.width} />
+      <meta property="og:image:height" content={socialImage.height} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={new URL(socialImage.src, Astro.site)} />
+      <meta name="twitter:image:alt" content={socialImage.alt} />
+    </>}
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
