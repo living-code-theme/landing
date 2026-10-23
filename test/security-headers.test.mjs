@@ -3,7 +3,6 @@ import { createHash } from "node:crypto";
 import { readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 import { inlineScriptHashes } from "../src/lib/security-headers.mjs";
-import worker from "../src/worker.mjs";
 
 const headers = readFileSync(new URL("../dist/_headers", import.meta.url), "utf8");
 
@@ -22,8 +21,8 @@ test("one built policy authorizes every page's scripts, including client-router 
     for (const hash of inlineScriptHashes(readFileSync(new URL(path, dist), "utf8"))) assert.ok(directive.includes(hash), path);
   }
   for (const rule of ["default-src 'self'", "script-src-attr 'none'", "object-src 'none'", "base-uri 'none'", "frame-ancestors 'none'", "connect-src 'self'"]) assert.ok(headers.includes(rule));
-  assert.match(headers, /Strict-Transport-Security: max-age=31536000/);
-  assert.doesNotMatch(headers, /includeSubDomains|preload/);
+  // Mirrors the zone's Cloudflare HSTS setting, so the policy holds on any host.
+  assert.match(headers, /Strict-Transport-Security: max-age=31536000; includeSubDomains; preload\n/);
   assert.match(headers, /X-Content-Type-Options: nosniff/);
   assert.match(headers, /X-Frame-Options: DENY/);
   assert.ok(headers.split("\n").every((line) => line.length <= 2000));
@@ -43,23 +42,9 @@ test("fingerprinted scripts, styles, fonts, and image variants are immutable; HT
   }
 });
 
-test("HTTP is permanently upgraded before even a cached static asset can be served", async () => {
-  for (const path of ["/", "/ports/vscode/?from=search%20box", "/_astro/app.js", "/missing/"]) {
-    const response = await worker.fetch(new Request(`http://living-code.dev${path}`), { ASSETS: { fetch() { assert.fail("HTTP must not reach assets"); } } });
-    assert.equal(response.status, 308);
-    assert.equal(response.headers.get("location"), `https://living-code.dev${path}`);
-  }
+test("static assets are served without a Worker script; HTTPS is enforced by the zone and the .dev preload list", () => {
   const config = JSON.parse(readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8"));
-  assert.equal(config.main, "src/worker.mjs");
-  assert.equal(config.assets.run_worker_first, true);
-  assert.equal(config.assets.binding, "ASSETS");
-});
-
-test("HTTPS preserves the asset response, including security/cache headers, redirects and 404s", async () => {
-  for (const status of [200, 301, 404]) {
-    const request = new Request("https://living-code.dev/ports/");
-    const expected = new Response(null, { status, headers: { "x-content-type-options": "nosniff" } });
-    const response = await worker.fetch(request, { ASSETS: { fetch(input) { assert.equal(input, request); return expected; } } });
-    assert.equal(response, expected);
-  }
+  assert.equal(config.main, undefined, "no per-request Worker invocation for static assets");
+  assert.equal(config.assets.run_worker_first, undefined);
+  assert.equal(config.assets.directory, "./dist");
 });

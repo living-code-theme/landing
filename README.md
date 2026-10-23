@@ -20,7 +20,7 @@ pnpm preview
 
 `pnpm build` writes the static website to `dist/`. Build before running the tests that inspect generated pages.
 Workflow regression tests also require Git and Bash; they use temporary repositories and never contact GitHub or deploy.
-Browser regressions start a temporary local HTTPS Worker and Chrome profile, checking screenshot requests, no-script and
+Browser regressions start a temporary local HTTPS Wrangler asset server and Chrome profile, checking screenshot requests, no-script and
 failed-personalization fallbacks, CSP enforcement, navigation, and controls. They never deploy. The local test browser
 accepts Wrangler's self-signed certificate; production TLS validation is unchanged.
 
@@ -120,7 +120,7 @@ working snapshot for an invalid port update. Global listing/authentication failu
 The workflow installs landing and prepares responsive derivatives before deciding whether publication is needed.
 When publication is needed, it builds and runs both unit/build and browser tests, commits **only** `data/ports.json`,
 `data/ports/`, local `public/port-images/`, `data/image-variants.json` and `public/image-variants/` changes, then deploys
-the already-tested `dist/` and the HTTPS guard to the `living-code-landing` Cloudflare Worker.
+the already-tested `dist/` to the `living-code-landing` Cloudflare Worker.
 It deploys in the same run because a bot commit made with `GITHUB_TOKEN` does not trigger another Actions workflow.
 Ordinary website pushes also go through this validation/deployment path.
 
@@ -224,31 +224,30 @@ network responses are simulated; production network latency and credentials stil
 
 ## Hosting
 
-Deploy to **Cloudflare Workers** with static assets and a minimal HTTPS guard (no Astro server adapter required):
+Deploy to **Cloudflare Workers** with static assets (no Worker script or server adapter required):
 
 ```sh
 pnpm exec wrangler login  # Once; CI can use CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID
 pnpm deploy
 ```
 
-`pnpm deploy` prepares screenshot derivatives, builds and publishes `dist/` and `src/worker.mjs` to the `living-code-landing` Worker. `wrangler.jsonc`
-enables `workers.dev`, trailing-slash URLs and the generated `404.html`. The Worker runs **before** assets (including
-cache hits) and returns a permanent 308 HTTP-to-HTTPS redirect with the path/query preserved. HTTPS requests delegate
-to the static asset binding unchanged. This guard adds a Worker invocation to asset requests; Cloudflare's zone-level
-**Always Use HTTPS** is also recommended, but is not required for correctness on this Worker.
-For a local Worker preview, use `pnpm build && pnpm exec wrangler dev --local-protocol https` and accept the local
-self-signed certificate. Plain `pnpm preview` remains useful for UI work but does not exercise Worker security headers.
+`pnpm deploy` prepares screenshot derivatives, builds and publishes `dist/` to the `living-code-landing` Worker. `wrangler.jsonc`
+enables `workers.dev`, trailing-slash URLs and the generated `404.html`. HTTPS is enforced outside the repository:
+the `living-code.dev` zone has **Always Use HTTPS** and HSTS (with subdomains) enabled, and every `.dev` domain
+(including `workers.dev`) is on browsers' HSTS preload list. Keep both zone settings on; static assets then cost no
+Worker invocations. For a local preview with headers, use `pnpm build && pnpm exec wrangler dev --local-protocol https`
+and accept the local self-signed certificate. Plain `pnpm preview` does not apply `_headers`.
 
-`public/_headers` sets HSTS (host-only, without preload or includeSubDomains), framing protection, nosniff, referrer and
+`public/_headers` sets HSTS (`includeSubDomains; preload`, matching the zone setting; every subdomain must serve HTTPS), framing protection, nosniff, referrer and
 permissions policies. The build replaces its CSP placeholder with SHA-256 hashes of every emitted executable inline script
 across all pages, so client-router destinations work under the original document's policy. JavaScript never allows
 `unsafe-inline` or `unsafe-eval`; styles allow inline declarations for the existing theme/animation system.
 The image policy permits this site and `https://assets.living-code.dev`; if the configured capture origin changes, review
-and update that allowlist as well. CSP is enforced on the built Worker and exercised by browser regressions.
+and update that allowlist as well. CSP is enforced on the deployed assets and exercised by browser regressions.
 
 Fingerprinted `/_astro/*` assets (including bundled fonts), `/image-variants/*`, `/port-finder/*` and `/app-previews/*`
 are cached for a year with `immutable`. HTML retains normal revalidation. On another static host, apply the generated
-`dist/_headers` policies and configure the equivalent HTTPS redirect; Astro alone does not enforce transport security.
+`dist/_headers` policies and configure an HTTP-to-HTTPS redirect; Astro alone does not enforce transport security.
 
 Production automation is the **sync-ports** GitHub Actions workflow above, using Node 24 and the same Wrangler
 configuration. Avoid enabling a second automatic deployer in Cloudflare Workers Builds.

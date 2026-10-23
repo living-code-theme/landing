@@ -1,4 +1,4 @@
-// Small CDP harness using Node's WebSocket: exercises the deployed Worker/asset path without a browser SDK.
+// Small CDP harness using Node's WebSocket: exercises the deployed static-asset path and _headers without a browser SDK.
 import { spawn } from "node:child_process";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -73,7 +73,7 @@ export async function browserHarness() {
     await until(() => {
       if (server.exitCode !== null) throw new Error(server.logs);
       return /Ready on https:/.test(server.logs);
-    }, "local HTTPS Worker");
+    }, "local HTTPS asset server");
     // Certificate errors are ignored ONLY for Wrangler's self-signed local test certificate.
     const chrome = launch(process.env.CHROME_BIN || "google-chrome", ["--headless=new", "--no-first-run", "--no-default-browser-check", "--ignore-certificate-errors", "--remote-debugging-port=0", `--user-data-dir=${join(directory, "chrome")}`, "about:blank"]);
     const connection = await until(async () => {
