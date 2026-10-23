@@ -3,6 +3,7 @@ import { after, before, test } from "node:test";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
+import sharp from "sharp";
 import { browserHarness, until } from "./harness.mjs";
 import { APPS, shotsOf } from "../../src/lib/data.mjs";
 
@@ -32,6 +33,13 @@ for (const mobile of [false, true]) test(`${mobile ? "mobile" : "desktop"}: no d
   assert.ok(requests.length <= 6, `expected five thumbnails and one full capture, got ${requests.length}: ${requests.map((r) => r.url).join(", ")}`);
   for (const request of requests) assert.ok(allowed.includes(request.url), `discarded screenshot requested: ${request.url}`);
   assert.ok(requests.every((request) => new URL(request.url).pathname.startsWith("/image-variants/") || smallOriginals.has(request.url)), "these viewports never need the 2560px original");
+  // The live R2 variants must match the widths the markup advertises.
+  // (naturalWidth is density-corrected for srcset images, so measure the actual files.)
+  const loaded = await page.evaluate(`[...document.querySelectorAll('[data-app-showcase] img')].filter(i=>i.currentSrc).map(i=>[i.currentSrc, i.srcset.split(', ').find(s=>new URL(s.split(' ')[0],location.href).href===i.currentSrc)?.split(' ')[1]])`);
+  for (const [url, descriptor] of loaded.filter(([url]) => url.includes("/image-variants/"))) {
+    const metadata = await sharp(Buffer.from(await (await fetch(url)).arrayBuffer())).metadata();
+    assert.equal(`${metadata.width}w`, descriptor, url);
+  }
   t.diagnostic(`Screenshot requests: ${requests.length}; transferred bytes: ${requests.reduce((n, r) => n + (page.sizes.get(r.id) ?? 0), 0)}`);
   assert.deepEqual(await page.evaluate("window.violations"), []);
 

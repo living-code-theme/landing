@@ -77,12 +77,17 @@ jobs:
             *) echo '::error::PORT_ASSET_STORAGE must be git or r2'; exit 1 ;;
           esac
 
-      # Derivatives belong to the website. This explicit refresh may download pinned public captures;
-      # ordinary builds below stay offline, and unchanged derivatives are reused without downloads.
+      # Derivatives belong to the website. New captures are downloaded once, resized and uploaded to R2 beside
+      # their originals; only the small manifest is committed. Unchanged runs reuse it without network access.
       - name: Install website dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Prepare responsive screenshot variants
+        env:
+          R2_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID || secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_BUCKET: ${{ vars.R2_BUCKET || secrets.R2_BUCKET }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: pnpm images:prepare
 
       - name: Decide whether to publish

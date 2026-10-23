@@ -34,7 +34,7 @@ accepts Wrangler's self-signed certificate; production TLS validation is unchang
 | `public/port-images/` | Default local capture store; optional R2 mode pins external capture URLs, dimensions, hashes and sizes instead |
 | `public/port.schema.json` | Static copy of core's schema, served at <https://living-code.dev/port.schema.json> for editor autocomplete |
 | `src/assets/fonts/`, `public/fonts/`, favicon assets | Bundled/fingerprinted font binaries, public license files and icons; brand sources live in core |
-| `data/image-variants.json`, `public/image-variants/` | Website-owned, content-addressed responsive screenshot derivatives, prepared explicitly and committed |
+| `data/image-variants.json` | Manifest of website-owned, content-addressed responsive screenshot variants; the images themselves live in R2 beside the originals (`public/image-variants/` only in local `git` capture mode) |
 | `public/social/<slug>.jpg` | Optional 1280×640 share cards; matching port pages emit Open Graph and Twitter image metadata. Update the card when its app preview changes. |
 | `test/` | Website rendering, interactions, build output and standalone-input checks |
 | `wrangler.jsonc` | Website deployment configuration |
@@ -95,16 +95,19 @@ For a manual refresh, review the changed data/assets in the landing checkout, th
 ### Responsive screenshot preparation
 
 Run `pnpm images:prepare` in the landing after refreshing capture inputs. This is the **only** website command that
-may download screenshots. It accepts only content-addressed captures from the snapshot's explicit HTTPS asset base
+may download or upload screenshots. It accepts only content-addressed captures from the snapshot's explicit HTTPS asset base
 (or local `public/port-images/`), verifies source hashes, pinned remote sizes and decoded dimensions, and generates
 240/480/960/1600px WebP variants without upscaling. Downloads omit credentials, reject redirects, have a timeout and
-are size-bounded. It reuses verified existing variants without network access and publishes the new manifest only after
-all captures succeed, then prunes obsolete derivatives. Commit `data/image-variants.json` and `public/image-variants/`
-alongside the refreshed inputs. The current derivative set adds roughly 18 MB; full-size remote originals are not copied
-into Git. Normal builds never fetch images: an unprepared capture (a local-port preview, or core's synthetic scale
+are size-bounded. In R2 mode (the production setting), variants are uploaded as immutable, content-addressed objects to
+`image-variants/` in the captures bucket, served from `https://assets.living-code.dev/image-variants/`; uploads use the
+same `R2_*` credentials as discovery, which are needed **only** when a new capture must be published. In local `git`
+mode, variants are written to `public/image-variants/` like the originals. Unchanged captures reuse the manifest without
+network access or credentials. The manifest is written only after every variant is stored, so it never references a
+missing object. Remote objects are never deleted (old deployments may reference them). Commit only
+`data/image-variants.json` (about 180 KB); no image binaries enter Git in R2 mode. Normal builds never fetch images: an unprepared capture (a local-port preview, or core's synthetic scale
 fixture) falls back to its original as one truthful source, never a fake responsive srcset, and the build prints a
 warning. Both `pnpm deploy` and CI run `pnpm images:prepare` before every build, so production always ships variants;
-CI also commits any derivatives that were missing. Changing the pinned Sharp version or resize recipe regenerates them.
+CI also uploads and commits the manifest for any captures that were missing. Changing the pinned Sharp version or resize recipe regenerates them.
 
 ## Automatic discovery and deployment
 
@@ -119,7 +122,7 @@ working snapshot for an invalid port update. Global listing/authentication failu
 
 The workflow installs landing and prepares responsive derivatives before deciding whether publication is needed.
 When publication is needed, it builds and runs both unit/build and browser tests, commits **only** `data/ports.json`,
-`data/ports/`, local `public/port-images/`, `data/image-variants.json` and `public/image-variants/` changes, then deploys
+`data/ports/`, local `public/port-images/`, the `data/image-variants.json` manifest (and local-mode `public/image-variants/`) changes, then deploys
 the already-tested `dist/` to the `living-code-landing` Cloudflare Worker.
 It deploys in the same run because a bot commit made with `GITHUB_TOKEN` does not trigger another Actions workflow.
 Ordinary website pushes also go through this validation/deployment path.
@@ -245,8 +248,8 @@ across all pages, so client-router destinations work under the original document
 The image policy permits this site and `https://assets.living-code.dev`; if the configured capture origin changes, review
 and update that allowlist as well. CSP is enforced on the deployed assets and exercised by browser regressions.
 
-Fingerprinted `/_astro/*` assets (including bundled fonts), `/image-variants/*`, `/port-finder/*` and `/app-previews/*`
-are cached for a year with `immutable`. HTML retains normal revalidation. On another static host, apply the generated
+Fingerprinted `/_astro/*` assets (including bundled fonts), local-mode `/image-variants/*`, `/port-finder/*` and
+`/app-previews/*` are cached for a year with `immutable`; R2 objects carry the same header from upload. HTML retains normal revalidation. On another static host, apply the generated
 `dist/_headers` policies and configure an HTTP-to-HTTPS redirect; Astro alone does not enforce transport security.
 
 Production automation is the **sync-ports** GitHub Actions workflow above, using Node 24 and the same Wrangler
