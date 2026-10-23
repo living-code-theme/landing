@@ -6,14 +6,19 @@
     "files": {
       "02c18315856f97160546bfac80205bcc47be3de83318325b0ec296bb1df58ede.webp": 155376,
       "0420c441c06755d36b4d6a05af70030b07af83455ab0b4f1d3174a892ddfbd19.webp": 182532,
+      "0443f795c661509ce4108912e1023d7ef70a7cf1137855879eeda1cf6eb5bf99.webp": 104680,
       "07c6495387f49ccec67c97febcbbb832b596762882e9d677d5dcb2c3e6cfe0e3.webp": 150034,
       "09bf4ea922991071e4d34528dd5b2ac929a4cfecd4a7275b5fe0ef8f1a6ee13b.webp": 158476,
+      "0e57751c71ca6ba25e39a55bf969e5d6afaf8f119afed5b89e8ce9ba4fa97cf6.webp": 158756,
+      "118266cc708243fcc4ae6681ebbf57733f60dd8b8229b75a224720fa42efb6f3.webp": 209936,
       "1233e3a66ae793863f4b604e7748294a371f807b4fffb2cb967d412114d89b8e.webp": 67344,
+      "1258b16ab88e44b24a26d979302c3c29f218982d562dea875d6cafb7eb7c85e9.webp": 107260,
       "12b289f2b438d6ca50207195bc45b286f512475cbb4123ea6900315a3ec45c40.webp": 118080,
-      "134c93a332f6939ce137729216a9ddf6baad5078b92f64deabd124583a214009.webp": 68374,
       "153cbd92c4b426df537237265cbee5f04b5cd684d5ddfe006333d62bf0feae4b.webp": 139424,
+      "15f1415658c662678e55904f66c82229a6617a76fa0e0bd7c9db046a4a29bedd.webp": 124760,
+      "1660f4a876f80ac2a06d96e7b4119473781109ec9047206569e1b23f573e8396.webp": 132894,
       "16ab7e19c531a9c9dc8a098752578b9f444db6406fbebf69420a7c983c71a338.webp": 148464,
-      "187c57ede62a2da8705c4bcefab51046f8e2ac5ae319219500041cc544bb1fbc.webp": 145566,
+      "18030e548b6e39f8d32f641e73304b0d4989bb7344481d4f21fbe99081ef2206.webp": 119668,
       "1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp": 136772,
       "1a5b45683b946a3e81950600c85ef7b008a7b4fb7f9bc107e67546af21c0b6ff.webp": 86960,
       "1c06462d91c5c50185ff678e34795c82346971616a01a99fa218d85041bd45a3.webp": 76482,
@@ -27,47 +32,42 @@
       "2c26d2634a1e91627e9c430d8fe0f0513f0a0ea4d1151860d0050deb36767313.webp": 139678,
       "2e86a91bca05961e7d9d77dc751a1797b8c16e02be86c6cf1a09346b3ee5a359.webp": 170974,
       "301ee98b06f023939edf080aeddd66f7b7f49c1067e4fdc24358b4281508f9dc.webp": 38490,
-      "30e13466c4f177595265d2cee1ef1c48f86116f96864ac2466701903a40dfe43.webp": 79680,
+      "32c36ff331c821c2a7ed1d6bdf982a0ecdf3fce14bb8bf688f22cdaf84e7d289.webp": 138490,
       "35c0bbaae4b9f2157ac4da6b1b064b585b659bff3de2668ee83549e96023ba78.webp": 127056,
       "366aa07b965f2cc902a44d3326495a0bae381bfda394d7c6b51c788cdb275611.webp": 69868,
-      "38d395097740497480df3a244ec1afa74866b7bfedc32237f4c9cd5da9834a0e.webp": 100626,
       "38f8956eea1b4e195be4b0c5c8a6920a34a57ce0641b8e35f1c2a47cccb2a8ec.webp": 165992,
       "3a0e2905fc278d6d912545fbe9b8a581218957fd07f57a054fb09c6ae629a5cb.webp": 105846,
       "3a445505cdc858b8de04c3f17d31e6022fdb1f1a213d88cd4b35d600155b87b7.webp": 118268,
       "3c6ebe19b8177d2600eb9e7948426b5eb24f54cb013a8195d0407b75cc74b981.webp": 132860,
-      "3cf58b36d515aa6a21a364ba49da7d7bc6f023edd0bc570ecfc966254c27d7e7.webp": 78096,
       "3d7df01497f7588384da12a867bfa8cf19c1d3b10df0baca183bda04038a57a1.webp": 67736,
       "3e23d321c596cbe5357a2b4bd474b159f631fc7508d7056a3cfdf9f61b30ae85.webp": 56604,
+      "3e93a61d36cc044dfe623dc500679269f29b440e81cc48492c6f82801907d70a.webp": 215522,
       "3f0682959b657f8eb5e6cc9475170f0a50392d3f6ed6e83d29541f5f9ee83bb5.webp": 87744,
       "402f5ca75331a371884b17a10ca50856db3718ca2effe1326f3ddacf77d90655.webp": 64402,
       "40d305bc67b2718303a42a0d2d9759b14faf9a839f1672912fe42334a05b0063.webp": 121688,
-      "40de5137c72468b78ebecdaeb298cbf03e31e6806593e797fb7fdeb085f22b12.webp": 98704,
       "433130211385bbad0514e3388626d961d2b9ae30f37aba2b54e312dc25ae756b.webp": 133882,
       "444a736951f8695b894305f343d74b0f623c99d0e426214c53b8335ce5a366cd.webp": 81486,
-      "445aa6967b9c717ccea5fcdc369902890ac9d6492eda47cfcb18ea2426ad2b81.webp": 117924,
-      "453be061211cb3c8ea1fd94986794c6882cd4b4e19ea908de0790e7b29c1f731.webp": 141596,
       "459b0df221f5c1150eb6c10531f2ad49bc6a3fbdc9285e19ec384dd7736ced28.webp": 162916,
-      "4a1844fb3c9c9a06bf5a5d910002cc647473c8730c338cfdefbacb156d94b6ef.webp": 69570,
       "4afd32d5f89be5b50bef4e310f58a9a22a954b6d6901f439f7477f7347f3c598.webp": 149770,
-      "4bc2abda03b0b76423cfa577786313b7c480a24ecb9feffd746a3760a95ba3c3.webp": 36082,
+      "4bf4b0e975fb3bdd0bccbaa27bccb88a6540eb05531007ce3e08f4daf70a9333.webp": 140806,
+      "4c8ea9cdfada98293b0c818023394a6c0245ab5f11cd44441b6f464300b1f090.webp": 137026,
       "4e994c0dd39fb033e79381e13d092177d746dada68ca4e92990aec6959a6093d.webp": 135078,
       "4edcf14b4f915507821598ad17c466d86a53aec8331ec47d888b7ab7125a8e19.webp": 116276,
       "4ee94198af574574fb4fdf1a8ab9de2ba345d8b0b2fa87b7e9c3e8f291b8ea27.webp": 110570,
       "4f54ba65980898cb563a5de7ac4a6383c801bb2212f795b32d63dd6e1ec85cac.webp": 77316,
       "4ff87fb18ae62d487a788d316c19d1dc35d0cfd7b0102c4444b0b8d2aa8b15c6.webp": 64014,
-      "50c4043e34284a494d64e2fe2d5aafab365800b3999263a2625786e6d38cd688.webp": 117940,
+      "511865bb1a81db95755b23bbd2ec51737e22e283d8aedaff4f1007838d9bdbcc.webp": 129948,
+      "51d175d42c6835218f4d7950109c8dcd48499b08b35e972ffc2125f26e8fa52f.webp": 126172,
       "530ec19b7d7ede91cbc8171e2c8375a1f30b702fc7c52ab7ab2030492d07283b.webp": 59636,
-      "537177630c8c6c1d81e3e307a44ad0aaeb61a55e9971e09078093a4291fed5aa.webp": 144110,
       "544651f874e496425c168981111f6182b9a9e6f20c3eefa54bc3b455f5549f2a.webp": 160396,
       "55176b102baa70ba1ea9dac1dc164cd6ff2d3453c7bdac80248e9407265981c0.webp": 139930,
       "592cbdccdd4db18b7420bc1bb5149c4b163d8582856d2d07643ea98552d178a6.webp": 102776,
       "59e95526b8b0026e79caf00c54f926c70dfd5f7e19cc4583db4fbfc45445c42b.webp": 143850,
       "5a672b5a4c5089c071734c4794b92da3b2e93fa99548687693ffe3f6c650a0b1.webp": 76134,
+      "5b353e10153a15276a1d4cf6653a304c86ccdb676d6c025e3de0396f63530599.webp": 207604,
       "5b5cfbe6b4193af2501962b8384aeabd51a49adf1ae11fe41d7a58eca9c3083b.webp": 153764,
-      "5b88d395e2ac56db14558b945a1431c77ba9bc6d7f948c0632c350356404a5f4.webp": 36088,
       "5c6ab6f306d5774ed3a03763f999f405eeb0992b34a826d1ed707b95f3ff72d4.webp": 118262,
       "5cbc00f5d857805cc1bdfee6f379944d36f5bb3c0e481cdc3b8208aa565e2a26.webp": 161440,
-      "5e50d8b80234dcb7fb3d7a607100625c293bd00ba404e4a4cb948618b05b4857.webp": 106766,
       "5eea1d52e5c56d1ae971e471e933bf9d7c59441f12bf02f70083e2ac9bb43890.webp": 147712,
       "60eb84cc8ea74ed386c826fd38d386a0d64a9420d2bf04998ee530011a481d99.webp": 184202,
       "613c8b06ae9014d47527075539c953d094dad6924f04d27ef0fdd01c08732d1c.webp": 69574,
@@ -79,10 +79,9 @@
       "6d457120f14ae1dccb74d888613882912c6ff735822d19004da41f36fd3f25c1.webp": 92498,
       "6e00e2fe5f6c6515c0e4152beed62f1eaeb44babeb58efed14d2ea84164110f7.webp": 319702,
       "6e31c4e9c6dce718ec7a2aaec3356b8011cd4519519a812bc9679ebf306541b2.webp": 165454,
+      "7025f0c1724849146fc20826ed178cf57b2f30b266de9997ae9c591d0a27df7f.webp": 134348,
       "70c68d997ddd51e57a30d3c764009105ea098f002409464d871d1c7c9d656735.webp": 155210,
-      "7135cbb44cd2d32d4513c472da5f4f880456a4dbec6201cdf6ba1b81ead413c7.webp": 111418,
       "73f51a3553ed9fe453fc820a4c00bfc1a1ec8fada7c9c71dfcbfbe757786cb37.webp": 120506,
-      "743d24216105826fa79bc78d2c5ef5733e19a51e2e4882e95eacddab768134e6.webp": 105048,
       "76e9ed5b07c3c0b9b11ecbd9fec0c1c7e89cfd03cf568cce537552bad4a4cd19.webp": 163550,
       "77f5a00cec5b58d1a05c849d8c93511004b8aa0b2442d0f423a2506b249d0968.webp": 77362,
       "7814e4fc4bb0c384bba38ce7a8d341ea05f044a4899b78c49e6970ab291a7c60.webp": 156970,
@@ -91,57 +90,54 @@
       "7aa95202f3a48f68e6faaf56397cf5e8ac4b10778b3a39c8b234cf19b3ad2a71.webp": 65288,
       "7c26916e0d3910a3ec284ec8830c194b8578e631a9ad4edca3803f7cede4e407.webp": 56412,
       "7e2891b84b37d74727a4cfe3cb9efb4a042ecb2f712bd44b1db1bf9903ade613.webp": 41930,
+      "7e635470868ea9b9e0747462d618a5f907cd5f5d7fc411a66f8782a2c15eedf6.webp": 120406,
       "7f890f520c66bafced9cd350bef9a3da70f53af6d682cf984b4d864102f3fddb.webp": 308266,
       "848214345cff5c52767c7068e7ddc40fa58355e9e8fa452cd967481ee3d8fcc6.webp": 65788,
       "8559eed573325259e81cfcf91e527d0f2b1b904defe21217b403d4702a78e4fb.webp": 123456,
-      "86e078d6a95e9e83a579141f10b5fe2c4ebcd43393802d4a1b20ce6f25736ae1.webp": 69922,
-      "8802a1c6724fac539d637067a4e1b88bc2e4cbb802cb1a0805c5645fdd5dda05.webp": 144612,
-      "8871527c0a935c28656f923920458a840ed667bd166bab36a36c540a00631318.webp": 111964,
       "8875e6401ee21e98a202c41ae78582f091a8db027248e11d98038f16f962408d.webp": 175974,
+      "8909eb14aec2323583cd96dee7c0433f2b8f77ae63c2a31f845fc0a35a45d8fb.webp": 162144,
       "8930a0df835a0361f773b71f1228ddf88d8b02e5b11135b6885963260879882d.webp": 136106,
       "898c1c770f9833bdf208410ba174a9a95ae2e45e165f08afb6315747b2efdca7.webp": 87012,
       "8b2c66b7d673591b9f4c5b0f8bf450b53f9b7a9ca3f2bc6dda93b19ad9e022d2.webp": 121178,
       "8c3f40eb662cfd4b698e027ae35339888bb4be9d418d05d4ec4f5a01fa0cd61b.webp": 161990,
       "8ce91db6c80bd4efdd7b6446ac58bb062fa28457bc7b530293ac0add7a32f64a.webp": 127256,
-      "8ff1dc0535b134135eae51a25981b5db6993a7621e2f47c8da351cc02b2092d7.webp": 78600,
       "9396a3f41c44db3bfe966b06b4513830d3ef5a7d2f3a28844d4d8f719f634b68.webp": 158592,
       "9509951b600c543967392fcc8fd28109add626c477a95fc872705ff658b7109f.webp": 76302,
-      "95841bbfc4682025c6c3a049796e8ec8c00eea1dabe78ad7798ee23e4db330a6.webp": 107814,
       "95aaee8efddae58f1f0f8b9f673e047fa833dac3505d413a68def079562a00a7.webp": 153222,
       "985d590cac9387cb07a276296cc4593a70239ddfdca904489c8089b16d932f7d.webp": 158280,
       "987301d5f5193d0afe0a366b4b7cb69d35351b82bfb34f0aaa8daf278b31fe56.webp": 80226,
-      "98d79d715376cba0c6ac0d3213640f4fa70c4fa940a174f50f0d797f4abad18a.webp": 81380,
-      "9b0e4757076ff555a190cc9a97da899b02bfd8d7e476e85a0cfdbcc775afb053.webp": 144354,
       "9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp": 127284,
       "9e7f8d041d794319d81e1060a7d8b324b8ee480eea38e22f7727493b69f8d3b9.webp": 134020,
-      "9f720f77fbe044dfdfc550f2b16252e0a93a2b4ab6a78ded33e350a1622397b9.webp": 116308,
       "a383d1b278cb0629278302053f300db7d3dbf6933aa454683515b51a2f9af155.webp": 132670,
       "a4e7152926695b3aa8fc4a2b78bdfa422479c7b26e2e98ea1080a03176c168cd.webp": 190266,
       "a5e8a3f8617a1484d4b7bdb592c0a4f6c10b024eafbfc056df7ef59035cd099f.webp": 63898,
       "a63ec7af2e7824191c06be1ae69e97263a8f85d241725f74f1358e8a129041f0.webp": 112068,
       "a807da908421448b8430569b27102d7b10c7954c08850d666062fe44aa2745ae.webp": 162292,
-      "a9939ef47e83437f56bb426266f158875e087126414b54fa4d935894f12a7e76.webp": 34618,
       "a9e4f0302af8dcd93dbdd42dfd8b793455f803d46d928eade52522be85610557.webp": 136694,
       "aed60615055760cd042da1dcd1c0e4f452fa39ed31732a99d4f24ea5a684a12a.webp": 150788,
       "af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp": 125652,
-      "af36b0958d490968da58f4767f140412aa7d0638419ea96eaa6a884f70938cf8.webp": 144336,
       "b046277cea3859ef004f7775ed3f017bd9051d00d826cb59f8d5dd694037a38a.webp": 153688,
       "b2d1c7a67634352b48a1b8226629fa0a38c70d09ab14a51c86a91dbf2b95623b.webp": 47692,
+      "b3d267947beff1440d3e31c9f6506800c3db78e35c05f3d9ba950c7ea113fa78.webp": 126086,
       "b429c2569d4ab2a39b5d2a3ceaa5a106af7821fac9b178102494e7a3623d2756.webp": 61516,
       "b5a8f7401ccc1347dc46f4e6b23ad229c6c4b7880f6a968193b2ff72fd78e182.webp": 192968,
       "b5ad6b58e511f89d5a49ccd90a2e852ed03b4976af562f5994099bdca34bd8af.webp": 137276,
       "b7843532647f256dc11a3f87e73407c681fc6853b57c5cf0f3bfa87863d24e73.webp": 125362,
       "b796884c52a33bb35cbd9f9bb9d784dbb494993fc0ff9821a6b0e501e84b6983.webp": 154038,
+      "b7b724e117d6ab1d3f1dcfcddaa2d9707fd413550aec71c71ef4bf993bbd2a42.webp": 110042,
+      "b7db07449b884a25c7ae28578d6bfa02f5f3bc069bc9ec7b7fd66303fe5aebff.webp": 165306,
       "b82f3d3fc708a4e1aa9bf3508124977d9898d7ccc439b66cb1d9dbb6126d2126.webp": 54604,
+      "b843a3f085f143aa07a51a51d967f4ea074342bfc42c753c72910b36524659f4.webp": 130224,
       "b9ba9ff34e61947d6fd902c37d368d4fda8948aa01186cd1bf1700ba3dec4039.webp": 73908,
       "ba757cc993c7eb7ac524bc014e18c8cc7aa24b8ad4a7e41f10625597060bef2f.webp": 104714,
       "bc4f81623b635c01dfe4afd9470df79d7dce2e41231bae85bbef5cc2c9e8b9f1.webp": 145642,
-      "bddc0df4733443768811f9defb8e839cc34f8eb8d0b67521f680130917332381.webp": 104466,
       "bf30ebbdb23d4e6f9b256fa74bc2187dc576879b25fe5e003fe9c98c69c14a78.webp": 119354,
+      "bf48ef338776c587635b0eaccaee236bef6df978e7cfc155edbe36a8f5175fc9.webp": 143462,
       "c208654585b170deb1a9be565aa784a76a2ebc04df203cee769f00f4ac3c4efe.webp": 115392,
       "c2a457808fe62b9478f48ab3a0a0bcfff4fd2ec009a602f00c02ad7300631cb0.webp": 162588,
       "c46cd100b0634b8d2a990c6a07c396e095244f91288d3d306f4abeacb20e6a91.webp": 128900,
       "c6a3a984b7ffd780beba3dd5997b37f4aa86f9669036c08ba2c429abfbce4400.webp": 141370,
+      "c6e2022fcbefcf93cc782d1fc7aa44885cdfdebcd95b92ea3617c08725eff3ab.webp": 124324,
       "c938a8f60dd91b8bbeb8241942196e0195bf97837d4a95843cc96934094d2822.webp": 150386,
       "cac1af3c9dd47a7ad5861e707330078667df4c0a98abc6ebb031249428ad2fa2.webp": 105042,
       "cb801cabb79f1f1ab09c6cc204fa575b33e1f67511bc290da1c82b3b9949aaaf.webp": 159954,
@@ -160,19 +156,23 @@
       "e1fb4d9cd00fd52e06b00821eb97965e297890b2fe5254329326e7c1f0673cef.webp": 155038,
       "e20855f8a52ebaf98e0e9e35dde50f715589040bda9a445cadc03536477fd0f8.webp": 189114,
       "e259763b05b5fe6a66fbb90856fc239e836bddc1b49b6606b34bf531ae3fcc96.webp": 46514,
-      "e4fa96c39e682d2519dfb1e5c1b0bf8e5de47d1f18010ed702dc743c86930807.webp": 34656,
+      "e395f710bff2d854bd9374b752e8c809569a5509607b68811d0cdc67779d4ffb.webp": 156360,
+      "e678fdcaed360c1e3ac5f650a979189a04e9acc9c75edd015cf6b2e2f33af77a.webp": 146286,
       "e699637ae35649ac394c4851535baad438999cbe0a4b6dbbed196158cba9a6cd.webp": 155790,
+      "e876186caebe6b42fce0d7686c7b9f73827cab81252d757347407163b02f404d.webp": 106484,
+      "e92e751a0521df0075beded2877bb005b30ff75aa46eb03a3f8051de7d84fa05.webp": 124390,
       "e9cf6ef80592d96294535929989a13ed302f3ad823889dcb431bdeb652c5134c.webp": 165232,
       "ec12cfa04035c5ad547cc71d947dbe00573978b0814e98be925f1b8dadadd5dd.webp": 145736,
+      "ee99811ed4c170354c617955ad8d82f7c494fa42c8eec8d0429a91e260fba1da.webp": 134472,
       "f1a3bdc89a6b1cbe3693f9847ea681d57dbb3867d844813bf7a4203edf028ac5.webp": 86382,
-      "f277fd8866fe8249c58a867a15a15b63f0f3330084a90d0f2d7d26c4ee14d9ae.webp": 140740,
+      "f4dfac6012df214811c55e43e9605ec0e66167e41a67079a53366777102c043d.webp": 127624,
+      "f4e62604dc14047bc7bc1470e7b3cc953b132f0609b9291b483412b0228be512.webp": 140574,
       "f4e71acf0238bfabf7a7fb1bb6876ec3462f77926b24012613f9f4ef53f59fd5.webp": 157842,
+      "f77705cfa4dcd19cc3bd354299996ea511efb9c127ff3c452c237995b18dcfbd.webp": 204618,
       "f95dc7ef661d027da5c30d5178c64bfc237bf2adda33e1a92d52d0d3334b621a.webp": 67778,
-      "f9bfc98bea2b9ec094b8f0b2cf04d97304fd29ec07775ae1f95f4ac3b6c14f94.webp": 69048,
-      "fa00d3abf525e9946d91a27a6fb7bc83136c7300a2598f42db348848ee66bcd3.webp": 139620,
       "fc56cd8452e85ec208ed28233d3890f0d9825df45ccb3c93364227945037b393.webp": 147624,
-      "fd0ccf3740470932d199dd182aecffc371e9e9c3373da51f2c9e7f3d79c603b6.webp": 106156,
-      "fd6ef99ae3f1a06c174c98c7157b9975924c6332c45f9be48ea40744783b4c5c.webp": 63056
+      "fd6ef99ae3f1a06c174c98c7157b9975924c6332c45f9be48ea40744783b4c5c.webp": 63056,
+      "fdc5714d5222f56b8023b292686a4113956fe89074164f1c8fa869e6e29b1bfc.webp": 118276
     }
   },
   "ports": [
@@ -180,7 +180,7 @@
       "id": "aider",
       "name": "Aider",
       "group": "AI & Agents",
-      "description": "Living Code for Aider: native YAML colors for user and assistant messages, warnings, errors and completion-menu states.",
+      "description": "Living Code for Aider: native UI colors and Neovim-aligned code highlighting through a companion Pygments plugin.",
       "homepage": "https://aider.chat",
       "quick": "Install the native theme files",
       "aliases": [
@@ -200,37 +200,37 @@
         {
           "flavor": "night",
           "alt": "Aider running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/537177630c8c6c1d81e3e307a44ad0aaeb61a55e9971e09078093a4291fed5aa.webp",
+          "src": "https://assets.living-code.dev/port-images/b7b724e117d6ab1d3f1dcfcddaa2d9707fd413550aec71c71ef4bf993bbd2a42.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Aider running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/453be061211cb3c8ea1fd94986794c6882cd4b4e19ea908de0790e7b29c1f731.webp",
+          "src": "https://assets.living-code.dev/port-images/e876186caebe6b42fce0d7686c7b9f73827cab81252d757347407163b02f404d.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Aider running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/af36b0958d490968da58f4767f140412aa7d0638419ea96eaa6a884f70938cf8.webp",
+          "src": "https://assets.living-code.dev/port-images/0443f795c661509ce4108912e1023d7ef70a7cf1137855879eeda1cf6eb5bf99.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Aider running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/fa00d3abf525e9946d91a27a6fb7bc83136c7300a2598f42db348848ee66bcd3.webp",
+          "src": "https://assets.living-code.dev/port-images/1258b16ab88e44b24a26d979302c3c29f218982d562dea875d6cafb7eb7c85e9.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/aider",
       "repositoryName": "living-code-theme/aider",
-      "revision": "d6d74cfd8a5365aa8988c4196112b2151eeececd",
-      "readmeUrl": "https://github.com/living-code-theme/aider/blob/d6d74cfd8a5365aa8988c4196112b2151eeececd/README.md",
-      "content": "ports/aider.27bc46928fe5b645b15d6ce9366e42e4d002021a5f2ffeeb9a44d0cd2fc34e5e.json"
+      "revision": "7d430777bd52a252a1d50d90aee3c57853204e14",
+      "readmeUrl": "https://github.com/living-code-theme/aider/blob/7d430777bd52a252a1d50d90aee3c57853204e14/README.md",
+      "content": "ports/aider.ff149bd9367dffd2fb9bfb5ab6234c80a432ef1e0cbe66b85d2e667247321e61.json"
     },
     {
       "id": "claude-code",
@@ -256,37 +256,37 @@
         {
           "flavor": "night",
           "alt": "Claude Code running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/187c57ede62a2da8705c4bcefab51046f8e2ac5ae319219500041cc544bb1fbc.webp",
+          "src": "https://assets.living-code.dev/port-images/1660f4a876f80ac2a06d96e7b4119473781109ec9047206569e1b23f573e8396.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Claude Code running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/8802a1c6724fac539d637067a4e1b88bc2e4cbb802cb1a0805c5645fdd5dda05.webp",
+          "src": "https://assets.living-code.dev/port-images/b843a3f085f143aa07a51a51d967f4ea074342bfc42c753c72910b36524659f4.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Claude Code running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/f277fd8866fe8249c58a867a15a15b63f0f3330084a90d0f2d7d26c4ee14d9ae.webp",
+          "src": "https://assets.living-code.dev/port-images/15f1415658c662678e55904f66c82229a6617a76fa0e0bd7c9db046a4a29bedd.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Claude Code running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/9b0e4757076ff555a190cc9a97da899b02bfd8d7e476e85a0cfdbcc775afb053.webp",
+          "src": "https://assets.living-code.dev/port-images/b3d267947beff1440d3e31c9f6506800c3db78e35c05f3d9ba950c7ea113fa78.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/claude-code",
       "repositoryName": "living-code-theme/claude-code",
-      "revision": "e4bc4716c0ad8af8c86973895edc75f4c0979456",
-      "readmeUrl": "https://github.com/living-code-theme/claude-code/blob/e4bc4716c0ad8af8c86973895edc75f4c0979456/README.md",
-      "content": "ports/claude-code.d8fc00fe92cfb94c5c78c59dc4c94f40fed7de9adf31a6861000e8a6a0b3e631.json"
+      "revision": "a4af5d20a25b0808aa7aa34df524b8bab02149d9",
+      "readmeUrl": "https://github.com/living-code-theme/claude-code/blob/a4af5d20a25b0808aa7aa34df524b8bab02149d9/README.md",
+      "content": "ports/claude-code.a33054d842065790ac87957484ddae753cf00a420d9d644938f9748074ae416b.json"
     },
     {
       "id": "codex",
@@ -312,37 +312,37 @@
         {
           "flavor": "night",
           "alt": "Codex running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/7135cbb44cd2d32d4513c472da5f4f880456a4dbec6201cdf6ba1b81ead413c7.webp",
+          "src": "https://assets.living-code.dev/port-images/bf48ef338776c587635b0eaccaee236bef6df978e7cfc155edbe36a8f5175fc9.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Codex running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/5e50d8b80234dcb7fb3d7a607100625c293bd00ba404e4a4cb948618b05b4857.webp",
+          "src": "https://assets.living-code.dev/port-images/32c36ff331c821c2a7ed1d6bdf982a0ecdf3fce14bb8bf688f22cdaf84e7d289.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Codex running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/bddc0df4733443768811f9defb8e839cc34f8eb8d0b67521f680130917332381.webp",
+          "src": "https://assets.living-code.dev/port-images/ee99811ed4c170354c617955ad8d82f7c494fa42c8eec8d0429a91e260fba1da.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Codex running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/743d24216105826fa79bc78d2c5ef5733e19a51e2e4882e95eacddab768134e6.webp",
+          "src": "https://assets.living-code.dev/port-images/4c8ea9cdfada98293b0c818023394a6c0245ab5f11cd44441b6f464300b1f090.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/codex",
       "repositoryName": "living-code-theme/codex",
-      "revision": "73ea64041312de95cce4582d27f42ae2513963ed",
-      "readmeUrl": "https://github.com/living-code-theme/codex/blob/73ea64041312de95cce4582d27f42ae2513963ed/README.md",
-      "content": "ports/codex.0a8d46f4348c96b073c4b5071242db92dba7d0ed5d777f8fa5376d0509e07b47.json"
+      "revision": "c40e81d1fd782baa35515a9a71f9e34e39f0a261",
+      "readmeUrl": "https://github.com/living-code-theme/codex/blob/c40e81d1fd782baa35515a9a71f9e34e39f0a261/README.md",
+      "content": "ports/codex.36a4082b013df4bf22ede3a58691de580158fa1dfb3ea4a17a57252a671fd576.json"
     },
     {
       "id": "crush",
@@ -368,37 +368,37 @@
         {
           "flavor": "night",
           "alt": "Crush running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/fd0ccf3740470932d199dd182aecffc371e9e9c3373da51f2c9e7f3d79c603b6.webp",
+          "src": "https://assets.living-code.dev/port-images/b7db07449b884a25c7ae28578d6bfa02f5f3bc069bc9ec7b7fd66303fe5aebff.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Crush running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/38d395097740497480df3a244ec1afa74866b7bfedc32237f4c9cd5da9834a0e.webp",
+          "src": "https://assets.living-code.dev/port-images/8909eb14aec2323583cd96dee7c0433f2b8f77ae63c2a31f845fc0a35a45d8fb.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Crush running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/40de5137c72468b78ebecdaeb298cbf03e31e6806593e797fb7fdeb085f22b12.webp",
+          "src": "https://assets.living-code.dev/port-images/e395f710bff2d854bd9374b752e8c809569a5509607b68811d0cdc67779d4ffb.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Crush running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/95841bbfc4682025c6c3a049796e8ec8c00eea1dabe78ad7798ee23e4db330a6.webp",
+          "src": "https://assets.living-code.dev/port-images/0e57751c71ca6ba25e39a55bf969e5d6afaf8f119afed5b89e8ce9ba4fa97cf6.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/crush",
       "repositoryName": "living-code-theme/crush",
-      "revision": "45655faae3fcf1d2c80a984084b28ed6a24a48a4",
-      "readmeUrl": "https://github.com/living-code-theme/crush/blob/45655faae3fcf1d2c80a984084b28ed6a24a48a4/README.md",
-      "content": "ports/crush.f8df049d1dd86a6bd4b9878b9980f34939d4445dd53513c2f37154317e656463.json"
+      "revision": "184846af7fe25e0f0bce2555a49965e99f8ec311",
+      "readmeUrl": "https://github.com/living-code-theme/crush/blob/184846af7fe25e0f0bce2555a49965e99f8ec311/README.md",
+      "content": "ports/crush.e78724c24bfe64f9ce37f5d57dad6ce20394496940762e69d5bc037f691278d5.json"
     },
     {
       "id": "gemini-cli",
@@ -424,37 +424,37 @@
         {
           "flavor": "night",
           "alt": "Gemini CLI running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/f9bfc98bea2b9ec094b8f0b2cf04d97304fd29ec07775ae1f95f4ac3b6c14f94.webp",
+          "src": "https://assets.living-code.dev/port-images/511865bb1a81db95755b23bbd2ec51737e22e283d8aedaff4f1007838d9bdbcc.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Gemini CLI running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/86e078d6a95e9e83a579141f10b5fe2c4ebcd43393802d4a1b20ce6f25736ae1.webp",
+          "src": "https://assets.living-code.dev/port-images/51d175d42c6835218f4d7950109c8dcd48499b08b35e972ffc2125f26e8fa52f.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Gemini CLI running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/134c93a332f6939ce137729216a9ddf6baad5078b92f64deabd124583a214009.webp",
+          "src": "https://assets.living-code.dev/port-images/e92e751a0521df0075beded2877bb005b30ff75aa46eb03a3f8051de7d84fa05.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Gemini CLI running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/4a1844fb3c9c9a06bf5a5d910002cc647473c8730c338cfdefbacb156d94b6ef.webp",
+          "src": "https://assets.living-code.dev/port-images/f4dfac6012df214811c55e43e9605ec0e66167e41a67079a53366777102c043d.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/gemini-cli",
       "repositoryName": "living-code-theme/gemini-cli",
-      "revision": "1f2100fca557a6976b2bee8076f2352a337d8d9b",
-      "readmeUrl": "https://github.com/living-code-theme/gemini-cli/blob/1f2100fca557a6976b2bee8076f2352a337d8d9b/README.md",
-      "content": "ports/gemini-cli.d35544dd64055230aa09535433da388ec3202e91dfa254013a9a319d9172660f.json"
+      "revision": "995beb557b64d8db8d2fe60e7042b6666b6da1e7",
+      "readmeUrl": "https://github.com/living-code-theme/gemini-cli/blob/995beb557b64d8db8d2fe60e7042b6666b6da1e7/README.md",
+      "content": "ports/gemini-cli.3ec47c6ffb839e65b01109a51f39bddd64a0040db38f4dfa51fee8b91c87438e.json"
     },
     {
       "id": "herdr",
@@ -481,37 +481,37 @@
         {
           "flavor": "night",
           "alt": "Herdr running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/50c4043e34284a494d64e2fe2d5aafab365800b3999263a2625786e6d38cd688.webp",
+          "src": "https://assets.living-code.dev/port-images/3e93a61d36cc044dfe623dc500679269f29b440e81cc48492c6f82801907d70a.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Herdr running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/9f720f77fbe044dfdfc550f2b16252e0a93a2b4ab6a78ded33e350a1622397b9.webp",
+          "src": "https://assets.living-code.dev/port-images/118266cc708243fcc4ae6681ebbf57733f60dd8b8229b75a224720fa42efb6f3.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Herdr running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/8871527c0a935c28656f923920458a840ed667bd166bab36a36c540a00631318.webp",
+          "src": "https://assets.living-code.dev/port-images/5b353e10153a15276a1d4cf6653a304c86ccdb676d6c025e3de0396f63530599.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Herdr running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/445aa6967b9c717ccea5fcdc369902890ac9d6492eda47cfcb18ea2426ad2b81.webp",
+          "src": "https://assets.living-code.dev/port-images/f77705cfa4dcd19cc3bd354299996ea511efb9c127ff3c452c237995b18dcfbd.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/herdr",
       "repositoryName": "living-code-theme/herdr",
-      "revision": "dedbb4a7eb735bbabb43d0b3b7dd7c81f24b97be",
-      "readmeUrl": "https://github.com/living-code-theme/herdr/blob/dedbb4a7eb735bbabb43d0b3b7dd7c81f24b97be/README.md",
-      "content": "ports/herdr.71b3acea1341a4b87dfa057069cd25e20cb122e2f1e06dd3fe8af560304cf7eb.json"
+      "revision": "685b46e7324aceb45a61773bc60a5e5242dd0daa",
+      "readmeUrl": "https://github.com/living-code-theme/herdr/blob/685b46e7324aceb45a61773bc60a5e5242dd0daa/README.md",
+      "content": "ports/herdr.9d0de495885719186209c21093117475c87b43e2a7eb6bd0651d74ee4231f7b9.json"
     },
     {
       "id": "opencode",
@@ -537,37 +537,37 @@
         {
           "flavor": "night",
           "alt": "OpenCode running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/5b88d395e2ac56db14558b945a1431c77ba9bc6d7f948c0632c350356404a5f4.webp",
+          "src": "https://assets.living-code.dev/port-images/e678fdcaed360c1e3ac5f650a979189a04e9acc9c75edd015cf6b2e2f33af77a.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "OpenCode running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/a9939ef47e83437f56bb426266f158875e087126414b54fa4d935894f12a7e76.webp",
+          "src": "https://assets.living-code.dev/port-images/f4e62604dc14047bc7bc1470e7b3cc953b132f0609b9291b483412b0228be512.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "OpenCode running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/e4fa96c39e682d2519dfb1e5c1b0bf8e5de47d1f18010ed702dc743c86930807.webp",
+          "src": "https://assets.living-code.dev/port-images/4bf4b0e975fb3bdd0bccbaa27bccb88a6540eb05531007ce3e08f4daf70a9333.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "OpenCode running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/4bc2abda03b0b76423cfa577786313b7c480a24ecb9feffd746a3760a95ba3c3.webp",
+          "src": "https://assets.living-code.dev/port-images/7025f0c1724849146fc20826ed178cf57b2f30b266de9997ae9c591d0a27df7f.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/opencode",
       "repositoryName": "living-code-theme/opencode",
-      "revision": "ced03b2d0208a4222d5aae4389b6a7c1ec806e35",
-      "readmeUrl": "https://github.com/living-code-theme/opencode/blob/ced03b2d0208a4222d5aae4389b6a7c1ec806e35/README.md",
-      "content": "ports/opencode.5bdab5e941a8bac881e855519b2b49077038275d1237078bf3191d2130b34f66.json"
+      "revision": "4394caae5f9b96646548728dc02414d4a2d62b8a",
+      "readmeUrl": "https://github.com/living-code-theme/opencode/blob/4394caae5f9b96646548728dc02414d4a2d62b8a/README.md",
+      "content": "ports/opencode.ea866163d7ba19e4b5f73f36745e349ef803b8b882c362d937de13981ae73f65.json"
     },
     {
       "id": "pi",
@@ -594,37 +594,37 @@
         {
           "flavor": "night",
           "alt": "Pi running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/98d79d715376cba0c6ac0d3213640f4fa70c4fa940a174f50f0d797f4abad18a.webp",
+          "src": "https://assets.living-code.dev/port-images/c6e2022fcbefcf93cc782d1fc7aa44885cdfdebcd95b92ea3617c08725eff3ab.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Pi running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/8ff1dc0535b134135eae51a25981b5db6993a7621e2f47c8da351cc02b2092d7.webp",
+          "src": "https://assets.living-code.dev/port-images/7e635470868ea9b9e0747462d618a5f907cd5f5d7fc411a66f8782a2c15eedf6.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Pi running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/3cf58b36d515aa6a21a364ba49da7d7bc6f023edd0bc570ecfc966254c27d7e7.webp",
+          "src": "https://assets.living-code.dev/port-images/fdc5714d5222f56b8023b292686a4113956fe89074164f1c8fa869e6e29b1bfc.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Pi running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/30e13466c4f177595265d2cee1ef1c48f86116f96864ac2466701903a40dfe43.webp",
+          "src": "https://assets.living-code.dev/port-images/18030e548b6e39f8d32f641e73304b0d4989bb7344481d4f21fbe99081ef2206.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/pi",
       "repositoryName": "living-code-theme/pi",
-      "revision": "2de6b7a86430788e0476397745456525c8d4aeb1",
-      "readmeUrl": "https://github.com/living-code-theme/pi/blob/2de6b7a86430788e0476397745456525c8d4aeb1/README.md",
-      "content": "ports/pi.d10be570ba7cf41684e97ae5f1a738797e762be4763b3760175f93b796a808aa.json"
+      "revision": "ddfd148027e44ae632ddd08beb2ea6bd3f213819",
+      "readmeUrl": "https://github.com/living-code-theme/pi/blob/ddfd148027e44ae632ddd08beb2ea6bd3f213819/README.md",
+      "content": "ports/pi.4ff109724c6a115f278c637b91fd040fab557d8e221e22ba0673d395df0d2303.json"
     },
     {
       "id": "obsidian",

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "aider",
+    "name": "Aider",
+    "group": "AI & Agents",
+    "description": "Living Code for Aider: native UI colors and Neovim-aligned code highlighting through a companion Pygments plugin.",
+    "homepage": "https://aider.chat",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "aider",
+      "aider chat",
+      "aider ai"
+    ],
+    "icon": null,
+    "emoji": "🛠️",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.yml",
+      "themes/living-code-frost.yml",
+      "themes/living-code-paper.yml",
+      "themes/living-code-signal.yml",
+      "styles/living_code_aider-0.1.0-py3-none-any.whl"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night # night, frost, paper, or signal\ncurl -fsSL --create-dirs -o \"${XDG_CONFIG_HOME:-$HOME/.config}/aider/themes/living_code_aider-0.1.0-py3-none-any.whl\" \"https://raw.githubusercontent.com/living-code-theme/aider/main/styles/living_code_aider-0.1.0-py3-none-any.whl\"\nuv tool inject aider-chat \"${XDG_CONFIG_HOME:-$HOME/.config}/aider/themes/living_code_aider-0.1.0-py3-none-any.whl\"\ncurl -fsSL --create-dirs -o \"${XDG_CONFIG_HOME:-$HOME/.config}/aider/themes/living-code-$flavor.yml\" \"https://raw.githubusercontent.com/living-code-theme/aider/main/themes/living-code-$flavor.yml\"\naider --config \"${XDG_CONFIG_HOME:-$HOME/.config}/aider/themes/living-code-$flavor.yml\"\n```\n\nThe block assumes Aider was installed with `uv tool`. For pipx, replace `uv tool inject aider-chat` with `pipx inject aider-chat`; for a pip/virtualenv installation, use that environment’s `python -m pip install` instead. The plugin must be installed in **Aider’s own Python environment**, not an unrelated Python. It registers all four styles through Pygments’ supported entry-point API and makes no network or model calls.\n\nThis uses a separate theme config instead of overwriting `~/.aider.conf.yml`. To keep all your existing Aider settings active together, merge the nine UI color options **and `code-theme`** from the downloaded file into your user or project config. Preserve credentials, model and editing settings.",
+      "configuration": "Each YAML file sets Aider’s nine documented `*-color` options and selects the corresponding Living Code `code-theme`. Do not combine it with `--dark-mode`, `--light-mode` or an unrelated `--code-theme`, which replace these settings. Completion foreground/background and the selected entry are explicitly paired.\n\nThe companion Pygments plugin uses the [Neovim port](https://github.com/living-code-theme/nvim/blob/main/lua/living-code/highlights.lua) as its syntax reference: keywords/builtins → mint, functions → aqua, strings → moss, numbers/literal constants → copper, types → steel, variables → foreground, operators/comments → muted slate, punctuation → subtle slate. Every flavor has its own role mapping, including restrained Signal and light Paper. Lexers still differ in which tokens they recognize; unclassified identifiers remain variables.",
+      "compatibility": "Verified with Aider 0.86.1, Rich and Pygments 2.20.0. The wheel is pure Python, includes all four syntax styles, and uses Pygments’ public plugin API. The terminal owns the full-screen background; use a matching Living Code terminal theme. Tests validate YAML, wheel integrity and Neovim role parity; the native capture checks that Pygments and Rich actually resolve the installed Living Code style rather than silently falling back to Monokai/default.\n\nPreviews are captured programmatically from the actual application in an isolated profile. See [`capture/app.py`](capture/app.py) for the app-owned recipe and [`images/capture.json`](images/capture.json) for runtime, palette and image provenance. No mock interface is drawn. A loopback-only canned provider supplies the labeled, repository-owned local code-review demo; Aider renders the response itself. No private session, account, subscription or paid API call is needed.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/aider",
+    "repositoryName": "living-code-theme/aider",
+    "revision": "7d430777bd52a252a1d50d90aee3c57853204e14",
+    "readmeUrl": "https://github.com/living-code-theme/aider/blob/7d430777bd52a252a1d50d90aee3c57853204e14/README.md",
+    "fileUrls": {
+      "themes/living-code-night.yml": "https://github.com/living-code-theme/aider/blob/7d430777bd52a252a1d50d90aee3c57853204e14/themes/living-code-night.yml",
+      "themes/living-code-frost.yml": "https://github.com/living-code-theme/aider/blob/7d430777bd52a252a1d50d90aee3c57853204e14/themes/living-code-frost.yml",
+      "themes/living-code-paper.yml": "https://github.com/living-code-theme/aider/blob/7d430777bd52a252a1d50d90aee3c57853204e14/themes/living-code-paper.yml",
+      "themes/living-code-signal.yml": "https://github.com/living-code-theme/aider/blob/7d430777bd52a252a1d50d90aee3c57853204e14/themes/living-code-signal.yml",
+      "styles/living_code_aider-0.1.0-py3-none-any.whl": "https://github.com/living-code-theme/aider/blob/7d430777bd52a252a1d50d90aee3c57853204e14/styles/living_code_aider-0.1.0-py3-none-any.whl"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Aider running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/b7b724e117d6ab1d3f1dcfcddaa2d9707fd413550aec71c71ef4bf993bbd2a42.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Aider running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/e876186caebe6b42fce0d7686c7b9f73827cab81252d757347407163b02f404d.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Aider running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/0443f795c661509ce4108912e1023d7ef70a7cf1137855879eeda1cf6eb5bf99.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Aider running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/1258b16ab88e44b24a26d979302c3c29f218982d562dea875d6cafb7eb7c85e9.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

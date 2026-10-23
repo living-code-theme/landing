@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "herdr",
+    "name": "Herdr",
+    "group": "AI & Agents",
+    "description": "Living Code for Herdr: complete native theme overrides for the sidebar, panels, selections, status indicators and workspace chrome.",
+    "homepage": "https://herdr.dev",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "herdr",
+      "herd",
+      "herdrdev",
+      "agent workspace"
+    ],
+    "icon": null,
+    "emoji": "🐑",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.toml",
+      "themes/living-code-frost.toml",
+      "themes/living-code-paper.toml",
+      "themes/living-code-signal.toml"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night # night, frost, paper, or signal\ntheme_dir=\"$(dirname \"${HERDR_CONFIG_PATH:-${XDG_CONFIG_HOME:-$HOME/.config}/herdr/config.toml}\")/themes\"\ncurl -fsSL --create-dirs -o \"$theme_dir/living-code-$flavor.toml\" \"https://raw.githubusercontent.com/living-code-theme/herdr/main/themes/living-code-$flavor.toml\"\n```\n\nHerdr currently has no standalone theme-file import. Merge `[theme]` and `[theme.custom]` from the downloaded fragment into your active `config.toml` (normally `~/.config/herdr/config.toml`, or `HERDR_CONFIG_PATH`). Replace existing theme tables rather than appending duplicates. **Do not replace your whole config**: keep workspaces, keybindings and integrations. Then reload:\n\n```sh\nherdr server reload-config\n```",
+      "configuration": "Every documented custom token is supplied. `auto_switch = false` makes the chosen flavor deterministic; Paper uses a light built-in fallback, all other flavors use a dark fallback. For appearance switching, Herdr also accepts `[theme.custom.light]` and `[theme.custom.dark]`; combine the selected light/dark overrides intentionally rather than duplicating `[theme]` tables.",
+      "compatibility": "The custom-token interface is present in Herdr 0.9.3 and is checked against the pinned upstream Rust fields. This themes Herdr’s own UI. Embedded terminal panes inherit the host terminal’s palette and application-specific themes, so install the matching Living Code terminal theme **and the agent’s own theme**, such as [Living Code for Pi](https://github.com/living-code-theme/pi#installation). A harness theme cannot override an agent’s syntax engine. Installing this port creates no agent sessions or workspaces.\n\nPreviews are captured programmatically from the actual application in an isolated profile. See [`capture/app.py`](capture/app.py) for the app-owned recipe and [`images/capture.json`](images/capture.json) for runtime, palette and image provenance. No mock interface is drawn. The capture recipe alone creates four genuine Pi sessions (reviewer, verifier, implementer and tester) across three tabs, with two agents and a real Git diff visible in the review tab. Each Pi instance explicitly loads the corresponding Living Code flavor; the native Pi themes are vendored in `capture/pi-themes/` with provenance and Neovim role-parity tests. Conversations are labeled local demos, and suggested tests are not presented as executed results. The recipe uses a dedicated disposable Herdr server, never an existing user session; no account, subscription or paid API call is needed.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/herdr",
+    "repositoryName": "living-code-theme/herdr",
+    "revision": "685b46e7324aceb45a61773bc60a5e5242dd0daa",
+    "readmeUrl": "https://github.com/living-code-theme/herdr/blob/685b46e7324aceb45a61773bc60a5e5242dd0daa/README.md",
+    "fileUrls": {
+      "themes/living-code-night.toml": "https://github.com/living-code-theme/herdr/blob/685b46e7324aceb45a61773bc60a5e5242dd0daa/themes/living-code-night.toml",
+      "themes/living-code-frost.toml": "https://github.com/living-code-theme/herdr/blob/685b46e7324aceb45a61773bc60a5e5242dd0daa/themes/living-code-frost.toml",
+      "themes/living-code-paper.toml": "https://github.com/living-code-theme/herdr/blob/685b46e7324aceb45a61773bc60a5e5242dd0daa/themes/living-code-paper.toml",
+      "themes/living-code-signal.toml": "https://github.com/living-code-theme/herdr/blob/685b46e7324aceb45a61773bc60a5e5242dd0daa/themes/living-code-signal.toml"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Herdr running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/3e93a61d36cc044dfe623dc500679269f29b440e81cc48492c6f82801907d70a.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Herdr running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/118266cc708243fcc4ae6681ebbf57733f60dd8b8229b75a224720fa42efb6f3.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Herdr running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/5b353e10153a15276a1d4cf6653a304c86ccdb676d6c025e3de0396f63530599.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Herdr running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/f77705cfa4dcd19cc3bd354299996ea511efb9c127ff3c452c237995b18dcfbd.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

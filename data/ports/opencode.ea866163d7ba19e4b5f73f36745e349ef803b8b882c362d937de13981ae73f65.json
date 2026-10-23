@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "opencode",
+    "name": "OpenCode",
+    "group": "AI & Agents",
+    "description": "Living Code for OpenCode TUI: complete native JSON palettes for UI, Markdown, syntax highlighting, selections and review diffs.",
+    "homepage": "https://opencode.ai",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "opencode",
+      "open code",
+      "opencode tui"
+    ],
+    "icon": null,
+    "emoji": "🔓",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.json",
+      "themes/living-code-frost.json",
+      "themes/living-code-paper.json",
+      "themes/living-code-signal.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night # night, frost, paper, or signal\ncurl -fsSL --create-dirs -o \"${XDG_CONFIG_HOME:-$HOME/.config}/opencode/themes/living-code-$flavor.json\" \"https://raw.githubusercontent.com/living-code-theme/opencode/main/themes/living-code-$flavor.json\"\n```\n\nRestart OpenCode, run `/themes` (also available through `/theme` completion), and select `living-code-night` or your downloaded flavor. For a project-only install, use `.opencode/themes/` as the output directory instead.",
+      "configuration": "The files use the OpenCode v1 `{ \"theme\": { … } }` JSON format. They provide every required color, explicit selected-item text and menu backgrounds. Every flavor is a separate theme, so Paper stays light even in a dark terminal. Put configuration in `tui.json`, not in the theme file; preserve any existing keybindings.\n\nAll nine exposed `syntax*` colors follow the matching [Living Code Neovim](https://github.com/living-code-theme/nvim/blob/main/lua/living-code/highlights.lua) roles in every flavor. Tests compare native theme files against a pinned Neovim reference, not just UI accents. Token recognition and finer-grained mappings remain OpenCode’s responsibility. In OpenCode 1.19.0, `getSyntaxRules` also hardwires builtin scopes to the UI error color, constant identifiers to `syntaxNumber`, and parameters to `syntaxVariable`. Those couplings cannot all match Neovim’s distinct builtin, variable and parameter roles through the native nine-token API. This port verifies the exposed roles, not exact per-token parity that the application cannot express.",
+      "compatibility": "Targets the TUI theme format verified against OpenCode 1.19.0. This is not the web/desktop theme format. Truecolor gives the intended colors; reduced-color terminals approximate them. OpenCode 2 theme documents are a different API and are not claimed here. Syntax, Markdown and diff color contracts are checked independently of generation.\n\nPreviews are captured programmatically from the actual application in an isolated profile. See [`capture/app.py`](capture/app.py) for the app-owned recipe and [`images/capture.json`](images/capture.json) for runtime, palette and image provenance. No mock interface is drawn. The conversation is a labeled, repository-owned local demo, not a private session or a live model response. Recapturing needs no account, subscription or paid API call.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/opencode",
+    "repositoryName": "living-code-theme/opencode",
+    "revision": "4394caae5f9b96646548728dc02414d4a2d62b8a",
+    "readmeUrl": "https://github.com/living-code-theme/opencode/blob/4394caae5f9b96646548728dc02414d4a2d62b8a/README.md",
+    "fileUrls": {
+      "themes/living-code-night.json": "https://github.com/living-code-theme/opencode/blob/4394caae5f9b96646548728dc02414d4a2d62b8a/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/opencode/blob/4394caae5f9b96646548728dc02414d4a2d62b8a/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/opencode/blob/4394caae5f9b96646548728dc02414d4a2d62b8a/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/opencode/blob/4394caae5f9b96646548728dc02414d4a2d62b8a/themes/living-code-signal.json"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "OpenCode running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/e678fdcaed360c1e3ac5f650a979189a04e9acc9c75edd015cf6b2e2f33af77a.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "OpenCode running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/f4e62604dc14047bc7bc1470e7b3cc953b132f0609b9291b483412b0228be512.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "OpenCode running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/4bf4b0e975fb3bdd0bccbaa27bccb88a6540eb05531007ce3e08f4daf70a9333.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "OpenCode running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/7025f0c1724849146fc20826ed178cf57b2f30b266de9997ae9c591d0a27df7f.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

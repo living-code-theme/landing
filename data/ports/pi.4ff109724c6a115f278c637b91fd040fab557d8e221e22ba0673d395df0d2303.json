@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "pi",
+    "name": "Pi",
+    "group": "AI & Agents",
+    "description": "Living Code for Pi: schema-complete custom themes for messages, tools, thinking levels, syntax, Markdown and HTML exports.",
+    "homepage": "https://pi.dev",
+    "quick": "Install the native theme files",
+    "aliases": [
+      "pi",
+      "pi coding agent",
+      "pi agent",
+      "pi-mono"
+    ],
+    "icon": null,
+    "emoji": "π",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.json",
+      "themes/living-code-frost.json",
+      "themes/living-code-paper.json",
+      "themes/living-code-signal.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "```sh\nflavor=night # night, frost, paper, or signal\ncurl -fsSL --create-dirs -o \"${PI_CODING_AGENT_DIR:-$HOME/.pi/agent}/themes/living-code-$flavor.json\" \"https://raw.githubusercontent.com/living-code-theme/pi/main/themes/living-code-$flavor.json\"\npi --use-theme \"living-code-$flavor\"\n```\n\nIn an already running Pi session, run `/reload` and choose the installed flavor under `/settings` → **Theme**. `PI_CODING_AGENT_DIR` is respected. Only the theme JSON is downloaded; no package manager, extension, or repository clone is needed.",
+      "configuration": "Themes include every required color and the optional search, scrollbar and maximum-thinking colors. Export page/panel backgrounds are explicit. All nine exposed `syntax*` roles use the corresponding [Living Code Neovim](https://github.com/living-code-theme/nvim/blob/main/lua/living-code/highlights.lua) roles in every flavor; a pinned reference test protects that mapping. Token recognition still belongs to Pi’s lexer: for example, Pi 1.1.0 combines builtins with types, so those cannot receive separate colors through its nine-token API. In `~/.pi/agent/settings.json`, `\"theme\": \"living-code-paper/living-code-night\"` follows the terminal appearance, with the light theme first. Package resources declare only themes: no tools, extensions or prompts are installed.",
+      "compatibility": "Verified against the Pi 1.1.0 theme schema and native JSON validator. Requires a Pi release supporting these theme roles. User themes hot-reload when the theme name matches the JSON filename; package themes can be refreshed with `/reload`. Project-scoped resources require project trust. Truecolor is recommended. No provider login or model call is needed to use or validate the theme.\n\nPreviews are captured programmatically from the actual application in an isolated profile. See [`capture/app.py`](capture/app.py) for the app-owned recipe and [`images/capture.json`](images/capture.json) for runtime, palette and image provenance. No mock interface is drawn. The conversation is a labeled, repository-owned local demo, not a private session or a live model response. Recapturing needs no account, subscription or paid API call.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/pi",
+    "repositoryName": "living-code-theme/pi",
+    "revision": "ddfd148027e44ae632ddd08beb2ea6bd3f213819",
+    "readmeUrl": "https://github.com/living-code-theme/pi/blob/ddfd148027e44ae632ddd08beb2ea6bd3f213819/README.md",
+    "fileUrls": {
+      "themes/living-code-night.json": "https://github.com/living-code-theme/pi/blob/ddfd148027e44ae632ddd08beb2ea6bd3f213819/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/pi/blob/ddfd148027e44ae632ddd08beb2ea6bd3f213819/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/pi/blob/ddfd148027e44ae632ddd08beb2ea6bd3f213819/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/pi/blob/ddfd148027e44ae632ddd08beb2ea6bd3f213819/themes/living-code-signal.json"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Pi running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/c6e2022fcbefcf93cc782d1fc7aa44885cdfdebcd95b92ea3617c08725eff3ab.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Pi running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/7e635470868ea9b9e0747462d618a5f907cd5f5d7fc411a66f8782a2c15eedf6.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Pi running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/fdc5714d5222f56b8023b292686a4113956fe89074164f1c8fa869e6e29b1bfc.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Pi running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/18030e548b6e39f8d32f641e73304b0d4989bb7344481d4f21fbe99081ef2206.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}
