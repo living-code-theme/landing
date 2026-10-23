@@ -622,9 +622,9 @@
       ],
       "repository": "https://github.com/living-code-theme/pi",
       "repositoryName": "living-code-theme/pi",
-      "revision": "64d02bb63758faf0c2aa0219ca21bc4a123ac342",
-      "readmeUrl": "https://github.com/living-code-theme/pi/blob/64d02bb63758faf0c2aa0219ca21bc4a123ac342/README.md",
-      "content": "ports/pi.fb7bf9347f204aa38176a8f1b0e6450d78803f35035d5559e9c4c64b8c1868fa.json"
+      "revision": "2de6b7a86430788e0476397745456525c8d4aeb1",
+      "readmeUrl": "https://github.com/living-code-theme/pi/blob/2de6b7a86430788e0476397745456525c8d4aeb1/README.md",
+      "content": "ports/pi.d10be570ba7cf41684e97ae5f1a738797e762be4763b3760175f93b796a808aa.json"
     },
     {
       "id": "obsidian",
@@ -881,11 +881,12 @@
       "id": "delta",
       "name": "delta",
       "group": "CLI & TUI",
-      "description": "Living Code for delta. Repository-owned theme files, installation instructions and four color flavors.",
+      "description": "Living Code for delta: diff backgrounds, word highlights, headers and gutters, paired with the bat syntax themes, in four flavors.",
       "homepage": "https://github.com/dandavison/delta",
-      "quick": "See installation instructions",
+      "quick": "Install the bat themes and the delta gitconfig",
       "aliases": [
-        "delta"
+        "delta",
+        "git-delta"
       ],
       "icon": null,
       "emoji": "🔺",
@@ -927,9 +928,9 @@
       ],
       "repository": "https://github.com/living-code-theme/delta",
       "repositoryName": "living-code-theme/delta",
-      "revision": "50fe01c829daa3a7e1b2746b4babfd253545ee96",
-      "readmeUrl": "https://github.com/living-code-theme/delta/blob/50fe01c829daa3a7e1b2746b4babfd253545ee96/README.md",
-      "content": "ports/delta.e9c6579017a7d84eb51db4ff67bd22c8b155b8e4efb1456103ae62c8ae1ba960.json"
+      "revision": "b292e1c9b77e238581c1aeb66729a6e4f773fa41",
+      "readmeUrl": "https://github.com/living-code-theme/delta/blob/b292e1c9b77e238581c1aeb66729a6e4f773fa41/README.md",
+      "content": "ports/delta.d24e15c8342339e1b74486dbfac64d0487d7a148ae6e2c7adaa3b2828afee280.json"
     },
     {
       "id": "eza",
@@ -1590,6 +1591,63 @@
       "content": "ports/television.ffe7fdb2f80e41f88e3cc59c8bc5e6453ae87cee5c60b562a26c172dd5ee0c2b.json"
     },
     {
+      "id": "tmtheme",
+      "name": "bat",
+      "group": "CLI & TUI",
+      "description": "Living Code for bat: TextMate .tmTheme syntax themes, also used by delta, in four color flavors.",
+      "homepage": "https://github.com/sharkdp/bat",
+      "quick": "Install the tmTheme files into bat",
+      "aliases": [
+        "tmtheme",
+        "bat",
+        "textmate",
+        "syntect"
+      ],
+      "icon": null,
+      "emoji": "🦇",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "bat running Living Code Night",
+          "src": "https://assets.living-code.dev/port-images/1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "bat running Living Code Frost",
+          "src": "https://assets.living-code.dev/port-images/9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "bat running Living Code Paper",
+          "src": "https://assets.living-code.dev/port-images/dc0e4cc2bc66371aad6a4715cb7a36e8e3dbd48af7b0891cbdaff9b323220da5.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "bat running Living Code Signal",
+          "src": "https://assets.living-code.dev/port-images/af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/tmtheme",
+      "repositoryName": "living-code-theme/tmtheme",
+      "revision": "8785bf3d9c08bc1351d16a435790cf10dbf54007",
+      "readmeUrl": "https://github.com/living-code-theme/tmtheme/blob/8785bf3d9c08bc1351d16a435790cf10dbf54007/README.md",
+      "content": "ports/tmtheme.ae18a99d0749f3918231548f59a929be6e654eee160290884f53d1610410df0e.json"
+    },
+    {
       "id": "tmux",
       "name": "tmux",
       "group": "CLI & TUI",
@@ -2022,63 +2080,9 @@
       ],
       "repository": "https://github.com/living-code-theme/sublime",
       "repositoryName": "living-code-theme/sublime",
-      "revision": "288e61b5f6406702222563c0d79f1eac31d58cc2",
-      "readmeUrl": "https://github.com/living-code-theme/sublime/blob/288e61b5f6406702222563c0d79f1eac31d58cc2/README.md",
-      "content": "ports/sublime.4d8b89ddd807463e45e8a4ce82282b8c59397085065f6d613891484cb15d49d4.json"
-    },
-    {
-      "id": "tmtheme",
-      "name": "bat · delta (tmTheme)",
-      "group": "Editors",
-      "description": "Living Code for bat · delta (tmTheme). Repository-owned theme files, installation instructions and four color flavors.",
-      "homepage": "https://github.com/sharkdp/bat",
-      "quick": "See installation instructions",
-      "aliases": [
-        "tmtheme"
-      ],
-      "icon": null,
-      "emoji": "🦇",
-      "flavors": [
-        "night",
-        "frost",
-        "paper",
-        "signal"
-      ],
-      "images": [
-        {
-          "flavor": "night",
-          "alt": "bat · delta (tmTheme) running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        {
-          "flavor": "frost",
-          "alt": "bat · delta (tmTheme) running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        {
-          "flavor": "paper",
-          "alt": "bat · delta (tmTheme) running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/dc0e4cc2bc66371aad6a4715cb7a36e8e3dbd48af7b0891cbdaff9b323220da5.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        {
-          "flavor": "signal",
-          "alt": "bat · delta (tmTheme) running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp",
-          "width": 2560,
-          "height": 1600
-        }
-      ],
-      "repository": "https://github.com/living-code-theme/tmtheme",
-      "repositoryName": "living-code-theme/tmtheme",
-      "revision": "4449ecad7dbe007a40c5ad14ca3fe1db0220c8fb",
-      "readmeUrl": "https://github.com/living-code-theme/tmtheme/blob/4449ecad7dbe007a40c5ad14ca3fe1db0220c8fb/README.md",
-      "content": "ports/tmtheme.de2ba723a82f4fb6b5054047d6ccceacb46edb22da0050dcc4d875db715ba27a.json"
+      "revision": "7da1c709ad06ee84c217e2f43041bbcb556f3b1f",
+      "readmeUrl": "https://github.com/living-code-theme/sublime/blob/7da1c709ad06ee84c217e2f43041bbcb556f3b1f/README.md",
+      "content": "ports/sublime.06f3e1253786b8fa1267878ec59f3a0ad17eeb3d89588b70ee6ee7433807a03c.json"
     },
     {
       "id": "vscode",
@@ -2130,9 +2134,9 @@
       ],
       "repository": "https://github.com/living-code-theme/vscode",
       "repositoryName": "living-code-theme/vscode",
-      "revision": "04098d7ebad726d2501c8ad82929b15b23bd80b7",
-      "readmeUrl": "https://github.com/living-code-theme/vscode/blob/04098d7ebad726d2501c8ad82929b15b23bd80b7/README.md",
-      "content": "ports/vscode.87f708e3befd5577b9933e63d2f004306a16bbc3bf97bd1233baa6426012e4b9.json"
+      "revision": "fb3f4fe21d96fa5eb36f36fe3bc649e675803a8f",
+      "readmeUrl": "https://github.com/living-code-theme/vscode/blob/fb3f4fe21d96fa5eb36f36fe3bc649e675803a8f/README.md",
+      "content": "ports/vscode.3d35ce272060a0837a66c7f920be2f064af31f6d494f05434aff8a96eaa61c3f.json"
     },
     {
       "id": "zed",

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "tmtheme",
+    "name": "bat",
+    "group": "CLI & TUI",
+    "description": "Living Code for bat: TextMate .tmTheme syntax themes, also used by delta, in four color flavors.",
+    "homepage": "https://github.com/sharkdp/bat",
+    "quick": "Install the tmTheme files into bat",
+    "aliases": [
+      "tmtheme",
+      "bat",
+      "textmate",
+      "syntect"
+    ],
+    "icon": null,
+    "emoji": "🦇",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "living-code-frost.tmTheme",
+      "living-code-night.tmTheme",
+      "living-code-paper.tmTheme",
+      "living-code-signal.tmTheme"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Requires [bat](https://github.com/sharkdp/bat). Download the four themes into bat's theme folder and rebuild its cache:\n\n```sh\ncurl -fsSL --create-dirs --output-dir \"$(bat --config-dir)/themes\" -O \"https://raw.githubusercontent.com/living-code-theme/tmtheme/main/living-code-{night,frost,paper,signal}.tmTheme\" && bat cache --build\nbat --list-themes | grep living-code\n```\n\nThen pick a flavor with `--theme`, or make it the default in `$(bat --config-dir)/config`:\n\n```sh\necho '--theme=\"living-code-night\"' >> \"$(bat --config-dir)/config\"\n```\n\n**delta** reads its syntax themes from bat's cache. Use the [delta port](https://github.com/living-code-theme/delta): its install also adds these themes, and each delta flavor selects the matching syntax theme together with diff backgrounds, headers and gutters.\n\n**Sublime Text** has its own native color scheme: use the [Sublime Text port](https://github.com/living-code-theme/sublime).\n\n**Other tmTheme readers** (TextMate, syntect-based tools) can load the same `living-code-*.tmTheme` files directly.",
+      "configuration": "See [bat's documentation](https://github.com/sharkdp/bat#adding-new-themes) for application settings and reload behavior. Rerun `bat cache --build` after updating the theme files. The activation instructions above identify each supported flavor; keep your other application configuration.",
+      "compatibility": "This port supplies TextMate `.tmTheme` files, not bat itself. bat and delta load them from bat's theme cache; any other tmTheme reader can use the files directly.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/tmtheme",
+    "repositoryName": "living-code-theme/tmtheme",
+    "revision": "8785bf3d9c08bc1351d16a435790cf10dbf54007",
+    "readmeUrl": "https://github.com/living-code-theme/tmtheme/blob/8785bf3d9c08bc1351d16a435790cf10dbf54007/README.md",
+    "fileUrls": {
+      "living-code-frost.tmTheme": "https://github.com/living-code-theme/tmtheme/blob/8785bf3d9c08bc1351d16a435790cf10dbf54007/living-code-frost.tmTheme",
+      "living-code-night.tmTheme": "https://github.com/living-code-theme/tmtheme/blob/8785bf3d9c08bc1351d16a435790cf10dbf54007/living-code-night.tmTheme",
+      "living-code-paper.tmTheme": "https://github.com/living-code-theme/tmtheme/blob/8785bf3d9c08bc1351d16a435790cf10dbf54007/living-code-paper.tmTheme",
+      "living-code-signal.tmTheme": "https://github.com/living-code-theme/tmtheme/blob/8785bf3d9c08bc1351d16a435790cf10dbf54007/living-code-signal.tmTheme"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "bat running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "bat running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "bat running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/dc0e4cc2bc66371aad6a4715cb7a36e8e3dbd48af7b0891cbdaff9b323220da5.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "bat running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}
