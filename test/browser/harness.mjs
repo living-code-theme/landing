@@ -79,7 +79,7 @@ export async function browserHarness() {
     const connection = await until(async () => {
       if (chrome.exitCode !== null) throw new Error(chrome.logs);
       try { return await readFile(join(directory, "chrome/DevToolsActivePort"), "utf8"); } catch (error) { if (error.code !== "ENOENT") throw error; }
-    }, "Chrome (set CHROME_BIN if needed)");
+    }, "Chrome (set CHROME_BIN if needed)", 60_000).catch((error) => { throw new Error(`${error.message}\n${chrome.logs.slice(-2000)}`); });
     const [debugPort, browserPath] = connection.trim().split("\n");
     const debug = `http://127.0.0.1:${debugPort}`;
     browser = await Connection.open(`ws://127.0.0.1:${debugPort}${browserPath}`);
