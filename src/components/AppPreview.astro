@@ -16,12 +16,12 @@ const missing = flavors.filter((f) => !shots.some((shot) => shot.f.id === f.id))
 
 {part !== "panel" && <button type="button" role="tab" id={`app-tab-${a.port}`} aria-controls={`app-panel-${a.port}`}
   aria-selected={selected ? "true" : "false"} tabindex={selected ? 0 : -1} data-app-tab={a.port}>
-  <span class="app-showcase__thumbnail"><Shot app={a.port} thumbnail sizes="(min-width: 768px) 240px, 144px" /></span>
+  <span class="app-showcase__thumbnail"><Shot app={a.port} deferred thumbnail sizes="(min-width: 768px) 240px, 144px" /></span>
   <span class="app-showcase__tab-label"><PortIcon port={port} /><span>{a.name}</span><span class="app-showcase__tab-mark" aria-hidden="true" /></span>
 </button>}
 {part !== "tab" && <section class="app-showcase__panel" id={`app-panel-${a.port}`} aria-label={a.name} data-app-panel={a.port}>
   <div class="app-showcase__capture">
-    <Shot app={a.port} sizes="(min-width: 1536px) 1376px, (min-width: 768px) 88vw, 100vw" caption={false} />
+    <Shot app={a.port} deferred sizes="(min-width: 1536px) 1376px, (min-width: 768px) 88vw, 100vw" caption={false} />
     <span class="app-showcase__image-status" data-image-status role="status" aria-live="polite" />
   </div>
   <div class="app-showcase__install">

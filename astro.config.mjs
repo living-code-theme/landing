@@ -1,6 +1,7 @@
 // Standalone static landing: every build input is committed inside this directory.
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import securityHeaders from "./src/lib/security-headers.mjs";
 
 export default defineConfig({
   site: "https://living-code.dev",
@@ -8,5 +9,6 @@ export default defineConfig({
   build: { format: "directory" },
   prefetch: { prefetchAll: true, defaultStrategy: "hover" },
   devToolbar: { enabled: false },
+  integrations: [securityHeaders()],
   vite: { plugins: [tailwindcss()] },
 });

@@ -1,21 +1,25 @@
-// Only the five exposed ports and the current flavor are warmed, never the whole catalog.
+// Activate only the final selection: small current-flavor thumbnails and the selected full capture.
+// Other full captures load on intent, not speculatively just because their thumbnails are visible.
 export function enhanceShowcaseImages(root: HTMLElement) {
   const controller = new AbortController();
   const pending = new WeakMap<HTMLImageElement, Promise<boolean>>();
-  const captures = [...root.querySelectorAll<HTMLElement>(".app-showcase__capture")];
   let disposed = false;
   let nearby = false;
   let revision = 0;
   const flavor = () => document.documentElement.dataset.theme?.replace("living-code-", "") ?? "night";
   const imageIn = (element: Element | null) => element?.querySelector<HTMLImageElement>(`img[data-only="${flavor()}"]`);
   const panelFor = (tab: HTMLElement) => root.querySelector<HTMLElement>(`[data-app-panel="${tab.dataset.appTab}"]`);
-  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
-  const speculative = !connection?.saveData && !["slow-2g", "2g", "3g"].includes(connection?.effectiveType ?? "");
 
   function load(image: HTMLImageElement, priority: "high" | "low") {
     image.fetchPriority = priority;
-    // Promoting the actual responsive image lets the browser choose the correct srcset candidate.
+    // Set srcset before src so the browser never starts a fallback-size request first.
     image.loading = "eager";
+    if (image.dataset.imageSrc) {
+      image.srcset = image.dataset.imageSrcset ?? "";
+      image.src = image.dataset.imageSrc;
+      delete image.dataset.imageSrc;
+      delete image.dataset.imageSrcset;
+    }
     let work = pending.get(image);
     if (!work) {
       work = image.decode().then(() => true, () => {
@@ -28,16 +32,24 @@ export function enhanceShowcaseImages(root: HTMLElement) {
   }
 
   function update() {
+    if (root.dataset.appPending) return;
     const version = ++revision;
+    root.querySelectorAll<HTMLElement>("[data-app-tab]:not([hidden])").forEach((tab) => {
+      const thumbnail = imageIn(tab);
+      if (thumbnail) void load(thumbnail, "low");
+    });
     const panel = root.querySelector<HTMLElement>("[data-app-panel]:not([hidden])");
     const capture = panel?.querySelector<HTMLElement>(".app-showcase__capture");
     const image = imageIn(capture ?? null);
     if (!capture || !image) return;
     const tab = root.querySelector<HTMLElement>(`[data-app-tab="${panel!.dataset.appPanel}"]`);
     const thumbnail = imageIn(tab);
-    // Keep a small, already-visible capture behind the full-resolution image while it decodes.
-    const preview = thumbnail?.currentSrc || thumbnail?.src;
-    if (preview) capture.style.setProperty("--capture-preview", `url(${JSON.stringify(preview)})`);
+    // Reuse the browser's chosen thumbnail candidate, not src's larger fallback (which would download twice).
+    capture.style.removeProperty("--capture-preview");
+    if (thumbnail) void load(thumbnail, "low").then((ready) => {
+      if (!ready || disposed || version !== revision || !thumbnail.currentSrc) return;
+      capture.style.setProperty("--capture-preview", `url(${JSON.stringify(thumbnail.currentSrc)})`);
+    });
     capture.dataset.imageState = "loading";
     capture.setAttribute("aria-busy", "true");
     const status = capture.querySelector<HTMLElement>("[data-image-status]");
@@ -48,17 +60,11 @@ export function enhanceShowcaseImages(root: HTMLElement) {
       capture.setAttribute("aria-busy", "false");
       if (status) status.textContent = ready ? "" : "Screenshot unavailable. Try another app or flavor.";
     });
-    if (speculative) {
-      root.querySelectorAll<HTMLElement>("[data-app-tab]:not([hidden])").forEach((candidate) => {
-        const next = imageIn(panelFor(candidate));
-        if (next && next !== image) void load(next, "low");
-      });
-    }
   }
 
   const intent = (event: Event) => {
     const tab = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-app-tab]") : null;
-    if (!tab || tab.hidden) return;
+    if (!tab || tab.hidden || root.dataset.appPending) return;
     const image = imageIn(panelFor(tab));
     if (image) void load(image, "high");
   };
@@ -68,6 +74,7 @@ export function enhanceShowcaseImages(root: HTMLElement) {
   root.addEventListener("click", (event) => {
     if (event.target instanceof Element && event.target.closest("[data-app-tab]")) update();
   }, { signal: controller.signal });
+  root.addEventListener("showcase:ready", () => { if (nearby) update(); }, { signal: controller.signal });
   const selection = new MutationObserver(() => { if (nearby) update(); });
   selection.observe(root, { subtree: true, attributes: true, attributeFilter: ["hidden"] });
   const theme = new MutationObserver(() => { if (nearby) update(); });
@@ -86,7 +93,7 @@ export function enhanceShowcaseImages(root: HTMLElement) {
     selection.disconnect();
     theme.disconnect();
     visibility.disconnect();
-    captures.forEach((capture) => {
+    root.querySelectorAll<HTMLElement>(".app-showcase__capture").forEach((capture) => {
       delete capture.dataset.imageState;
       capture.removeAttribute("aria-busy");
       capture.style.removeProperty("--capture-preview");

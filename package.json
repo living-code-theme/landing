@@ -7,9 +7,11 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "images:prepare": "node scripts/prepare-images.mjs",
     "preview": "astro preview",
-    "deploy": "pnpm build && wrangler deploy",
-    "test": "node --test test/*.test.mjs"
+    "deploy": "pnpm images:prepare && pnpm build && wrangler deploy",
+    "test": "node --test test/*.test.mjs",
+    "test:browser": "node --test test/browser/*.test.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

@@ -7,19 +7,19 @@
 
 @font-face {
   font-family: "Geist";
-  src: url("/fonts/geist-latin.woff2") format("woff2");
+  src: url("../assets/fonts/geist-latin.woff2") format("woff2");
   font-weight: 100 900;
   font-display: swap;
 }
 @font-face {
   font-family: "JetBrains Mono"; /* taste-skill-ignore: the code face, for code and the living field's glyphs */
-  src: url("/fonts/jetbrains-mono-subset.woff2") format("woff2");
+  src: url("../assets/fonts/jetbrains-mono-subset.woff2") format("woff2");
   font-weight: 400 700;
   font-display: swap;
 }
 @font-face {
   font-family: "JetBrains Mono"; /* taste-skill-ignore: italic comments in code */
-  src: url("/fonts/jetbrains-mono-subset-italic.woff2") format("woff2");
+  src: url("../assets/fonts/jetbrains-mono-subset-italic.woff2") format("woff2");
   font-weight: 400 700;
   font-style: italic;
   font-display: swap;
@@ -118,6 +118,10 @@
   html[data-theme="living-code-paper"] [data-only]:not([data-only="paper"]),
   html[data-theme="living-code-signal"] [data-only]:not([data-only="signal"]) { display: none !important; }
 }
+
+/* Inert gallery images are activated only after selection; noscript supplies the real images otherwise. */
+html:not(.js) img[data-image-src] { display: none; }
+html.js img[data-image-src] { visibility: hidden; }
 
 /* --- The living field ---------------------------------------------------------------------------------- */
 

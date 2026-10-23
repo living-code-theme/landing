@@ -77,12 +77,20 @@ jobs:
             *) echo '::error::PORT_ASSET_STORAGE must be git or r2'; exit 1 ;;
           esac
 
+      # Derivatives belong to the website. This explicit refresh may download pinned public captures;
+      # ordinary builds below stay offline, and unchanged derivatives are reused without downloads.
+      - name: Install website dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare responsive screenshot variants
+        run: pnpm images:prepare
+
       - name: Decide whether to publish
         id: changes
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add -- data/ports.json data/ports public/port-images
+          git add -- data/ports.json data/ports public/port-images data/image-variants.json public/image-variants
           changed=false
           if ! git diff --cached --quiet; then changed=true; fi
           # A failed deployment must be retried even when discovery is now unchanged.
@@ -104,10 +112,6 @@ jobs:
           : "${CLOUDFLARE_API_TOKEN:?Set the CLOUDFLARE_API_TOKEN repository secret}"
           : "${CLOUDFLARE_ACCOUNT_ID:?Set the CLOUDFLARE_ACCOUNT_ID repository variable or secret}"
 
-      - name: Install website dependencies
-        if: steps.changes.outputs.publish == 'true'
-        run: pnpm install --frozen-lockfile
-
       - name: Build the website
         if: steps.changes.outputs.publish == 'true'
         run: pnpm build
@@ -115,6 +119,10 @@ jobs:
       - name: Test the built website
         if: steps.changes.outputs.publish == 'true'
         run: pnpm test
+
+      - name: Test browser loading and security policies
+        if: steps.changes.outputs.publish == 'true'
+        run: pnpm test:browser
 
       - name: Commit only validated snapshots and captures
         if: steps.changes.outputs.changed == 'true'

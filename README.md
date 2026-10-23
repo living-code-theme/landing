@@ -14,11 +14,15 @@ pnpm dev
 
 pnpm build
 pnpm test
+pnpm test:browser  # Chrome/Chromium; set CHROME_BIN if it is not named google-chrome.
 pnpm preview
 ```
 
 `pnpm build` writes the static website to `dist/`. Build before running the tests that inspect generated pages.
 Workflow regression tests also require Git and Bash; they use temporary repositories and never contact GitHub or deploy.
+Browser regressions start a temporary local HTTPS Worker and Chrome profile, checking screenshot requests, no-script and
+failed-personalization fallbacks, CSP enforcement, navigation, and controls. They never deploy. The local test browser
+accepts Wrangler's self-signed certificate; production TLS validation is unchanged.
 
 ## What belongs here
 
@@ -29,15 +33,17 @@ Workflow regression tests also require Git and Bash; they use temporary reposito
 | `data/ports.json`, `data/ports/` | Validated metadata index and immutable per-port guide documents delivered by core |
 | `public/port-images/` | Default local capture store; optional R2 mode pins external capture URLs, dimensions, hashes and sizes instead |
 | `public/port.schema.json` | Static copy of core's schema, served at <https://living-code.dev/port.schema.json> for editor autocomplete |
-| `public/fonts/`, favicon assets | Local website assets; brand sources live in core |
+| `src/assets/fonts/`, `public/fonts/`, favicon assets | Bundled/fingerprinted font binaries, public license files and icons; brand sources live in core |
+| `data/image-variants.json`, `public/image-variants/` | Website-owned, content-addressed responsive screenshot derivatives, prepared explicitly and committed |
 | `public/social/<slug>.jpg` | Optional 1280×640 share cards; matching port pages emit Open Graph and Twitter image metadata. Update the card when its app preview changes. |
 | `test/` | Website rendering, interactions, build output and standalone-input checks |
 | `wrangler.jsonc` | Website deployment configuration |
 
 Reusable maintainer logic belongs in [core](https://github.com/living-code-theme/core): discovery, manifest and README
 validation, README templates, scaffolding, local-port previews, theme generation and isolated-checkout verification.
-There are no maintenance scripts or templates here and no runtime dependency on core. Rendering/sanitizing repository
-Markdown, grouping ports and adapting committed data for the UI remain website concerns.
+There are no port-maintenance scripts or templates here and no runtime dependency on core. Rendering/sanitizing repository
+Markdown, grouping ports and preparing responsive screenshot derivatives remain website concerns. The only refresh script
+here is `pnpm images:prepare`; it does not discover repositories or execute port code.
 
 `data/ports.json` is the only port index. Schema 2 contains metadata and references into `data/ports/`, not every
 README. Each port page loads and verifies only its own content-addressed guide document. Core derives guide v1's
@@ -54,10 +60,13 @@ category retain their discovery order.
 
 The finder opens immediately and loads one shared, content-addressed metadata asset on first use; failure or no
 JavaScript retains the normal full-catalog link. The homepage ships at most five fallback previews, while **every
-captured port stays eligible** for the existing per-browser rotating selection. Only the chosen previews are fetched
-from shared static fragments rendered by the same component. Both complete port lists and all port pages remain
-static and accessible without JavaScript. In external capture mode, visitors load pinned images from the public
-asset origin; the website compiler does not download those images.
+captured port stays eligible** for the existing per-browser rotating selection. Near the gallery, only the chosen previews
+are fetched from shared static fragments rendered by the same component. Screenshot sources stay inert until that selection
+settles, so visitors never download a fallback set and immediately replace it. The gallery loads small current-flavor
+thumbnails and one selected full capture; other full captures load on hover/focus or selection, not all at once.
+Both complete port lists and all port pages remain static and accessible without JavaScript, including real gallery
+images in `noscript` fallbacks. In external capture mode, full-size originals stay at the public asset origin;
+responsive derivatives are committed locally. The website compiler never downloads images.
 
 ## Refresh website inputs (from core)
 
@@ -80,8 +89,22 @@ use GitHub's fixed CDN origin without an authorization header, not thousands of 
 updates retain the last working snapshot; incomplete listings and authentication/rate-limit failures abort without
 removing ports. Visitors never query GitHub for discovery. Normal website builds never refresh these inputs.
 
-For a manual refresh, review the changed data/assets in the landing checkout, then run `pnpm build` and `pnpm test`
-there before committing. The automated equivalent is configured below; ordinary local builds stay offline.
+For a manual refresh, review the changed data/assets in the landing checkout, then run `pnpm images:prepare`,
+`pnpm build`, `pnpm test` and `pnpm test:browser` there before committing. The automated equivalent is configured below; ordinary local builds stay offline.
+
+### Responsive screenshot preparation
+
+Run `pnpm images:prepare` in the landing after refreshing capture inputs. This is the **only** website command that
+may download screenshots. It accepts only content-addressed captures from the snapshot's explicit HTTPS asset base
+(or local `public/port-images/`), verifies source hashes, pinned remote sizes and decoded dimensions, and generates
+240/480/960/1600px WebP variants without upscaling. Downloads omit credentials, reject redirects, have a timeout and
+are size-bounded. It reuses verified existing variants without network access and publishes the new manifest only after
+all captures succeed, then prunes obsolete derivatives. Commit `data/image-variants.json` and `public/image-variants/`
+alongside the refreshed inputs. The current derivative set adds roughly 18 MB; full-size remote originals are not copied
+into Git. Normal builds never fetch images: an unprepared capture (a local-port preview, or core's synthetic scale
+fixture) falls back to its original as one truthful source, never a fake responsive srcset, and the build prints a
+warning. Both `pnpm deploy` and CI run `pnpm images:prepare` before every build, so production always ships variants;
+CI also commits any derivatives that were missing. Changing the pinned Sharp version or resize recipe regenerates them.
 
 ## Automatic discovery and deployment
 
@@ -94,8 +117,10 @@ locked dependencies and runs `pnpm sync:ports --landing <checkout>` there. Port 
 Discovery validates metadata, README and captures from one published revision per repository, keeping the previous
 working snapshot for an invalid port update. Global listing/authentication failures stop the run without removals.
 
-When publication is needed, the workflow installs landing, builds and tests it, commits **only** `data/ports.json`,
-`data/ports/` and local `public/port-images/` changes, then deploys the already-tested `dist/` to the `living-code-landing` Cloudflare Worker.
+The workflow installs landing and prepares responsive derivatives before deciding whether publication is needed.
+When publication is needed, it builds and runs both unit/build and browser tests, commits **only** `data/ports.json`,
+`data/ports/`, local `public/port-images/`, `data/image-variants.json` and `public/image-variants/` changes, then deploys
+the already-tested `dist/` and the HTTPS guard to the `living-code-landing` Cloudflare Worker.
 It deploys in the same run because a bot commit made with `GITHUB_TOKEN` does not trigger another Actions workflow.
 Ordinary website pushes also go through this validation/deployment path.
 
@@ -199,15 +224,31 @@ network responses are simulated; production network latency and credentials stil
 
 ## Hosting
 
-Deploy to **Cloudflare Workers** with static assets (no server adapter required):
+Deploy to **Cloudflare Workers** with static assets and a minimal HTTPS guard (no Astro server adapter required):
 
 ```sh
 pnpm exec wrangler login  # Once; CI can use CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID
 pnpm deploy
 ```
 
-`pnpm deploy` builds and publishes `dist/` to the `living-code-landing` Worker. `wrangler.jsonc` enables `workers.dev`,
-trailing-slash URLs and the generated `404.html`. For a local Worker preview, run `pnpm build && pnpm exec wrangler dev`.
+`pnpm deploy` prepares screenshot derivatives, builds and publishes `dist/` and `src/worker.mjs` to the `living-code-landing` Worker. `wrangler.jsonc`
+enables `workers.dev`, trailing-slash URLs and the generated `404.html`. The Worker runs **before** assets (including
+cache hits) and returns a permanent 308 HTTP-to-HTTPS redirect with the path/query preserved. HTTPS requests delegate
+to the static asset binding unchanged. This guard adds a Worker invocation to asset requests; Cloudflare's zone-level
+**Always Use HTTPS** is also recommended, but is not required for correctness on this Worker.
+For a local Worker preview, use `pnpm build && pnpm exec wrangler dev --local-protocol https` and accept the local
+self-signed certificate. Plain `pnpm preview` remains useful for UI work but does not exercise Worker security headers.
+
+`public/_headers` sets HSTS (host-only, without preload or includeSubDomains), framing protection, nosniff, referrer and
+permissions policies. The build replaces its CSP placeholder with SHA-256 hashes of every emitted executable inline script
+across all pages, so client-router destinations work under the original document's policy. JavaScript never allows
+`unsafe-inline` or `unsafe-eval`; styles allow inline declarations for the existing theme/animation system.
+The image policy permits this site and `https://assets.living-code.dev`; if the configured capture origin changes, review
+and update that allowlist as well. CSP is enforced on the built Worker and exercised by browser regressions.
+
+Fingerprinted `/_astro/*` assets (including bundled fonts), `/image-variants/*`, `/port-finder/*` and `/app-previews/*`
+are cached for a year with `immutable`. HTML retains normal revalidation. On another static host, apply the generated
+`dist/_headers` policies and configure the equivalent HTTPS redirect; Astro alone does not enforce transport security.
 
 Production automation is the **sync-ports** GitHub Actions workflow above, using Node 24 and the same Wrangler
 configuration. Avoid enabling a second automatic deployer in Cloudflare Workers Builds.

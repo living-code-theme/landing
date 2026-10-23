@@ -39,8 +39,12 @@ test("the gallery app selector uses decorative, small responsive screenshot thum
   assert.ok(showcase.indexOf("data-app-tabs") < showcase.indexOf("data-app-panel="), "choose an app before its full preview");
   assert.equal([...tabs.matchAll(/class="app-showcase__thumbnail"/g)].length, APPS.length);
   for (const [, button] of tabs.matchAll(/<button\b[^>]*>([\s\S]*?)<\/button>/g)) {
-    const images = [...button.matchAll(/<img\b[^>]*>/g)].map(([image]) => image);
+    const fallback = [...button.matchAll(/<noscript>([\s\S]*?)<\/noscript>/g)];
+    assert.equal(fallback.length, flavors.length);
+    const images = [...button.replace(/<noscript>[\s\S]*?<\/noscript>/g, "").matchAll(/<img\b[^>]*>/g)].map(([image]) => image);
     assert.equal(images.length, flavors.length);
+    assert.ok(images.every((image) => !/\ssrc(?:set)?=/.test(image)), "unselected fallback images cannot start native lazy requests");
+    assert.ok(fallback.every(([, html]) => /\ssrc=/.test(html)), "real images remain available without JavaScript");
     for (const image of images) {
       assert.match(image, /\salt(?:=""|(?=\s|>))/, "thumbnail does not repeat the tab's accessible name");
       assert.match(image, /240w/);

@@ -27,6 +27,9 @@ function fixture(t) {
   mkdirSync(join(directory, "data/ports"), { recursive: true });
   writeFileSync(join(directory, "data/ports/.gitkeep"), "");
   mkdirSync(join(directory, "public/port-images"), { recursive: true });
+  mkdirSync(join(directory, "public/image-variants"), { recursive: true });
+  writeFileSync(join(directory, "public/image-variants/original.webp"), "existing derivative");
+  writeFileSync(join(directory, "data/image-variants.json"), '{"images":{}}\n');
   writeFileSync(join(directory, "data/ports.json"), '{"ports":[]}\n');
   writeFileSync(join(directory, "public/port-images/original.webp"), "existing capture");
   git("add", ".");
@@ -87,8 +90,11 @@ test("discovery stays in pinned core tooling while website installs and builds s
 
 test("validation and a non-force push precede deployment of the already-tested assets", () => {
   const names = ["Check Cloudflare configuration", "Install website dependencies", "Build the website", "Test the built website", "Commit only validated snapshots and captures", "Reject an outdated production checkout", "Deploy validated assets to Cloudflare Workers"];
-  const positions = names.map((name) => workflow.indexOf(`- name: ${name}`));
+  const order = ["Install website dependencies", "Prepare responsive screenshot variants", "Decide whether to publish", ...names.filter((name) => name !== "Install website dependencies")];
+  const positions = order.map((name) => workflow.indexOf(`- name: ${name}`));
   assert.ok(positions.every((position, i) => position >= 0 && (!i || position > positions[i - 1])));
+  assert.match(step("Test browser loading and security policies"), /run: pnpm test:browser/);
+  assert.ok(workflow.indexOf("- name: Test browser loading and security policies") < workflow.indexOf("- name: Commit only validated snapshots and captures"));
   const commit = step(names[4]);
   assert.match(commit, /if: steps\.changes\.outputs\.changed == 'true'/);
   // Only this step authenticates: the production checkout does not leave the write token in .git/config
@@ -122,12 +128,14 @@ test("discovered updates stage only the snapshot and captures, not unrelated fil
   const f = fixture(t);
   writeFileSync(join(f.directory, "data/ports.json"), '{"ports":[{"id":"new"}]}\n');
   writeFileSync(join(f.directory, "public/port-images/new.webp"), "new capture");
+  writeFileSync(join(f.directory, "data/image-variants.json"), '{"images":{"new":{}}}\n');
+  writeFileSync(join(f.directory, "public/image-variants/new.webp"), "new derivative");
   writeFileSync(join(f.directory, `data/ports/new.${"a".repeat(64)}.json`), '{"schemaVersion":1}\n');
   writeFileSync(join(f.directory, "unrelated.txt"), "not a generated input");
   const result = f.run("Decide whether to publish");
   assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(f.output(), { changed: "true", publish: "true" });
-  assert.deepEqual(f.git("diff", "--cached", "--name-only").split("\n"), ["data/ports.json", `data/ports/new.${"a".repeat(64)}.json`, "public/port-images/new.webp"]);
+  assert.deepEqual(f.git("diff", "--cached", "--name-only").split("\n"), ["data/image-variants.json", "data/ports.json", `data/ports/new.${"a".repeat(64)}.json`, "public/image-variants/new.webp", "public/port-images/new.webp"]);
 });
 
 test("a workflow-history API failure aborts rather than treating the deployment as current", (t) => {

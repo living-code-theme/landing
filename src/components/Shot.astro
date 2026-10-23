@@ -1,7 +1,7 @@
 ---
 // A real screenshot cached from its owning port repository. When an app has no capture in that flavor,
 // Night (or the first available capture) stands in and the caption says so.
-import { Image } from "astro:assets";
+import { shotSources } from "../lib/shot-sources.mjs";
 import { APPS, flavors, ports, shotsOf, short } from "../lib/data.mjs";
 
 interface Props {
@@ -13,8 +13,10 @@ interface Props {
   caption?: boolean;
   // A decorative contact-sheet image: no figure, caption, hover zoom, or full-size image downloads.
   thumbnail?: boolean;
+  // Gallery selection must settle before the browser sees any active screenshot URLs.
+  deferred?: boolean;
 }
-const { app, flavor, sizes = "(min-width: 1100px) 66vw, 100vw", eager = false, caption = true, thumbnail = false } = Astro.props;
+const { app, flavor, sizes = "(min-width: 1100px) 66vw, 100vw", eager = false, caption = true, thumbnail = false, deferred = false } = Astro.props;
 const Frame = thumbnail ? "span" : "figure";
 const Picture = thumbnail ? "span" : "div";
 
@@ -30,20 +32,21 @@ const views = (flavor ? flavors.filter((f) => f.id === flavor) : flavors).map((f
 
 <Frame class={thumbnail ? "block" : undefined}>
   <Picture class="group/shot relative block aspect-[1280/800] overflow-hidden bg-bg-alt" data-shot={thumbnail ? undefined : true} data-shot-eager={eager || undefined}>
-    {views.map(({ f, shot }, i) => (
-      <Image
-        src={shot.src}
-        width={shot.width}
-        height={shot.height}
-        widths={thumbnail ? [240, 480] : [640, 960, 1280, 1920, 2560]}
-        sizes={sizes}
-        alt={thumbnail ? "" : shot.alt ?? `${label} with Living Code ${short(shot.f)}, real screenshot`}
-        loading={eager && i === 0 ? "eager" : "lazy"}
-        decoding="async"
-        class:list={["size-full object-cover", !thumbnail && "transition-transform duration-[1400ms] ease-out group-hover/shot:scale-[1.02]"]}
-        data-only={flavor ? undefined : f.id}
-      />
-    ))}
+    {views.map(({ f, shot }, i) => {
+      const sources = shotSources(shot, thumbnail);
+      const attributes = {
+        width: shot.width, height: shot.height, sizes,
+        alt: thumbnail ? "" : shot.alt ?? `${label} with Living Code ${short(shot.f)}, real screenshot`,
+        loading: eager && i === 0 ? "eager" as const : "lazy" as const,
+        decoding: "async" as const,
+        class: `size-full object-cover${thumbnail ? "" : " transition-transform duration-[1400ms] ease-out group-hover/shot:scale-[1.02]"}`,
+        "data-only": flavor ? undefined : f.id,
+      };
+      return <>
+        <img {...attributes} {...(deferred ? { "data-image-src": sources.src, "data-image-srcset": sources.srcset } : sources)} />
+        {deferred && <noscript><img {...attributes} {...sources} /></noscript>}
+      </>;
+    })}
   </Picture>
   {caption && !thumbnail && (
     <figcaption class="mt-3 text-sm text-muted">

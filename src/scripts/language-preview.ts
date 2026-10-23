@@ -16,13 +16,28 @@ const appTabs = {
 export const appShowcases = (onReady?: () => void) => {
   let cleanup = tabSets(appTabs), disposed = false;
   const root = document.querySelectorAll<HTMLElement>(appTabs.root)[0];
-  if (root?.dataset?.appCatalog) void chosenPreviews(root.dataset.appCatalog).then((choices) => {
-    if (disposed || !root.isConnected) return;
-    cleanup();
-    root.querySelector("[data-app-tabs]")!.replaceChildren(...choices.map((p) => p.tab));
-    root.querySelector(".app-showcase__panels")!.replaceChildren(...choices.map((p) => p.panel));
-    cleanup = tabSets(appTabs);
-    onReady?.();
-  }).catch(() => { /* The fully usable initial selection remains available when personalization cannot load. */ });
-  return () => { disposed = true; cleanup(); };
+  let observer: IntersectionObserver | undefined;
+  if (root?.dataset?.appCatalog) {
+    root.dataset.appPending = "true";
+    observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer!.disconnect();
+      void chosenPreviews(root.dataset.appCatalog!).then((choices) => {
+        if (disposed || !root.isConnected) return;
+        cleanup();
+        root.querySelector("[data-app-tabs]")!.replaceChildren(...choices.map((p) => p.tab));
+        root.querySelector(".app-showcase__panels")!.replaceChildren(...choices.map((p) => p.panel));
+        cleanup = tabSets(appTabs);
+      }).catch(() => {
+        // Activate the static selection on failure, never both selections on a successful visit.
+      }).finally(() => {
+        if (disposed || !root.isConnected) return;
+        delete root.dataset.appPending;
+        onReady?.();
+        root.dispatchEvent(new Event("showcase:ready"));
+      });
+    }, { rootMargin: "400px" });
+    observer.observe(root);
+  }
+  return () => { disposed = true; observer?.disconnect(); cleanup(); };
 };

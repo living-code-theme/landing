@@ -2,6 +2,8 @@
 // Every page: the CSS port's variables, Tailwind, the two faces, the client router that turns links into view
 // transitions, the living field behind everything, and the header and footer that stay put while pages change.
 import { ClientRouter } from "astro:transitions";
+import geistFont from "../assets/fonts/geist-latin.woff2?url";
+import monoFont from "../assets/fonts/jetbrains-mono-subset.woff2?url";
 import "../styles/theme.css";
 import "../styles/site.css";
 import Header from "../components/Header.astro";
@@ -50,8 +52,8 @@ const json = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-    <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/jetbrains-mono-subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={geistFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoFont} as="font" type="font/woff2" crossorigin />
     <script is:inline define:vars={{ ids: flavorIds }}>
       // Runs before first paint, on every full load: the visitor's flavor, unless this page has its own.
       const root = document.documentElement;

@@ -102,8 +102,9 @@ test("source, config and tests never import files outside the landing", () => {
 
 test("landing contains only website commands, not port-maintenance tooling", () => {
   const pkg = JSON.parse(read("package.json"));
-  assert.deepEqual(Object.keys(pkg.scripts).sort(), ["build", "deploy", "dev", "preview", "test"]);
+  assert.deepEqual(Object.keys(pkg.scripts).sort(), ["build", "deploy", "dev", "images:prepare", "preview", "test", "test:browser"]);
+  assert.deepEqual(readdirSync(join(root, "scripts")), ["prepare-images.mjs"], "only website image presentation tooling lives here");
   assert.equal(pkg.dependencies.ajv, undefined, "manifest validation belongs to core");
-  for (const directory of ["scripts", "templates", "schemas"]) assert.equal(existsSync(join(root, directory)), false, directory);
+  for (const directory of ["templates", "schemas"]) assert.equal(existsSync(join(root, directory)), false, directory);
   assert.doesNotMatch(read("src/lib/readme.mjs"), /validateReadmeTemplate|readmeImagePaths|readme-template/);
 });

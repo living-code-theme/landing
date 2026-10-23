@@ -5,7 +5,7 @@ async function asset(url: string) {
   if (!/^\/app-previews\/[a-f0-9]{64}\.json$/.test(url)) throw new Error("Invalid preview asset URL");
   let pending = cached.get(url);
   if (!pending) {
-    pending = fetch(url, { credentials: "omit", redirect: "error" }).then(async (response) => {
+    pending = fetch(url, { credentials: "omit", redirect: "error", signal: AbortSignal.timeout(10_000) }).then(async (response) => {
       if (!response.ok || Number(response.headers.get("content-length")) > 1024 * 1024) throw new Error("Preview asset unavailable");
       const text = await response.text();
       if (text.length > 1024 * 1024) throw new Error("Preview asset too large");
@@ -26,6 +26,8 @@ export async function chosenPreviews(url: string) {
     const payload = await asset(p.url);
     if (payload?.schemaVersion !== 1 || payload.id !== p.id || typeof payload.html !== "string") throw new Error("Unsupported preview fragment");
     const parsed = new DOMParser().parseFromString(payload.html, "text/html");
+    // These fallbacks belong to a script-disabled document, never to dynamically adopted fragments.
+    parsed.querySelectorAll("noscript").forEach((node) => node.remove());
     const tab = parsed.querySelector<HTMLButtonElement>("[data-app-tab]");
     const panel = parsed.querySelector<HTMLElement>("[data-app-panel]");
     if (!tab || !panel || tab.dataset.appTab !== p.id || panel.dataset.appPanel !== p.id || parsed.querySelector("script, iframe, object, embed")) throw new Error("Invalid preview fragment");
