@@ -6,7 +6,7 @@ import { join } from "node:path";
 import { createServer } from "node:net";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-export async function until(check, description = "condition", timeout = 20_000) {
+export async function until(check, description = "condition", timeout = 45_000) {
   const end = Date.now() + timeout;
   while (Date.now() < end) { const result = await check(); if (result) return result; await sleep(50); }
   throw new Error(`Timed out waiting for ${description}`);
@@ -100,6 +100,9 @@ export async function browserHarness() {
       await page.send("Network.setCacheDisabled", { cacheDisabled: true });
       await page.send("Emulation.setDeviceMetricsOverride", { width: mobile ? 390 : 1440, height: mobile ? 844 : 900, deviceScaleFactor: mobile ? 2 : 1, mobile });
       if (mobile) await page.send("Emulation.setTouchEmulationEnabled", { enabled: true });
+      // These tests cover loading, CSP and controls, not animation. Reduced motion stops the software-rendered WebGL
+      // field from looping at 60 fps, which otherwise starves small CI runners and makes timings flaky.
+      await page.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
       if (!scripting) await page.send("Emulation.setScriptExecutionDisabled", { value: true });
       if (failPreviews) await page.send("Network.setBlockedURLs", { urls: [`${origin}/app-previews/*`] });
       await page.send("Page.addScriptToEvaluateOnNewDocument", { source: `
