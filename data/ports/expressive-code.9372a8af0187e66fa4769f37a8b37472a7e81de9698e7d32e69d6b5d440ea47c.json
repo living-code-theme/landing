@@ -33,13 +33,13 @@
     },
     "repository": "https://github.com/living-code-theme/expressive-code",
     "repositoryName": "living-code-theme/expressive-code",
-    "revision": "6154a46eef166eac56ce25bdf3342f0e77925f9a",
-    "readmeUrl": "https://github.com/living-code-theme/expressive-code/blob/6154a46eef166eac56ce25bdf3342f0e77925f9a/README.md",
+    "revision": "a33fc1506f8efa4005015a844770495e142a259d",
+    "readmeUrl": "https://github.com/living-code-theme/expressive-code/blob/a33fc1506f8efa4005015a844770495e142a259d/README.md",
     "fileUrls": {
-      "living-code-frost.json": "https://github.com/living-code-theme/expressive-code/blob/6154a46eef166eac56ce25bdf3342f0e77925f9a/living-code-frost.json",
-      "living-code-night.json": "https://github.com/living-code-theme/expressive-code/blob/6154a46eef166eac56ce25bdf3342f0e77925f9a/living-code-night.json",
-      "living-code-paper.json": "https://github.com/living-code-theme/expressive-code/blob/6154a46eef166eac56ce25bdf3342f0e77925f9a/living-code-paper.json",
-      "living-code-signal.json": "https://github.com/living-code-theme/expressive-code/blob/6154a46eef166eac56ce25bdf3342f0e77925f9a/living-code-signal.json"
+      "living-code-frost.json": "https://github.com/living-code-theme/expressive-code/blob/a33fc1506f8efa4005015a844770495e142a259d/living-code-frost.json",
+      "living-code-night.json": "https://github.com/living-code-theme/expressive-code/blob/a33fc1506f8efa4005015a844770495e142a259d/living-code-night.json",
+      "living-code-paper.json": "https://github.com/living-code-theme/expressive-code/blob/a33fc1506f8efa4005015a844770495e142a259d/living-code-paper.json",
+      "living-code-signal.json": "https://github.com/living-code-theme/expressive-code/blob/a33fc1506f8efa4005015a844770495e142a259d/living-code-signal.json"
     },
     "images": [],
     "guideImages": {}
