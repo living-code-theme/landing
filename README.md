@@ -247,6 +247,9 @@ across all pages, so client-router destinations work under the original document
 `unsafe-inline` or `unsafe-eval`; styles allow inline declarations for the existing theme/animation system.
 The image policy permits this site and `https://assets.living-code.dev`; if the configured capture origin changes, review
 and update that allowlist as well. CSP is enforced on the deployed assets and exercised by browser regressions.
+Keep Cloudflare features that inject per-request inline scripts **off** for this zone: JavaScript detections (and Bot
+Fight Mode, which forces them on), Rocket Loader, Email Address Obfuscation and automatic Web Analytics injection.
+Their scripts cannot be hashed in advance, so the CSP blocks them and the console reports violations.
 
 Fingerprinted `/_astro/*` assets (including bundled fonts), local-mode `/image-variants/*`, `/port-finder/*` and
 `/app-previews/*` are cached for a year with `immutable`; R2 objects carry the same header from upload. HTML retains normal revalidation. On another static host, apply the generated
