@@ -37,6 +37,6 @@ for (const path of ["", "ports/"]) {
         assert.equal(text(content), port.name);
       }
     }
-    assert.match(html, /Choose an app for install steps\. All four flavors unless noted\./);
+    assert.doesNotMatch(html, /Choose an app for install steps\. All four flavors unless noted\./);
   });
 }

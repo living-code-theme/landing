@@ -4,13 +4,14 @@ import { portIcon } from "../lib/icons.mjs";
 
 interface Props {
   port: { id: string; name: string };
+  fallback?: boolean;
 }
-const { port } = Astro.props;
+const { port, fallback = true } = Astro.props;
 const icon = portIcon(port);
 ---
 
-<span class="grid size-6 shrink-0 place-items-center text-muted" data-port-icon aria-hidden="true">
+{(icon.path || fallback) && <span class="grid size-6 shrink-0 place-items-center text-muted" data-port-icon aria-hidden="true">
   {icon.path
     ? <svg viewBox="0 0 24 24" class="size-6" focusable="false"><path fill="currentColor" d={icon.path} /></svg>
     : <span class="font-mono text-[10px] font-semibold">{icon.text}</span>}
-</span>
+</span>}

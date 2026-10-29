@@ -14,27 +14,25 @@ import { fill, h2, lead, meta, quiet, section } from "../lib/ui.mjs";
 ---
 
 <Base title="Living Code: a calm color scheme for editors, terminals and the web">
-  <section class="shell min-h-[calc(100svh-var(--head))] pt-[clamp(32px,4.5vw,72px)]" id="hero" aria-labelledby="hero-title">
-    <div class="relative">
+  <section class="shell grid min-h-[calc(100svh-var(--head))] content-start pt-[clamp(32px,4.5vw,72px)] lg:grid-cols-[1.1fr_1fr] lg:gap-x-16" id="hero" aria-labelledby="hero-title">
+    <div class="relative lg:col-span-2">
       <h1 class="text-display font-semibold" id="hero-title"><span class="line"><span>Living Code<span class="cursor" aria-hidden="true">_</span></span></span></h1>
       <p class="text-display font-semibold text-accent"><span class="line"><span style="--d:1">{SLOGAN}</span></span></p>
       <p class:list={[meta, "mt-7 flex flex-wrap gap-x-7 gap-y-2 xl:absolute xl:right-0 xl:top-4 xl:mt-0 xl:flex-col xl:items-end"]} data-rise style="--d:2">
-        <code class="text-accent">:colorscheme living-code-<span data-flavor-id>night</span></code>
         <span>{portCount}, {flavors.length} flavors, MIT</span>
         <span>Made by <a class="inline-flex items-center gap-1 text-fg underline decoration-accent/50 transition-colors hover:text-accent" href="https://elliotluque.com">ElliotLuque <Arrow dir="out" /></a></span>
       </p>
     </div>
-    <div class="mt-[clamp(24px,3vw,40px)] grid items-center gap-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-      <p class:list={[lead, "max-w-[36em]"]}>A color scheme for the tools you make your own. Quiet backgrounds let the important details stand out, with a familiar palette wherever you use it.</p>
-      <div class="flex flex-wrap gap-3 lg:justify-end">
-        <a class:list={[fill, "max-sm:flex-1"]} href="/ports/#port-filter" data-port-finder-open aria-haspopup="dialog" aria-controls="port-finder" data-astro-reload>Find your app &amp; install <Arrow /></a>
-        <a class:list={[quiet, "max-sm:flex-1"]} href="/ports/">Browse {portCount} <Arrow /></a>
-      </div>
+    <div class="hero-actions mt-[clamp(24px,3vw,40px)] flex flex-wrap gap-3 max-lg:flex-nowrap max-lg:gap-2 lg:col-start-2 lg:row-start-2 lg:self-center lg:justify-end">
+      <a class:list={[fill, "max-lg:min-h-11 max-lg:min-w-0 max-lg:flex-1 max-lg:gap-2 max-lg:px-3 max-lg:text-xs"]} href="/ports/#port-filter" data-port-finder-open aria-haspopup="dialog" aria-controls="port-finder" data-astro-reload><span class="lg:hidden">Find your app</span><span class="max-lg:hidden">Find your app &amp; install</span> <Arrow /></a>
+      <a class:list={[quiet, "max-lg:min-h-11 max-lg:min-w-0 max-lg:flex-1 max-lg:gap-2 max-lg:px-3 max-lg:text-xs"]} href="/ports/">Browse {portCount} <Arrow /></a>
     </div>
 
-    <Glyphs shape="chameleon" class="bleed mt-[clamp(72px,7vw,104px)] h-[clamp(220px,36vw,540px)]" label="The Living Code chameleon on a branch, drawn in code glyphs: it watches the pointer, catches bugs with its tongue and changes its colors">
+    <Glyphs shape="chameleon" class="hero-chameleon bleed mt-8 h-[clamp(220px,36vw,540px)] sm:mt-12 lg:col-span-2 lg:row-start-3 lg:mt-[clamp(72px,7vw,104px)]" label="The Living Code chameleon on a branch, drawn in code glyphs: it watches the pointer, catches bugs with its tongue and changes its colors">
       <Chameleon class="h-[78%] max-w-[94%] text-accent opacity-20" />
     </Glyphs>
+
+    <p class:list={[lead, "mt-6 max-w-[36em] lg:col-start-1 lg:row-start-2 lg:mt-[clamp(24px,3vw,40px)] lg:self-center"]} data-hero-description>A color scheme for the tools you make your own. Quiet backgrounds let the important details stand out, with a familiar palette wherever you use it.</p>
   </section>
 
   {APPS.length > 0 && <AppShowcase />}
@@ -45,7 +43,7 @@ import { fill, h2, lead, meta, quiet, section } from "../lib/ui.mjs";
     <div class="grid items-center gap-2 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
       <div>
         <h2 class={h2} id="ports-title" data-reveal>{portCount}.<br /><span class="text-accent">Nothing to clone.</span></h2>
-        <p class:list={[lead, "mt-6 max-w-[36em]"]} data-reveal style="--d:1">Only published ports are listed here, with installation instructions from their own repositories. More apps will join as their ports are published.</p>
+        <p class:list={[lead, "mt-6 max-w-[36em]"]} data-reveal style="--d:1">One palette for your editor, terminal, and everyday tools. Find your app and follow its installation guide.</p>
       </div>
       <PortSpiral />
     </div>

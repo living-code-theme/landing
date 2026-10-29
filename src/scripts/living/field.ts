@@ -302,14 +302,20 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
 
   let anchors: HTMLElement[] = [];
   const rects = new Map<HTMLElement, DOMRect>(), stuck = new Map<HTMLElement, boolean>();
+  const rightEdges = new Map<HTMLElement, number>();
   // The scroll the rectangles were measured at, and the page's height (its content's, never the canvas's).
   let stale = true, measuredAt = 0, measuredScroll = 0, pageH = 0;
   const measure = () => {
     rects.clear();
     stuck.clear();
+    rightEdges.clear();
     for (const el of anchors) {
       if (!el.isConnected) continue;
       rects.set(el, el.getBoundingClientRect());
+      if (el.dataset.glyph === "chameleon") {
+        const shell = el.closest<HTMLElement>(".shell");
+        if (shell) rightEdges.set(el, shell.getBoundingClientRect().right - (parseFloat(getComputedStyle(shell).paddingRight) || 0));
+      }
       // Inside a sticky stage, whether the stage is stuck to the screen right now, or still scrolling with the
       // page on its way in or out.
       const h = holderOf(el);
@@ -531,16 +537,17 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
 
   // A living shape lays itself out again every frame; its glyphs keep flying to wherever it has moved. Only its
   // positions and the packed glyph, color and alpha go to the GPU.
-  const live = (box: number[]) => {
+  const live = (box: number[], moving: boolean) => {
     const s = target.shape;
-    if (!s.animate) return;
-    s.animate(clock, { x: (pointer.x - box[0]) / box[2], y: (box[1] - (pointer.y - canvasTop())) / box[3], on: pointer.attention });
-    for (let i = 0; i < N; i++) {
-      next[i * 4] = s.glyph[i];
-      next[i * 4 + 1] = s.role[i];
-      next[i * 4 + 2] = s.alpha[i] * 255;
+    if (!s.animate && !s.fadeRight) return;
+    if (moving) s.animate?.(clock, { x: (pointer.x - box[0]) / box[2], y: (box[1] - (pointer.y - canvasTop())) / box[3], on: pointer.attention });
+    if (s.fadeRight) {
+      const right = (target.el ? rightEdges.get(target.el) : undefined) ?? screen.w;
+      const width = Math.max(64, Math.min(144, screen.w * 0.1));
+      s.fadeRight((right - box[0] - sizeOf(target, box) / 2) / box[2], width / box[2]);
     }
-    upload(TO, s.pos);
+    become(s);
+    if (moving) upload(TO, s.pos);
     upload(NEXT, next);
   };
 
@@ -631,7 +638,7 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     } else progress = moving ? Math.min(1, progress + dt / 1.7) : 1;
     pointer.attention += (pointer.goal - pointer.attention) * (1 - Math.exp(-dt / 0.12));
     const box = boxOf(target);
-    if (moving && !pair && (!halfLife || count % 2 === 0)) live(box);
+    if (!pair && (!moving || !halfLife || count % 2 === 0)) live(box, moving);
     let settling = false;
     const mix = moving ? 1 - Math.exp(-dt / 0.22) : 1;
     for (let i = 0; i < colors.length; i++) {

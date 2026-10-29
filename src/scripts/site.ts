@@ -15,14 +15,30 @@ const still = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // --- Clicks ---------------------------------------------------------------------------------------------
 
+const setNavOpen = (open: boolean) => {
+  root.classList.toggle("nav-open", open);
+  const toggle = document.querySelector<HTMLElement>("[data-nav-toggle]");
+  toggle?.setAttribute("aria-expanded", String(open));
+  toggle?.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  document.querySelectorAll<HTMLElement>("body > main, body > footer, body > a[href='#main']").forEach((el) => { el.inert = open; });
+};
+
 const closeMenus = (except?: Element) => {
   document.querySelectorAll<HTMLElement>("[data-flavor-toggle], [data-nav-toggle]").forEach((b) => {
     if (b === except) return;
     b.setAttribute("aria-expanded", "false");
     if (b.hasAttribute("data-flavor-toggle")) document.getElementById("flavor-list")!.hidden = true;
   });
-  if (except?.hasAttribute("data-nav-toggle") !== true) root.classList.remove("nav-open");
+  if (except?.hasAttribute("data-nav-toggle") !== true) setNavOpen(false);
 };
+
+// A full-screen mobile menu: resize and outside focus must also release its scroll and focus lock.
+matchMedia("(min-width: 64rem)").addEventListener("change", () => closeMenus());
+document.addEventListener("focusin", (e) => {
+  if (!(e.target instanceof Element)) return;
+  if (root.classList.contains("nav-open") && e.target.closest("header")) return;
+  if (!e.target.closest(".flavor-menu, .site-nav, [data-nav-toggle]")) closeMenus();
+});
 
 function openPortFinder() {
   const dialog = document.querySelector<HTMLDialogElement>("#port-finder");
@@ -74,14 +90,15 @@ document.addEventListener("click", async (e) => {
   if (nav) {
     const open = nav.getAttribute("aria-expanded") !== "true";
     closeMenus(nav);
-    nav.setAttribute("aria-expanded", String(open));
-    root.classList.toggle("nav-open", open);
+    setNavOpen(open);
+    if (open && e.detail === 0) document.querySelector<HTMLElement>(".site-nav a")?.focus();
     return;
   }
 
   const pick = el.closest<HTMLElement>("[data-set-flavor]");
   if (pick) {
-    closeMenus();
+    // Keep the mobile swatches available while comparing palettes, without opening a second menu.
+    if (!pick.closest(".site-nav")) closeMenus();
     setFlavor(pick.dataset.setFlavor!);
     return;
   }
@@ -133,6 +150,12 @@ document.addEventListener("cancel", (e) => {
 }, true);
 
 document.addEventListener("keydown", (e) => {
+  if (e.key === "Tab" && root.classList.contains("nav-open")) {
+    const controls = [...document.querySelectorAll<HTMLElement>("header a[href], header button:not([disabled])")].filter((el) => el.getClientRects().length > 0);
+    const first = controls[0], last = controls.at(-1);
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+  }
   if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === "k" && openPortFinder()) {
     e.preventDefault();
     return;
@@ -147,6 +170,13 @@ document.addEventListener("keydown", (e) => {
     const open = document.querySelector<HTMLElement>('[data-flavor-toggle][aria-expanded="true"], [data-nav-toggle][aria-expanded="true"]');
     closeMenus();
     open?.focus();
+  }
+  if (e.key === "ArrowDown" && e.target instanceof Element && e.target.closest("[data-nav-toggle]")) {
+    e.preventDefault();
+    const toggle = e.target.closest<HTMLElement>("[data-nav-toggle]")!;
+    closeMenus(toggle);
+    setNavOpen(true);
+    document.querySelector<HTMLElement>(".site-nav a")?.focus();
   }
   // Arrow keys move between the flavor tabs, as a tablist should.
   const tab = e.target instanceof HTMLElement ? e.target.closest<HTMLElement>('[role="tab"][data-set-flavor]') : null;
@@ -209,16 +239,18 @@ function story() {
   track.dataset.scrub = "";
 
   // The file's measurements, untransformed, and the scene's: read once and again whenever either changes size.
-  let w = 0, h = 0, fileW = 0, top = 0, lh = 0, fit = 1, boost = 1;
+  let w = 0, h = 0, fileW = 0, top = 0, lh = 0, fit = 1, boost = 1, mobile = false;
   const measure = () => {
     w = scene.clientWidth; h = scene.clientHeight;
     fileW = editor.offsetWidth;
     const wrap = lines[0].offsetParent as HTMLElement;
     top = wrap.offsetTop + lines[0].offsetTop;
     lh = rows > 1 ? (lines[rows - 1].offsetTop - lines[0].offsetTop) / (rows - 1) : lines[0].offsetHeight;
-    // The whole file fits at zoom 1. A narrow scene shrinks it a long way to fit, so its close shots go closer.
-    fit = Math.min((w * 0.88) / fileW, (h * 0.86) / editor.offsetHeight);
-    boost = Math.min(1.35, Math.max(1, 0.6 / fit));
+    // Mobile uses the full-bleed scene and closer detail shots, not a miniature desktop composition.
+    // The first and final wide shots still fit the file; only the zoomed shots receive the extra boost.
+    mobile = matchMedia("(max-width: 1023px)").matches;
+    fit = Math.min((w * (mobile ? 0.96 : 0.88)) / fileW, (h * (mobile ? 0.9 : 0.86)) / editor.offsetHeight);
+    boost = Math.min(mobile ? 1.6 : 1.35, Math.max(1, 0.6 / fit));
   };
 
   // Where the camera is: the step's shot at rest, drifting a little as the hold scrolls by; in a pass, a blend from
@@ -237,12 +269,13 @@ function story() {
     const f = smooth(t / 0.3) * smooth((1 - t) / 0.3);
     return {
       L: mix(p.L, front * rows, f), x: mix(p.x, flight.x, f), zoom: mix(p.zoom, flight.zoom, f),
-      rx: mix(p.rx, flight.rx, f), ry: mix(p.ry, p.ry * 0.3, f), rz: mix(p.rz, 0, f), lift: f,
+      // A shallower mobile scan keeps the code readable in a portrait frame instead of flattening it to a strip.
+      rx: mix(p.rx, mobile ? Math.min(flight.rx, 44) : flight.rx, f), ry: mix(p.ry, p.ry * 0.3, f), rz: mix(p.rz, 0, f), lift: f,
     };
   };
   const place = (c: ReturnType<typeof camera>) => {
     const s = fit * (c.zoom > 1 ? c.zoom * boost ** Math.min(1, (c.zoom - 1) / 0.3) : c.zoom);
-    const cx = w * (w > 700 ? 0.54 : 0.5), cy = h * (0.46 + 0.14 * c.lift);
+    const cx = w * (w > 700 ? 0.54 : 0.5), cy = h * (0.46 + (mobile ? 0.08 : 0.14) * c.lift);
     editor.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0) rotateX(${c.rx.toFixed(2)}deg) rotateY(${c.ry.toFixed(2)}deg) rotateZ(${c.rz.toFixed(2)}deg) scale(${s.toFixed(4)}) translate(${(-c.x * fileW).toFixed(1)}px, ${(-(top + c.L * lh)).toFixed(1)}px)`;
   };
 
@@ -280,6 +313,8 @@ function story() {
       copy.style.opacity = fade.toFixed(3);
       copy.style.transform = still() || fade === 1 ? "" : `translateY(${((j === k ? -1 : 1) * (1 - fade) * 18).toFixed(1)}px)`;
       copy.style.pointerEvents = fade > 0.5 ? "" : "none";
+      copy.inert = fade <= 0.5;
+      copy.setAttribute("aria-hidden", String(fade <= 0.5));
     });
 
     if (passing && !still()) {
@@ -446,8 +481,13 @@ function portFilter() {
         input.removeAttribute("aria-activedescendant");
       }
     };
-    const run = () => {
+    const run = (event?: Event) => {
       if (list.hasAttribute("data-port-catalog") && !list.dataset.portReady) return;
+      // Return to the catalog before shrinking it, or the browser can leave the empty state above the viewport.
+      // Only typing moves the page; initialization and history restoration retain their saved scroll position.
+      if (event?.type === "input" && toolbar && list.getBoundingClientRect().top < parseFloat(getComputedStyle(root).scrollPaddingTop)) {
+        list.scrollIntoView({ block: "start", behavior: "instant" });
+      }
       const q = input.value.trim().toLowerCase();
       let shown = 0;
       for (const row of rows) {

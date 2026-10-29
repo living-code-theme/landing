@@ -3,45 +3,33 @@
 import Mark from "./Mark.astro";
 import ChameleonCameo from "./ChameleonCameo.astro";
 import Glyphs from "./Glyphs.astro";
-import { COLOR_FEEDBACK, ORG, PORT_REQUEST, REPO, SLOGAN, flavorById, flavors, groups, short, slug } from "../lib/data.mjs";
-import { meta } from "../lib/ui.mjs";
+import { COLOR_FEEDBACK, ORG, PORT_REQUEST, REPO, flavorById, flavors, groups, short, slug } from "../lib/data.mjs";
 
 const cols = [
-  ["Flavors", flavors.map((f) => [`/flavors/${f.id}/`, short(f)])],
   ["Ports", groups.map((g) => [`/ports/#${slug(g.title)}`, g.title])],
+  ["Flavors", flavors.map((f) => [`/flavors/${f.id}/`, short(f)])],
   ["Source", [[ORG, "GitHub"], [`${REPO}/blob/main/palette.json`, "palette.json"], [PORT_REQUEST, "Request a port"], [COLOR_FEEDBACK, "Report a color"]]],
 ] as const;
 ---
 
 <footer class="shell pb-8 pt-(--section)">
-  <div class="grid items-end gap-x-[clamp(40px,6vw,96px)] gap-y-8 lg:grid-cols-2">
-    <div data-reveal>
-      <p class="text-title font-semibold">Living Code<span class="cursor" aria-hidden="true">_</span></p>
-      <p class="mt-3 text-[clamp(1.125rem,1.6vw,1.5rem)] font-medium tracking-tight text-accent">{SLOGAN}</p>
-    </div>
-    <p class="max-w-[26em] text-[clamp(1.125rem,1.6vw,1.5rem)] leading-snug tracking-tight" data-reveal>The background stays quiet so the code can carry the color. Free and open source under the MIT license, built from one palette file.</p>
-  </div>
-
-  <Glyphs shape="mark" class="bleed mt-[clamp(48px,6vw,88px)] h-[clamp(200px,30vw,440px)]" style={`color: ${flavorById.night.colors.teal.hex}`}>
+  <Glyphs shape="mark" label="Living Code" class="mx-auto h-[clamp(180px,26vw,360px)] max-w-[960px]" style={`color: ${flavorById.night.colors.teal.hex}`}>
     <Mark class="h-[70%] max-w-[94%]" />
   </Glyphs>
 
-  <div class="mt-[clamp(48px,6vw,88px)] grid grid-cols-2 gap-10 lg:grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,1.4fr)]">
+  <div class="mt-[clamp(48px,6vw,88px)] grid grid-cols-2 justify-start gap-10 sm:grid-cols-[repeat(3,max-content)] sm:gap-x-16">
     {cols.map(([title, items]) => (
-      <nav aria-label={title}>
+      <nav class="text-left" aria-label={title}>
         <h2 class="mb-3.5 text-sm font-medium text-muted">{title}</h2>
-        <ul class="grid gap-2">
+        <ul class="grid justify-items-start gap-2">
           {items.map(([href, label]) => <li><a class="no-underline transition-colors hover:text-accent" href={href}>{label}</a></li>)}
         </ul>
       </nav>
     ))}
-    <div class="grid min-w-0 self-end gap-3 lg:justify-items-end lg:justify-self-end">
-      <ChameleonCameo pose="sleeping" class="w-[clamp(128px,12vw,160px)] max-w-full" />
-      <p class={meta}><code class="text-accent">:colorscheme living-code-<span data-flavor-id>night</span></code></p>
-    </div>
   </div>
-  <p class="mt-14 flex flex-wrap justify-between gap-x-8 gap-y-4 text-sm text-muted sm:items-end max-sm:flex-col">
-    <span>© 2026 <a href="https://elliotluque.com">Elliot Luque</a></span>
-    <span>Set in Geist and JetBrains Mono, both under the SIL Open Font License</span><!-- taste-skill-ignore: names the code face in the credits -->
-  </p>
+  <div class="footer-signoff mt-14 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-x-2 gap-y-3 overflow-x-clip text-sm text-muted max-lg:text-[clamp(0.625rem,2.8vw,0.875rem)] lg:gap-x-8">
+    <ChameleonCameo pose="perched" interactive class="col-span-2 w-[clamp(128px,12vw,160px)] max-w-full justify-self-end" />
+    <p class="footer-copyright row-start-2 whitespace-nowrap">© 2026 <a href="https://elliotluque.com">Elliot Luque</a></p>
+    <p class="footer-command col-start-2 row-start-2 justify-self-end whitespace-nowrap"><code class="text-accent">:colorscheme living-code-<span data-flavor-id>night</span></code></p>
+  </div>
 </footer>

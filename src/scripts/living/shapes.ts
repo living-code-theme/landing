@@ -42,6 +42,8 @@ export interface Shape {
   // A living shape moves on its own: called every frame while it is the target, it rewrites pos, glyph, role and
   // alpha in place. `look` is the pointer in the shape's units, with how present it is (0 to 1).
   animate?: (t: number, look: { x: number; y: number; on: number }) => void;
+  // Fade scenery into the page's right content edge, in projected shape units, without clipping the animal.
+  fadeRight?: (right: number, width: number) => void;
   // Drawn as text on a character grid: every glyph the same size, no perspective in the glyphs and no drift.
   flat?: boolean;
   // A click at (x, y) in the shape's units. A shape that takes it returns true, and the field sends no wave.

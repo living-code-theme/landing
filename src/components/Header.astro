@@ -4,6 +4,7 @@ import Mark from "./Mark.astro";
 import Arrow from "./Arrow.astro";
 import { CLAUSES, ORG, flavors, short } from "../lib/data.mjs";
 
+const navLink = "draw text-sm text-muted no-underline transition-colors hover:text-fg max-lg:flex max-lg:min-h-12 max-lg:items-center max-lg:justify-between max-lg:gap-6 max-lg:py-2 max-lg:text-[clamp(1.75rem,6vw,2.5rem)] max-lg:font-semibold max-lg:tracking-tight max-lg:text-fg max-lg:after:hidden";
 const links = [
   ["/#calm", "Palette"],
   ["/#flavors", "Flavors"],
@@ -11,37 +12,54 @@ const links = [
 ---
 
 <header
-  class="shell sticky top-0 z-50 flex h-(--head) items-center gap-3 bg-bg/80 backdrop-blur-md sm:gap-8"
+  class="shell sticky top-0 z-50 flex h-(--head) items-center gap-2 bg-bg/80 backdrop-blur-md sm:gap-8"
   transition:persist="site-header"
   transition:name="site-header"
 >
-  <a class="group flex items-center gap-3.5 font-semibold tracking-tight no-underline" href="/#hero" aria-label="Living Code, home">
-    <Mark class="w-auto h-5 text-accent transition-transform duration-500 ease-spring group-hover:scale-110" />
-    <span class="whitespace-nowrap max-sm:hidden">Living Code</span>
+  <a class="group flex min-h-11 shrink-0 items-center gap-2 text-sm font-semibold tracking-tight no-underline sm:gap-3.5 sm:text-base" href="/#hero" aria-label="Living Code, home">
+    <Mark class="h-4 w-auto text-accent transition-transform duration-500 ease-spring group-hover:scale-110 sm:h-5" />
+    <span class="whitespace-nowrap">Living Code</span>
   </a>
 
   <nav
-    class="site-nav ml-auto max-lg:fixed max-lg:inset-x-0 max-lg:top-(--head) max-lg:hidden max-lg:h-[calc(100dvh-var(--head))] max-lg:content-start max-lg:gap-8 max-lg:bg-bg max-lg:px-(--margin) max-lg:py-8 in-[.nav-open]:max-lg:grid"
+    class="site-nav ml-auto max-lg:fixed max-lg:inset-x-0 max-lg:top-(--head) max-lg:hidden max-lg:h-[calc(100dvh-var(--head))] max-lg:content-start max-lg:gap-8 max-lg:overflow-y-auto max-lg:overscroll-contain max-lg:bg-bg max-lg:px-(--margin) max-lg:py-[clamp(24px,5svh,56px)] in-[.nav-open]:max-lg:grid"
     id="site-nav"
     aria-label="Main"
   >
-    <ul class="flex gap-[clamp(18px,2.2vw,32px)] max-lg:flex-col max-lg:gap-1">
-      {links.map(([href, label], i) => (
-        <li class="in-[.nav-open]:max-lg:animate-[rise_0.5s_var(--ease-out)_both]" style={`animation-delay:${i * 40}ms`}>
-          <a class="draw text-sm text-muted no-underline transition-colors hover:text-fg max-lg:block max-lg:py-2 max-lg:text-[clamp(1.75rem,6vw,2.5rem)] max-lg:font-semibold max-lg:tracking-tight max-lg:text-fg max-lg:after:hidden" href={href}>{label}</a>
+    <ul class="flex gap-[clamp(18px,2.2vw,32px)] max-lg:flex-col max-lg:gap-0">
+      {links.map(([href, label]) => (
+        <li>
+          <a class={navLink} href={href}>
+            {label}<span class="lg:hidden"><Arrow /></span>
+          </a>
         </li>
       ))}
+      <li class="lg:hidden"><a class={navLink} href={ORG}>Source on GitHub <Arrow dir="out" /></a></li>
     </ul>
-    <a class="text-accent lg:hidden" href={ORG}>Source on GitHub</a>
+    <div class="mobile-flavors lg:hidden" data-mobile-flavors>
+      <h2 class="mb-3 text-base font-medium" id="mobile-flavor-label">Site flavor</h2>
+      <div class="grid auto-rows-fr grid-cols-2 gap-2" role="group" aria-labelledby="mobile-flavor-label">
+        {flavors.map((f) => (
+          <button type="button" class="mobile-flavor" data-bar data-set-flavor={f.id} aria-pressed={f.id === "night" ? "true" : "false"}>
+            <span class="mobile-flavor__swatch" data-theme={f.slug} aria-hidden="true">
+              <i class="bg-keyword" /><i class="bg-string" /><i class="bg-number" /><i class="bg-function" />
+            </span>
+            <span class="mobile-flavor__name">{short(f)}</span>
+            <svg class="mobile-flavor__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+            <span class="mobile-flavor__description">{CLAUSES[f.id]}</span>
+          </button>
+        ))}
+      </div>
+    </div>
   </nav>
 
-  <a class="ml-auto inline-flex min-h-11 items-center gap-3 bg-bg-alt px-3 text-sm font-medium text-fg no-underline transition-colors hover:bg-surface lg:ml-0" href="/ports/#port-filter" data-port-finder-open aria-haspopup="dialog" aria-controls="port-finder" data-astro-reload>
-    Ports &amp; install
-    <kbd class="text-xs text-muted max-sm:hidden" data-port-shortcut aria-hidden="true">Ctrl K</kbd>
+  <a class="ml-auto inline-flex min-h-11 shrink-0 items-center gap-3 bg-bg-alt px-3 text-sm font-medium text-fg no-underline transition-colors hover:bg-surface lg:ml-0" href="/ports/#port-filter" data-port-finder-open aria-haspopup="dialog" aria-controls="port-finder" data-astro-reload>
+    <span class="lg:hidden">Ports</span><span class="max-lg:hidden">Ports &amp; install</span>
+    <kbd class="text-xs text-muted max-lg:hidden" data-port-shortcut aria-hidden="true">Ctrl K</kbd>
   </a>
 
-  <div class="flavor-menu relative">
-    <button type="button" class="flex min-h-10 items-center gap-2 px-1.5 text-sm font-medium text-muted transition-colors hover:text-fg aria-expanded:text-fg" aria-expanded="false" aria-controls="flavor-list" data-flavor-toggle>
+  <div class="flavor-menu relative max-lg:hidden">
+    <button type="button" class="flex min-h-11 items-center gap-2 px-1.5 text-sm font-medium text-muted transition-colors hover:text-fg aria-expanded:text-fg" aria-expanded="false" aria-controls="flavor-list" data-flavor-toggle>
       <span class="sr-only">Flavor: </span>
       <span class="grid grid-cols-2 gap-px" aria-hidden="true"><i class="size-1.5 bg-keyword" /><i class="size-1.5 bg-string" /><i class="size-1.5 bg-number" /><i class="size-1.5 bg-function" /></span>
       <span data-flavor-name>Night</span>
@@ -64,9 +82,10 @@ const links = [
 
   <a class="inline-flex items-center gap-2 text-sm text-muted no-underline transition-colors hover:text-fg max-lg:hidden" href={ORG}>GitHub <Arrow dir="out" /></a>
 
-  <button type="button" class="-mr-2.5 grid size-11 place-content-center gap-1.5 lg:hidden" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-    <span class="sr-only">Menu</span>
-    <i class="block h-0.5 w-[22px] bg-fg transition-transform duration-300 in-aria-expanded:translate-y-1 in-aria-expanded:rotate-45" />
-    <i class="block h-0.5 w-[22px] bg-fg transition-transform duration-300 in-aria-expanded:-translate-y-1 in-aria-expanded:-rotate-45" />
+  <button type="button" class="group -mr-2 grid size-11 shrink-0 place-items-center text-muted transition-colors hover:text-fg aria-expanded:text-fg lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+    <span class="relative h-4 w-[22px]" aria-hidden="true">
+      <i class="absolute left-0 top-[5px] h-px w-[22px] bg-current transition-transform duration-200 group-aria-expanded:translate-y-[3px] group-aria-expanded:rotate-45" />
+      <i class="absolute left-0 top-[11px] h-px w-[22px] bg-current transition-transform duration-200 group-aria-expanded:-translate-y-[3px] group-aria-expanded:-rotate-45" />
+    </span>
   </button>
 </header>

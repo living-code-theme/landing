@@ -119,6 +119,59 @@
   html[data-theme="living-code-signal"] [data-only]:not([data-only="signal"]) { display: none !important; }
 }
 
+/* A mobile hero fills the first screen: the chameleon takes the spare room, with the description at its foot. */
+@media (width < 64rem) {
+  #hero { grid-template-rows: auto auto minmax(260px, 1fr) auto; padding-bottom: 40px; overflow-x: clip; }
+  #hero .hero-chameleon { height: auto; min-height: 0; align-self: stretch; margin-top: 24px; margin-inline: calc(-1 * var(--margin) - 10vw); }
+  #hero [data-hero-description] { margin-top: 20px; align-self: end; }
+}
+
+/* Mobile navigation covers the page. Keep the background still and unavailable until it closes. */
+@media (width < 64rem) {
+  html.nav-open { overflow: hidden; }
+  html.nav-open header { background: var(--lc-bg); color: var(--lc-fg); backdrop-filter: none; }
+  /* Without script, expose the links in the page instead of a dead full-screen menu. */
+  html:not(.js) header { height: auto; flex-wrap: wrap; }
+  html:not(.js) [data-nav-toggle], html:not(.js) [data-mobile-flavors] { display: none; }
+  html:not(.js) .site-nav {
+    position: static; display: block; order: 1; width: 100%; height: auto; max-height: none;
+    padding-block: 0; padding-inline: 0; border: 0; background: transparent;
+  }
+  html:not(.js) .site-nav > ul { flex-direction: row; flex-wrap: wrap; gap: 0 24px; }
+  html:not(.js) .site-nav a { font-size: 0.875rem; }
+  html:not(.js) .site-nav a > span { display: none; }
+}
+
+/* Single-choice appearance controls: useful descriptions, larger swatches, and a non-color-only selection. */
+.mobile-flavors { border-top: 1px solid var(--lc-border); padding-top: 24px; }
+.mobile-flavor {
+  display: grid; grid-template-columns: 20px minmax(0, 1fr) 14px; align-content: start; align-items: center; gap: 8px;
+  min-width: 0; min-height: 92px; padding: 12px; border: 1px solid transparent;
+  background: var(--lc-bg-alt); color: var(--lc-fg); text-align: left;
+  transition: background-color 180ms, border-color 180ms;
+}
+.mobile-flavor[aria-pressed="true"] { border-color: var(--lc-accent); background: var(--lc-surface0); }
+.mobile-flavor__swatch { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; width: 20px; height: 20px; }
+.mobile-flavor__name { font-size: 1rem; font-weight: 500; }
+.mobile-flavor__description { grid-column: 1 / -1; font-size: 0.8125rem; line-height: 1.4; color: var(--lc-fg-muted); }
+.mobile-flavor__check { width: 14px; height: 14px; color: var(--lc-accent); opacity: 0; }
+.mobile-flavor[aria-pressed="true"] .mobile-flavor__check { opacity: 1; }
+@media (hover: hover) { .mobile-flavor:hover { background: var(--lc-surface0); } }
+@media (width < 64rem) and (max-height: 600px) {
+  .site-nav { row-gap: 24px; }
+  .mobile-flavors { padding-top: 16px; }
+  .mobile-flavor { padding: 10px; gap: 6px; }
+  .mobile-flavor__description { font-size: 0.75rem; }
+}
+@media (width < 64rem) and (max-height: 500px) {
+  .site-nav { padding-block: 16px; row-gap: 16px; }
+  .site-nav > ul a { min-height: 44px; padding-block: 0; font-size: 1.5rem; }
+}
+@media (width < 64rem) and (min-width: 600px) and (max-height: 500px) {
+  .site-nav { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); column-gap: 32px; }
+  .mobile-flavors { padding-top: 0; border-top: 0; }
+}
+
 /* Inert gallery images are activated only after selection; noscript supplies the real images otherwise. */
 html:not(.js) img[data-image-src] { display: none; }
 html.js img[data-image-src] { visibility: hidden; }

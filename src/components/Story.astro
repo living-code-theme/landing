@@ -26,6 +26,7 @@ const STEPS = [
     name: "Slate",
     title: "Start from slate.",
     status: "slate only",
+    summary: "One quiet backdrop.",
     text: "Background, panels, selection and comments share one hue at almost no chroma. Only the lightness steps, so nothing behind the code competes with it.",
     proof: `<div class="flex max-w-[460px] gap-0.5">${NEUTRAL_ORDER.map((n) => `<span class="grid flex-1 gap-1.5 text-center text-xs text-muted"><i class="h-10 outline outline-1 -outline-offset-1 outline-surface-1 max-lg:h-6" style="background:var(--lc-${n})"></i><span class="tabular-nums max-sm:text-[9px]">${only((f) => f.raw[n][0].toFixed(2))}</span></span>`).join("")}</div>`,
   },
@@ -33,6 +34,7 @@ const STEPS = [
     name: "Structure",
     title: "Teal for structure.",
     status: "+ structure",
+    summary: "Keywords, functions, types.",
     text: "Keywords, functions and types take the cool hues: the parts you navigate by.",
     proof: chips(["keyword", "function", "type"]),
   },
@@ -40,6 +42,7 @@ const STEPS = [
     name: "Data",
     title: "Warm for data.",
     status: "+ data",
+    summary: "Strings, numbers, constants.",
     text: "Strings, numbers and constants take the warm ones: the values you read.",
     proof: chips(["string", "number", "constant"]),
   },
@@ -47,6 +50,7 @@ const STEPS = [
     name: "Signals",
     title: "Signals stay apart.",
     status: "4 diagnostics",
+    summary: "Errors, warnings, info, hints.",
     text: "Errors, warnings, info and hints each get a hue and a sign of their own, so you can tell them apart at a glance or without color at all.",
     proof: chips(["error", "warning", "info", "hint"]),
   },
@@ -59,10 +63,10 @@ const mode = "flex items-center self-stretch bg-accent px-3 font-bold text-bg";
 const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none tracking-normal max-lg:text-[56px]";
 ---
 
-<section class={section} id="calm" aria-labelledby="calm-title">
+<section class:list={[section, "max-lg:pt-16 max-lg:pb-12"]} id="calm" aria-labelledby="calm-title">
   <div class={split}>
     <h2 class={h2} id="calm-title" data-reveal>Quiet first.<br /><span class="text-accent">Color on purpose.</span></h2>
-    <p class={lead} data-reveal style="--d:1">Most themes paint everything. Living Code starts from a gray editor and adds color one job at a time. Scroll, and watch this file get its colors.</p>
+    <p class={lead} data-reveal style="--d:1"><span class="max-lg:hidden">Most themes paint everything. Living Code starts from a gray editor and adds color one job at a time. Scroll, and watch this file get its colors.</span><span class="hidden max-lg:inline">Scroll to add color, one role at a time.</span></p>
   </div>
   <div data-story-track data-hold={PACE.hold} data-pass={PACE.pass} data-shots={JSON.stringify(SHOTS)} data-flight={JSON.stringify(FLIGHT)} style={`--travel:${travel()}`}>
     <div class="story-stage grid grid-cols-[minmax(0,1fr)] gap-x-[clamp(40px,6vw,96px)] gap-y-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center" data-story data-step={STEPS.length} style={`--rows:${rows}`}>
@@ -79,7 +83,7 @@ const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none t
         </samp>
       </figure>
       </div>
-      <div class="grid content-center gap-6 max-lg:gap-3">
+      <div class="story-details grid content-center gap-6">
         <nav class="story-rail relative" aria-label="Palette steps">
           <ol class="grid grid-cols-4 gap-1">
             {STEPS.map((s, i) => (
@@ -88,7 +92,7 @@ const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none t
           </ol>
           <span class="story-rail__fill" aria-hidden="true"></span>
         </nav>
-        <Glyphs shape={`story:${TOKENS.length}`} data-story-token class="h-[clamp(96px,calc(100svh-720px),190px)] max-lg:h-[clamp(40px,calc(56svh-380px),96px)]" label="Code tokens, data blocks and diagnostic symbols, built from code glyphs">
+        <Glyphs shape={`story:${TOKENS.length}`} data-story-token class="h-[clamp(96px,calc(100svh-720px),190px)] max-lg:h-[clamp(80px,16svh,136px)]" label="Code tokens, data blocks and diagnostic symbols, built from code glyphs">
           {TOKENS.map((t, i) => "paths" in t ? (
             <svg class="story-word h-full w-full" data-story-word={i + 1} viewBox={`0 0 ${ART.width} ${ART.height}`} fill="none" stroke-width={ART.stroke} stroke-linecap="round" stroke-linejoin="round" role="img" aria-label={t.label}>
               {t.paths.map((path, k) => <path d={path} stroke={`var(${roleVar(t.roles[k])})`} />)}
@@ -99,7 +103,8 @@ const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none t
           {STEPS.map((s, i) => (
             <li class="story-copy grid content-start gap-4 max-lg:gap-2" data-story-copy={i + 1}>
               <h3 class={h3}>{s.title}</h3>
-              <p class="max-w-[30em] text-fg-alt max-lg:text-sm max-lg:leading-snug">{s.text}</p>
+              <p class="story-copy__description max-w-[30em] text-fg-alt max-lg:text-sm max-lg:leading-snug">{s.text}</p>
+              <p class="story-copy__summary text-fg-alt">{s.summary}</p>
               <div class="story-proof" set:html={s.proof} />
             </li>
           ))}
@@ -116,9 +121,18 @@ const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none t
   [data-scrub] .story-stage { position: sticky; top: var(--head); height: calc(100svh - var(--head)); align-content: center; padding-block: 24px; }
   [data-scrub] .story-copies > * { grid-area: 1 / 1; }
   [data-scrub] .story-copy { will-change: opacity, transform; }
+  .story-copy__summary { display: none; }
   [data-story-track]:not([data-scrub]) .story-rail { display: none; }
   @media (max-width: 1023px) {
-    [data-scrub] .story-stage { align-content: start; padding-block: 12px; row-gap: 14px; }
+    /* Reserve only a compact caption strip; give the rest of the stable viewport to the camera. */
+    [data-scrub] .story-stage {
+      grid-template-rows: minmax(0, 1fr) auto; row-gap: 8px;
+      padding-block: 8px max(12px, env(safe-area-inset-bottom));
+    }
+    [data-scrub] .story-details { gap: 8px; }
+    [data-scrub] .story-copy { gap: 4px; text-align: center; }
+    [data-scrub] :is(.story-copy__description, .story-proof) { display: none; }
+    [data-scrub] .story-copy__summary { display: block; font-size: 1rem; line-height: 1.4; }
   }
 
   /* The scene: a window with perspective onto the file, which the script places and turns as a camera would
@@ -133,7 +147,8 @@ const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none t
   }
   @media (max-width: 1023px) {
     [data-scrub] .story-scene {
-      height: clamp(220px, 44svh, 460px); margin-inline: calc(-1 * var(--margin)); perspective: 900px; perspective-origin: 50% 46%;
+      height: 100%; min-height: 0; max-height: none;
+      margin-inline: calc(-1 * var(--margin)); perspective: 900px; perspective-origin: 50% 46%;
       mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(transparent, #000 10%, #000 88%, transparent);
     }
   }
@@ -170,10 +185,17 @@ const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none t
   .story-rail__step[aria-current] > :first-child { color: var(--lc-accent); }
   @media (max-width: 1023px) {
     .story-rail { padding-bottom: 4px; }
-    .story-rail__name { display: none; }
+    .story-rail__step { min-height: 44px; flex-direction: column; gap: 0; align-items: center; justify-content: center; }
+    .story-rail__step > :first-child { line-height: 1; }
+    .story-rail__step[aria-current] { color: var(--lc-accent); }
   }
-  /* A short phone keeps the title, the text and the token; the swatches and chips wait for more room. */
-  @media (max-width: 1023px) and (max-height: 700px) { [data-scrub] .story-proof { display: none; } }
+  /* A sideways phone uses the width for the camera rather than squeezing both displays vertically. */
+  @media (max-width: 1023px) and (max-height: 600px) and (orientation: landscape) {
+    [data-scrub] .story-stage { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); column-gap: 20px; align-items: center; }
+    [data-scrub] .story-scene { margin-right: 0; }
+    [data-scrub] [data-story-token] { height: clamp(64px, 22svh, 96px); }
+    [data-scrub] .story-copy h3 { font-size: 1.25rem; }
+  }
 
   /* The status line and the token stand-in follow the step. */
   [data-story-msg], .story-word { display: none; }

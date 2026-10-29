@@ -69,7 +69,8 @@ export async function browserHarness() {
     await new Promise((resolve) => listener.listen(0, "127.0.0.1", resolve));
     const port = listener.address().port;
     await new Promise((resolve) => listener.close(resolve));
-    const server = launch("pnpm", ["exec", "wrangler", "dev", "--local", "--local-protocol", "https", "--ip", "127.0.0.1", "--port", String(port), "--persist-to", join(directory, "state")]);
+    // Each test file launches its own server; an ephemeral inspector port avoids collisions in parallel runs.
+    const server = launch("pnpm", ["exec", "wrangler", "dev", "--local", "--local-protocol", "https", "--ip", "127.0.0.1", "--port", String(port), "--inspector-port", "0", "--persist-to", join(directory, "state")]);
     await until(() => {
       if (server.exitCode !== null) throw new Error(server.logs);
       return /Ready on https:/.test(server.logs);

@@ -310,9 +310,18 @@ function turnJump(age: number) {
 const SHOOT = 0.065, HOLD = 0.05, REEL = 0.3;
 
 type PortraitPose = "perched" | "sleeping";
+// The footer companion: the hero's animal and idle life, without its branch, bugs or hunt, and walking on command.
+// It walks exactly as the hero does (one foot at a time, in the same diagonal order, each foot peeling off,
+// reaching and gripping the same way), only quicker, the next foot leaving while the last is still in the air.
+const RUN_STRIDE = 0.48, RUN_SWING = 0.22, RUN_BEAT = 0.11;
+// A springy step: each foot snaps up high and darts forward, while the body itself stays level.
+const RUN_LIFT = 0.26;
 
-function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) {
+function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose | "companion") {
   const portrait = pose !== "hero";
+  const companion = pose === "companion";
+  // The hero and the companion breathe, coil and flick their tails; still portraits do not.
+  const alive = !portrait || companion;
   const sleeping = pose === "sleeping";
   const rnd = random(77);
   const tongueCount = small ? 34 : 56;
@@ -416,10 +425,10 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         push(K.Branch, ZERO, ZERO, ZERO, [bx, q, r, ch]);
       }
     }
-    // Leaves, scattered along the branch at no even spacing; each one's size, angle and side change every time
-    // the branch brings it round again.
+    // Just a few leaves across the whole branch. One per loosely jittered stretch leaves generous gaps,
+    // including ahead of the animal; their size, angle and side change each time the bark comes round.
     for (let slot = 0; slot < LEAVES; slot++) {
-      leafAt.push((slot + 0.1 + rnd() * 0.8) * (BARK_SPAN / LEAVES));
+      leafAt.push((slot - 0.1 + rnd() * 0.5) * (BARK_SPAN / LEAVES));
       const m = Math.round(0.075 / (d * d));
       for (let k = 0; k < m; k++) {
         const r = Math.sqrt((k + 0.5) / m), a = k * 2.39996;
@@ -441,6 +450,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   const CW = d * 0.85, CH = d * 1.65;
   const s = empty(n, 1, 1, GRID ? CW / 0.42 : d * 1.5);
   s.flat = GRID;
+  const sceneryAlpha = new Float32Array(used);
   dust(s, used, rnd, 1.3, GRID ? 0.035 : 0.07);
 
   // --- Behavior -----------------------------------------------------------------------------------------------
@@ -449,7 +459,14 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   let last = 0, offX = 0, offY = 0;
   // The walk and the hunt: walk a few steps, stop, wait for a bug, eat it, change coat, walk on.
   type Phase = "walk" | "hunt" | "gone";
-  let phase: Phase = "walk", phaseAt = 0, bugs = 0, stepsLeft = 5;
+  let phase: Phase = companion ? "hunt" : "walk", phaseAt = 0, bugs = 0, stepsLeft = 5;
+  // The companion's quick walk: the feet in the air (`swings`), the next to leave at `nextSwing`, and where the body
+  // is gliding to. `walked` is how far it has gone along the view, for the page to carry the drawing with it, so
+  // its planted feet stay put.
+  let running = false, walked = 0, slidBefore = 0, nextSwing = 0, glideGoal = 0, lead = -1, stride = 0;
+  // How much it is under way (eases in and out), which carries the body's own motion through the gait.
+  const going = still();
+  const swings: { foot: number; at: number; from: number; to: number }[] = [];
   // The walk: where the body is easing to along the branch (`glide`, in branch units) and how far it has got
   // (`slid`: the branch slides back beneath it by as much), each foot's grip on the bark, and the step under way.
   // A hesitant step stops with the foot in the air for a beat before it is put down.
@@ -593,7 +610,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   // A point on the screen (shape units) back into the model, at depth z in front of the chameleon.
   // The view: turned a little to show the chameleon's near side; when it turns round, the view swings with it, so
   // it is seen the same way facing back as facing on.
-  const yaw = portrait ? (sleeping ? 0.24 : 0.18) : YAW;
+  const yaw = companion ? 0.3 : portrait ? (sleeping ? 0.24 : 0.18) : YAW;
   let cy = Math.cos(yaw), sy = Math.sin(yaw);
   const ct = Math.cos(TILT), st = Math.sin(TILT);
   const fromScreen = (x: number, y: number, wz: number): P3 => {
@@ -646,8 +663,38 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         if (rest > 0.4) rock.until = nextStep - 0.1;
       }
     }
+    if (companion) {
+      // The hero's step, overlapped: a foot leaves every beat and swings for two, so two are in the air at most.
+      if (running && turn.at < 0 && t >= nextSwing) {
+        const foot = GAIT[gait++ % 4];
+        glideGoal += RUN_STRIDE / 4;
+        // Land where the body will be, a quarter stride ahead of the hip's rest, so the planted foot passes under
+        // the hip and leaves a quarter stride behind it: the legs stay under the body, as the hero's do.
+        const pace = RUN_STRIDE / 4 / RUN_BEAT;
+        swings.push({ foot, at: t, from: grip[foot], to: LEGS[foot][2][0] + RUN_STRIDE / 4 + glide + pace * RUN_SWING });
+        nextSwing = t + RUN_BEAT;
+        lead = foot;
+      }
+      for (let k = swings.length - 1; k >= 0; k--) {
+        const sw = swings[k], p = clamp((t - sw.at) / RUN_SWING);
+        // Snappier than the hero's: off the ground at once, high in an arc, the reach done before it lands.
+        grip[sw.foot] = sw.from + (sw.to - sw.from) * ease((p - 0.04) / 0.72);
+        lifted[sw.foot] = Math.sin(Math.PI * clamp((p - 0.02) / 0.9)) ** 0.6;
+        opened[sw.foot] = smooth(0.02, 0.2, p) * (1 - smooth(0.84, 1, p));
+        if (sw.foot === lead) weight = smooth(0, 0.25, p) * (1 - smooth(0.7, 1, p));
+        if (p >= 1) { swings.splice(k, 1); flick.v += (rnd() - 0.5) * 0.8; }
+      }
+      // The body glides on at the gait's own pace, never ahead of the feet.
+      glide = Math.min(glideGoal, glide + (RUN_STRIDE / 4 / RUN_BEAT) * dt);
+      if (!swings.length && !running) lead = -1;
+      spring(going, running ? 1 : 0, 9, 1, dt);
+      // One full gait cycle (all four feet) is one turn of `stride`.
+      stride += dt * (TAU / (4 * RUN_BEAT)) * going.x;
+    }
     if (phase === "gone" && t - phaseAt > 1.2) { go("walk"); stepsLeft = 3 + Math.floor(rnd() * 4); nextStep = t + 0.35; }
-    slid = spring(slide, glide, 11, 1, dt);
+    // The companion's body is carried by its own feet, without the hero's lag (which would leave them reaching ahead).
+    slid = companion ? (slide.x = glide) : spring(slide, glide, 11, 1, dt);
+    walked += (slid - slidBefore) * hc * cy; slidBefore = slid;
 
     // --- Turning round: crouch on planted feet, turn in the air, regrip and absorb the landing --------------
     // With nothing left to eat it waits a moment and hops back to walk on. The impulses fire once, even if a
@@ -671,7 +718,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     cy = Math.cos(yaw * hc); sy = Math.sin(yaw * hc);
     sagX = viewX(0);
     const anyFly = flies.some((f) => f.on);
-    if (turn.at < 0 && tongue.state === 0 && step < 0) {
+    if (!portrait && turn.at < 0 && tongue.state === 0 && step < 0) {
       let next = -1;
       flies.forEach((f, i) => { if (f.on && (next < 0 || f.eatAt < flies[next].eatAt)) next = i; });
       // How far in front of its neck the fly is now, and would be if it turned round (turning mirrors its own frame
@@ -755,11 +802,15 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     const fore = rise(FORE_X), hind = rise(HIND_X);
     spring(ride.y, (fore + hind) / 2, 15, 0.85, dt);
     spring(ride.pitch, Math.atan2(fore - hind, FORE_X - HIND_X), 15, 0.85, dt);
-    const sideOf = step >= 0 && LEGS[step][0][2] > 0 ? 1 : -1, forward = step >= 0 && step < 2 ? 1 : -1;
-    spring(lean, (step >= 0 ? -forward * 0.014 * weight : 0) + (intent ? 0.025 : 0), 7, 0.9, dt);
-    spring(sink, -0.008 * weight + (hesitant ? -0.006 * weight : 0), 7, 0.9, dt);
-    spring(sway, -sideOf * 0.02 * weight, 6, 0.9, dt);
-    spring(roll, -sideOf * 0.05 * weight, 6, 0.9, dt);
+    const moving = step >= 0 ? step : lead;
+    const sideOf = moving >= 0 && LEGS[moving][0][2] > 0 ? 1 : -1, forward = moving >= 0 && moving < 2 ? 1 : -1;
+    // Under way, the companion's body works with its legs as a lizard's does: it rolls and swings from side to
+    // side once a cycle, onto each planted diagonal in turn, dips a little at every footfall, and leans into the walk.
+    const g = companion ? going.x : 0;
+    spring(lean, (moving >= 0 ? -forward * 0.014 * weight : 0) + (intent ? 0.025 : 0) + 0.02 * g, companion ? 14 : 7, 0.9, dt);
+    spring(sink, -0.008 * weight + (hesitant ? -0.006 * weight : 0) - g * 0.012 * Math.abs(Math.cos(stride)), companion ? 18 : 7, 0.9, dt);
+    spring(sway, -sideOf * 0.02 * weight + g * 0.04 * Math.sin(stride), companion ? 14 : 6, 0.9, dt);
+    spring(roll, -sideOf * 0.05 * weight + g * 0.11 * Math.sin(stride + 0.4), companion ? 14 : 6, 0.9, dt);
     // Waiting on a bug it sways now and then too, but holds still to strike.
     if (phase === "hunt" && !intent && t > rock.until + 1.5 && rnd() < dt * 0.3) rock.until = t + 1.2 + rnd() * 1.8;
     spring(rock.amp, t < rock.until && !intent ? 0.017 : 0, 4, 1, dt);
@@ -767,7 +818,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     const breath = 0.02 * Math.sin(t * 1.7);
     const gulp = gulpAt >= 0 ? Math.sin(Math.PI * clamp((t - gulpAt) / 0.45)) : 0;
     {
-      const pitch = ride.pitch.x + jump.pitch, cp = Math.cos(pitch), sp = Math.sin(pitch), cr = Math.cos(roll.x), sr = Math.sin(roll.x);
+      const pitch = ride.pitch.x + jump.pitch + g * 0.03 * Math.sin(2 * stride), cp = Math.cos(pitch), sp = Math.sin(pitch), cr = Math.cos(roll.x), sr = Math.sin(roll.x);
       stance[0] = cp; stance[1] = -sp; stance[2] = 0;
       stance[3] = cr * sp; stance[4] = cr * cp; stance[5] = -sr;
       stance[6] = sr * sp; stance[7] = sr * cp; stance[8] = cr;
@@ -810,18 +861,18 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
     if (t > curl.next) { curl.goal = phase === "walk" ? -0.7 + rnd() * 0.9 : rnd() * 2 - 1; curl.next = t + 1.2 + rnd() * 2.6; }
     curl.along[0] = spring(curl.root, curl.goal, 3.2, 1, dt);
     for (let j = 1; j < curl.along.length; j++) curl.along[j] += (curl.along[j - 1] - curl.along[j]) * (1 - Math.exp(-dt / 0.16));
-    if (!portrait && t > flickAt) { flick.v += (rnd() < 0.5 ? -1 : 1) * (2.5 + rnd() * 2.5); flickAt = t + 2 + rnd() * 4.5; }
+    if (alive && t > flickAt) { flick.v += (rnd() < 0.5 ? -1 : 1) * (2.5 + rnd() * 2.5); flickAt = t + 2 + rnd() * 4.5; }
     spring(flick, 0, 9, 0.45, dt);
     for (let j = 0; j < wound.length; j++) {
       const u = j / (wound.length - 1), f = u * (curl.along.length - 1), k = Math.min(curl.along.length - 2, f | 0);
-      const coil = portrait ? 0 : (0.22 * Math.sin(t * 0.85 - u * 3.2) + 0.12 * Math.sin(t * 1.9 - u * 5.5 + 1.3)) * (0.4 + u);
+      const coil = !alive ? 0 : (0.22 * Math.sin(t * 0.85 - u * 3.2) + 0.12 * Math.sin(t * 1.9 - u * 5.5 + 1.3)) * (0.4 + u);
       wound[j] = curl.along[k] + (curl.along[k + 1] - curl.along[k]) * (f - k) + coil + flick.x * u * u;
     }
     // The root: it lifts and swings slowly on its own, raises the tail a little while a foot is up (for balance),
     // swings against the body's sway and gives with each flick.
-    spring(lift, portrait ? 0 : 0.1 * Math.sin(t * 0.7) + 0.045 * Math.sin(t * 1.63 + 0.5) + 0.07 * weight + 0.03 * flick.x + 0.22 * jump.tuck, 5, 0.9, dt);
-    spring(wag, portrait ? 0 : 0.09 * Math.sin(t * 0.53 + 2) + 0.04 * Math.sin(t * 1.31) - 2 * sway.x, 5, 0.9, dt);
-    bendTail(wound, portrait ? 0 : 1.4 + 0.6 * Math.sin(t * 0.37), t * 1.6, portrait ? 0 : 0.2 * Math.sin(t * 0.9 + 0.8), tail);
+    spring(lift, !alive ? 0 : 0.1 * Math.sin(t * 0.7) + 0.045 * Math.sin(t * 1.63 + 0.5) + 0.07 * weight + 0.03 * flick.x + 0.22 * jump.tuck, 5, 0.9, dt);
+    spring(wag, !alive ? 0 : 0.09 * Math.sin(t * 0.53 + 2) + 0.04 * Math.sin(t * 1.31) - 2 * sway.x, 5, 0.9, dt);
+    bendTail(wound, !alive ? 0 : 1.4 + 0.6 * Math.sin(t * 0.37), t * 1.6, !alive ? 0 : 0.2 * Math.sin(t * 0.9 + 0.8), tail);
 
     // --- The legs: each foot where it grips the branch (or in the air, mid-step), the elbow found from there --
     const S0: P3 = [0, 0, 0];
@@ -833,7 +884,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       // the body, folding toward the hips, then reaching back to the branch before the toes close round it.
       const F: P3 = [
         fx + (leg[0][0] - fx) * jump.tuck * 0.45,
-        B[0] + GRIP_UP * B[2] + lift * 0.1 + Math.max(0, jump.height) + jump.tuck * 0.13,
+        B[0] + GRIP_UP * B[2] + lift * (companion ? RUN_LIFT : 0.1) + Math.max(0, jump.height) + jump.tuck * 0.13,
         hc * B[1] + leg[2][2] * (B[2] / BRANCH_R) * (1 + lift * 0.5 + jump.tuck * 0.3),
       ];
       const { l1, l2, bend } = BONES[i];
@@ -915,7 +966,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
         const tx = tail[j * 2 + 2] - tail[j * 2], ty = tail[j * 2 + 3] - tail[j * 2 + 1], tl = Math.hypot(tx, ty) || 1;
         const q = a1[i], rad = tailRadius(u) * a2[i];
         N[0] = (-ty / tl) * Math.cos(q); N[1] = (tx / tl) * Math.cos(q); N[2] = Math.sin(q);
-        P[0] = x + N[0] * rad; P[1] = y + N[1] * rad; P[2] = N[2] * rad + (portrait ? 0 : u * u * (0.04 * Math.sin(t * 0.9 + 1) + 0.015 * Math.sin(t * 2.3 - u * 4)));
+        P[0] = x + N[0] * rad; P[1] = y + N[1] * rad; P[2] = N[2] * rad + (!alive ? 0 : u * u * (0.04 * Math.sin(t * 0.9 + 1) + 0.015 * Math.sin(t * 2.3 - u * 4)));
         if (lift.x || wag.x) { swingRoot(P, 1, false); swingRoot(N, 1, true); }
         mode = band(stripe[i]); role = wear[mode];
         body = true;
@@ -1032,7 +1083,12 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       const kk = 3.2 / (3.2 + z2);
       const sx = ((x1 - offX) * kk) / CW + fx * (GRID ? 1 : 0.7), sy2 = ((y2 - offY) * kk) / CH + fy;
       const gx = GRID ? Math.round(sx) : sx, gy = GRID ? Math.round(sy2) : sy2;
-      if (k === K.Branch || k === K.Leaf) alpha *= smooth(floor, floor + 0.14, (y2 - offY) * kk);
+      if (k === K.Branch || k === K.Leaf) {
+        const fade = smooth(floor, floor + 0.14, (y2 - offY) * kk);
+        // Perspective lowers the forward branch and its leaves below the animal's floor. Let both continue
+        // together, keeping their end and page-margin fades; the rear retains its original floor fade.
+        alpha *= fade + (1 - fade) * smooth(0, FORE_X, P[0]);
+      }
       if (!GRID && (living || k === K.Mouth || k === K.Eye)) {
         const c = shadeCell((x1 - offX) * kk, (y2 - offY) * kk);
         if (c >= 0) shadeAt[c] = frame;
@@ -1051,6 +1107,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
       s.glyph[i] = glyphOf(glyph);
       s.role[i] = C[role];
       s.alpha[i] = Math.min(1, alpha);
+      if (k === K.Branch || k === K.Leaf) sceneryAlpha[i] = s.alpha[i];
       cell[i] = -1;
       kindNow[i] = k;
       const cx = gx + (GW >> 1), cyy = gy + (GH >> 1);
@@ -1128,16 +1185,35 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose) 
   }
 
   s.animate = live;
+  if (!portrait) s.fadeRight = (right, width) => {
+    // Keep the rear untouched; fade only scenery at the measured page margin. Work from its unfaded alpha
+    // so resizing or redrawing a reduced-motion scene never compounds the fade or advances the animation.
+    for (let i = 0; i < used; i++) if (kind[i] === K.Branch || kind[i] === K.Leaf) {
+      const x = s.pos[i * 3] * 3.2 / (3.2 + s.pos[i * 3 + 2]);
+      s.alpha[i] = sceneryAlpha[i] * (1 - smooth(right - width, right, x));
+    }
+  };
   s.calm = true;
-  // A click near it drops a fly where you clicked, and the chameleon has it at once (turning round for it if it
-  // is behind). The hero never sends the wave: a click further off does nothing.
+  // The feeding area reaches well beyond the animal, on phones and wide screens alike. A click drops a fly
+  // where you clicked, turning round first if needed. Beyond this area, the hero still suppresses the wave.
   s.touch = (x, y) => {
-    if (Math.abs(x) > s.hw * 1.2 || Math.abs(y) > s.hh * 1.35) return true;
+    if (Math.abs(x) > s.hw * 2 || Math.abs(y) > s.hh * 2.2) return true;
     const t = last, queued = flies.filter((f) => f.on && !f.wild && f.eatAt > t).length;
     spawn(fromScreen(x, y, -0.25), 0.4 + queued * 0.5, false, t);
     return true;
   };
-  return { shape: s, kind, used };
+  return {
+    shape: s, kind, used,
+    isHead: (i: number) => (kind[i] === K.Body || kind[i] === K.Mouth) && headShare(a0[i]) > 0.5,
+    // The companion's controls: trot on (a step under way is always finished), the hero's hop round, or face a
+    // way at once (while out of sight).
+    run(on: boolean) { running = on; if (on) nextSwing = Math.min(nextSwing, last); },
+    hop(back: boolean) { startTurn(back ? Math.PI : 0, last); },
+    face(back: boolean) { turn.now = back ? Math.PI : 0; turn.at = -1; },
+    get walked() { return walked; },
+    get busy() { return turn.at >= 0 || step >= 0 || swings.length > 0 || glide < glideGoal - 1e-4; },
+    get facingHome() { return turn.now === 0 && turn.at < 0; },
+  };
 }
 
 // The hero keeps its original scene and behavior. The small portraits below sample the same animal, with no
@@ -1146,14 +1222,19 @@ export function chameleon(n: number, small: boolean): Shape {
   return buildChameleon(n, small, "hero").shape;
 }
 
+export function createChameleonCompanion() {
+  return buildChameleon(1600, false, "companion");
+}
+
 export function chameleonPortrait(pose: PortraitPose) {
-  const { shape: s, kind, used } = buildChameleon(1600, false, pose);
+  const { shape: s, kind, used, isHead } = buildChameleon(1600, false, pose);
   const mirror = pose === "perched" ? -1 : 1;
   const unit = 130, pad = 14;
   const width = Math.ceil(s.hw * 2 * unit + pad * 2), height = Math.ceil(s.hh * 2 * unit + pad * 2);
   type Run = { role: Color; opacity: number; size: number; x: number[]; y: number[]; text: string };
   const parts = new Map<string, Map<string, Run>>();
   let eyeX = 0, eyeY = 0, eyes = 0;
+  let headMinX = width, headMaxX = 0, headMinY = height, headMaxY = 0;
   // Far surfaces first, just as in the hero's projection; quantized shading keeps the SVG small without losing
   // the rounded body, turret eye, rough crest and tapered spiral. Text is placed, never clipped to an outline.
   const order = Array.from({ length: used }, (_, i) => i).sort((a, b) => s.pos[b * 3 + 2] - s.pos[a * 3 + 2]);
@@ -1167,8 +1248,12 @@ export function chameleonPortrait(pose: PortraitPose) {
       y -= 0.36 * Math.max(0, y - (pad + s.hh * unit + 12));
     }
     y = Math.round(y * 10) / 10;
-    const part = kind[i] === K.Tail ? "tail" : kind[i] === K.Eye ? "eye" : kind[i] === K.Leg || kind[i] === K.Foot ? "feet" : "body";
+    const part = kind[i] === K.Tail ? "tail" : kind[i] === K.Eye ? "eye" : kind[i] === K.Leg || kind[i] === K.Foot ? "feet" : isHead(i) ? "head" : "body";
     if (part === "eye") { eyeX += x; eyeY += y; eyes++; }
+    if (part === "head") {
+      headMinX = Math.min(headMinX, x); headMaxX = Math.max(headMaxX, x);
+      headMinY = Math.min(headMinY, y); headMaxY = Math.max(headMaxY, y);
+    }
     const role = COLORS[s.role[i]];
     const opacity = Math.min(1, Math.ceil(s.alpha[i] * 5) / 5);
     const size = Math.round(s.size * k * unit * 0.72 * 2) / 2;
@@ -1181,6 +1266,7 @@ export function chameleonPortrait(pose: PortraitPose) {
   }
   return {
     width, height, eyeX: eyeX / Math.max(1, eyes), eyeY: eyeY / Math.max(1, eyes),
-    parts: ["tail", "feet", "body", "eye"].map((name) => ({ name, runs: [...(parts.get(name)?.values() ?? [])] })),
+    neckX: mirror < 0 ? headMaxX : headMinX, neckY: (headMinY + headMaxY) / 2,
+    parts: ["tail", "feet", "body", "head", "eye"].map((name) => ({ name, runs: [...(parts.get(name)?.values() ?? [])] })),
   };
 }

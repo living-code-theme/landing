@@ -17,7 +17,7 @@ const missing = flavors.filter((f) => !shots.some((shot) => shot.f.id === f.id))
 {part !== "panel" && <button type="button" role="tab" id={`app-tab-${a.port}`} aria-controls={`app-panel-${a.port}`}
   aria-selected={selected ? "true" : "false"} tabindex={selected ? 0 : -1} data-app-tab={a.port}>
   <span class="app-showcase__thumbnail"><Shot app={a.port} deferred thumbnail sizes="(min-width: 768px) 240px, 144px" /></span>
-  <span class="app-showcase__tab-label"><PortIcon port={port} /><span>{a.name}</span><span class="app-showcase__tab-mark" aria-hidden="true" /></span>
+  <span class="app-showcase__tab-label"><PortIcon port={port} fallback={false} /><span>{a.name}</span></span>
 </button>}
 {part !== "tab" && <section class="app-showcase__panel" id={`app-panel-${a.port}`} aria-label={a.name} data-app-panel={a.port}>
   <div class="app-showcase__capture">
@@ -26,7 +26,7 @@ const missing = flavors.filter((f) => !shots.some((shot) => shot.f.id === f.id))
   </div>
   <div class="app-showcase__install">
     <div>
-      <h3 class="app-showcase__app-name"><PortIcon port={port} />{a.name}</h3>
+      <h3 class="app-showcase__app-name"><PortIcon port={port} fallback={false} />{a.name}</h3>
       {missing.map((f) => <p class="app-showcase__note" data-only={f.id}>No {short(f)} capture yet, showing {short(fallback.f)}.</p>)}
     </div>
     <a class:list={[fill, "app-showcase__install-link"]} href={`/ports/${a.port}/`}>Install for {a.name} <Arrow /></a>

@@ -75,6 +75,13 @@ test("the gallery exposes every flavor and labels screenshot fallbacks honestly"
   }
 });
 
+test("the ports introduction focuses on using the theme, not future availability", () => {
+  const intro = section("ports").match(/<p\b[^>]*>([\s\S]*?)<\/p>/)[1];
+  assert.match(intro, /editor, terminal/);
+  assert.match(intro, /installation guide/);
+  assert.doesNotMatch(intro, /only published|more apps|will join/i);
+});
+
 test("the FAQ sits after the port catalog, at the end of the page content", () => {
   const faq = section("faq");
   assert.ok(faq);

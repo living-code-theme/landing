@@ -89,3 +89,72 @@ test("without JavaScript, real screenshots and installation links remain availab
   assert.equal(page.requests.filter((request) => request.url.includes("/app-previews/")).length, 0);
   assert.equal(await page.evaluate("getComputedStyle(document.querySelector('img[data-image-src]')).display"), "none");
 });
+
+const cameoButton = `document.querySelector('[data-cameo-control]')`;
+const cameoCanvas = `${cameoButton}.querySelector('canvas')`;
+const cameoStatus = `document.querySelector('[data-cameo-status]')`;
+async function showCompanion(page, animated = true) {
+  await page.evaluate(`${cameoButton}.scrollIntoView({behavior:'instant',block:'center'})`);
+  if (animated) await page.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "no-preference" }] });
+  await until(() => page.evaluate(`!${cameoButton}.disabled${animated ? ` && ${cameoButton}.hasAttribute('data-cameo-live')` : ""}`), "footer companion");
+}
+
+for (const mobile of [false, true]) test(`${mobile ? "mobile" : "desktop"}: the hero's chameleon idles, runs off on its feet and comes back`, { timeout: 60_000 }, async (t) => {
+  const page = await harness.page(t, { mobile });
+  await showCompanion(page);
+  const before = await page.evaluate(`${cameoCanvas}.toDataURL()`);
+  await until(async () => (await page.evaluate(`${cameoCanvas}.toDataURL()`)) !== before, "idle life");
+  assert.equal(await page.evaluate("getComputedStyle(document.querySelector('footer nav').parentElement).gridTemplateColumns.split(' ').length"), mobile ? 2 : 3, "left-grouped footer columns");
+  const rect = await page.evaluate(`(() => {const r=${cameoButton}.getBoundingClientRect(); return {x:r.x,y:r.y,width:r.width,height:r.height}})()`);
+  await page.evaluate(`${cameoButton}.focus({preventScroll:true})`);
+  await page.send("Input.dispatchKeyEvent", { type: "keyDown", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, text: "\r" });
+  await page.send("Input.dispatchKeyEvent", { type: "keyUp", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 });
+  assert.equal(await page.evaluate(`${cameoButton}.dataset.cameoState`), "startled");
+  await page.evaluate(`${cameoButton}.click()`); // A second activation does not restart the escape.
+  assert.equal(await page.evaluate(`${cameoButton}.getAttribute('aria-disabled')`), "true");
+  await until(() => page.evaluate(`${cameoButton}.dataset.cameoState === 'leaving'`), "running off");
+  await until(() => page.evaluate(`Math.abs(new DOMMatrix(getComputedStyle(${cameoCanvas}).transform).m41) > 20`), "moves on its own feet");
+  assert.equal(await page.evaluate("document.documentElement.scrollWidth <= innerWidth"), true);
+  assert.equal(await page.evaluate(`document.activeElement === ${cameoButton}`), true);
+  await until(() => page.evaluate(`${cameoButton}.dataset.cameoState === 'away'`), "out of sight", 15_000);
+  assert.equal(await page.evaluate(`Number(getComputedStyle(${cameoCanvas}).opacity)`), 0);
+  await until(() => page.evaluate(`${cameoButton}.dataset.cameoState === 'idle'`), "home again", 25_000);
+  assert.equal(await page.evaluate(`${cameoStatus}.textContent`), "The chameleon is back.");
+  assert.equal(await page.evaluate(`${cameoButton}.getAttribute('aria-disabled')`), null);
+  assert.equal(await page.evaluate(`getComputedStyle(${cameoCanvas}).transform`), "none");
+  const after = await page.evaluate(`(() => {const r=${cameoButton}.getBoundingClientRect(); return {x:r.x,y:r.y,width:r.width,height:r.height}})()`);
+  assert.deepEqual(after, rect, "no layout shift");
+  await page.evaluate("scrollTo({top:0,behavior:'instant'})");
+  await until(() => page.evaluate(`!${cameoButton}.hasAttribute('data-cameo-live') && ${cameoCanvas}.hidden`), "paused offscreen");
+  assert.deepEqual(page.errors, []);
+  assert.deepEqual(await page.evaluate("window.violations"), []);
+});
+
+test("reduced motion blinks instead, and navigation brings up one fresh companion", { timeout: 30_000 }, async (t) => {
+  const page = await harness.page(t);
+  await showCompanion(page, false);
+  assert.equal(await page.evaluate(`${cameoCanvas}.hidden`), true);
+  await page.evaluate(`${cameoButton}.click()`);
+  assert.equal(await page.evaluate(`${cameoButton}.dataset.cameoState`), "idle");
+  assert.equal(await page.evaluate(`${cameoStatus}.textContent`), "The chameleon blinks at you.");
+  await page.evaluate(`document.querySelector('a[href="/ports/"]').click()`);
+  await until(() => page.evaluate("location.pathname === '/ports/'"), "ports route");
+  await showCompanion(page);
+  assert.equal(await page.evaluate("document.querySelectorAll('[data-cameo-control]').length"), 1);
+  await page.evaluate(`${cameoButton}.click()`);
+  assert.equal(await page.evaluate(`${cameoButton}.dataset.cameoState`), "startled");
+  await page.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
+  await until(() => page.evaluate(`${cameoCanvas}.hidden && ${cameoButton}.dataset.cameoState === 'idle'`), "motion preference sends it home");
+  assert.equal(await page.evaluate(`${cameoButton}.getAttribute('aria-disabled')`), null);
+  assert.deepEqual(page.errors, []);
+  assert.deepEqual(await page.evaluate("window.violations"), []);
+});
+
+test("without JavaScript the footer shows the still model and command, with no dead active control", { timeout: 30_000 }, async (t) => {
+  const page = await harness.page(t, { scripting: false, mobile: true });
+  await page.evaluate(`${cameoButton}.scrollIntoView({behavior:'instant'})`);
+  assert.equal(await page.evaluate(`${cameoButton}.disabled`), true);
+  assert.equal(await page.evaluate(`${cameoCanvas}.hidden`), true);
+  assert.equal(await page.evaluate(`getComputedStyle(${cameoButton}.querySelector('svg')).visibility`), "visible");
+  assert.ok(await page.evaluate("document.querySelector('footer').textContent.includes(':colorscheme')"));
+});

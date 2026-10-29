@@ -40,7 +40,7 @@ const line = (id: string) => highlight(`const ${id} = palette("${id}");`, "js");
           <div data-only={f.id} class="animate-[rise_0.7s_var(--ease-out)]">
             <h3 class={h3}>Living Code <span data-flavor-title={f.id} transition:name={`flavor-${f.id}`}>{short(f)}</span></h3>
             <p class="mt-4 max-w-[34em] text-fg-alt">{f.description}</p>
-            <dl class="mt-7 grid grid-cols-2 justify-start gap-x-10 gap-y-3 sm:grid-cols-[repeat(3,auto)]">
+            <dl class="mt-7 grid grid-cols-2 justify-start gap-x-10 gap-y-3 max-lg:hidden sm:grid-cols-[repeat(3,auto)]">
               <div><dt class="text-sm text-muted">Lowest text contrast</dt><dd><span class="mr-1 text-2xl font-semibold tracking-tight tabular-nums">{fmt(range.low.ratio)}:1</span> {range.low.color}</dd></div>
               <div><dt class="text-sm text-muted">Highest</dt><dd><span class="mr-1 text-2xl font-semibold tracking-tight tabular-nums">{fmt(range.high.ratio)}:1</span> {range.high.color}</dd></div>
               <div><dt class="text-sm text-muted">Ground</dt><dd><code class="text-sm whitespace-nowrap">{f.colors.base.css}</code></dd></div>
@@ -68,7 +68,7 @@ const line = (id: string) => highlight(`const ${id} = palette("${id}");`, "js");
       <Glyphs shape="wheel" class="mx-auto aspect-square w-full max-w-[620px]" label="The accents of the current flavor on an OKLCH hue wheel drawn in glyphs: angle is hue, distance from the center is chroma">
         <FlavorWheel />
       </Glyphs>
-      <p class="mx-auto mt-3 max-w-[620px] text-sm text-muted">Angle is hue, distance from the middle is chroma. Rings at C 0.05, 0.10 and 0.15.</p>
+      <p class="mx-auto mt-3 max-w-[620px] text-sm text-muted max-lg:hidden">Angle is hue, distance from the middle is chroma. Rings at C 0.05, 0.10 and 0.15.</p>
     </div>
     </div>
   </div>

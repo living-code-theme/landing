@@ -15,15 +15,18 @@ const shapes = moduleUrl(`
       hw: 1, hh: 1, size: 0.02, spin: 0, tilt: 0 };
   }
   export const icon = field, lettering = field, mark = field, portSpiral = field, story = field, wheel = field;
-  export function chameleon(n) { return { ...field(n), animate() {} }; }
+  export const fades = [];
+  export function chameleon(n) { return { ...field(n), animate() {}, fadeRight(right, width) { fades.push({ right, width }); } }; }
 `);
 const source = stripTypeScriptTypes(readFileSync(new URL("../src/scripts/living/field.ts", import.meta.url), "utf8"))
   .replace('"./shapes"', JSON.stringify(shapes))
   .replace('"./chameleon"', JSON.stringify(shapes));
 const { createField } = await import(moduleUrl(source));
+const { fades } = await import(shapes);
 
-function browser(t, { reducedMotion = false } = {}) {
+function browser(t, { reducedMotion = false, width = 1000, margin = 40 } = {}) {
   let field;
+  fades.length = 0;
   t.after(() => field?.destroy());
   const events = new EventTarget();
   const document = new EventTarget();
@@ -52,13 +55,13 @@ function browser(t, { reducedMotion = false } = {}) {
   const motion = new EventTarget();
   motion.matches = reducedMotion;
   const globals = {
-    document, navigator: { hardwareConcurrency: 8 }, innerWidth: 1000, innerHeight: 800, devicePixelRatio: 1,
+    document, navigator: { hardwareConcurrency: 8 }, innerWidth: width, innerHeight: 800, devicePixelRatio: 1,
     matchMedia: () => motion,
     ResizeObserver: class { observe() {} disconnect() {} },
     addEventListener: events.addEventListener.bind(events),
     requestAnimationFrame: (fn) => { frames.set(++id, fn); return id; },
     cancelAnimationFrame: (id) => frames.delete(id),
-    getComputedStyle: (el) => ({ position: el.pinned ? "sticky" : "static", top: "64px" }),
+    getComputedStyle: (el) => ({ position: el.pinned ? "sticky" : "static", top: "64px", paddingRight: `${margin}px` }),
   };
   for (const [key, value] of Object.entries(globals)) {
     const original = Object.getOwnPropertyDescriptor(globalThis, key);
@@ -80,10 +83,11 @@ function browser(t, { reducedMotion = false } = {}) {
     };
     return {
       dataset: { glyph }, isConnected: true, setAttribute() {}, removeAttribute() {},
+      closest: () => ({ getBoundingClientRect: () => ({ right: width }) }),
       parentElement: pinned ? { pinned: true, parentElement: null, getBoundingClientRect: () => ({ top: stageTop() }) } : null,
       getBoundingClientRect: () => {
         const y = pinned ? stageTop() + top : top - page.scroll;
-        return { left: 0, top: y, width: 1000, height, bottom: y + height };
+        return { left: 0, top: y, width, height, bottom: y + height };
       },
     };
   };
@@ -94,7 +98,8 @@ function browser(t, { reducedMotion = false } = {}) {
     document, events, canvas,
     start: async () => (field = await createField(canvas, { night: flavor, paper }, "night")),
     target: (glyph, options) => { anchors = [anchor(glyph, options)]; },
-    uniforms,
+    uniforms, fades,
+    resize(w, gutter) { width = w; margin = gutter; globalThis.innerWidth = w; events.dispatchEvent(new Event("resize")); },
     scroll(y) { page.scroll = y; events.dispatchEvent(new Event("scroll")); },
     scrub: (glyph) => { anchors[0].dataset.glyphTo = glyph; anchors[0].dataset.glyphMix = "0.5"; },
     pending: () => frames.size,
@@ -158,6 +163,21 @@ test("a reduced-motion retarget draws once and goes idle", async (t) => {
   b.tick();
   assert.equal(b.canvas.dataset.shape, "mark");
   assert.equal(b.pending(), 0, "retargeting during a frame must not leave an extra idle frame");
+});
+
+test("scenery fades at the measured content margin after resizing, including reduced motion", async (t) => {
+  const b = browser(t, { reducedMotion: true });
+  await b.start();
+  b.tick();
+  for (const [width, margin] of [[390, 20], [1440, 57.6], [1920, 240]]) {
+    b.resize(width, margin);
+    b.tick();
+    const box = b.uniforms.u_toBox, fade = b.fades.at(-1);
+    // The last glyph's outer edge, not merely its center, stays inside the gutter.
+    assert.ok(Math.abs(fade.right * box[2] + box[0] + 0.01 * box[2] - (width - margin)) < 1e-6);
+    assert.ok(Math.abs(fade.width * box[2] - Math.max(64, Math.min(144, width * 0.1))) < 1e-6);
+    assert.equal(b.pending(), 0, "adjusting the fade does not start reduced-motion animation");
+  }
 });
 
 test("hiding and resuming the page does not strand or duplicate the loop", async (t) => {

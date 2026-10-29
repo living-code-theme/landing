@@ -1,15 +1,18 @@
 ---
-// A portrait of the hero's actual glyph-surface model, not a second silhouette filled with text.
+// The footer companion: a still portrait of the hero's model (shown without script or with reduced motion),
+// brought to life by the same model drawn into a small canvas.
 import { chameleonPortrait } from "../scripts/living/chameleon";
-interface Props { pose: "perched" | "sleeping"; class?: string }
-const { pose, class: className } = Astro.props;
+interface Props { pose: "perched" | "sleeping"; interactive?: boolean; class?: string }
+const { pose, interactive = false, class: className } = Astro.props;
 const portrait = chameleonPortrait(pose);
+const Tag = interactive ? "button" : "span";
 ---
 
-<svg class:list={["chameleon-cameo", className]} data-chameleon-cameo={pose}
-  viewBox={`0 0 ${portrait.width} ${portrait.height}`} aria-hidden="true" focusable="false"
-  style={`--eye-x:${portrait.eyeX}px;--eye-y:${portrait.eyeY}px`}>
-  <g class="chameleon-cameo__breath">
+<Tag class:list={["chameleon-companion", className]} type={interactive ? "button" : undefined}
+  data-cameo-control={interactive || undefined} disabled={interactive || undefined}
+  aria-label={interactive ? "Startle the chameleon" : undefined}>
+  <svg class="chameleon-cameo" data-chameleon-cameo={pose}
+    viewBox={`0 0 ${portrait.width} ${portrait.height}`} aria-hidden="true" focusable="false">
     {portrait.parts.map((part) => (
       <g data-cameo-part={part.name}>
         {part.runs.map((run) => (
@@ -18,52 +21,30 @@ const portrait = chameleonPortrait(pose);
         ))}
       </g>
     ))}
-  </g>
-</svg>
+  </svg>
+  {interactive && <canvas class="chameleon-companion__live" aria-hidden="true" hidden />}
+</Tag>
+{interactive && <span class="sr-only" data-cameo-status role="status" aria-live="polite" />}
 
 <style>
-  .chameleon-cameo { display: block; overflow: visible; pointer-events: none; user-select: none; }
+  .chameleon-companion { position: relative; display: block; min-height: 44px; padding: 0; border: 0; background: transparent; user-select: none; }
+  button.chameleon-companion:not(:disabled) { cursor: pointer; touch-action: manipulation; }
+  button.chameleon-companion[aria-disabled="true"] { cursor: default; }
+  .chameleon-companion:focus-visible { outline: 2px solid var(--lc-accent); outline-offset: 6px; }
+  .chameleon-cameo { display: block; width: 100%; overflow: visible; pointer-events: none; }
   /* taste-skill-ignore: actual code glyphs sampled from the hero's 3D mascot. */
   .chameleon-cameo text { font-family: var(--font-mono); font-weight: 600; font-variant-ligatures: none; text-anchor: middle; dominant-baseline: central; transition: fill 400ms var(--ease-out); }
-  /* The breath moves the whole drawing, so it is on the svg itself: a transform the browser composites, where one
-     inside the svg (Safari above all) repaints every glyph each frame. */
-  .chameleon-cameo { transform-origin: 50% 85%; animation: cameo-breathe 5s ease-in-out infinite; }
-  [data-cameo-part="tail"] { transform-origin: 67% 53%; animation: cameo-tail 9s ease-in-out infinite; }
-  [data-cameo-part="eye"] { transform-origin: var(--eye-x) var(--eye-y); animation: cameo-blink 7s linear infinite; }
-  [data-chameleon-cameo="sleeping"] { animation-duration: 7s; }
-  [data-chameleon-cameo="sleeping"] [data-cameo-part="tail"] { transform-origin: 33% 53%; animation-duration: 13s; }
-  [data-chameleon-cameo="sleeping"] [data-cameo-part="eye"] { animation: none; }
-  .chameleon-cameo, [data-cameo-part] { animation-play-state: paused; }
-  [data-cameo-running], [data-cameo-running] [data-cameo-part] { animation-play-state: running; }
-  @keyframes cameo-breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.018); } }
-  @keyframes cameo-tail { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(-2deg); } 82% { transform: rotate(0.7deg); } }
-  @keyframes cameo-blink { 0%, 92%, 96%, 100% { transform: scaleY(1); } 94% { transform: scaleY(0.12); } }
+  /* The live drawing overhangs its slot, so the hop and the tail never clip; it never takes a click itself. */
+  .chameleon-companion__live { position: absolute; inset: -32px; width: calc(100% + 64px); height: calc(100% + 64px); pointer-events: none; z-index: 40; }
+  [data-cameo-live] .chameleon-cameo { visibility: hidden; }
   @media (prefers-reduced-motion: reduce) {
-    .chameleon-cameo, [data-cameo-part] { animation: none; }
     .chameleon-cameo text { transition: none; }
   }
 </style>
 
 <script>
-  // CSS owns the small motions; the observer only allows them while the portrait can actually be seen.
+  import { chameleonCameos } from "../scripts/chameleon-cameo";
   let stop = () => {};
-  document.addEventListener("astro:page-load", () => {
-    stop();
-    const cameos = [...document.querySelectorAll<SVGElement>("[data-chameleon-cameo]")];
-    if (!cameos.length) return;
-    const visible = new Set<Element>();
-    const sync = () => cameos.forEach((el) => el.toggleAttribute("data-cameo-running", visible.has(el) && !document.hidden));
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => entry.isIntersecting ? visible.add(entry.target) : visible.delete(entry.target));
-      sync();
-    });
-    cameos.forEach((el) => observer.observe(el));
-    document.addEventListener("visibilitychange", sync);
-    stop = () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", sync);
-      cameos.forEach((el) => el.removeAttribute("data-cameo-running"));
-    };
-  });
+  document.addEventListener("astro:page-load", () => { stop(); stop = chameleonCameos(); });
   document.addEventListener("astro:before-swap", () => stop());
 </script>
