@@ -86,7 +86,8 @@ for (const [width, height] of [[320, 568], [320, 700], [390, 844], [768, 1024], 
       return nav.top === head.bottom && Math.abs(nav.bottom - innerHeight) < 1 && nav.left === 0 && nav.right === innerWidth;
     })()`), "the menu covers the whole viewport below the header");
     assert.equal(await page.evaluate("getComputedStyle(document.querySelector('#site-nav')).backgroundColor === getComputedStyle(document.documentElement).backgroundColor"), true, "menu uses the current page background");
-    assert.equal(await page.evaluate("getComputedStyle(document.querySelector('header')).backgroundColor === getComputedStyle(document.documentElement).backgroundColor"), true);
+    // Computed colors can lag the expanded attribute on a busy runner; assert the fully painted open state.
+    await until(() => page.evaluate("getComputedStyle(document.querySelector('header')).backgroundColor === getComputedStyle(document.documentElement).backgroundColor"), "opaque mobile header", 5_000);
     assert.equal(await page.evaluate("getComputedStyle(document.documentElement).overflowY"), "hidden");
     assert.equal(await page.evaluate("document.querySelector('main').inert && document.querySelector('footer').inert"), true);
     assert.equal(await page.evaluate(`${toggle}.getAttribute('aria-label')`), "Close menu");

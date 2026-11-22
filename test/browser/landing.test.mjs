@@ -94,9 +94,14 @@ const cameoButton = `document.querySelector('[data-cameo-control]')`;
 const cameoCanvas = `${cameoButton}.querySelector('canvas')`;
 const cameoStatus = `document.querySelector('[data-cameo-status]')`;
 async function showCompanion(page, animated = true) {
-  await page.evaluate(`${cameoButton}.scrollIntoView({behavior:'instant',block:'center'})`);
   if (animated) await page.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "no-preference" }] });
-  await until(() => page.evaluate(`!${cameoButton}.disabled${animated ? ` && ${cameoButton}.hasAttribute('data-cameo-live')` : ""}`), "footer companion");
+  // Font substitution and the motion-mode change can move the footer. Scroll only after both are applied.
+  await page.evaluate("document.fonts.ready");
+  await page.evaluate(`${cameoButton}.scrollIntoView({behavior:'instant',block:'center'})`);
+  await until(() => page.evaluate(`!${cameoButton}.disabled${animated ? ` && ${cameoButton}.hasAttribute('data-cameo-live')` : ""}`), "footer companion").catch(async (error) => {
+    const state = await page.evaluate(`(() => { const button=${cameoButton}, rect=button.getBoundingClientRect(); return {disabled:button.disabled,live:button.hasAttribute('data-cameo-live'),visibility:document.visibilityState,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,fonts:document.fonts.status,top:rect.top,bottom:rect.bottom,height:innerHeight,canvas:!!button.querySelector('canvas').getContext('2d')}; })()`);
+    throw new Error(`${error.message}: ${JSON.stringify(state)}; page errors: ${JSON.stringify(page.errors)}`, { cause: error });
+  });
 }
 
 for (const mobile of [false, true]) test(`${mobile ? "mobile" : "desktop"}: the hero's chameleon idles, runs off on its feet and comes back`, { timeout: 60_000 }, async (t) => {

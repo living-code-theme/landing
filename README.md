@@ -21,7 +21,7 @@ pnpm preview
 
 `pnpm build` writes the static website to `dist/`. Build before running the tests that inspect generated pages.
 Workflow regression tests also require Git and Bash; they use temporary repositories and never contact GitHub or deploy.
-Browser regressions start a temporary local HTTPS Wrangler asset server and Chrome profile, checking screenshot requests, no-script and
+Browser regressions run at most two test files concurrently to bound software WebGL load on CI. They start a temporary local HTTPS Wrangler asset server and Chrome profile, checking screenshot requests, no-script and
 failed-personalization fallbacks, CSP enforcement, navigation, and controls. They never deploy. The local test browser
 accepts Wrangler's self-signed certificate; production TLS validation is unchanged.
 Pull requests run these validations without deployment credentials. Browser tests also run axe against all four

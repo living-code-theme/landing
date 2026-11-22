@@ -13,7 +13,7 @@
     "preview": "astro preview",
     "deploy": "pnpm images:prepare && pnpm build && wrangler deploy",
     "test": "node --test test/*.test.mjs",
-    "test:browser": "node --test test/browser/*.test.mjs"
+    "test:browser": "node --test --test-concurrency=2 test/browser/*.test.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

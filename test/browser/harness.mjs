@@ -98,6 +98,9 @@ export async function browserHarness() {
         if (method === "Runtime.exceptionThrown") page.errors.push(params.exceptionDetails);
       });
       await page.send("Page.enable"); await page.send("Runtime.enable"); await page.send("Network.enable");
+      // New isolated targets are not guaranteed to be foregrounded; visibility-gated animations must be testable.
+      await page.send("Page.bringToFront");
+      await until(() => page.evaluate("document.visibilityState === 'visible'"), "foreground test page");
       await page.send("Network.setCacheDisabled", { cacheDisabled: true });
       await page.send("Emulation.setDeviceMetricsOverride", { width: mobile ? 390 : 1440, height: mobile ? 844 : 900, deviceScaleFactor: mobile ? 2 : 1, mobile });
       if (mobile) await page.send("Emulation.setTouchEmulationEnabled", { enabled: true });
