@@ -11,7 +11,8 @@ test("port share metadata uses only available local social cards", () => {
   for (const port of ports) {
     const html = read(`dist/ports/${port.id}/index.html`);
     if (!existsSync(new URL(`public/social/${port.id}.jpg`, root))) {
-      assert.doesNotMatch(html, /(?:property="og:image"|name="twitter:image")/);
+      assert.match(html, /property="og:image" content="https:\/\/living-code\.dev\/social\/living-code\.jpg"/);
+      assert.match(html, /name="twitter:image" content="https:\/\/living-code\.dev\/social\/living-code\.jpg"/);
       continue;
     }
     const url = `https://living-code.dev/social/${port.id}.jpg`;

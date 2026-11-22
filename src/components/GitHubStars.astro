@@ -1,0 +1,15 @@
+---
+import snapshot from "../../data/github-stars.json";
+import { summarizeGitHubStars } from "../lib/github-stars.mjs";
+
+interface Props { class?: string }
+const { class: className } = Astro.props;
+const { totalStars, repositoryCount } = summarizeGitHubStars(snapshot);
+const stars = totalStars.toLocaleString("en-US");
+const description = `${totalStars === 1 ? "star" : "stars"} across all ${repositoryCount} public ${repositoryCount === 1 ? "repository" : "repositories"}`;
+---
+
+<span class:list={["inline-flex items-center gap-1 whitespace-nowrap text-sm tabular-nums", className]} data-github-stars title={`${stars} ${description}`}>
+  <svg class="size-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 1.5 1.94 3.93 4.34.63-3.14 3.06.74 4.32L8 11.4l-3.88 2.04.74-4.32-3.14-3.06 4.34-.63Z" /></svg>
+  <span>{stars}</span><span class="sr-only"> {description}</span>
+</span>

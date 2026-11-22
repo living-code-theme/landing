@@ -95,6 +95,13 @@ test("mobile: touch scrolling scrubs the scanner and glyphs in both directions; 
   assert.deepEqual(await page.evaluate(`[...new Set([...${stage}.querySelectorAll('.ln')].map(line => line.dataset.s))].sort()`), ["1", "2"]);
   await until(() => page.evaluate("document.querySelector('[data-living-field]').dataset.shape === 'story:2'"), "glyph field follows the scanner");
   await new Promise(resolve => setTimeout(resolve, 700));
+  const light = await page.evaluate(`(() => {
+    const lines=[...${stage}.querySelectorAll('.ln')], scan=${stage}.querySelector('.scan-line');
+    const front=parseFloat(scan.style.top)/100*lines.length, band=Number(scan.style.opacity);
+    const dir=${stage}.dataset.dir === 'down' ? 1 : -1;
+    return lines.map((line,i)=>{ const d=(front-i-0.5)*dir; return Math.abs(Number(line.style.getPropertyValue('--glow'))-Math.max(0,Math.min(1-d/3,1+d*2))*band); });
+  })()`);
+  assert.ok(light.every(error => error < 0.001), "the local light profile matches the original scanner in every line");
   await capture(page, "mobile-scanning");
 
   const start = await page.evaluate("scrollY");

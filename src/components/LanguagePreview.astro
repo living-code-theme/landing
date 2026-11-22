@@ -49,7 +49,7 @@ const { flavorName } = Astro.props;
     font-size: 0.875rem; color: var(--lc-fg-muted); white-space: nowrap;
   }
   .language-preview__tabs button:hover { color: var(--lc-fg); background: var(--lc-surface0); }
-  .language-preview__tabs button[aria-selected="true"] { color: var(--lc-accent); border-bottom-color: currentColor; }
+  .language-preview__tabs button[aria-selected="true"] { color: var(--lc-accent); background: var(--lc-bg); border-bottom-color: currentColor; }
   .language-preview__tabs button:focus-visible { outline-offset: -4px; }
   .language-preview__panels { display: grid; gap: 16px; }
   .language-preview__file { padding: 12px 24px; font-size: 0.75rem; font-weight: 400; color: var(--lc-fg-muted); }
@@ -61,7 +61,7 @@ const { flavorName } = Astro.props;
   .language-preview__line { display: block; min-width: max-content; padding-right: 24px; }
   .language-preview__number {
     display: inline-block; width: 4ch; margin-inline: 12px 20px;
-    color: var(--lc-line-number); text-align: right; user-select: none;
+    color: var(--lc-fg-muted); text-align: right; user-select: none;
   }
   .language-preview__line[data-line-kind="added"] {
     color: var(--lc-added); background: color-mix(in oklch, var(--lc-added) 6%, transparent);

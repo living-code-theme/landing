@@ -119,12 +119,21 @@
   html[data-theme="living-code-signal"] [data-only]:not([data-only="signal"]) { display: none !important; }
 }
 
+/* Theme selection requires script; the ordinary navigation remains available without it. */
+html:not(.js) .flavor-menu { display: none; }
+
 /* A mobile hero fills the first screen: the chameleon takes the spare room, with the description at its foot. */
 @media (width < 64rem) {
   #hero { grid-template-rows: auto auto minmax(260px, 1fr) auto; padding-bottom: 40px; overflow-x: clip; }
   #hero .hero-chameleon { height: auto; min-height: 0; align-self: stretch; margin-top: 24px; margin-inline: calc(-1 * var(--margin) - 10vw); }
   #hero [data-hero-description] { margin-top: 20px; align-self: end; }
 }
+
+/* At enlarged text sizes, retain the labelled brand mark without squeezing the two header actions away.
+   16rem is below the header's content width at the supported 320px/default-text viewport. */
+header.shell { container-type: inline-size; }
+@container (width < 16rem) { .site-brand-name { display: none; } }
+.hero-actions a { white-space: normal; }
 
 /* Mobile navigation covers the page. Keep the background still and unavailable until it closes. */
 @media (width < 64rem) {
@@ -139,7 +148,7 @@
   }
   html:not(.js) .site-nav > ul { flex-direction: row; flex-wrap: wrap; gap: 0 24px; }
   html:not(.js) .site-nav a { font-size: 0.875rem; }
-  html:not(.js) .site-nav a > span { display: none; }
+  html:not(.js) .site-nav [data-nav-arrow] { display: none; }
 }
 
 /* Single-choice appearance controls: useful descriptions, larger swatches, and a non-color-only selection. */
@@ -297,6 +306,8 @@ html:has(.port-finder[open]) { overflow: hidden; }
   .port-option > div > :first-child { margin-top: 0; }
   .prose :not(pre) > code { padding: 0.1em 0.35em; background: var(--lc-surface0); font-size: 0.85em; overflow-wrap: anywhere; }
   .snippet { position: relative; background: var(--lc-bg-deep); max-width: 100%; }
+  /* Paper's syntax roles are measured on base, not on its darker decorative panel surface. */
+  [data-theme="living-code-paper"] .snippet { background: var(--lc-bg); }
   .snippet pre { margin: 0; padding: 18px 104px 18px 20px; overflow-x: auto; font-size: 0.875rem; line-height: 1.65; scrollbar-width: thin; }
   .copy {
     position: absolute; top: 10px; right: 10px;
@@ -442,6 +453,6 @@ html[data-flavor-return-transition] #flavors [data-only] { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
   html.js [data-reveal]:not(.is-in) { opacity: 1; transform: none; }
 }

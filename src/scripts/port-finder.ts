@@ -25,7 +25,7 @@ async function catalog(url: string) {
   let pending = catalogs.get(url);
   if (!pending) {
     pending = (async () => {
-      const response = await fetch(url, { credentials: "omit", redirect: "error" });
+      const response = await fetch(url, { credentials: "omit", redirect: "error", signal: AbortSignal.timeout(10_000) });
       if (!response.ok || Number(response.headers.get("content-length")) > 2 * 1024 * 1024) throw new Error("Finder asset unavailable");
       const text = await response.text();
       if (text.length > 2 * 1024 * 1024) throw new Error("Finder asset too large");

@@ -2,6 +2,7 @@
 // The bar on every page. It persists across navigations, so the flavor menu and its state survive a page change.
 import Mark from "./Mark.astro";
 import Arrow from "./Arrow.astro";
+import GitHubStars from "./GitHubStars.astro";
 import { CLAUSES, ORG, flavors, short } from "../lib/data.mjs";
 
 const navLink = "draw text-sm text-muted no-underline transition-colors hover:text-fg max-lg:flex max-lg:min-h-12 max-lg:items-center max-lg:justify-between max-lg:gap-6 max-lg:py-2 max-lg:text-[clamp(1.75rem,6vw,2.5rem)] max-lg:font-semibold max-lg:tracking-tight max-lg:text-fg max-lg:after:hidden";
@@ -16,9 +17,9 @@ const links = [
   transition:persist="site-header"
   transition:name="site-header"
 >
-  <a class="group flex min-h-11 shrink-0 items-center gap-2 text-sm font-semibold tracking-tight no-underline sm:gap-3.5 sm:text-base" href="/#hero" aria-label="Living Code, home">
+  <a class="group flex min-h-[44px] shrink-0 items-center gap-2 text-sm font-semibold tracking-tight no-underline sm:gap-3.5 sm:text-base" href="/#hero" aria-label="Living Code, home">
     <Mark class="h-4 w-auto text-accent transition-transform duration-500 ease-spring group-hover:scale-110 sm:h-5" />
-    <span class="whitespace-nowrap">Living Code</span>
+    <span class="site-brand-name whitespace-nowrap">Living Code</span>
   </a>
 
   <nav
@@ -30,17 +31,17 @@ const links = [
       {links.map(([href, label]) => (
         <li>
           <a class={navLink} href={href}>
-            {label}<span class="lg:hidden"><Arrow /></span>
+            {label}<span class="lg:hidden" data-nav-arrow><Arrow /></span>
           </a>
         </li>
       ))}
-      <li class="lg:hidden"><a class={navLink} href={ORG}>Source on GitHub <Arrow dir="out" /></a></li>
+      <li class="lg:hidden"><a class={navLink} href={ORG}>Source on GitHub <GitHubStars /></a></li>
     </ul>
     <div class="mobile-flavors lg:hidden" data-mobile-flavors>
       <h2 class="mb-3 text-base font-medium" id="mobile-flavor-label">Site flavor</h2>
       <div class="grid auto-rows-fr grid-cols-2 gap-2" role="group" aria-labelledby="mobile-flavor-label">
         {flavors.map((f) => (
-          <button type="button" class="mobile-flavor" data-bar data-set-flavor={f.id} aria-pressed={f.id === "night" ? "true" : "false"}>
+          <button type="button" disabled class="mobile-flavor" data-bar data-set-flavor={f.id} aria-pressed={f.id === "night" ? "true" : "false"}>
             <span class="mobile-flavor__swatch" data-theme={f.slug} aria-hidden="true">
               <i class="bg-keyword" /><i class="bg-string" /><i class="bg-number" /><i class="bg-function" />
             </span>
@@ -53,7 +54,7 @@ const links = [
     </div>
   </nav>
 
-  <a class="ml-auto inline-flex min-h-11 shrink-0 items-center gap-3 bg-bg-alt px-3 text-sm font-medium text-fg no-underline transition-colors hover:bg-surface lg:ml-0" href="/ports/#port-filter" data-port-finder-open aria-haspopup="dialog" aria-controls="port-finder" data-astro-reload>
+  <a class="ml-auto inline-flex min-h-[44px] shrink-0 items-center gap-3 bg-bg-alt px-3 text-sm font-medium text-fg no-underline transition-colors hover:bg-surface lg:ml-0" href="/ports/#port-filter" data-port-finder-open aria-haspopup="dialog" aria-controls="port-finder" data-astro-reload>
     <span class="lg:hidden">Ports</span><span class="max-lg:hidden">Ports &amp; install</span>
     <kbd class="text-xs text-muted max-lg:hidden" data-port-shortcut aria-hidden="true">Ctrl K</kbd>
   </a>
@@ -69,7 +70,7 @@ const links = [
     <ul class="absolute right-0 top-[calc(100%+10px)] w-80 origin-top-right animate-[menu-in_0.32s_var(--ease-out)] bg-bg-alt p-1.5 shadow-[0_24px_48px_-12px_oklch(0_0_0/0.45)]" id="flavor-list" hidden>
       {flavors.map((f) => (
         <li>
-          <button type="button" data-bar class="flex w-full items-center gap-3.5 p-3 text-left transition-colors hover:bg-surface aria-pressed:bg-surface" data-set-flavor={f.id} aria-pressed={f.id === "night" ? "true" : "false"}>
+          <button type="button" disabled data-bar class="flex w-full items-center gap-3.5 p-3 text-left transition-colors hover:bg-surface aria-pressed:bg-surface" data-set-flavor={f.id} aria-pressed={f.id === "night" ? "true" : "false"}>
             <span class="grid grid-cols-2 gap-0.5 bg-bg p-[3px]" data-theme={f.slug} aria-hidden="true">
               <i class="size-3 bg-bg-alt" /><i class="size-3 bg-keyword" /><i class="size-3 bg-string" /><i class="size-3 bg-number" />
             </span>
@@ -80,9 +81,9 @@ const links = [
     </ul>
   </div>
 
-  <a class="inline-flex items-center gap-2 text-sm text-muted no-underline transition-colors hover:text-fg max-lg:hidden" href={ORG}>GitHub <Arrow dir="out" /></a>
+  <a class="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm text-muted no-underline transition-colors hover:text-fg max-lg:hidden" href={ORG}>GitHub <GitHubStars /> <Arrow dir="out" /></a>
 
-  <button type="button" class="group -mr-2 grid size-11 shrink-0 place-items-center text-muted transition-colors hover:text-fg aria-expanded:text-fg lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+  <button type="button" class="group -mr-2 grid size-[44px] shrink-0 place-items-center text-muted transition-colors hover:text-fg aria-expanded:text-fg lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
     <span class="relative h-4 w-[22px]" aria-hidden="true">
       <i class="absolute left-0 top-[5px] h-px w-[22px] bg-current transition-transform duration-200 group-aria-expanded:translate-y-[3px] group-aria-expanded:rotate-45" />
       <i class="absolute left-0 top-[11px] h-px w-[22px] bg-current transition-transform duration-200 group-aria-expanded:-translate-y-[3px] group-aria-expanded:-rotate-45" />

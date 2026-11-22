@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "organization": "living-code-theme",
+  "repositories": [
+    {
+      "name": ".github",
+      "stars": 0
+    },
+    {
+      "name": "aider",
+      "stars": 0
+    },
+    {
+      "name": "alacritty",
+      "stars": 0
+    },
+    {
+      "name": "base16",
+      "stars": 0
+    },
+    {
+      "name": "bat",
+      "stars": 0
+    },
+    {
+      "name": "bottom",
+      "stars": 0
+    },
+    {
+      "name": "btop",
+      "stars": 0
+    },
+    {
+      "name": "chrome",
+      "stars": 0
+    },
+    {
+      "name": "claude-code",
+      "stars": 0
+    },
+    {
+      "name": "codex",
+      "stars": 0
+    },
+    {
+      "name": "core",
+      "stars": 0
+    },
+    {
+      "name": "crush",
+      "stars": 0
+    },
+    {
+      "name": "css",
+      "stars": 0
+    },
+    {
+      "name": "delta",
+      "stars": 0
+    },
+    {
+      "name": "expressive-code",
+      "stars": 0
+    },
+    {
+      "name": "eza",
+      "stars": 0
+    },
+    {
+      "name": "firefox",
+      "stars": 0
+    },
+    {
+      "name": "fish",
+      "stars": 0
+    },
+    {
+      "name": "foot",
+      "stars": 0
+    },
+    {
+      "name": "fzf",
+      "stars": 0
+    },
+    {
+      "name": "gemini-cli",
+      "stars": 0
+    },
+    {
+      "name": "ghostty",
+      "stars": 0
+    },
+    {
+      "name": "gitui",
+      "stars": 0
+    },
+    {
+      "name": "helix",
+      "stars": 1
+    },
+    {
+      "name": "herdr",
+      "stars": 0
+    },
+    {
+      "name": "hunk",
+      "stars": 0
+    },
+    {
+      "name": "iterm2",
+      "stars": 0
+    },
+    {
+      "name": "jetbrains",
+      "stars": 0
+    },
+    {
+      "name": "k9s",
+      "stars": 0
+    },
+    {
+      "name": "kitty",
+      "stars": 0
+    },
+    {
+      "name": "konsole",
+      "stars": 0
+    },
+    {
+      "name": "landing",
+      "stars": 0
+    },
+    {
+      "name": "lazydocker",
+      "stars": 0
+    },
+    {
+      "name": "lazygit",
+      "stars": 1
+    },
+    {
+      "name": "micro",
+      "stars": 0
+    },
+    {
+      "name": "nushell",
+      "stars": 0
+    },
+    {
+      "name": "nvim",
+      "stars": 0
+    },
+    {
+      "name": "obsidian",
+      "stars": 0
+    },
+    {
+      "name": "opencode",
+      "stars": 0
+    },
+    {
+      "name": "palette",
+      "stars": 0
+    },
+    {
+      "name": "pi",
+      "stars": 0
+    },
+    {
+      "name": "posting",
+      "stars": 0
+    },
+    {
+      "name": "rio",
+      "stars": 0
+    },
+    {
+      "name": "slack",
+      "stars": 0
+    },
+    {
+      "name": "starship",
+      "stars": 0
+    },
+    {
+      "name": "sublime",
+      "stars": 0
+    },
+    {
+      "name": "tailwind",
+      "stars": 0
+    },
+    {
+      "name": "television",
+      "stars": 0
+    },
+    {
+      "name": "tmux",
+      "stars": 0
+    },
+    {
+      "name": "vscode",
+      "stars": 0
+    },
+    {
+      "name": "warp",
+      "stars": 0
+    },
+    {
+      "name": "wezterm",
+      "stars": 1
+    },
+    {
+      "name": "windows-terminal",
+      "stars": 0
+    },
+    {
+      "name": "yazi",
+      "stars": 0
+    },
+    {
+      "name": "zed",
+      "stars": 0
+    },
+    {
+      "name": "zellij",
+      "stars": 0
+    }
+  ]
+}

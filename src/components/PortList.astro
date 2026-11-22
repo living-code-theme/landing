@@ -3,6 +3,8 @@
 // into the title of the port's page; the other names stay part of the grid.
 import { REPO, flavors, groups, keys, portCount, shipped, short, slug } from "../lib/data.mjs";
 import PortIcon from "./PortIcon.astro";
+interface Props { headingLevel?: "h2" | "h3" }
+const { headingLevel: Heading = "h3" } = Astro.props;
 ---
 
 <div class="port-catalog" data-port-list>
@@ -18,7 +20,7 @@ import PortIcon from "./PortIcon.astro";
   <div class="port-results" data-port-results>
   {groups.map((g) => (
     <section class="port-group [&[hidden]]:hidden" id={slug(g.title)} data-port-group aria-labelledby={`g-${slug(g.title)}`}>
-      <h3 class="port-group-title flex items-baseline gap-3 self-start text-xl font-semibold tracking-tight" id={`g-${slug(g.title)}`}>{g.title}<span class="text-sm font-normal text-muted tabular-nums" data-port-group-count>{g.ports.length}</span></h3>
+      <Heading class="port-group-title flex items-baseline gap-3 self-start text-xl font-semibold tracking-tight" id={`g-${slug(g.title)}`}>{g.title}<span class="text-sm font-normal text-muted tabular-nums" data-port-group-count>{g.ports.length}</span></Heading>
       <ul class="port-result-grid">
         {g.ports.map((p) => {
           const ships = shipped(p);

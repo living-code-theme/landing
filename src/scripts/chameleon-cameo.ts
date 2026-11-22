@@ -32,7 +32,7 @@ function companion(button: HTMLButtonElement) {
   let model: ReturnType<typeof createChameleonCompanion> | undefined;
   let atlas: HTMLCanvasElement | undefined;
   const tints = new Map<number, HTMLCanvasElement>();
-  let visible = false, ready = false, raf = 0, last = 0, clock = 0, dt = 0;
+  let visible = false, ready = false, disposed = false, raf = 0, last = 0, clock = 0, dt = 0;
   let state: State = "idle", stateAt = 0, exitRight = false, base = 0, walkedAtBase = 0, offset = 0, gone = 0;
   let w = 0, h = 0, dpr = 1, scale = 1;
   const look = { x: 0, y: 0, on: 0 };
@@ -143,7 +143,7 @@ function companion(button: HTMLButtonElement) {
     raf = requestAnimationFrame(tick);
   };
   const sync = () => {
-    const live = ready && visible && !document.hidden && !motion.matches;
+    const live = ready && visible && !document.hidden && !motion.matches && !disposed;
     if (live && !raf) {
       model ??= createChameleonCompanion();
       size();
@@ -190,8 +190,12 @@ function companion(button: HTMLButtonElement) {
 
   button.dataset.cameoState = "idle";
   button.disabled = false;
-  if (ctx) void document.fonts.ready.then(() => { atlas = glyphAtlas(); ready = true; sync(); });
+  if (ctx) void document.fonts.ready.then(() => {
+    if (disposed) return;
+    atlas = glyphAtlas(); ready = true; sync();
+  });
   return () => {
+    disposed = true;
     cancelAnimationFrame(raf); raf = 0;
     observer.disconnect(); resize.disconnect(); theme.disconnect(); events.abort();
     if (canvas) canvas.hidden = true;

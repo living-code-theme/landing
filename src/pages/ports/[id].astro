@@ -15,6 +15,7 @@ import { renderPortGuide } from "../../lib/readme.mjs";
 import { readPort } from "../../lib/ports.mjs";
 import { siGithub } from "simple-icons";
 import { back, h3 } from "../../lib/ui.mjs";
+import type { GuideSection } from "../../lib/types";
 
 export function getStaticPaths() {
   return ports.map((p, i) => ({ params: { id: p.id }, props: { i } }));
@@ -34,14 +35,15 @@ const socialImage = existsSync(new URL(`../../../public/social/${p.id}.jpg`, imp
 
 const all = files(p);
 const host = p.homepage ? new URL(p.homepage).host.replace(/^www\./, "") : null;
-const guides = Object.fromEntries(["night", "frost", "paper", "signal"].map((flavor) => [flavor,
+const guides = Object.fromEntries((["night", "frost", "paper", "signal"] as const).map((flavor) => [flavor,
   renderPortGuide(p.guide ?? p.readme, { repository: p.repository, revision: p.revision, images: p.guideImages ?? p.readmeImages, flavor: p.flavors.includes(flavor) ? flavor : "night" }),
 ]));
 const guide = guides.night;
 const options = [
   { label: "Configuration", section: "configuration" },
   { label: "Compatibility", section: "compatibility" },
-].filter((option) => guide[option.section]);
+] satisfies { label: string; section: GuideSection }[];
+const availableOptions = options.filter((option) => guide[option.section]);
 ---
 
 <Base title={`Living Code for ${p.name}`} description={p.description} socialImage={socialImage}>
@@ -64,7 +66,7 @@ const options = [
             <dt>Flavors</dt>
             <dd class="flex flex-wrap gap-1">
               {ships.map((f) => (
-                <button type="button" data-bar data-set-flavor={f.id} aria-pressed="false" class="inline-flex items-center gap-2 bg-bg-alt px-3 py-1.5 text-sm text-muted transition-colors hover:bg-surface hover:text-fg aria-pressed:bg-surface aria-pressed:text-fg"><i data-theme={f.slug} class="size-2.5 bg-keyword" />{short(f)}</button>
+                <button type="button" disabled data-bar data-set-flavor={f.id} aria-pressed="false" class="inline-flex items-center gap-2 bg-bg-alt px-3 py-1.5 text-sm text-muted transition-colors hover:bg-surface hover:text-fg aria-pressed:bg-surface aria-pressed:text-fg"><i data-theme={f.slug} class="size-2.5 bg-keyword" />{short(f)}</button>
               ))}
             </dd>
           </div>
@@ -84,10 +86,10 @@ const options = [
         </div>
         {guide.installation ? <FlavorGuide guides={guides} section="installation" /> : <p>See the repository for installation instructions.</p>}
       </section>
-      {(options.length > 0 || all.length > 0) && (
+      {(availableOptions.length > 0 || all.length > 0) && (
         <section aria-labelledby="options-h" data-reveal style="--d:1">
           <h2 class:list={[h3, "mb-6 flex min-h-11 items-center"]} id="options-h">Details</h2>
-          {options.map((option) => <details class="port-option">
+          {availableOptions.map((option) => <details class="port-option">
             <summary>{option.label}<DisclosureIcon /></summary>
             <div class="prose port-readme"><FlavorGuide guides={guides} section={option.section} /></div>
           </details>)}

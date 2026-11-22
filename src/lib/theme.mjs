@@ -11,16 +11,22 @@ for (const f of snapshot.flavors) {
   }
 }
 
-export const flavors = snapshot.flavors.map((f) => ({
+/** @type {import('./types').ThemeFlavor[]} */
+const themeFlavors = snapshot.flavors;
+export const flavors = themeFlavors.map((f) => ({
   ...f,
   c: (name) => f.colors[name].hex,
   r: (role) => f.colors[f.roles[role]].hex,
   rr: (role) => f.raw[f.roles[role]],
 }));
+/** @type {import('./types').ColorName[]} */
 export const ACCENT_ORDER = snapshot.accentOrder;
 export const ANSI_ORDER = snapshot.ansiOrder;
+/** @type {import('./types').ColorName[]} */
 export const NEUTRAL_ORDER = snapshot.neutralOrder;
+/** @type {import('./types').RoleName[]} */
 export const TEXT_ROLES = snapshot.textRoles;
 export const SLOGAN = snapshot.slogan;
+/** @type {Record<string, string>} */
 export const GLYPHS = snapshot.glyphs;
 export const documentationAnchors = snapshot.documentationAnchors;

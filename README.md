@@ -12,6 +12,7 @@ Use Node **22.22 or newer** and pnpm **12.9.0**.
 pnpm install --frozen-lockfile
 pnpm dev
 
+pnpm check
 pnpm build
 pnpm test
 pnpm test:browser  # Chrome/Chromium; set CHROME_BIN if it is not named google-chrome.
@@ -23,6 +24,8 @@ Workflow regression tests also require Git and Bash; they use temporary reposito
 Browser regressions start a temporary local HTTPS Wrangler asset server and Chrome profile, checking screenshot requests, no-script and
 failed-personalization fallbacks, CSP enforcement, navigation, and controls. They never deploy. The local test browser
 accepts Wrangler's self-signed certificate; production TLS validation is unchanged.
+Pull requests run these validations without deployment credentials. Browser tests also run axe against all four
+flavors and representative page types. See [AUDIT.md](AUDIT.md) for the technical audit, measurements and coverage limits.
 
 ## What belongs here
 
@@ -34,16 +37,17 @@ accepts Wrangler's self-signed certificate; production TLS validation is unchang
 | `public/port-images/` | Default local capture store; optional R2 mode pins external capture URLs, dimensions, hashes and sizes instead |
 | `public/port.schema.json` | Static copy of core's schema, served at <https://living-code.dev/port.schema.json> for editor autocomplete |
 | `src/assets/fonts/`, `public/fonts/`, favicon assets | Bundled/fingerprinted font binaries, public license files and icons; brand sources live in core |
+| `data/github-stars.json` | Website-owned snapshot of stars for every public organization repository, including core, landing, forks and archived repositories; refreshed explicitly or by the daily workflow. |
 | `data/image-variants.json` | Manifest of website-owned, content-addressed responsive screenshot variants; the images themselves live in R2 beside the originals (`public/image-variants/` only in local `git` capture mode) |
-| `public/social/<slug>.jpg` | Optional 1280×640 share cards; matching port pages emit Open Graph and Twitter image metadata. Update the card when its app preview changes. |
+| `public/social/<slug>.jpg` | 1280×640 share cards; port-specific cards override the shared `living-code.jpg` fallback. Update the card when its app preview changes. |
 | `test/` | Website rendering, interactions, build output and standalone-input checks |
 | `wrangler.jsonc` | Website deployment configuration |
 
 Reusable maintainer logic belongs in [core](https://github.com/living-code-theme/core): discovery, manifest and README
 validation, README templates, scaffolding, local-port previews, theme generation and isolated-checkout verification.
 There are no port-maintenance scripts or templates here and no runtime dependency on core. Rendering/sanitizing repository
-Markdown, grouping ports and preparing responsive screenshot derivatives remain website concerns. The only refresh script
-here is `pnpm images:prepare`; it does not discover repositories or execute port code.
+Markdown, grouping ports, preparing responsive screenshot derivatives and public website statistics remain website concerns.
+The refresh commands here are `pnpm images:prepare` and `pnpm stars:sync`; neither executes port code.
 
 `data/ports.json` is the only port index. Schema 2 contains metadata and references into `data/ports/`, not every
 README. Each port page loads and verifies only its own content-addressed guide document. Core derives guide v1's
@@ -68,6 +72,25 @@ Both complete port lists and all port pages remain static and accessible without
 images in `noscript` fallbacks. In external capture mode, full-size originals stay at the public asset origin;
 responsive derivatives are committed locally. The website compiler never downloads images.
 
+### GitHub stars
+
+The GitHub links in the header (including the mobile menu) and footer show the sum of `stargazers_count` across **every public repository** in
+`living-code-theme`, not just discovered ports or core. It includes zero-star, forked and archived repositories.
+The checked-in snapshot keeps builds offline and sends no API requests or credentials to visitors' browsers.
+
+```sh
+pnpm stars:sync
+# Optional authentication for a higher GitHub API rate limit:
+GH_TOKEN=... pnpm stars:sync
+```
+
+The command follows all numbered pages from GitHub's public organization repository API, validates the complete
+result and writes `data/github-stars.json` atomically. An API/rate-limit/validation failure preserves the previous
+snapshot rather than displaying a fabricated zero. Unchanged data produces no file change. The daily workflow
+refreshes it before building; a stars-only change also goes through validation/publication. A refresh failure is
+non-blocking there, so an unrelated website fix can still ship with the last known count. This is a periodically
+refreshed total, not a live counter; stars can also decrease.
+
 ## Refresh website inputs (from core)
 
 The following commands run **in a core checkout**, after `pnpm install --frozen-lockfile` there. Pass the website
@@ -90,7 +113,7 @@ updates retain the last working snapshot; incomplete listings and authentication
 removing ports. Visitors never query GitHub for discovery. Normal website builds never refresh these inputs.
 
 For a manual refresh, review the changed data/assets in the landing checkout, then run `pnpm images:prepare`,
-`pnpm build`, `pnpm test` and `pnpm test:browser` there before committing. The automated equivalent is configured below; ordinary local builds stay offline.
+`pnpm check`, `pnpm build`, `pnpm test` and `pnpm test:browser` there before committing. The automated equivalent is configured below; ordinary local builds stay offline.
 
 ### Responsive screenshot preparation
 
@@ -120,9 +143,9 @@ locked dependencies and runs `pnpm sync:ports --landing <checkout>` there. Port 
 Discovery validates metadata, README and captures from one published revision per repository, keeping the previous
 working snapshot for an invalid port update. Global listing/authentication failures stop the run without removals.
 
-The workflow installs landing and prepares responsive derivatives before deciding whether publication is needed.
+The workflow installs landing, refreshes the GitHub stars snapshot and prepares responsive derivatives before deciding whether publication is needed.
 When publication is needed, it builds and runs both unit/build and browser tests, commits **only** `data/ports.json`,
-`data/ports/`, local `public/port-images/`, the `data/image-variants.json` manifest (and local-mode `public/image-variants/`) changes, then deploys
+`data/ports/`, local `public/port-images/`, `data/github-stars.json`, the `data/image-variants.json` manifest (and local-mode `public/image-variants/`) changes, then deploys
 the already-tested `dist/` to the `living-code-landing` Cloudflare Worker.
 It deploys in the same run because a bot commit made with `GITHUB_TOKEN` does not trigger another Actions workflow.
 Ordinary website pushes also go through this validation/deployment path.

@@ -24,7 +24,7 @@ const source = stripTypeScriptTypes(readFileSync(new URL("../src/scripts/living/
 const { createField } = await import(moduleUrl(source));
 const { fades } = await import(shapes);
 
-function browser(t, { reducedMotion = false, width = 1000, margin = 40 } = {}) {
+function browser(t, { reducedMotion = false, width = 1000, margin = 40, linked = true } = {}) {
   let field;
   fades.length = 0;
   t.after(() => field?.destroy());
@@ -40,14 +40,22 @@ function browser(t, { reducedMotion = false, width = 1000, margin = 40 } = {}) {
   document.querySelectorAll = () => anchors;
   document.createElement = () => ({ getContext: () => ({ fillText() {} }) });
   const uniforms = {};
+  let draws = 0;
+  const deleted = { buffers: 0, textures: 0, programs: 0, shaders: 0 };
   const gl = new Proxy({
+    drawArrays() { draws++; },
+    deleteBuffer() { deleted.buffers++; },
+    deleteTexture() { deleted.textures++; },
+    deleteProgram() { deleted.programs++; },
+    deleteShader() { deleted.shaders++; },
     ALIASED_POINT_SIZE_RANGE: 1, LINK_STATUS: 2,
     getUniformLocation: (program, name) => name,
     uniform4fv: (name, value) => { uniforms[name] = [...value]; },
     uniform3fv: (name, value) => { uniforms[name] = [...value]; },
     getExtension: () => null,
     getParameter: () => new Float32Array([1, 64]),
-    getProgramParameter: () => true,
+    getProgramParameter: () => linked,
+    getShaderInfoLog: () => "shader link failure",
   }, { get: (object, key) => key in object ? object[key] : () => ({}) });
   const canvas = { getContext: () => gl, clientWidth: 1000, clientHeight: 800, dataset: {}, style: {}, addEventListener() {} };
   const frames = new Map();
@@ -98,13 +106,13 @@ function browser(t, { reducedMotion = false, width = 1000, margin = 40 } = {}) {
     document, events, canvas,
     start: async () => (field = await createField(canvas, { night: flavor, paper }, "night")),
     target: (glyph, options) => { anchors = [anchor(glyph, options)]; },
-    uniforms, fades,
+    uniforms, fades, deleted, draws: () => draws,
     resize(w, gutter) { width = w; margin = gutter; globalThis.innerWidth = w; events.dispatchEvent(new Event("resize")); },
     scroll(y) { page.scroll = y; events.dispatchEvent(new Event("scroll")); },
     scrub: (glyph) => { anchors[0].dataset.glyphTo = glyph; anchors[0].dataset.glyphMix = "0.5"; },
     pending: () => frames.size,
-    tick() {
-      now += 16.7;
+    tick(elapsed = 16.7) {
+      now += elapsed;
       const pending = [...frames];
       frames.clear();
       for (const [, fn] of pending) fn(now);
@@ -127,6 +135,23 @@ test("repeated navigation and hero retargeting keep exactly one animation loop",
   }
   field.destroy();
   assert.equal(b.pending(), 0, "destroy cancels the entire loop, including after navigation");
+});
+
+test("destroy releases all owned GPU resources exactly once", async (t) => {
+  const b = browser(t);
+  const field = await b.start();
+  field.destroy();
+  assert.deepEqual(b.deleted, { buffers: 4, textures: 1, programs: 1, shaders: 2 });
+  assert.equal(b.pending(), 0);
+  field.destroy();
+  assert.deepEqual(b.deleted, { buffers: 4, textures: 1, programs: 1, shaders: 2 });
+});
+
+test("failed shader linking also tears down resources and leaves no pending frame", async (t) => {
+  const b = browser(t, { linked: false });
+  await assert.rejects(b.start(), /shader link failure/);
+  assert.deepEqual(b.deleted, { buffers: 4, textures: 1, programs: 1, shaders: 2 });
+  assert.equal(b.pending(), 0);
 });
 
 test("a palette wipe captures fully recolored glyphs without waiting for the next frame", async (t) => {
@@ -163,6 +188,22 @@ test("a reduced-motion retarget draws once and goes idle", async (t) => {
   b.tick();
   assert.equal(b.canvas.dataset.shape, "mark");
   assert.equal(b.pending(), 0, "retargeting during a frame must not leave an extra idle frame");
+});
+
+test("every reduced-motion refresh paints its static state before going idle", async (t) => {
+  const b = browser(t, { reducedMotion: true });
+  b.target("icon:test");
+  const field = await b.start();
+  b.tick(1000);
+  assert.equal(b.draws(), 1, "the first static frame must not be skipped on an odd frame");
+  for (const glyph of ["wheel", "icon:next", "field", "mark"]) {
+    b.target(glyph);
+    field.refresh();
+    const before = b.draws();
+    b.tick();
+    assert.equal(b.draws(), before + 1, `${glyph}: paint the new state exactly once`);
+    assert.equal(b.pending(), 0);
+  }
 });
 
 test("scenery fades at the measured content margin after resizing, including reduced motion", async (t) => {

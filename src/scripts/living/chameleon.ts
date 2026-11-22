@@ -383,7 +383,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose |
       }
     }
     // Legs: a tube down each bone, laid on the bones' current pose each frame, and a closed foot.
-    LEGS.forEach((leg, li) => {
+    LEGS.forEach((_, li) => {
       for (let g = 0; g < 2; g++) {
         const l = g ? BONES[li].l2 : BONES[li].l1, r = LEG_R[g];
         const lr = Math.max(1, Math.round(l / d)), m = Math.max(3, Math.round((Math.PI * 2 * r) / d));
@@ -939,7 +939,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose |
     const lineChar = (dx: number, dy: number) => Math.abs(dy) < Math.abs(dx) * 0.4 ? "-" : Math.abs(dx) < Math.abs(dy) * 0.4 ? "|" : dx * dy > 0 ? "/" : "\\";
     for (let i = 0; i < used; i++) {
       const k = kind[i], i3 = i * 3;
-      let role: Color = "fg", chars = "", alpha = 1, lit = true, share = 0, bias = 0, mode = 0, flat = false, body = false;
+      let role: Color = "fg", chars = "", alpha = 1, lit = true, share = 0, bias = 0, mode = 0, body = false;
       let fx = 0;
       const fy = 0;
       const wear = COATS[front >= 0 && paint[i] < front ? nextCoat : coat];
@@ -1041,7 +1041,7 @@ function buildChameleon(n: number, small: boolean, pose: "hero" | PortraitPose |
         else { chars = part === 3 ? "." : "`"; role = "fgMuted"; alpha = riding ? 0 : 0.6 - (part - 3) * 0.18; }
         if (age < 0.1 && part > 0) alpha = 0;
         if (!f.on) alpha = 0;
-        mode = 3; lit = false; bias = part === 0 ? -30 : -20; flat = true;
+        mode = 3; lit = false; bias = part === 0 ? -30 : -20;
       }
       if (share > 0) { turnHead(P, share, false, P); turnHead(N, share, true, N); }
       // The body, the head, the eyes and the tail carried on the legs.

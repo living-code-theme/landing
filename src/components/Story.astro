@@ -11,12 +11,13 @@ import { NEUTRAL_ORDER, flavors, roleVar } from "../lib/data.mjs";
 import { code, sampleHtml } from "../lib/sample.mjs";
 import { ART, FLIGHT, PACE, SHOTS, TOKENS, travel } from "../lib/story.mjs";
 import { h2, h3, lead, section, split } from "../lib/ui.mjs";
+import type { RoleName } from "../lib/types";
 
 const html = sampleHtml({ diagnostics: true, stagger: true });
 const rows = code().split("\n").length;
 const only = (fn: (f: (typeof flavors)[number]) => string) => flavors.map((f) => `<span data-only="${f.id}">${fn(f)}</span>`).join("");
-const chip = (r: string) => `<span class="inline-flex items-center gap-2 bg-bg-alt px-3 py-1.5 text-sm text-muted max-lg:px-2 max-lg:py-1 max-lg:text-xs"><i class="size-3" style="background:var(${roleVar(r)})"></i><span class="text-fg">${r}</span> ${only((f) => f.roles[r])}</span>`;
-const chips = (roles: string[]) => `<p class="flex flex-wrap gap-1.5">${roles.map(chip).join("")}</p>`;
+const chip = (r: RoleName) => `<span class="inline-flex items-center gap-2 bg-bg-alt px-3 py-1.5 text-sm text-muted max-lg:px-2 max-lg:py-1 max-lg:text-xs"><i class="size-3" style="background:var(${roleVar(r)})"></i><span class="text-fg">${r}</span> ${only((f) => f.roles[r])}</span>`;
+const chips = (roles: RoleName[]) => `<p class="flex flex-wrap gap-1.5">${roles.map(chip).join("")}</p>`;
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 // The token as text, in its colors: the stand-in where there is no WebGL.
 const word = (t: { text: string; roles: string[] }) => [...t.text].map((ch, k) => `<span style="color:var(${roleVar(t.roles[k % t.roles.length])})">${esc(ch)}</span>`).join("");
@@ -93,7 +94,7 @@ const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none t
           <span class="story-rail__fill" aria-hidden="true"></span>
         </nav>
         <Glyphs shape={`story:${TOKENS.length}`} data-story-token class="h-[clamp(96px,calc(100svh-720px),190px)] max-lg:h-[clamp(80px,16svh,136px)]" label="Code tokens, data blocks and diagnostic symbols, built from code glyphs">
-          {TOKENS.map((t, i) => "paths" in t ? (
+          {TOKENS.map((t, i) => t.paths ? (
             <svg class="story-word h-full w-full" data-story-word={i + 1} viewBox={`0 0 ${ART.width} ${ART.height}`} fill="none" stroke-width={ART.stroke} stroke-linecap="round" stroke-linejoin="round" role="img" aria-label={t.label}>
               {t.paths.map((path, k) => <path d={path} stroke={`var(${roleVar(t.roles[k])})`} />)}
             </svg>
@@ -179,7 +180,7 @@ const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none t
   /* The rail: a step per stop, the current one lit, and a hairline that fills as you go. */
   .story-rail { padding-bottom: 10px; }
   .story-rail::before, .story-rail__fill { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px; background: var(--lc-surface1); }
-  .story-rail__fill { background: var(--lc-accent); transform-origin: left; transform: scaleX(var(--story-p, 1)); }
+  .story-rail__fill { background: var(--lc-accent); transform-origin: left; }
   .story-rail__step { display: flex; width: 100%; gap: 0.6ch; padding-block: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--lc-fg-muted); text-align: left; transition: color 0.3s; }
   .story-rail__step:hover, .story-rail__step[aria-current] { color: var(--lc-fg); }
   .story-rail__step[aria-current] > :first-child { color: var(--lc-accent); }
@@ -209,16 +210,14 @@ const letters = "font-mono text-[clamp(56px,9vw,120px)] font-bold leading-none t
   [data-story] .ln:is([data-s="1"], [data-s="2"], [data-s="3"]) :is(.sign, .vt) { opacity: 0; }
   [data-story] .ln:is([data-s="1"], [data-s="2"], [data-s="3"]) .under { text-decoration-color: transparent; }
 
-  /* Lines light up as the scan reaches them and fade behind it. --front is where the scan is, in lines; --dir is
-     1 going down and -1 going up; --band fades the whole effect in and out at the ends of a pass. */
+  /* The same light profile, updated only on the lines it reaches, never inherited by the highlighted tokens. */
+  @property --glow { syntax: "<number>"; inherits: false; initial-value: 0; }
   [data-story] .ln {
-    --d: calc((var(--front, -9) - var(--n, 0) - 0.5) * var(--dir, 1));
-    --glow: calc(max(0, min(1 - var(--d) / 3, 1 + var(--d) * 2)) * var(--band, 0));
-    background: color-mix(in oklch, var(--lc-accent) calc(var(--glow) * 13%), transparent);
+    background: color-mix(in oklch, var(--lc-accent) calc(var(--glow, 0) * 13%), transparent);
   }
 
   /* The scan line: a hairline of accent with a short glow trailing behind it. */
-  .scan-line { position: absolute; inset-inline: 0; top: calc(var(--front, 0) / var(--rows) * 100%); height: 1px; background: var(--lc-accent); opacity: var(--band, 0); }
+  .scan-line { position: absolute; inset-inline: 0; top: 0; height: 1px; background: var(--lc-accent); opacity: 0; }
   .scan-line::before { content: ""; position: absolute; inset-inline: 0; bottom: 1px; height: 56px; background: linear-gradient(to top, color-mix(in oklch, var(--lc-accent) 18%, transparent), transparent); }
   [data-story][data-dir="up"] .scan-line::before { bottom: auto; top: 1px; background: linear-gradient(to bottom, color-mix(in oklch, var(--lc-accent) 18%, transparent), transparent); }
   .story-editor { transition: outline-color 0.4s; }

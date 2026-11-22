@@ -2,6 +2,9 @@
 export const SPIRAL = { width: 900, height: 700 };
 export const SPIRAL_IDS = ["neovim", "ghostty", "obsidian", "firefox", "zed", "tailwind", "jetbrains", "chrome", "starship", "sublime", "alacritty"];
 
+/** @template T
+ * @param {T[]} icons
+ * @returns {(T & { x: number, y: number, size: number, role: string })[]} */
 export function spiralLayout(icons) {
   return icons.map((icon, i) => {
     const t = i / Math.max(icons.length - 1, 1);

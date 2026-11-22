@@ -4,6 +4,7 @@ import Mark from "./Mark.astro";
 import ChameleonCameo from "./ChameleonCameo.astro";
 import Glyphs from "./Glyphs.astro";
 import { COLOR_FEEDBACK, ORG, PORT_REQUEST, REPO, flavorById, flavors, groups, short, slug } from "../lib/data.mjs";
+import GitHubStars from "./GitHubStars.astro";
 
 const cols = [
   ["Ports", groups.map((g) => [`/ports/#${slug(g.title)}`, g.title])],
@@ -22,7 +23,12 @@ const cols = [
       <nav class="text-left" aria-label={title}>
         <h2 class="mb-3.5 text-sm font-medium text-muted">{title}</h2>
         <ul class="grid justify-items-start gap-2">
-          {items.map(([href, label]) => <li><a class="no-underline transition-colors hover:text-accent" href={href}>{label}</a></li>)}
+          {items.map(([href, label]) => <li>
+            <a class:list={["no-underline transition-colors hover:text-accent", href === ORG && "inline-flex flex-wrap items-center gap-x-2 gap-y-1"]} href={href}>
+              {label}
+              {href === ORG && <GitHubStars class="text-muted" />}
+            </a>
+          </li>)}
         </ul>
       </nav>
     ))}

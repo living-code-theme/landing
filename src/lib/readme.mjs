@@ -32,7 +32,8 @@ function relativeImagePath(href) {
   try { return decodeURIComponent(href.replace(/^\.\//, "").split(/[?#]/)[0]); } catch { return null; }
 }
 
-/** The landing is an installation guide, not a second copy of the GitHub repository page. */
+/** The landing is an installation guide, not a second copy of the GitHub repository page.
+ * @returns {Record<import('./types').GuideSection, string>} */
 export function renderPortGuide(source, context) {
   if (context.flavor && !PORT_FLAVORS.includes(context.flavor)) throw new Error("Invalid guide flavor");
   const installation = typeof source === "string" ? source : source?.installation ?? "";
@@ -93,14 +94,15 @@ function renderContent(source, { repository, revision, images = {}, flavor }, { 
     allowedTags: [...sanitizeHtml.defaults.allowedTags, "img", "details", "summary", "button"],
     allowedAttributes: {
       a: ["href", "title"], img: ["src", "alt", "title", "width", "height", "loading", "decoding"],
-      div: ["class", "data-ui"], pre: ["class"], code: ["class", "data-lang"], span: ["class"],
-      button: ["class", "type", "data-copy"],
+      div: ["class", "data-ui"], pre: ["class", "tabindex", "role", "aria-label"], code: ["class", "data-lang"], span: ["class"],
+      button: ["class", "type", "disabled", "data-copy"],
       table: ["data-lc-flavors"], td: [{ name: "colspan", values: ["2"] }], details: [{ name: "data-lc-flavor", values: PORT_FLAVORS }],
       h2: ["id"], h3: ["id"], h4: ["id"], h5: ["id"], h6: ["id"],
     },
     allowedClasses: { div: ["snippet"], span: [/^t-[a-z-]+$/], button: ["copy"], pre: [], code: [] },
     allowedSchemes: ["http", "https", "mailto"], allowProtocolRelative: false,
     transformTags: {
+      pre(tagName) { return { tagName, attribs: { tabindex: "0", role: "region", "aria-label": "Code sample" } }; },
       a(tagName, attrs) { return { tagName, attribs: attributes({ href: hrefFor(attrs.href), title: attrs.title }) }; },
       img(tagName, attrs) {
         const path = relativeImagePath(attrs.src);

@@ -91,6 +91,8 @@ fn main() {
   },
 ];
 
+/** @param {{ lang: string, source: string }} sample
+ * @returns {{ html: string, kind: string }[]} */
 export function previewLines(sample) {
   let html;
   if (sample.lang === "html-css") {

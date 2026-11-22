@@ -14,6 +14,8 @@ const groupOrder = new Map([
   ["apps", 5], ["web", 6], ["web-code", 6], ["theme-systems", 7],
 ]);
 
+/** @param {{ schemaVersion: number, ports: import('./types').PortIndex[] }} snapshot
+ * @returns {{ ports: import('./types').PortIndex[], groups: { title: string, ports: import('./types').PortIndex[] }[] }} */
 export function portCatalog(snapshot) {
   if (![1, 2].includes(snapshot.schemaVersion) || !Array.isArray(snapshot.ports)) throw new Error("Unsupported port snapshot schema");
   const ports = snapshot.ports;
@@ -43,6 +45,8 @@ export function decodePortDocument(entry, raw) {
 }
 
 /** Only a port page loads its pinned document. Global navigation, search and screenshots use the small index. */
+/** @param {string | import('./types').PortIndex} port
+ * @returns {Promise<import('./types').PortDocument>} */
 export async function readPort(port) {
   if (typeof port === "string") port = ports.find((entry) => entry.id === port);
   if (!port) throw new Error("Unknown port");

@@ -31,6 +31,7 @@ function fixture(t) {
   writeFileSync(join(directory, "public/image-variants/original.webp"), "existing derivative");
   writeFileSync(join(directory, "data/image-variants.json"), '{"images":{}}\n');
   writeFileSync(join(directory, "data/ports.json"), '{"ports":[]}\n');
+  writeFileSync(join(directory, "data/github-stars.json"), '{"schemaVersion":1,"organization":"living-code-theme","repositories":[]}\n');
   writeFileSync(join(directory, "public/port-images/original.webp"), "existing capture");
   git("add", ".");
   git("commit", "-m", "Initial inputs");
@@ -136,6 +137,22 @@ test("discovered updates stage only the snapshot and captures, not unrelated fil
   assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(f.output(), { changed: "true", publish: "true" });
   assert.deepEqual(f.git("diff", "--cached", "--name-only").split("\n"), ["data/image-variants.json", "data/ports.json", `data/ports/new.${"a".repeat(64)}.json`, "public/image-variants/new.webp", "public/port-images/new.webp"]);
+});
+
+test("public stars refresh is isolated and non-blocking, but its changes trigger validation/publication", (t) => {
+  const refresh = step("Refresh GitHub stars");
+  assert.match(refresh, /continue-on-error: true/);
+  assert.match(refresh, /GH_TOKEN: \$\{\{ github\.token \}\}/);
+  assert.match(refresh, /run: pnpm stars:sync/);
+  assert.doesNotMatch(refresh, /CLOUDFLARE|R2_|working-directory: core/);
+  assert.ok(workflow.indexOf("- name: Install website dependencies") < workflow.indexOf("- name: Refresh GitHub stars"));
+  assert.ok(workflow.indexOf("- name: Refresh GitHub stars") < workflow.indexOf("- name: Decide whether to publish"));
+  const f = fixture(t);
+  writeFileSync(join(f.directory, "data/github-stars.json"), '{"schemaVersion":1,"organization":"living-code-theme","repositories":[{"name":"core","stars":3}]}\n');
+  const result = f.run("Decide whether to publish");
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(f.output(), { changed: "true", publish: "true" });
+  assert.equal(f.git("diff", "--cached", "--name-only"), "data/github-stars.json");
 });
 
 test("a workflow-history API failure aborts rather than treating the deployment as current", (t) => {

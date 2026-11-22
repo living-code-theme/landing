@@ -99,6 +99,7 @@ document.addEventListener("click", async (e) => {
   if (pick) {
     // Keep the mobile swatches available while comparing palettes, without opening a second menu.
     if (!pick.closest(".site-nav")) closeMenus();
+    if (pick.closest("#flavor-list")) document.querySelector<HTMLElement>("[data-flavor-toggle]")?.focus();
     setFlavor(pick.dataset.setFlavor!);
     return;
   }
@@ -229,6 +230,9 @@ function story() {
   const shots: Shot[] = JSON.parse(track.dataset.shots!);
   const flight: Pick<Shot, "rx" | "zoom" | "x"> = JSON.parse(track.dataset.flight!);
   const lines = [...box.querySelectorAll<HTMLElement>(".ln")];
+  const glows = lines.map(() => "");
+  const scanner = box.querySelector<HTMLElement>(".scan-line")!;
+  const rail = track.querySelector<HTMLElement>(".story-rail__fill")!;
   const copies = [...track.querySelectorAll<HTMLElement>("[data-story-copy]")];
   const stops = [...track.querySelectorAll<HTMLButtonElement>("[data-story-go]")];
   const n = copies.length, hold = Number(track.dataset.hold), pass = Number(track.dataset.pass);
@@ -296,15 +300,19 @@ function story() {
     const now = passing && t >= 0.5 ? k + 2 : k + 1;
     place(camera(k, passing, t, front, clamp(x / hold)));
 
+    const band = passing ? Math.min(1, front * 12, (1 - front) * 12) : 0;
     lines.forEach((line, i) => {
       const s = String(passing && i + 0.5 < front * rows ? k + 2 : k + 1);
       if (line.dataset.s !== s) line.dataset.s = s;
+      const distance = (front * rows - i - 0.5) * dir;
+      const glow = (Math.max(0, Math.min(1 - distance / 3, 1 + distance * 2)) * band).toFixed(4);
+      // Only the few lines under the light change. A non-inherited property avoids restyling every code token.
+      if (glows[i] !== glow) { line.style.setProperty("--glow", glow); glows[i] = glow; }
     });
-    const band = passing ? Math.min(1, front * 12, (1 - front) * 12) : 0;
-    box.style.setProperty("--front", String(front * rows));
-    box.style.setProperty("--band", band.toFixed(3));
-    box.style.setProperty("--dir", String(dir));
-    box.dataset.dir = dir > 0 ? "down" : "up";
+    scanner.style.top = `${front * 100}%`;
+    scanner.style.opacity = band.toFixed(3);
+    const direction = dir > 0 ? "down" : "up";
+    if (box.dataset.dir !== direction) box.dataset.dir = direction;
     box.toggleAttribute("data-passing", band > 0);
 
     // The leaving step fades and lifts over the first part of a pass, the arriving one over the last.
@@ -327,7 +335,7 @@ function story() {
       delete token.dataset.glyphMix;
     }
 
-    track.style.setProperty("--story-p", (at / total).toFixed(4));
+    rail.style.transform = `scaleX(${(at / total).toFixed(4)})`;
     if (now !== step) {
       step = now;
       box.dataset.step = String(now);
@@ -360,6 +368,7 @@ function story() {
   const controller = new AbortController();
   addEventListener("scroll", wake, { passive: true, signal: controller.signal });
   addEventListener("resize", wake, { passive: true, signal: controller.signal });
+  matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", wake, { signal: controller.signal });
   stops.forEach((b) => b.addEventListener("click", go, { signal: controller.signal }));
   const sizes = new ResizeObserver(() => { measure(); render(shown, dir); });
   sizes.observe(scene);
@@ -416,6 +425,7 @@ document.addEventListener("astro:before-preparation", (event) => {
 });
 
 function restorePageLayout() {
+  document.querySelectorAll<HTMLButtonElement>("[data-copy], [data-adopt-flavor]").forEach((button) => { button.disabled = false; });
   const entry = history.state;
   const saved = returningToPorts ? lastPortIndex : entry?.portList as PortListState | undefined;
   const position = returningToPorts ? saved : entry;
@@ -444,7 +454,9 @@ function restorePageLayout() {
     history.replaceState({ ...history.state, homeView: captureHomeView(document, scrollX, scrollY), scrollX, scrollY }, "");
   } else if (home && location.hash && !traversingHome) {
     // Direct links still land on the requested section, after the page has its enhanced dimensions.
-    document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView({ behavior: "instant" });
+    try {
+      document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView({ behavior: "instant" });
+    } catch { /* A malformed URL fragment must not prevent the rest of the page from initializing. */ }
   }
   returningToPorts = returningToHome = traversingHome = false;
 }
@@ -561,7 +573,7 @@ function living() {
       // taste-skill-ignore: the field's glyphs are drawn in the code face
       await Promise.all([document.fonts.load('700 220px "JetBrains Mono"'), document.fonts.load('600 46px "JetBrains Mono"')]);
     } catch {}
-    await new Promise<void>((resolve) => (window.requestIdleCallback ? requestIdleCallback(() => resolve(), { timeout: 500 }) : setTimeout(resolve, 60)));
+    await new Promise<void>((resolve) => (typeof requestIdleCallback === "function" ? requestIdleCallback(() => resolve(), { timeout: 500 }) : setTimeout(resolve, 60)));
     try {
       field = canvas ? await createField(canvas, flavorData() as never, currentFlavor()) : null;
     } catch (error) {
@@ -584,9 +596,19 @@ document.addEventListener("astro:after-swap", restorePageLayout);
 // The title's cursor blinks on a timer: two style changes a second, where a CSS animation restyles every frame.
 function blink() {
   const cursors = [...document.querySelectorAll<HTMLElement>(".cursor")];
-  if (!cursors.length || still()) return () => {};
-  const timer = setInterval(() => cursors.forEach((c) => c.classList.toggle("is-off")), 550);
-  return () => clearInterval(timer);
+  if (!cursors.length) return () => {};
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  const controller = new AbortController();
+  let timer: ReturnType<typeof setInterval> | undefined;
+  const sync = () => {
+    clearInterval(timer);
+    cursors.forEach((c) => c.classList.remove("is-off"));
+    if (!reduced.matches && !document.hidden) timer = setInterval(() => cursors.forEach((c) => c.classList.toggle("is-off")), 550);
+  };
+  reduced.addEventListener("change", sync, { signal: controller.signal });
+  document.addEventListener("visibilitychange", sync, { signal: controller.signal });
+  sync();
+  return () => { clearInterval(timer); controller.abort(); };
 }
 
 document.addEventListener("astro:page-load", () => {

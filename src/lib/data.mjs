@@ -43,6 +43,7 @@ export const wheel = (f) => ACCENT_ORDER.map((name) => {
 });
 
 // Roles shown on a flavor's page, in reading order, with what each one colors.
+/** @type {[string, import('./types').RoleName[]][]} */
 export const ROLE_GROUPS = [
   ["Code", ["keyword", "function", "type", "string", "number", "constant", "decorator", "tag", "property", "parameter", "operator", "comment"]],
   ["Diagnostics", ["error", "warning", "info", "hint", "success"]],
@@ -106,6 +107,7 @@ export const route = (id) => listings[id]
 export const shipped = (p) => flavors.filter((f) => p.flavors.includes(f.id));
 
 // Every file a port is made of, as repo paths, for the "what you get" list on its page.
+/** @param {import('./types').PortDocument} p */
 export const files = (p) => p.files;
 
 // Extra words the port filter accepts besides a port's name and id.

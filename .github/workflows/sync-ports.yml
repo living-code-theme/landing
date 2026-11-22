@@ -82,6 +82,13 @@ jobs:
       - name: Install website dependencies
         run: pnpm install --frozen-lockfile
 
+      # Public metadata only. An API failure keeps the last complete snapshot without blocking a website fix.
+      - name: Refresh GitHub stars
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: pnpm stars:sync
+
       - name: Prepare responsive screenshot variants
         env:
           R2_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID || secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -95,7 +102,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add -- data/ports.json data/ports public/port-images data/image-variants.json public/image-variants
+          git add -- data/ports.json data/ports public/port-images data/image-variants.json public/image-variants data/github-stars.json
           changed=false
           if ! git diff --cached --quiet; then changed=true; fi
           # A failed deployment must be retried even when discovery is now unchanged.
@@ -106,7 +113,7 @@ jobs:
           fi
           echo "changed=$changed" >> "$GITHUB_OUTPUT"
           echo "publish=$publish" >> "$GITHUB_OUTPUT"
-          printf 'Port snapshot changed: **%s**\n\nPublish required: **%s**\n' "$changed" "$publish" >> "$GITHUB_STEP_SUMMARY"
+          printf 'Website inputs changed: **%s**\n\nPublish required: **%s**\n' "$changed" "$publish" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Check Cloudflare configuration
         if: steps.changes.outputs.publish == 'true'
@@ -116,6 +123,10 @@ jobs:
         run: |
           : "${CLOUDFLARE_API_TOKEN:?Set the CLOUDFLARE_API_TOKEN repository secret}"
           : "${CLOUDFLARE_ACCOUNT_ID:?Set the CLOUDFLARE_ACCOUNT_ID repository variable or secret}"
+
+      - name: Check website types
+        if: steps.changes.outputs.publish == 'true'
+        run: pnpm check
 
       - name: Build the website
         if: steps.changes.outputs.publish == 'true'

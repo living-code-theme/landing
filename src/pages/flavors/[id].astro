@@ -27,9 +27,13 @@ const USES: Record<string, string> = {
   subtext: "muted text", text2: "properties", text: "foreground",
 };
 const text = new Set(TEXT_ROLES);
-// Ink for the ramp's fields: the darkest step on light fields, the lightest on dark ones.
-const byL = [...NEUTRAL_ORDER].sort((a, b) => f.raw[a][0] - f.raw[b][0]);
-const inks = `--light-ink:var(--lc-${byL[0]});--dark-ink:var(--lc-${byL.at(-1)})`;
+// Pick between the existing lightest and darkest inks by measured sRGB contrast, not an OKLCH threshold.
+const luminance = (rgb: number[]) => rgb.map((v) => v / 255).map((v) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4).reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+const byL = [...NEUTRAL_ORDER].sort((a, b) => luminance(f.colors[a].rgb) - luminance(f.colors[b].rgb));
+const darkest = byL[0], lightest = byL.at(-1)!;
+const contrast = (a: number, b: number) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+const darkInk = (name: typeof darkest) => contrast(luminance(f.colors[name].rgb), luminance(f.colors[darkest].rgb)) >= contrast(luminance(f.colors[name].rgb), luminance(f.colors[lightest].rgb));
+const inks = `--light-ink:var(--lc-${darkest});--dark-ink:var(--lc-${lightest})`;
 const apps = APPS.filter((a) => shotsOf(a.port).some((s) => s.f.id === f.id));
 ---
 
@@ -41,7 +45,7 @@ const apps = APPS.filter((a) => shotsOf(a.port).some((s) => s.f.id === f.id));
         <h1 class="mt-[clamp(24px,3vw,40px)] text-title font-semibold"><span class="line"><span>Living Code</span></span> <span class="line text-accent"><span style="--d:1" data-flavor-title={f.id} transition:name={`flavor-${f.id}`}>{short(f)}</span></span></h1>
         <p class:list={[lead, "mt-[clamp(24px,3vw,36px)]"]} data-rise style="--d:2">{f.description}</p>
         <div class="mt-9 flex flex-wrap gap-3" data-rise style="--d:3">
-          <button type="button" class={fill} data-adopt-flavor={f.id} data-done={`${short(f)} is your flavor now`}>Use {short(f)} on the whole site</button>
+          <button type="button" disabled class={fill} data-adopt-flavor={f.id} data-done={`${short(f)} is your flavor now`}>Use {short(f)} on the whole site</button>
           <a class={quiet} href="/ports/">Install it <Arrow /></a>
         </div>
       </div>
@@ -58,11 +62,11 @@ const apps = APPS.filter((a) => shotsOf(a.port).some((s) => s.f.id === f.id));
       <h2 class="sr-only" id="ramp-title">The slate ramp</h2>
       <ol style={inks}>
         {NEUTRAL_ORDER.map((n, k) => (
-          <li style={`background:var(--lc-${n});--k:${k}`} class:list={["ramp-field shell grid items-center gap-x-8 gap-y-2 py-[clamp(16px,2vw,26px)] grid-cols-[minmax(0,1fr)_auto] sm:grid-cols-[minmax(120px,1fr)_minmax(0,2fr)_auto_auto]", f.raw[n][0] < 0.62 ? "text-(--dark-ink)" : "text-(--light-ink)"]} data-reveal>
+          <li style={`background:var(--lc-${n});--k:${k}`} class:list={["ramp-field shell grid items-center gap-x-8 gap-y-2 py-[clamp(16px,2vw,26px)] grid-cols-[minmax(0,1fr)_auto] sm:grid-cols-[minmax(120px,1fr)_minmax(0,2fr)_auto_auto]", darkInk(n) ? "text-(--light-ink)" : "text-(--dark-ink)"]} data-reveal>
             <b class="text-[clamp(1.125rem,1.6vw,1.5rem)] font-semibold tracking-tight">{n}</b>
             <span class="max-sm:col-span-full max-sm:row-start-2 max-sm:text-sm">{USES[n]}</span>
-            <code class="text-sm opacity-85">{f.colors[n].css}</code>
-            <code class="text-sm opacity-85 max-sm:hidden">{f.colors[n].hex}</code>
+            <code class="text-sm">{f.colors[n].css}</code>
+            <code class="text-sm max-sm:hidden">{f.colors[n].hex}</code>
           </li>
         ))}
       </ol>

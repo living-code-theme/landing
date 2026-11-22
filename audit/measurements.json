@@ -1,0 +1,467 @@
+{
+  "baselineCommit": "a3581630a435928f34736bfa12a11bfbca7e9f54",
+  "date": "2026-11-06",
+  "environment": {
+    "node": "22.23.3",
+    "pnpm": "12.9.0",
+    "chrome": "155.0.8059.39",
+    "axe": "4.14.0",
+    "lighthouse": "13.6.0",
+    "os": "Linux/NixOS"
+  },
+  "method": {
+    "lighthouse": "Three sequential Lighthouse mobile default/simulated throttling runs against local HTTPS Wrangler, no concurrent test suite; self-signed local certificate ignored only locally.",
+    "story": "5-second scroll through the existing story; Chromium 390x844 DPR2, mobile/touch emulation, 4x CDP CPU throttle; performance duration deltas in seconds, frame gaps in milliseconds. One sample per motion preference per revision.",
+    "bundle": "Sum of all emitted _astro JS/CSS, not necessarily one navigation; gzip per emitted file; HTML includes inline SVG glyph portrait."
+  },
+  "lighthouse": {
+    "before": [
+      {
+        "version": "13.6.0",
+        "fetchTime": "2026-11-06T16:50:08.263Z",
+        "categories": {
+          "performance": 0.99,
+          "accessibility": 0.96,
+          "best-practices": 1,
+          "seo": 1,
+          "agentic-browsing": 0.5
+        },
+        "metrics": {
+          "first-contentful-paint": 1658.5280000000002,
+          "largest-contentful-paint": 1658.5280000000002,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 32.5,
+          "speed-index": 1658.5280000000002,
+          "server-response-time": 3,
+          "total-byte-weight": 357659
+        }
+      },
+      {
+        "version": "13.6.0",
+        "fetchTime": "2026-11-06T16:50:19.307Z",
+        "categories": {
+          "performance": 0.99,
+          "accessibility": 0.96,
+          "best-practices": 1,
+          "seo": 1,
+          "agentic-browsing": 0.5
+        },
+        "metrics": {
+          "first-contentful-paint": 1659.113,
+          "largest-contentful-paint": 1659.113,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 24.499999999999773,
+          "speed-index": 1659.113,
+          "server-response-time": 3,
+          "total-byte-weight": 366230
+        }
+      },
+      {
+        "version": "13.6.0",
+        "fetchTime": "2026-11-06T16:50:30.320Z",
+        "categories": {
+          "performance": 0.99,
+          "accessibility": 0.96,
+          "best-practices": 1,
+          "seo": 1,
+          "agentic-browsing": 0.5
+        },
+        "metrics": {
+          "first-contentful-paint": 1655.5969999999998,
+          "largest-contentful-paint": 1655.5969999999998,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 36.5,
+          "speed-index": 1655.5969999999998,
+          "server-response-time": 3,
+          "total-byte-weight": 376885
+        }
+      }
+    ],
+    "after": [
+      {
+        "version": "13.6.0",
+        "fetchTime": "2026-11-06T17:40:20.355Z",
+        "categories": {
+          "performance": 0.99,
+          "accessibility": 1,
+          "best-practices": 1,
+          "seo": 1,
+          "agentic-browsing": 1
+        },
+        "metrics": {
+          "first-contentful-paint": 1657.3220000000001,
+          "largest-contentful-paint": 1657.3220000000001,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 38,
+          "speed-index": 1657.3220000000001,
+          "server-response-time": 4,
+          "total-byte-weight": 360301
+        }
+      },
+      {
+        "version": "13.6.0",
+        "fetchTime": "2026-11-06T17:40:31.230Z",
+        "categories": {
+          "performance": 0.99,
+          "accessibility": 1,
+          "best-practices": 1,
+          "seo": 1,
+          "agentic-browsing": 1
+        },
+        "metrics": {
+          "first-contentful-paint": 1658.3919999999998,
+          "largest-contentful-paint": 1658.3919999999998,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 34,
+          "speed-index": 1658.3919999999998,
+          "server-response-time": 3,
+          "total-byte-weight": 335139
+        }
+      },
+      {
+        "version": "13.6.0",
+        "fetchTime": "2026-11-06T17:40:42.127Z",
+        "categories": {
+          "performance": 0.99,
+          "accessibility": 1,
+          "best-practices": 1,
+          "seo": 1,
+          "agentic-browsing": 1
+        },
+        "metrics": {
+          "first-contentful-paint": 1656.268,
+          "largest-contentful-paint": 1656.268,
+          "cumulative-layout-shift": 0,
+          "total-blocking-time": 38,
+          "speed-index": 1656.268,
+          "server-response-time": 4,
+          "total-byte-weight": 365760
+        }
+      }
+    ]
+  },
+  "story": {
+    "before": [
+      {
+        "reducedMotion": "reduce",
+        "TaskDuration": 4.670741,
+        "RecalcStyleDuration": 2.454874,
+        "LayoutDuration": 0.023681,
+        "ScriptDuration": 0.315764,
+        "RecalcStyleCount": 567,
+        "LayoutCount": 81,
+        "frames": 285,
+        "p50": 16.699999999999818,
+        "p95": 33.29999999999973,
+        "over50": 0
+      },
+      {
+        "reducedMotion": "no-preference",
+        "TaskDuration": 4.94989,
+        "RecalcStyleDuration": 1.760873,
+        "LayoutDuration": 0.046666000000000006,
+        "ScriptDuration": 0.346921,
+        "RecalcStyleCount": 486,
+        "LayoutCount": 177,
+        "frames": 254,
+        "p50": 16.699999999999818,
+        "p95": 33.399999999999636,
+        "over50": 0
+      }
+    ],
+    "after": [
+      {
+        "reducedMotion": "reduce",
+        "TaskDuration": 3.9128830000000003,
+        "RecalcStyleDuration": 0.543103,
+        "LayoutDuration": 0.020782,
+        "ScriptDuration": 0.37487400000000004,
+        "RecalcStyleCount": 593,
+        "LayoutCount": 57,
+        "frames": 298,
+        "p50": 16.699999999999818,
+        "p95": 16.800000000000182,
+        "over50": 0
+      },
+      {
+        "reducedMotion": "no-preference",
+        "TaskDuration": 4.098909,
+        "RecalcStyleDuration": 0.482376,
+        "LayoutDuration": 0.044911999999999994,
+        "ScriptDuration": 0.377025,
+        "RecalcStyleCount": 577,
+        "LayoutCount": 202,
+        "frames": 301,
+        "p50": 16.699999999999818,
+        "p95": 16.799999999999272,
+        "over50": 0
+      }
+    ]
+  },
+  "bundles": {
+    "before": {
+      "assets": [
+        {
+          "name": "Base.DiD1PJHp.css",
+          "bytes": 69168,
+          "gzipBytes": 13505
+        },
+        {
+          "name": "Base.astro_astro_type_script_index_0_lang.B8P-SIBB.js",
+          "bytes": 47995,
+          "gzipBytes": 17396
+        },
+        {
+          "name": "ChameleonCameo.astro_astro_type_script_index_0_lang.gcRqW9HF.js",
+          "bytes": 4918,
+          "gzipBytes": 2370
+        },
+        {
+          "name": "ClientRouter.astro_astro_type_script_index_0_lang.ClSD9gNq.js",
+          "bytes": 1634,
+          "gzipBytes": 812
+        },
+        {
+          "name": "chameleon.DZJip9M7.js",
+          "bytes": 31572,
+          "gzipBytes": 14534
+        },
+        {
+          "name": "client.ChiJXsfH.js",
+          "bytes": 24,
+          "gzipBytes": 44
+        },
+        {
+          "name": "client.kiYKGtcZ.js",
+          "bytes": 12378,
+          "gzipBytes": 4322
+        },
+        {
+          "name": "index.Bb1oeYAY.css",
+          "bytes": 9957,
+          "gzipBytes": 2814
+        },
+        {
+          "name": "page.CFYkGvk_.js",
+          "bytes": 47,
+          "gzipBytes": 67
+        },
+        {
+          "name": "prefetch.ColS803j.js",
+          "bytes": 2522,
+          "gzipBytes": 1151
+        }
+      ],
+      "homeBytes": 368153,
+      "homeGzipBytes": 81064,
+      "js": {
+        "bytes": 101090,
+        "gzipBytes": 40696
+      },
+      "css": {
+        "bytes": 79125,
+        "gzipBytes": 16319
+      }
+    },
+    "after": {
+      "assets": [
+        {
+          "name": "Base.DirLsjLv.css",
+          "bytes": 69518,
+          "gzipBytes": 13591
+        },
+        {
+          "name": "Base.astro_astro_type_script_index_0_lang.Cd1A7l6G.js",
+          "bytes": 49052,
+          "gzipBytes": 17698
+        },
+        {
+          "name": "ChameleonCameo.astro_astro_type_script_index_0_lang.BCGR-hA9.js",
+          "bytes": 4937,
+          "gzipBytes": 2379
+        },
+        {
+          "name": "ClientRouter.astro_astro_type_script_index_0_lang.ClSD9gNq.js",
+          "bytes": 1634,
+          "gzipBytes": 812
+        },
+        {
+          "name": "chameleon.CAKA9ojr.js",
+          "bytes": 31079,
+          "gzipBytes": 14353
+        },
+        {
+          "name": "client.ChiJXsfH.js",
+          "bytes": 24,
+          "gzipBytes": 44
+        },
+        {
+          "name": "client.kiYKGtcZ.js",
+          "bytes": 12378,
+          "gzipBytes": 4322
+        },
+        {
+          "name": "index.Br2xxksM.css",
+          "bytes": 9855,
+          "gzipBytes": 2773
+        },
+        {
+          "name": "page.CFYkGvk_.js",
+          "bytes": 47,
+          "gzipBytes": 67
+        },
+        {
+          "name": "prefetch.ColS803j.js",
+          "bytes": 2522,
+          "gzipBytes": 1151
+        }
+      ],
+      "homeBytes": 369510,
+      "homeGzipBytes": 81355,
+      "js": {
+        "bytes": 101673,
+        "gzipBytes": 40826
+      },
+      "css": {
+        "bytes": 79373,
+        "gzipBytes": 16364
+      }
+    }
+  },
+  "dependencies": {
+    "before": {
+      "info": 0,
+      "low": 0,
+      "moderate": 4,
+      "high": 4,
+      "critical": 0
+    },
+    "after": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "advisoryUrls": [
+      "https://github.com/advisories/GHSA-4qv8-2p9j-2685",
+      "https://github.com/advisories/GHSA-f72v-6w45-q472",
+      "https://github.com/advisories/GHSA-xjj6-f33q-929c",
+      "https://github.com/advisories/GHSA-4w7w-5xrc-9h26",
+      "https://github.com/advisories/GHSA-2m5v-pch6-74hx",
+      "https://github.com/advisories/GHSA-qrxm-fqhp-jwvm",
+      "https://github.com/advisories/GHSA-9fm3-97px-rjf6",
+      "https://github.com/advisories/GHSA-55wc-3pg8-jfw6"
+    ]
+  },
+  "tests": {
+    "before": {
+      "node": 211,
+      "browser": 29,
+      "typecheckErrors": 40
+    },
+    "after": {
+      "node": 218,
+      "browser": 36,
+      "typecheckErrors": 0,
+      "typecheckWarnings": 0,
+      "typecheckHints": 0,
+      "checkedFiles": 72,
+      "wcagConfigurations": 25,
+      "paperContrastNodesVerifiedAtFullPrecision": 8,
+      "glyphArtLabelsReviewed": 24,
+      "wcagTags": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa", "best-practice"]
+    },
+    "note": "WCAG checks retain all rules; only the exact Paper comment/base pair is independently recalculated from full-precision CSS, not blanket-suppressed. Glyph-art label-in-name advisory is manually triaged in AUDIT.md."
+  },
+  "smoke": [
+    {
+      "origin": "https://living-code.dev",
+      "path": "/",
+      "status": 200,
+      "title": "Living Code: a calm color scheme for editors, terminals and the web",
+      "enhanced": true
+    },
+    {
+      "origin": "https://living-code.dev",
+      "path": "/ports/",
+      "status": 200,
+      "title": "53 ports for Living Code",
+      "enhanced": true
+    },
+    {
+      "origin": "https://living-code.dev",
+      "path": "/ports/vscode/",
+      "status": 200,
+      "title": "Living Code for VS Code",
+      "enhanced": true
+    },
+    {
+      "origin": "https://living-code.dev",
+      "path": "/flavors/paper/",
+      "status": 200,
+      "title": "Living Code Paper: every color",
+      "enhanced": true
+    },
+    {
+      "origin": "https://living-code.dev",
+      "finderResults": 53,
+      "errors": []
+    },
+    {
+      "origin": "https://127.0.0.1:4322",
+      "path": "/",
+      "status": 200,
+      "title": "Living Code: a calm color scheme for editors, terminals and the web",
+      "enhanced": true
+    },
+    {
+      "origin": "https://127.0.0.1:4322",
+      "path": "/ports/",
+      "status": 200,
+      "title": "53 ports for Living Code",
+      "enhanced": true
+    },
+    {
+      "origin": "https://127.0.0.1:4322",
+      "path": "/ports/vscode/",
+      "status": 200,
+      "title": "Living Code for VS Code",
+      "enhanced": true
+    },
+    {
+      "origin": "https://127.0.0.1:4322",
+      "path": "/flavors/paper/",
+      "status": 200,
+      "title": "Living Code Paper: every color",
+      "enhanced": true
+    },
+    {
+      "origin": "https://127.0.0.1:4322",
+      "finderResults": 53,
+      "errors": []
+    },
+    {
+      "case": "200-percent-root-text-size",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflowBeyondOnePixel": false
+    },
+    {
+      "case": "200-percent-root-text-size",
+      "width": 1440,
+      "scrollWidth": 1441,
+      "overflowBeyondOnePixel": false
+    },
+    {
+      "case": "forced-colors",
+      "dialog": true,
+      "focused": "port-finder-input"
+    },
+    {
+      "case": "no-webgl",
+      "fallbackOpacity": "1",
+      "title": "Living Code: a calm color scheme for editors, terminals and the web"
+    }
+  ]
+}

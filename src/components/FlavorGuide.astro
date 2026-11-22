@@ -1,6 +1,8 @@
 ---
 // CSS follows the same root attribute as the palette and screenshot, including before hydration and Astro swaps.
 // Each variant owns its code and copy payload together; no DOM rewriting or stale clipboard commands.
+import type { GuideSection } from "../lib/types";
+interface Props { guides: Record<string, Record<GuideSection, string>>; section: GuideSection }
 const { guides, section } = Astro.props;
 const entries = Object.entries(guides).map(([flavor, guide]) => ({ flavor, html: guide[section] }));
 const shared = new Set(entries.map((entry) => entry.html)).size === 1;

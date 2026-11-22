@@ -17,9 +17,10 @@ interface Props {
   // A flavor page is always shown in its own flavor, whatever the visitor picked elsewhere.
   flavor?: string;
   socialImage?: { src: string; alt: string; width: number; height: number };
+  noindex?: boolean;
 }
 
-const { title, description = `Living Code is a color scheme for editors, terminals and the web: a calm slate background, living color in the code, four flavors and ports for ${ports.length} apps.`, flavor, socialImage } = Astro.props;
+const { title, description = `Living Code is a color scheme for editors, terminals and the web: a calm slate background, living color in the code, four flavors and ports for ${ports.length} apps.`, flavor, socialImage = { src: "/social/living-code.jpg", alt: "Living Code: the [lc] mark in teal on dark slate", width: 1280, height: 640 }, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const theme = flavorById[flavor ?? "night"];
 const json = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
@@ -33,8 +34,10 @@ const json = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="ocs-site-verification" content="0e522cce20cd897a7caf7ab760ef8f0a" />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
     <meta name="theme-color" content={theme.c("base")} />
+    <meta property="og:site_name" content="Living Code" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
@@ -42,12 +45,16 @@ const json = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");
     {socialImage && <>
       <meta property="og:image" content={new URL(socialImage.src, Astro.site)} />
       <meta property="og:image:alt" content={socialImage.alt} />
-      <meta property="og:image:width" content={socialImage.width} />
-      <meta property="og:image:height" content={socialImage.height} />
+      <meta property="og:image:width" content={String(socialImage.width)} />
+      <meta property="og:image:height" content={String(socialImage.height)} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={new URL(socialImage.src, Astro.site)} />
       <meta name="twitter:image:alt" content={socialImage.alt} />
     </>}
+    {Astro.url.pathname === "/" && <script type="application/ld+json" set:html={json({
+      "@context": "https://schema.org", "@type": "WebSite", name: "Living Code", url: Astro.site?.href,
+      description, inLanguage: "en",
+    })} />}
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />

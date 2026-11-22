@@ -648,7 +648,8 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
     }
     // At rest (nothing alive, flying, waving or easing, and no recent pointer) every other frame is enough.
     const busy = !!target.shape.animate || !!pair || progress < 1 || settling || clock - burstAt < 1.8 || now - pointer.at < 400;
-    if (busy || count % 2 === 0) draw(box);
+    // An event-driven reduced-motion frame is the only chance to paint its new state before going idle.
+    if (!moving || busy || count % 2 === 0) draw(box);
     pace(now, began);
     last = now;
     raf = moving || settling || progress < 1 ? requestAnimationFrame(frame) : 0;
@@ -717,10 +718,17 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
       wake();
     },
     destroy() {
+      if (!alive) return;
       alive = false;
       cancelAnimationFrame(raf);
       controller.abort();
       sizes.disconnect();
+      shapes.clear();
+      buffers.forEach((buffer) => gl.deleteBuffer(buffer));
+      gl.deleteTexture(texture);
+      gl.deleteProgram(program);
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     },
   };
@@ -735,7 +743,9 @@ export async function createField(canvas: HTMLCanvasElement, flavors: Record<str
   await yieldTask();
   if (parallel) while (!gl.getProgramParameter(program, parallel.COMPLETION_STATUS_KHR)) await nextFrame();
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    throw new Error(gl.getShaderInfoLog(vs) || gl.getShaderInfoLog(fs) || gl.getProgramInfoLog(program) || "link");
+    const message = gl.getShaderInfoLog(vs) || gl.getShaderInfoLog(fs) || gl.getProgramInfoLog(program) || "link";
+    api.destroy();
+    throw new Error(message);
   }
   gl.useProgram(program);
   const uniforms = new Map<string, WebGLUniformLocation | null>();

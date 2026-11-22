@@ -31,8 +31,16 @@ export function syncFlavorUi(id = currentFlavor()) {
   const d = flavorData()[id];
   document.querySelectorAll("[data-flavor-name]").forEach((el) => (el.textContent = d.name));
   document.querySelectorAll("[data-flavor-id]").forEach((el) => (el.textContent = id));
-  document.querySelectorAll("[data-set-flavor]").forEach((el) => el.setAttribute("aria-pressed", String(el.getAttribute("data-set-flavor") === id)));
-  document.querySelectorAll('[role="tab"][data-set-flavor]').forEach((el) => el.setAttribute("aria-selected", String(el.getAttribute("data-set-flavor") === id)));
+  document.querySelectorAll<HTMLElement>("[data-set-flavor]").forEach((el) => {
+    if (el instanceof HTMLButtonElement) el.disabled = false;
+    const selected = el.dataset.setFlavor === id;
+    if (el.getAttribute("role") === "tab") {
+      el.removeAttribute("aria-pressed");
+      el.setAttribute("aria-selected", String(selected));
+      el.tabIndex = selected ? 0 : -1;
+      if (selected) document.getElementById("flavor-panel")?.setAttribute("aria-labelledby", el.id);
+    } else el.setAttribute("aria-pressed", String(selected));
+  });
   document.querySelector('meta[name="theme-color"]')?.setAttribute("content", d.base);
 }
 

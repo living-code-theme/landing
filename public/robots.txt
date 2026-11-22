@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://living-code.dev/sitemap.xml

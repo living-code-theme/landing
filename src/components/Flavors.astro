@@ -22,7 +22,7 @@ const line = (id: string) => highlight(`const ${id} = palette("${id}");`, "js");
 
   <div class="grid grid-cols-2 gap-0.5 lg:grid-cols-4" role="tablist" aria-label="Flavor for this site" data-reveal style="--d:2">
     {flavors.map((f) => (
-      <button type="button" role="tab" data-bar data-theme={f.slug} data-set-flavor={f.id} aria-selected={f.id === "night" ? "true" : "false"} aria-controls="flavor-panel" id={`tab-${f.id}`}
+      <button type="button" disabled role="tab" data-bar data-theme={f.slug} data-set-flavor={f.id} aria-selected={f.id === "night" ? "true" : "false"} aria-controls="flavor-panel" id={`tab-${f.id}`} tabindex={f.id === "night" ? 0 : -1}
         class="grid gap-1.5 bg-bg-alt p-4 text-left text-muted transition-colors hover:bg-surface hover:text-fg aria-selected:bg-surface aria-selected:text-fg sm:p-5">
         <b class="text-[1.0625rem] font-semibold">{short(f)}</b>
         <code class="overflow-hidden text-sm whitespace-nowrap" aria-hidden="true" set:html={line(f.id)} />
@@ -31,8 +31,8 @@ const line = (id: string) => highlight(`const ${id} = palette("${id}");`, "js");
     ))}
   </div>
 
-  <div id="flavor-panel" role="tabpanel" aria-label="Current flavor">
-    <div class="grid items-center gap-[clamp(40px,6vw,96px)] pt-[clamp(40px,5vw,72px)] lg:grid-cols-2">
+  <div id="flavor-panel" role="tabpanel" aria-labelledby="tab-night">
+    <div class="grid grid-cols-[minmax(0,1fr)] items-center gap-[clamp(40px,6vw,96px)] pt-[clamp(40px,5vw,72px)] lg:grid-cols-2">
     <div>
       {flavors.map((f) => {
         const range = contrastRange(f);
@@ -49,7 +49,8 @@ const line = (id: string) => highlight(`const ${id} = palette("${id}");`, "js");
           </div>
         );
       })}
-      <table class="mt-10 w-full max-w-[420px] border-collapse text-sm">
+      <div class="mt-10 max-w-[420px] overflow-x-auto" tabindex="0" role="region" aria-label="Accent color values">
+      <table class="w-full border-collapse text-sm">
         <caption class="sr-only">The ten accents of the current flavor in OKLCH</caption>
         <thead><tr class="text-xs text-muted"><th scope="col" class="py-1.5 text-left font-normal">Accent</th>{["L", "C", "h"].map((k) => <th scope="col" class="py-1.5 pl-5 text-right font-normal">{k}</th>)}</tr></thead>
         <tbody>
@@ -63,6 +64,7 @@ const line = (id: string) => highlight(`const ${id} = palette("${id}");`, "js");
           ))}
         </tbody>
       </table>
+      </div>
     </div>
     <div>
       <Glyphs shape="wheel" class="mx-auto aspect-square w-full max-w-[620px]" label="The accents of the current flavor on an OKLCH hue wheel drawn in glyphs: angle is hue, distance from the center is chroma">

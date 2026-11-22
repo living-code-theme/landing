@@ -244,7 +244,8 @@ export function icon(path: string, n: number, opts: Fill = {}): Shape {
 
 export function story(step: number, n: number, small: boolean): Shape {
   const token = TOKENS[Math.max(0, Math.min(TOKENS.length - 1, step - 1))];
-  if ("paths" in token) {
+  if (token.paths) {
+    const paths = token.paths;
     // One column per role: the data blocks and diagnostic signs keep their own color as the glyphs re-form.
     return outline((ctx) => {
       ctx.canvas.width = ART.width;
@@ -253,12 +254,12 @@ export function story(step: number, n: number, small: boolean): Shape {
       ctx.lineWidth = ART.stroke;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      token.paths.forEach((path) => ctx.stroke(new Path2D(path)));
+      paths.forEach((path) => ctx.stroke(new Path2D(path)));
       return [ART.width, ART.height];
     }, n, {
-      perChar: token.roles as Color[], count: token.paths.length * (small ? 150 : 300),
+      perChar: token.roles as Color[], count: paths.length * (small ? 150 : 300),
       seed: 13 + step, reach: 1.08, haze: 0.035,
-    }, (x) => Math.floor(x / (ART.width / token.paths.length)));
+    }, (x) => Math.floor(x / (ART.width / paths.length)));
   }
   const { text, ...ink } = token as { text: string } & Ink;
   // Few enough glyphs that each one reads as a character, and a faint haze close around the word.
