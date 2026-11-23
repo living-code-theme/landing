@@ -13,8 +13,9 @@ import { files, reportIssue, groupOf, ports, route, shipped, short, shotsOf, slu
 import { portIcon } from "../../lib/icons.mjs";
 import { renderPortGuide } from "../../lib/readme.mjs";
 import { readPort } from "../../lib/ports.mjs";
+import { portSeo } from "../../lib/seo.mjs";
 import { siGithub } from "simple-icons";
-import { back, h3 } from "../../lib/ui.mjs";
+import { back, h3, lead } from "../../lib/ui.mjs";
 import type { GuideSection } from "../../lib/types";
 
 export function getStaticPaths() {
@@ -23,6 +24,7 @@ export function getStaticPaths() {
 
 const { i } = Astro.props;
 const p = await readPort(ports[i]);
+const seo = portSeo(p);
 const prev = ports[(i - 1 + ports.length) % ports.length];
 const next = ports[(i + 1) % ports.length];
 const ships = shipped(p);
@@ -46,12 +48,15 @@ const options = [
 const availableOptions = options.filter((option) => guide[option.section]);
 ---
 
-<Base title={`Living Code for ${p.name}`} description={p.description} socialImage={socialImage}>
+<Base title={seo.title} description={seo.description} socialImage={socialImage} pageType="ItemPage"
+  breadcrumbs={[{ name: "Home", path: "/" }, { name: "Ports", path: "/ports/" }, { name: p.name, path: `/ports/${p.id}/` }]}
+  mainEntity={{ "@type": "SoftwareSourceCode", name: `Living Code for ${p.name}`, description: seo.description, codeRepository: p.repository }}>
   <article>
     <header data-port-revision={p.revision} class="shell grid grid-cols-[minmax(0,1fr)] items-end gap-x-[clamp(40px,6vw,96px)] gap-y-8 pt-[clamp(40px,6vw,88px)] lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
       <div>
         <a class={back} href="/ports/" data-port-return><Arrow dir="left" /> All ports</a>
         <h1 class="mt-[clamp(24px,3vw,40px)] text-title font-semibold"><span class="inline-block" data-port-name={p.id}>{p.name}</span></h1>
+        <p class:list={[lead, "mt-6 max-w-[36em]"]}>{seo.description}</p>
         <dl class="mt-[clamp(32px,4vw,56px)] flex flex-wrap gap-x-[clamp(32px,5vw,72px)] gap-y-5 [&_dd_a]:text-accent [&_dd_code]:text-sm [&_dt]:mb-1.5 [&_dt]:text-sm [&_dt]:text-muted" data-rise style="--d:1">
           <div><dt>Get it</dt><dd set:html={route(p.id)} /></div>
           <div><dt>Group</dt><dd><a href={`/ports/#${slug(groupOf[p.id])}`}>{groupOf[p.id]}</a></dd></div>

@@ -4,10 +4,34 @@ import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { browserHarness, until } from "./harness.mjs";
+import { flavors } from "../../src/lib/data.mjs";
 
 let harness;
 before(async () => { harness = await browserHarness(); });
 after(async () => { await harness?.stop(); });
+
+for (const scripting of [true, false]) test(`flavor code samples scroll inside a narrow viewport, with scripting ${scripting ? "on" : "off"}`, { timeout: 30_000 }, async (t) => {
+  const page = await harness.page(t, { mobile: true, scripting });
+  // A narrow desktop viewport prevents mobile's automatic layout expansion from masking overflow.
+  await page.send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: false });
+  for (const flavor of flavors) {
+    await page.send("Page.navigate", { url: `${harness.origin}/flavors/${flavor.id}/` });
+    await until(() => page.evaluate(`location.pathname === '/flavors/${flavor.id}/' && document.readyState === 'complete'`), flavor.id);
+    await page.evaluate("document.fonts.ready");
+    const sizes = await page.evaluate(`(() => {
+      const sample = document.querySelector('.language-preview__panel:not([hidden]) pre');
+      sample.scrollLeft = 30;
+      return { viewport: innerWidth, document: document.documentElement.scrollWidth,
+        sample: sample.getBoundingClientRect().width, scrollWidth: sample.scrollWidth,
+        scrollLeft: sample.scrollLeft, focusable: sample.tabIndex === 0 };
+    })()`);
+    assert.ok(sizes.document <= 390, `${flavor.id}: no page-wide horizontal scroll`);
+    assert.ok(sizes.sample <= 350, `${flavor.id}: code fits inside page margins`);
+    assert.ok(sizes.scrollWidth > sizes.sample, `${flavor.id}: long code remains intact`);
+    assert.ok(sizes.scrollLeft > 0 && sizes.focusable, `${flavor.id}: code can still be scrolled and focused`);
+  }
+  assert.deepEqual(page.errors, []);
+});
 
 async function capture(page, name, selector) {
   await page.evaluate(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({behavior:'instant',block:${JSON.stringify(selector === "footer" ? "end" : "start")}})`);

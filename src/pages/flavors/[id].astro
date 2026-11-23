@@ -11,6 +11,7 @@ import Pager from "../../components/Pager.astro";
 import LanguagePreview from "../../components/LanguagePreview.astro";
 import { back, fill, h2, h3, lead, quiet, split } from "../../lib/ui.mjs";
 import { ANSI_ORDER, APPS, NEUTRAL_ORDER, REPO, ROLE_GROUPS, TEXT_ROLES, flavors, roleRow, roleVar, short, shotsOf } from "../../lib/data.mjs";
+import { flavorSeo } from "../../lib/seo.mjs";
 
 export function getStaticPaths() {
   return flavors.map((f, i) => ({ params: { id: f.id }, props: { i } }));
@@ -18,6 +19,7 @@ export function getStaticPaths() {
 
 const { i } = Astro.props;
 const f = flavors[i];
+const seo = flavorSeo(f);
 const prev = flavors[(i - 1 + flavors.length) % flavors.length];
 const next = flavors[(i + 1) % flavors.length];
 
@@ -37,13 +39,14 @@ const inks = `--light-ink:var(--lc-${darkest});--dark-ink:var(--lc-${lightest})`
 const apps = APPS.filter((a) => shotsOf(a.port).some((s) => s.f.id === f.id));
 ---
 
-<Base title={`${f.name}: every color`} description={`${f.name}. ${f.description}`} flavor={f.id}>
+<Base title={seo.title} description={seo.description} flavor={f.id}
+  breadcrumbs={[{ name: "Home", path: "/" }, { name: f.name, path: `/flavors/${f.id}/` }]}>
   <article>
     <header class="shell grid grid-cols-[minmax(0,1fr)] items-center gap-x-[clamp(40px,6vw,96px)] gap-y-10 pt-[clamp(40px,6vw,88px)] lg:grid-cols-2">
       <div>
         <a class={back} href="/#flavors" data-flavor-return><Arrow dir="left" /> All flavors</a>
         <h1 class="mt-[clamp(24px,3vw,40px)] text-title font-semibold"><span class="line"><span>Living Code</span></span> <span class="line text-accent"><span style="--d:1" data-flavor-title={f.id} transition:name={`flavor-${f.id}`}>{short(f)}</span></span></h1>
-        <p class:list={[lead, "mt-[clamp(24px,3vw,36px)]"]} data-rise style="--d:2">{f.description}</p>
+        <p class:list={[lead, "mt-[clamp(24px,3vw,36px)]"]} data-rise style="--d:2">{f.light ? "A light" : "A dark"} color theme for editors and terminals. {f.description}</p>
         <div class="mt-9 flex flex-wrap gap-3" data-rise style="--d:3">
           <button type="button" disabled class={fill} data-adopt-flavor={f.id} data-done={`${short(f)} is your flavor now`}>Use {short(f)} on the whole site</button>
           <a class={quiet} href="/ports/">Install it <Arrow /></a>

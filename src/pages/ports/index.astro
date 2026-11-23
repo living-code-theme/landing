@@ -3,15 +3,16 @@ import Base from "../../layouts/Base.astro";
 import Arrow from "../../components/Arrow.astro";
 import PortList from "../../components/PortList.astro";
 import { PORT_REQUEST, portCount } from "../../lib/data.mjs";
+import { portsSeo } from "../../lib/seo.mjs";
 import { back, lead } from "../../lib/ui.mjs";
 ---
 
-<Base title={`${portCount} for Living Code`} description="Browse published Living Code ports, with repository-owned installation guides and real application screenshots.">
+<Base title={portsSeo.title} description={portsSeo.description} pageType="CollectionPage" breadcrumbs={[{ name: "Home", path: "/" }, { name: "Ports", path: "/ports/" }]}>
   <section class="shell pt-[clamp(24px,3vw,40px)]">
     <a class={back} href="/"><Arrow dir="left" /> Home</a>
     <div class="mt-6 grid items-end gap-6 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
       <h1 class="text-h2 font-semibold">{portCount}.<br /><span class="text-accent">Find your app.</span></h1>
-      <p class:list={[lead, "[&_a]:text-accent"]}>Every port is generated from the same palette file, so the same token gets the same color in every app. Missing yours? <a href={PORT_REQUEST}>Ask for it</a>.</p>
+      <p class:list={[lead, "[&_a]:text-accent"]}>Install the Living Code color theme in your editor, terminal or app. Every port uses the same palette, with its own installation guide and supported flavors. Missing yours? <a href={PORT_REQUEST}>Ask for it</a>.</p>
     </div>
   </section>
   <section class="shell pt-[clamp(32px,4vw,56px)]" aria-label="Ports by group">
