@@ -92,6 +92,36 @@
         }
       ]
     },
+    "0622d96f3e99d605805b94714b3671966e6ed033e4829568c9e5647307a22318": {
+      "width": 2560,
+      "height": 1600,
+      "variants": [
+        {
+          "src": "https://assets.living-code.dev/image-variants/ace674dfa9dd30fd8bdf2e9f7186261a2487a3eff79582c3375c7db7b4934a69.webp",
+          "width": 240,
+          "height": 150,
+          "bytes": 2072
+        },
+        {
+          "src": "https://assets.living-code.dev/image-variants/a53654739f6a6b64a6b3908bfffca1d044cd4368c8c4ced5e041796e029603e5.webp",
+          "width": 480,
+          "height": 300,
+          "bytes": 6358
+        },
+        {
+          "src": "https://assets.living-code.dev/image-variants/6145e7c95ca499936da66aa2c67f7c9bbad34964a6b2a722ff0fe19bbc323850.webp",
+          "width": 960,
+          "height": 600,
+          "bytes": 17132
+        },
+        {
+          "src": "https://assets.living-code.dev/image-variants/7292feee45abbdf039c9e7fb81299f53ac150a6ddfcd1a42a2d814e45f1d2405.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 33410
+        }
+      ]
+    },
     "07c6495387f49ccec67c97febcbbb832b596762882e9d677d5dcb2c3e6cfe0e3": {
       "width": 2560,
       "height": 1600,
@@ -629,6 +659,36 @@
           "width": 1600,
           "height": 1000,
           "bytes": 95132
+        }
+      ]
+    },
+    "216633dffa8cd8dc85cec94ea360ef09aa4653946d4dbd52e0bd85d0ad541bce": {
+      "width": 2560,
+      "height": 1600,
+      "variants": [
+        {
+          "src": "https://assets.living-code.dev/image-variants/97667a4a3ec0561dadb8d293dea81f740948b8f1b76fede0f3effe769e7d45dc.webp",
+          "width": 240,
+          "height": 150,
+          "bytes": 2184
+        },
+        {
+          "src": "https://assets.living-code.dev/image-variants/47d852ba4c4b2b33879cd4425f894dd843633ebab660f9d22687e8fbcb5dff10.webp",
+          "width": 480,
+          "height": 300,
+          "bytes": 6560
+        },
+        {
+          "src": "https://assets.living-code.dev/image-variants/b56b372a95210f4062846bfcdfb34260872acb2f976ac064681eec3765d2027a.webp",
+          "width": 960,
+          "height": 600,
+          "bytes": 17526
+        },
+        {
+          "src": "https://assets.living-code.dev/image-variants/14d7818c3a7b63563ac792a531a5f4fc1d50b534503c73dd115b5b7755618cfd.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 33982
         }
       ]
     },
@@ -4439,6 +4499,36 @@
           "width": 1600,
           "height": 1000,
           "bytes": 64568
+        }
+      ]
+    },
+    "de6242b607b6dabfb80ea8e89738e89dd77e996cf8558b1f280a100c1709f4ca": {
+      "width": 2560,
+      "height": 1600,
+      "variants": [
+        {
+          "src": "https://assets.living-code.dev/image-variants/c21492c1b851ce81d94dc62d77b2d46e96a97291efa8d81e389564495383dab8.webp",
+          "width": 240,
+          "height": 150,
+          "bytes": 2114
+        },
+        {
+          "src": "https://assets.living-code.dev/image-variants/a139bf7510f4fea4bfc2f6906a110fe24b30aeae6c213c685a8a7d08f5a84ce1.webp",
+          "width": 480,
+          "height": 300,
+          "bytes": 6454
+        },
+        {
+          "src": "https://assets.living-code.dev/image-variants/8a38f8f419189f9dab903d8ed0f70c45d39d0e98e26f61dd1392472ab0132bea.webp",
+          "width": 960,
+          "height": 600,
+          "bytes": 17474
+        },
+        {
+          "src": "https://assets.living-code.dev/image-variants/cc829628660f24f6d33685bd855b82baed69ad0a8b1326488efc95b0197375bd.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 33856
         }
       ]
     },

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "t3code",
+    "name": "T3 Code",
+    "group": "AI & Agents",
+    "description": "Living Code for T3 Code: native environment themes for the chrome, sidebar, composer, status surfaces and integrated terminal.",
+    "homepage": "https://t3.codes/",
+    "quick": "Download a native environment theme JSON",
+    "aliases": [
+      "t3code",
+      "t3",
+      "t3 code",
+      "t3 chat",
+      "coding agents"
+    ],
+    "icon": null,
+    "emoji": "🧵",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.json",
+      "themes/living-code-frost.json",
+      "themes/living-code-paper.json",
+      "themes/living-code-signal.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Download the flavor you want directly into T3 Code's environment theme directory:\n\n```sh\nflavor=night # night, frost, paper, or signal\nthemes=\"${T3CODE_HOME:-$HOME/.t3}/userdata/themes\"\ncurl -fsSL --create-dirs -o \"$themes/living-code-$flavor.json\" \"https://raw.githubusercontent.com/living-code-theme/t3code/main/themes/living-code-$flavor.json\"\n```\n\nThen make it the environment theme with T3 Code's own CLI; open desktop and web clients switch to it live:\n\n```sh\nt3 theme set \"living-code-$flavor\"\n```\n\nAlternatively, open **Settings → Theme** and pick the **Living Code** card. A theme only replaces its own appearance half, so Paper fills the light slot and Night, Frost or Signal the dark slot. `t3 theme show` lists the published themes, and `t3 theme clear` removes the environment default.\n\nNo settings file is replaced and no restart is needed: the server watches the themes directory. The example is for Linux/macOS shells; on Windows, place the JSON in `%USERPROFILE%\\.t3\\userdata\\themes` (or `%T3CODE_HOME%\\userdata\\themes`) and run the same `t3 theme set` command. For a remote environment, install the file on the machine running the T3 Code server.",
+      "configuration": "The JSON is T3 Code's native environment theme format (`version`, `name`, `appearance`, `colors`). It sets **all 61 color roles** explicitly: canvas, chrome and toolbar use the slate ground; sidebar, surfaces and code blocks use the alternate surface; hovers, popovers and user message bubbles use the highlight ramp; borders, inputs and selections step up through the border and selection tones. The accent drives focus rings, the send button, the terminal cursor and update badges. Error, warning and search highlights use the palette's flare, amber and match roles over faintly tinted surfaces. Signal intentionally keeps status colors neutral/teal instead of introducing extra hues. Every foreground role is checked for at least 4.5:1 contrast on its surface.\n\nColors come from a revision-pinned Living Code core palette and are written as plain hex, never derived at runtime from a `canvas`/`accent` seed. That matters: T3 Code fills any missing role from its pink T3 Chat palette, so a partial theme would leak foreign colors.\n\nFor automatic light/dark switching, choose **System** appearance and assign Paper to the light half and a dark flavor to the dark half in **Settings → Theme**. A theme you save or duplicate in the in-app editor wins over a published file with the same id; delete that copy to use the downloaded one. T3 Code ignores symlinked theme *files* but accepts a symlinked directory, so with NixOS/Home Manager link the whole `.t3/userdata/themes` directory rather than individual JSON files.",
+      "compatibility": "Verified with **T3 Code 0.1.8** (desktop, Linux): the files are published and activated with `t3 theme set`, and the captures check that the renderer applies the selected palette. The format and the 61-role vocabulary are checked against the release's pinned source (`packages/shared/src/themePalettes.ts` and `packages/contracts/src/server.ts` at tag `v0.1.8`). The JSON is platform-independent and also styles the browser client of the same environment; captures run the nixpkgs build of that tag on Linux/X11 with locked Mesa software rendering.\n\nThe theme covers T3 Code's interface and the integrated terminal's background, foreground, cursor, selection and scrollbar. T3 Code 0.1.8 does not expose the terminal's 16 ANSI colors or the syntax-highlighting theme of code blocks and diffs to environment themes, so those keep the app's defaults. Agents running inside the terminal that emit their own truecolor values need their own Living Code port (for example [Claude Code](https://github.com/living-code-theme/claude-code) or [Codex](https://github.com/living-code-theme/codex)).",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/t3code",
+    "repositoryName": "living-code-theme/t3code",
+    "revision": "fca6f59d9cd67be5273dbcd6bfa4d2f6ca6824a5",
+    "readmeUrl": "https://github.com/living-code-theme/t3code/blob/fca6f59d9cd67be5273dbcd6bfa4d2f6ca6824a5/README.md",
+    "fileUrls": {
+      "themes/living-code-night.json": "https://github.com/living-code-theme/t3code/blob/fca6f59d9cd67be5273dbcd6bfa4d2f6ca6824a5/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/t3code/blob/fca6f59d9cd67be5273dbcd6bfa4d2f6ca6824a5/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/t3code/blob/fca6f59d9cd67be5273dbcd6bfa4d2f6ca6824a5/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/t3code/blob/fca6f59d9cd67be5273dbcd6bfa4d2f6ca6824a5/themes/living-code-signal.json"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "T3 Code running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/de6242b607b6dabfb80ea8e89738e89dd77e996cf8558b1f280a100c1709f4ca.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "T3 Code running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/0622d96f3e99d605805b94714b3671966e6ed033e4829568c9e5647307a22318.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "T3 Code running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/216633dffa8cd8dc85cec94ea360ef09aa4653946d4dbd52e0bd85d0ad541bce.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "T3 Code running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/de6242b607b6dabfb80ea8e89738e89dd77e996cf8558b1f280a100c1709f4ca.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}

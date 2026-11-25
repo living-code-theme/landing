@@ -7,6 +7,7 @@
       "02c18315856f97160546bfac80205bcc47be3de83318325b0ec296bb1df58ede.webp": 155376,
       "0420c441c06755d36b4d6a05af70030b07af83455ab0b4f1d3174a892ddfbd19.webp": 182532,
       "0443f795c661509ce4108912e1023d7ef70a7cf1137855879eeda1cf6eb5bf99.webp": 104680,
+      "0622d96f3e99d605805b94714b3671966e6ed033e4829568c9e5647307a22318.webp": 75472,
       "07c6495387f49ccec67c97febcbbb832b596762882e9d677d5dcb2c3e6cfe0e3.webp": 150034,
       "09bf4ea922991071e4d34528dd5b2ac929a4cfecd4a7275b5fe0ef8f1a6ee13b.webp": 158476,
       "0e57751c71ca6ba25e39a55bf969e5d6afaf8f119afed5b89e8ce9ba4fa97cf6.webp": 158756,
@@ -25,6 +26,7 @@
       "1dd100781e2603489d27ed009a04fed17789bc3956a640f881b781dbdabd8960.webp": 65828,
       "1e63668dc941980d1ca5bf056c060375bdaedc36419542ac788e8c6710609b34.webp": 117446,
       "1fd9aee9d3ae6485c11c8763b0352c4075ccb5eb924a0a4b549d6a6583f541a5.webp": 196204,
+      "216633dffa8cd8dc85cec94ea360ef09aa4653946d4dbd52e0bd85d0ad541bce.webp": 73172,
       "231838869115c5bf3992ba595f6902775c932bf73029fc836adfe0785b6e4785.webp": 162338,
       "254fc6bfa8294b78d9d04dac2c268ec67a6f8266f2370b86cb1db4c8c5c2ba63.webp": 118294,
       "26cc4bb9ae05c9523a0babe53eee4df1715307e3e1936554316e32a4348789b6.webp": 76230,
@@ -152,6 +154,7 @@
       "ddb49175f03dbd137896e5d33debdfc105831b2b3c52bed88c7fbfce45b0e1b5.webp": 150984,
       "ddbc6f08f97a39b446793b24e2243daca4a198dac68501805eca35f9e5e43b97.webp": 162918,
       "de0b25823efc4d8528acbbe65a59820b217c5ea692fc7e94a0964f58674bdeb5.webp": 138852,
+      "de6242b607b6dabfb80ea8e89738e89dd77e996cf8558b1f280a100c1709f4ca.webp": 74940,
       "dfedbcb9fa1e0a2b3ae8eba5ee036fb959c2979d8270b795064d4bbdb2318fbf.webp": 313252,
       "e1fb4d9cd00fd52e06b00821eb97965e297890b2fe5254329326e7c1f0673cef.webp": 155038,
       "e20855f8a52ebaf98e0e9e35dde50f715589040bda9a445cadc03536477fd0f8.webp": 189114,
@@ -625,6 +628,64 @@
       "revision": "a56ba5d8ea00c4034be7f9cb1ac4973cdfe1ade7",
       "readmeUrl": "https://github.com/living-code-theme/pi/blob/a56ba5d8ea00c4034be7f9cb1ac4973cdfe1ade7/README.md",
       "content": "ports/pi.b10a674942b4b3c7e656fbc29a53424e2c64927a7dcd268d4eed866770568880.json"
+    },
+    {
+      "id": "t3code",
+      "name": "T3 Code",
+      "group": "AI & Agents",
+      "description": "Living Code for T3 Code: native environment themes for the chrome, sidebar, composer, status surfaces and integrated terminal.",
+      "homepage": "https://t3.codes/",
+      "quick": "Download a native environment theme JSON",
+      "aliases": [
+        "t3code",
+        "t3",
+        "t3 code",
+        "t3 chat",
+        "coding agents"
+      ],
+      "icon": null,
+      "emoji": "🧵",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "T3 Code running Living Code Night",
+          "src": "https://assets.living-code.dev/port-images/de6242b607b6dabfb80ea8e89738e89dd77e996cf8558b1f280a100c1709f4ca.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "T3 Code running Living Code Frost",
+          "src": "https://assets.living-code.dev/port-images/0622d96f3e99d605805b94714b3671966e6ed033e4829568c9e5647307a22318.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "T3 Code running Living Code Paper",
+          "src": "https://assets.living-code.dev/port-images/216633dffa8cd8dc85cec94ea360ef09aa4653946d4dbd52e0bd85d0ad541bce.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "T3 Code running Living Code Signal",
+          "src": "https://assets.living-code.dev/port-images/de6242b607b6dabfb80ea8e89738e89dd77e996cf8558b1f280a100c1709f4ca.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/t3code",
+      "repositoryName": "living-code-theme/t3code",
+      "revision": "fca6f59d9cd67be5273dbcd6bfa4d2f6ca6824a5",
+      "readmeUrl": "https://github.com/living-code-theme/t3code/blob/fca6f59d9cd67be5273dbcd6bfa4d2f6ca6824a5/README.md",
+      "content": "ports/t3code.9809470607e3d1b400ea85b9d27d88f01a70f1aa80c6bc484c0a399236d54534.json"
     },
     {
       "id": "obsidian",
