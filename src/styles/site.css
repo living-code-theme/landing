@@ -305,6 +305,8 @@ html:has(.port-finder[open]) { overflow: hidden; }
   .port-option > div { padding-block-end: 24px; }
   .port-option > div > :first-child { margin-top: 0; }
   .prose :not(pre) > code { padding: 0.1em 0.35em; background: var(--lc-surface0); font-size: 0.85em; overflow-wrap: anywhere; }
+  /* Linked inline code inherits the surrounding surface so accent link text keeps AA contrast on Paper. */
+  .prose a > code { background: transparent; padding-inline: 0; }
   .snippet { position: relative; background: var(--lc-bg-deep); max-width: 100%; }
   /* Paper's syntax roles are measured on base, not on its darker decorative panel surface. */
   [data-theme="living-code-paper"] .snippet { background: var(--lc-bg); }
