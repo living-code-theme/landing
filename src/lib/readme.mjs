@@ -43,11 +43,12 @@ export function renderPortGuide(source, context) {
     if (source?.schemaVersion !== 1 || !["installation", "configuration", "compatibility"].every((key) => typeof source[key] === "string") || !source.links || typeof source.links !== "object" || Array.isArray(source.links)) throw new Error("Unsupported published guide schema");
     for (const link of Object.values(source.links)) if (!link || typeof link.href !== "string" || typeof link.title !== "string") throw new Error("Invalid published guide reference");
     const headings = new Map();
+    const snippets = { count: 0 };
     return Object.fromEntries(["installation", "configuration", "compatibility"].map((key) => {
       const lexer = new Lexer({ gfm: true });
       lexer.tokens.links = Object.assign(Object.create(null), source.links);
       const tokens = lexer.lex(source[key]);
-      return [key, renderContent(select(tokens, key), context, { headings, pinAnchors: true }).trim()];
+      return [key, renderContent(select(tokens, key), context, { headings, snippets, pinAnchors: true }).trim()];
     }));
   }
   // Read compatibility for the existing catalog; new discovery publishes the versioned guide directly.
@@ -60,10 +61,11 @@ export function renderPortGuide(source, context) {
     } else if (current) current.push(token);
   }
   const headings = new Map();
+  const snippets = { count: 0 };
   return Object.fromEntries([...sections].map(([key, content]) => {
     // Keep reference-style links, even when their definitions live in an omitted section.
     content.links = tokens.links;
-    return [key, renderContent(select(content, key), context, { headings, pinAnchors: true }).trim()];
+    return [key, renderContent(select(content, key), context, { headings, snippets, pinAnchors: true }).trim()];
   }));
 }
 
@@ -71,7 +73,7 @@ export function renderReadme(source, context) {
   return renderContent(source, context);
 }
 
-function renderContent(source, { repository, revision, images = {}, flavor }, { headings, pinAnchors = false } = {}) {
+function renderContent(source, { repository, revision, images = {}, flavor }, { headings, snippets = { count: 0 }, pinAnchors = false } = {}) {
   const root = `${repository}/blob/${revision}/`;
   const hrefFor = (href) => {
     if (!href) return undefined;
@@ -102,7 +104,11 @@ function renderContent(source, { repository, revision, images = {}, flavor }, { 
     allowedClasses: { div: ["snippet"], span: [/^t-[a-z-]+$/], button: ["copy"], pre: [], code: [] },
     allowedSchemes: ["http", "https", "mailto"], allowProtocolRelative: false,
     transformTags: {
-      pre(tagName) { return { tagName, attribs: { tabindex: "0", role: "region", "aria-label": "Code sample" } }; },
+      pre(tagName) {
+        snippets.count += 1;
+        const label = snippets.count === 1 ? "Code sample" : `Code sample ${snippets.count}`;
+        return { tagName, attribs: { tabindex: "0", role: "region", "aria-label": label } };
+      },
       a(tagName, attrs) { return { tagName, attribs: attributes({ href: hrefFor(attrs.href), title: attrs.title }) }; },
       img(tagName, attrs) {
         const path = relativeImagePath(attrs.src);

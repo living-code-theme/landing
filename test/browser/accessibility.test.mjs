@@ -105,7 +105,9 @@ test("guide snippets scroll with the keyboard and clipboard success/failure are 
     pre.id='audit-scrollable-code'; pre.focus();
     return {tabIndex:pre.tabIndex,role:pre.getAttribute('role'),name:pre.getAttribute('aria-label')};
   })()`);
-  assert.deepEqual(scrollable, { tabIndex: 0, role: "region", name: "Code sample" });
+  assert.equal(scrollable.tabIndex, 0);
+  assert.equal(scrollable.role, "region");
+  assert.match(scrollable.name, /^Code sample(?: \d+)?$/);
   await key(page, "ArrowRight", "ArrowRight", 39);
   await until(() => page.evaluate("document.querySelector('#audit-scrollable-code').scrollLeft > 0"), "keyboard code scrolling");
   await page.evaluate(`Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.copied=text}}});document.querySelector('[data-copy]').click()`);
