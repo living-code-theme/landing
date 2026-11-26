@@ -1,3 +1,5 @@
 # Renamed ports keep their old page addresses.
 /ports/tmtheme /ports/bat/ 301
 /ports/tmtheme/ /ports/bat/ 301
+/ports/herdr /ports/herdr-tui/ 301
+/ports/herdr/ /ports/herdr-tui/ 301
