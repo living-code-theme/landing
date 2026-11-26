@@ -464,63 +464,6 @@
       "content": "ports/gemini-cli.3ec47c6ffb839e65b01109a51f39bddd64a0040db38f4dfa51fee8b91c87438e.json"
     },
     {
-      "id": "herdr",
-      "name": "Herdr",
-      "group": "AI & Agents",
-      "description": "Living Code for Herdr: complete native theme overrides for the sidebar, panels, selections, status indicators and workspace chrome.",
-      "homepage": "https://herdr.dev",
-      "quick": "Install the native theme files",
-      "aliases": [
-        "herdr",
-        "herd",
-        "herdrdev",
-        "agent workspace"
-      ],
-      "icon": null,
-      "emoji": "🐑",
-      "flavors": [
-        "night",
-        "frost",
-        "paper",
-        "signal"
-      ],
-      "images": [
-        {
-          "flavor": "night",
-          "alt": "Herdr running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/3e93a61d36cc044dfe623dc500679269f29b440e81cc48492c6f82801907d70a.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        {
-          "flavor": "frost",
-          "alt": "Herdr running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/118266cc708243fcc4ae6681ebbf57733f60dd8b8229b75a224720fa42efb6f3.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        {
-          "flavor": "paper",
-          "alt": "Herdr running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/5b353e10153a15276a1d4cf6653a304c86ccdb676d6c025e3de0396f63530599.webp",
-          "width": 2560,
-          "height": 1600
-        },
-        {
-          "flavor": "signal",
-          "alt": "Herdr running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/f77705cfa4dcd19cc3bd354299996ea511efb9c127ff3c452c237995b18dcfbd.webp",
-          "width": 2560,
-          "height": 1600
-        }
-      ],
-      "repository": "https://github.com/living-code-theme/herdr",
-      "repositoryName": "living-code-theme/herdr",
-      "revision": "685b46e7324aceb45a61773bc60a5e5242dd0daa",
-      "readmeUrl": "https://github.com/living-code-theme/herdr/blob/685b46e7324aceb45a61773bc60a5e5242dd0daa/README.md",
-      "content": "ports/herdr.9d0de495885719186209c21093117475c87b43e2a7eb6bd0651d74ee4231f7b9.json"
-    },
-    {
       "id": "herdr-app",
       "name": "Herdr App",
       "group": "AI & Agents",
@@ -534,7 +477,7 @@
         "coding agents"
       ],
       "icon": null,
-      "emoji": "🐏",
+      "emoji": "🐑",
       "flavors": [
         "night",
         "frost",
@@ -573,9 +516,68 @@
       ],
       "repository": "https://github.com/living-code-theme/herdr-app",
       "repositoryName": "living-code-theme/herdr-app",
-      "revision": "adc4387a22157a380f36b24c7c1058f9378a5631",
-      "readmeUrl": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/README.md",
-      "content": "ports/herdr-app.b1ae2972a3b6b488c5bcd4ca996483e72348191255b5af556f4da25420abca75.json"
+      "revision": "73ff1f4016d06873e9804d12810ce8fd3c048f4a",
+      "readmeUrl": "https://github.com/living-code-theme/herdr-app/blob/73ff1f4016d06873e9804d12810ce8fd3c048f4a/README.md",
+      "content": "ports/herdr-app.ba7316ca32d401fe44ecdae47098dbe6e490f7a921a7afc5ebff665d5d4c4140.json"
+    },
+    {
+      "id": "herdr-tui",
+      "name": "Herdr TUI",
+      "group": "AI & Agents",
+      "description": "Living Code for Herdr TUI: complete native theme overrides for the sidebar, panels, selections, status indicators and workspace chrome.",
+      "homepage": "https://herdr.dev",
+      "quick": "Install the native theme files",
+      "aliases": [
+        "herdr-tui",
+        "herdr",
+        "herd",
+        "herdrdev",
+        "herdr tui",
+        "agent workspace"
+      ],
+      "icon": null,
+      "emoji": "🐑",
+      "flavors": [
+        "night",
+        "frost",
+        "paper",
+        "signal"
+      ],
+      "images": [
+        {
+          "flavor": "night",
+          "alt": "Herdr TUI running Living Code Night",
+          "src": "https://assets.living-code.dev/port-images/3e93a61d36cc044dfe623dc500679269f29b440e81cc48492c6f82801907d70a.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "frost",
+          "alt": "Herdr TUI running Living Code Frost",
+          "src": "https://assets.living-code.dev/port-images/118266cc708243fcc4ae6681ebbf57733f60dd8b8229b75a224720fa42efb6f3.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "paper",
+          "alt": "Herdr TUI running Living Code Paper",
+          "src": "https://assets.living-code.dev/port-images/5b353e10153a15276a1d4cf6653a304c86ccdb676d6c025e3de0396f63530599.webp",
+          "width": 2560,
+          "height": 1600
+        },
+        {
+          "flavor": "signal",
+          "alt": "Herdr TUI running Living Code Signal",
+          "src": "https://assets.living-code.dev/port-images/f77705cfa4dcd19cc3bd354299996ea511efb9c127ff3c452c237995b18dcfbd.webp",
+          "width": 2560,
+          "height": 1600
+        }
+      ],
+      "repository": "https://github.com/living-code-theme/herdr-tui",
+      "repositoryName": "living-code-theme/herdr-tui",
+      "revision": "a14669d0645bfd82140210d8b17c9c09d9ada130",
+      "readmeUrl": "https://github.com/living-code-theme/herdr-tui/blob/a14669d0645bfd82140210d8b17c9c09d9ada130/README.md",
+      "content": "ports/herdr-tui.194efd2f07040d066a2e4c49b9f1cc1045473fa1add49b2fc4a5fdd8187ca666.json"
     },
     {
       "id": "opencode",

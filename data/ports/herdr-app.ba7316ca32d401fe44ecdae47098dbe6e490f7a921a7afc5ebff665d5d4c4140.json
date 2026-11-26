@@ -14,7 +14,7 @@
       "coding agents"
     ],
     "icon": null,
-    "emoji": "🐏",
+    "emoji": "🐑",
     "flavors": [
       "night",
       "frost",
@@ -36,13 +36,13 @@
     },
     "repository": "https://github.com/living-code-theme/herdr-app",
     "repositoryName": "living-code-theme/herdr-app",
-    "revision": "adc4387a22157a380f36b24c7c1058f9378a5631",
-    "readmeUrl": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/README.md",
+    "revision": "73ff1f4016d06873e9804d12810ce8fd3c048f4a",
+    "readmeUrl": "https://github.com/living-code-theme/herdr-app/blob/73ff1f4016d06873e9804d12810ce8fd3c048f4a/README.md",
     "fileUrls": {
-      "themes/living-code-night.json": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/themes/living-code-night.json",
-      "themes/living-code-frost.json": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/themes/living-code-frost.json",
-      "themes/living-code-paper.json": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/themes/living-code-paper.json",
-      "themes/living-code-signal.json": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/themes/living-code-signal.json"
+      "themes/living-code-night.json": "https://github.com/living-code-theme/herdr-app/blob/73ff1f4016d06873e9804d12810ce8fd3c048f4a/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/herdr-app/blob/73ff1f4016d06873e9804d12810ce8fd3c048f4a/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/herdr-app/blob/73ff1f4016d06873e9804d12810ce8fd3c048f4a/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/herdr-app/blob/73ff1f4016d06873e9804d12810ce8fd3c048f4a/themes/living-code-signal.json"
     },
     "images": [
       {
