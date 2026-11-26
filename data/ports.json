@@ -641,7 +641,7 @@
       "group": "AI & Agents",
       "description": "Living Code for Pi: schema-complete custom themes for messages, tools, thinking levels, syntax, Markdown and HTML exports.",
       "homepage": "https://pi.dev",
-      "quick": "Install the native theme files",
+      "quick": "See installation instructions",
       "aliases": [
         "pi",
         "pi coding agent",
@@ -688,9 +688,9 @@
       ],
       "repository": "https://github.com/living-code-theme/pi",
       "repositoryName": "living-code-theme/pi",
-      "revision": "ce76246614b4551a3ec9d4f68284f09c12e314e5",
-      "readmeUrl": "https://github.com/living-code-theme/pi/blob/ce76246614b4551a3ec9d4f68284f09c12e314e5/README.md",
-      "content": "ports/pi.dff85f4e7bd331c65b454550db417abd9251fe51bdc990154e91cbe8585de0dd.json"
+      "revision": "f33b58731e2ae7d6106252d8ee427b5540e96dc9",
+      "readmeUrl": "https://github.com/living-code-theme/pi/blob/f33b58731e2ae7d6106252d8ee427b5540e96dc9/README.md",
+      "content": "ports/pi.a97cc7d597b2dd5e2fa99e6105362dbac95ac3a309a6bb2871252106e0cf1ef8.json"
     },
     {
       "id": "t3code",
