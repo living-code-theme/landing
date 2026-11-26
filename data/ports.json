@@ -11,7 +11,6 @@
       "0622d96f3e99d605805b94714b3671966e6ed033e4829568c9e5647307a22318.webp": 75472,
       "07c6495387f49ccec67c97febcbbb832b596762882e9d677d5dcb2c3e6cfe0e3.webp": 150034,
       "09bf4ea922991071e4d34528dd5b2ac929a4cfecd4a7275b5fe0ef8f1a6ee13b.webp": 158476,
-      "0e57751c71ca6ba25e39a55bf969e5d6afaf8f119afed5b89e8ce9ba4fa97cf6.webp": 158756,
       "118266cc708243fcc4ae6681ebbf57733f60dd8b8229b75a224720fa42efb6f3.webp": 209936,
       "1233e3a66ae793863f4b604e7748294a371f807b4fffb2cb967d412114d89b8e.webp": 67344,
       "1258b16ab88e44b24a26d979302c3c29f218982d562dea875d6cafb7eb7c85e9.webp": 107260,
@@ -24,6 +23,7 @@
       "1a003b5b633bae2b99b2d1ec48529dd9df7dc836a9d02f6ceffbcf08fd9dd74a.webp": 136772,
       "1a5b45683b946a3e81950600c85ef7b008a7b4fb7f9bc107e67546af21c0b6ff.webp": 86960,
       "1c06462d91c5c50185ff678e34795c82346971616a01a99fa218d85041bd45a3.webp": 76482,
+      "1cdd25daf5d6d5a4f9e10ef52762d1aa07b375b3f7397ee910c1ed0452f083a9.webp": 160950,
       "1dd100781e2603489d27ed009a04fed17789bc3956a640f881b781dbdabd8960.webp": 65828,
       "1e63668dc941980d1ca5bf056c060375bdaedc36419542ac788e8c6710609b34.webp": 117446,
       "1fd9aee9d3ae6485c11c8763b0352c4075ccb5eb924a0a4b549d6a6583f541a5.webp": 196204,
@@ -32,6 +32,7 @@
       "254fc6bfa8294b78d9d04dac2c268ec67a6f8266f2370b86cb1db4c8c5c2ba63.webp": 118294,
       "26cc4bb9ae05c9523a0babe53eee4df1715307e3e1936554316e32a4348789b6.webp": 76230,
       "2a1168a12c55350e200a8b70a44c33701a1f75ccc36268bd5803e5eb7635f6bf.webp": 78426,
+      "2a8cc68826cf3e4fc523a83f0a073d979e7acc445aea37f10f46c09439f1cd68.webp": 157712,
       "2c26d2634a1e91627e9c430d8fe0f0513f0a0ea4d1151860d0050deb36767313.webp": 139678,
       "2e86a91bca05961e7d9d77dc751a1797b8c16e02be86c6cf1a09346b3ee5a359.webp": 170974,
       "301ee98b06f023939edf080aeddd66f7b7f49c1067e4fdc24358b4281508f9dc.webp": 38490,
@@ -60,8 +61,6 @@
       "4ee94198af574574fb4fdf1a8ab9de2ba345d8b0b2fa87b7e9c3e8f291b8ea27.webp": 110570,
       "4f54ba65980898cb563a5de7ac4a6383c801bb2212f795b32d63dd6e1ec85cac.webp": 77316,
       "4ff87fb18ae62d487a788d316c19d1dc35d0cfd7b0102c4444b0b8d2aa8b15c6.webp": 64014,
-      "511865bb1a81db95755b23bbd2ec51737e22e283d8aedaff4f1007838d9bdbcc.webp": 129948,
-      "51d175d42c6835218f4d7950109c8dcd48499b08b35e972ffc2125f26e8fa52f.webp": 126172,
       "530ec19b7d7ede91cbc8171e2c8375a1f30b702fc7c52ab7ab2030492d07283b.webp": 59636,
       "544651f874e496425c168981111f6182b9a9e6f20c3eefa54bc3b455f5549f2a.webp": 160396,
       "55176b102baa70ba1ea9dac1dc164cd6ff2d3453c7bdac80248e9407265981c0.webp": 139930,
@@ -101,25 +100,29 @@
       "848214345cff5c52767c7068e7ddc40fa58355e9e8fa452cd967481ee3d8fcc6.webp": 65788,
       "8559eed573325259e81cfcf91e527d0f2b1b904defe21217b403d4702a78e4fb.webp": 123456,
       "8875e6401ee21e98a202c41ae78582f091a8db027248e11d98038f16f962408d.webp": 175974,
-      "8909eb14aec2323583cd96dee7c0433f2b8f77ae63c2a31f845fc0a35a45d8fb.webp": 162144,
       "8930a0df835a0361f773b71f1228ddf88d8b02e5b11135b6885963260879882d.webp": 136106,
       "898c1c770f9833bdf208410ba174a9a95ae2e45e165f08afb6315747b2efdca7.webp": 87012,
       "8b2c66b7d673591b9f4c5b0f8bf450b53f9b7a9ca3f2bc6dda93b19ad9e022d2.webp": 121178,
       "8c3f40eb662cfd4b698e027ae35339888bb4be9d418d05d4ec4f5a01fa0cd61b.webp": 161990,
       "8ce91db6c80bd4efdd7b6446ac58bb062fa28457bc7b530293ac0add7a32f64a.webp": 127256,
+      "926927effdbf9ea680c596124bb9177a5e44874995c31684f5c781db9c6c750d.webp": 124322,
       "9396a3f41c44db3bfe966b06b4513830d3ef5a7d2f3a28844d4d8f719f634b68.webp": 158592,
       "9509951b600c543967392fcc8fd28109add626c477a95fc872705ff658b7109f.webp": 76302,
       "95aaee8efddae58f1f0f8b9f673e047fa833dac3505d413a68def079562a00a7.webp": 153222,
       "985d590cac9387cb07a276296cc4593a70239ddfdca904489c8089b16d932f7d.webp": 158280,
       "987301d5f5193d0afe0a366b4b7cb69d35351b82bfb34f0aaa8daf278b31fe56.webp": 80226,
+      "9cd83eb69fd2ab5e06b0302444528ec754a38955b6736ae700c05077b033806d.webp": 127910,
       "9e1cb83ed17c3c0607064083afc49a93a29f6228065cd3392215b74dc25e2545.webp": 127284,
       "9e7f8d041d794319d81e1060a7d8b324b8ee480eea38e22f7727493b69f8d3b9.webp": 134020,
+      "a0d00d8018bd5f07100d7e23e3027efd9ce99e807df620e71703d50722b64a6a.webp": 129994,
+      "a1291f9e30889389186a76cc5c1e722baead6c1b44e2bcb58fad8571b7090c08.webp": 126204,
       "a383d1b278cb0629278302053f300db7d3dbf6933aa454683515b51a2f9af155.webp": 132670,
       "a4e7152926695b3aa8fc4a2b78bdfa422479c7b26e2e98ea1080a03176c168cd.webp": 190266,
       "a5e8a3f8617a1484d4b7bdb592c0a4f6c10b024eafbfc056df7ef59035cd099f.webp": 63898,
       "a63ec7af2e7824191c06be1ae69e97263a8f85d241725f74f1358e8a129041f0.webp": 112068,
       "a807da908421448b8430569b27102d7b10c7954c08850d666062fe44aa2745ae.webp": 162292,
       "a9e4f0302af8dcd93dbdd42dfd8b793455f803d46d928eade52522be85610557.webp": 136694,
+      "aad9533a344d5a299f410dba30e17c602af8c22f44a92a7559b966d0baad925e.webp": 152944,
       "aed60615055760cd042da1dcd1c0e4f452fa39ed31732a99d4f24ea5a684a12a.webp": 150788,
       "af1320e3a4318c1ce17f737faf2b2060b44dc284bd0ce52a6b3b8a90b0d9bf19.webp": 125652,
       "b046277cea3859ef004f7775ed3f017bd9051d00d826cb59f8d5dd694037a38a.webp": 153688,
@@ -131,7 +134,6 @@
       "b7843532647f256dc11a3f87e73407c681fc6853b57c5cf0f3bfa87863d24e73.webp": 125362,
       "b796884c52a33bb35cbd9f9bb9d784dbb494993fc0ff9821a6b0e501e84b6983.webp": 154038,
       "b7b724e117d6ab1d3f1dcfcddaa2d9707fd413550aec71c71ef4bf993bbd2a42.webp": 110042,
-      "b7db07449b884a25c7ae28578d6bfa02f5f3bc069bc9ec7b7fd66303fe5aebff.webp": 165306,
       "b82f3d3fc708a4e1aa9bf3508124977d9898d7ccc439b66cb1d9dbb6126d2126.webp": 54604,
       "b843a3f085f143aa07a51a51d967f4ea074342bfc42c753c72910b36524659f4.webp": 130224,
       "b9ba9ff34e61947d6fd902c37d368d4fda8948aa01186cd1bf1700ba3dec4039.webp": 73908,
@@ -163,16 +165,14 @@
       "e1fb4d9cd00fd52e06b00821eb97965e297890b2fe5254329326e7c1f0673cef.webp": 155038,
       "e20855f8a52ebaf98e0e9e35dde50f715589040bda9a445cadc03536477fd0f8.webp": 189114,
       "e259763b05b5fe6a66fbb90856fc239e836bddc1b49b6606b34bf531ae3fcc96.webp": 46514,
-      "e395f710bff2d854bd9374b752e8c809569a5509607b68811d0cdc67779d4ffb.webp": 156360,
       "e678fdcaed360c1e3ac5f650a979189a04e9acc9c75edd015cf6b2e2f33af77a.webp": 146286,
       "e699637ae35649ac394c4851535baad438999cbe0a4b6dbbed196158cba9a6cd.webp": 155790,
+      "e7a985759f3da155bdef0038a097c724818a0a56b83966bfab2928a0ae91f568.webp": 153316,
       "e876186caebe6b42fce0d7686c7b9f73827cab81252d757347407163b02f404d.webp": 106484,
-      "e92e751a0521df0075beded2877bb005b30ff75aa46eb03a3f8051de7d84fa05.webp": 124390,
       "e9cf6ef80592d96294535929989a13ed302f3ad823889dcb431bdeb652c5134c.webp": 165232,
       "ec12cfa04035c5ad547cc71d947dbe00573978b0814e98be925f1b8dadadd5dd.webp": 145736,
       "ee99811ed4c170354c617955ad8d82f7c494fa42c8eec8d0429a91e260fba1da.webp": 134472,
       "f1a3bdc89a6b1cbe3693f9847ea681d57dbb3867d844813bf7a4203edf028ac5.webp": 86382,
-      "f4dfac6012df214811c55e43e9605ec0e66167e41a67079a53366777102c043d.webp": 127624,
       "f4e62604dc14047bc7bc1470e7b3cc953b132f0609b9291b483412b0228be512.webp": 140574,
       "f4e71acf0238bfabf7a7fb1bb6876ec3462f77926b24012613f9f4ef53f59fd5.webp": 157842,
       "f77705cfa4dcd19cc3bd354299996ea511efb9c127ff3c452c237995b18dcfbd.webp": 204618,
@@ -291,9 +291,9 @@
       ],
       "repository": "https://github.com/living-code-theme/claude-code",
       "repositoryName": "living-code-theme/claude-code",
-      "revision": "a4af5d20a25b0808aa7aa34df524b8bab02149d9",
-      "readmeUrl": "https://github.com/living-code-theme/claude-code/blob/a4af5d20a25b0808aa7aa34df524b8bab02149d9/README.md",
-      "content": "ports/claude-code.a33054d842065790ac87957484ddae753cf00a420d9d644938f9748074ae416b.json"
+      "revision": "4638752679076d73614419b4a6a5fbd62c8a49d4",
+      "readmeUrl": "https://github.com/living-code-theme/claude-code/blob/4638752679076d73614419b4a6a5fbd62c8a49d4/README.md",
+      "content": "ports/claude-code.c0a3e7b7057d5258999fd223185cfaed1166360f15c77b6f221a0591b16ac7e6.json"
     },
     {
       "id": "codex",
@@ -375,37 +375,37 @@
         {
           "flavor": "night",
           "alt": "Crush running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/b7db07449b884a25c7ae28578d6bfa02f5f3bc069bc9ec7b7fd66303fe5aebff.webp",
+          "src": "https://assets.living-code.dev/port-images/1cdd25daf5d6d5a4f9e10ef52762d1aa07b375b3f7397ee910c1ed0452f083a9.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Crush running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/8909eb14aec2323583cd96dee7c0433f2b8f77ae63c2a31f845fc0a35a45d8fb.webp",
+          "src": "https://assets.living-code.dev/port-images/2a8cc68826cf3e4fc523a83f0a073d979e7acc445aea37f10f46c09439f1cd68.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Crush running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/e395f710bff2d854bd9374b752e8c809569a5509607b68811d0cdc67779d4ffb.webp",
+          "src": "https://assets.living-code.dev/port-images/e7a985759f3da155bdef0038a097c724818a0a56b83966bfab2928a0ae91f568.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Crush running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/0e57751c71ca6ba25e39a55bf969e5d6afaf8f119afed5b89e8ce9ba4fa97cf6.webp",
+          "src": "https://assets.living-code.dev/port-images/aad9533a344d5a299f410dba30e17c602af8c22f44a92a7559b966d0baad925e.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/crush",
       "repositoryName": "living-code-theme/crush",
-      "revision": "184846af7fe25e0f0bce2555a49965e99f8ec311",
-      "readmeUrl": "https://github.com/living-code-theme/crush/blob/184846af7fe25e0f0bce2555a49965e99f8ec311/README.md",
-      "content": "ports/crush.e78724c24bfe64f9ce37f5d57dad6ce20394496940762e69d5bc037f691278d5.json"
+      "revision": "75e73dfe643005fb0fddbabd181d8a51cbabb5f3",
+      "readmeUrl": "https://github.com/living-code-theme/crush/blob/75e73dfe643005fb0fddbabd181d8a51cbabb5f3/README.md",
+      "content": "ports/crush.34322f13b9c7eb3c1c4a6ca1ce588a0cac91ab51720bacfd710123997ad96dfa.json"
     },
     {
       "id": "gemini-cli",
@@ -431,37 +431,37 @@
         {
           "flavor": "night",
           "alt": "Gemini CLI running Living Code Night",
-          "src": "https://assets.living-code.dev/port-images/511865bb1a81db95755b23bbd2ec51737e22e283d8aedaff4f1007838d9bdbcc.webp",
+          "src": "https://assets.living-code.dev/port-images/a0d00d8018bd5f07100d7e23e3027efd9ce99e807df620e71703d50722b64a6a.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "frost",
           "alt": "Gemini CLI running Living Code Frost",
-          "src": "https://assets.living-code.dev/port-images/51d175d42c6835218f4d7950109c8dcd48499b08b35e972ffc2125f26e8fa52f.webp",
+          "src": "https://assets.living-code.dev/port-images/a1291f9e30889389186a76cc5c1e722baead6c1b44e2bcb58fad8571b7090c08.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "paper",
           "alt": "Gemini CLI running Living Code Paper",
-          "src": "https://assets.living-code.dev/port-images/e92e751a0521df0075beded2877bb005b30ff75aa46eb03a3f8051de7d84fa05.webp",
+          "src": "https://assets.living-code.dev/port-images/926927effdbf9ea680c596124bb9177a5e44874995c31684f5c781db9c6c750d.webp",
           "width": 2560,
           "height": 1600
         },
         {
           "flavor": "signal",
           "alt": "Gemini CLI running Living Code Signal",
-          "src": "https://assets.living-code.dev/port-images/f4dfac6012df214811c55e43e9605ec0e66167e41a67079a53366777102c043d.webp",
+          "src": "https://assets.living-code.dev/port-images/9cd83eb69fd2ab5e06b0302444528ec754a38955b6736ae700c05077b033806d.webp",
           "width": 2560,
           "height": 1600
         }
       ],
       "repository": "https://github.com/living-code-theme/gemini-cli",
       "repositoryName": "living-code-theme/gemini-cli",
-      "revision": "995beb557b64d8db8d2fe60e7042b6666b6da1e7",
-      "readmeUrl": "https://github.com/living-code-theme/gemini-cli/blob/995beb557b64d8db8d2fe60e7042b6666b6da1e7/README.md",
-      "content": "ports/gemini-cli.3ec47c6ffb839e65b01109a51f39bddd64a0040db38f4dfa51fee8b91c87438e.json"
+      "revision": "4aa17ea2bf1157f82e57198a1f47f6be8f6de6b1",
+      "readmeUrl": "https://github.com/living-code-theme/gemini-cli/blob/4aa17ea2bf1157f82e57198a1f47f6be8f6de6b1/README.md",
+      "content": "ports/gemini-cli.ff039d618ce7ad90c7179d52bca2274cc0cb507cb1b8ba6f3694c3d3531cfacc.json"
     },
     {
       "id": "herdr-app",
@@ -688,9 +688,9 @@
       ],
       "repository": "https://github.com/living-code-theme/pi",
       "repositoryName": "living-code-theme/pi",
-      "revision": "f33b58731e2ae7d6106252d8ee427b5540e96dc9",
-      "readmeUrl": "https://github.com/living-code-theme/pi/blob/f33b58731e2ae7d6106252d8ee427b5540e96dc9/README.md",
-      "content": "ports/pi.a97cc7d597b2dd5e2fa99e6105362dbac95ac3a309a6bb2871252106e0cf1ef8.json"
+      "revision": "a75757fdf2354d4095a04d67da4ded267e236e66",
+      "readmeUrl": "https://github.com/living-code-theme/pi/blob/a75757fdf2354d4095a04d67da4ded267e236e66/README.md",
+      "content": "ports/pi.23a3e44053aac145ede85db3b62e9c3e77beabd3aa22f5e2f460c2a37d9a7fa3.json"
     },
     {
       "id": "t3code",
@@ -789,31 +789,6 @@
       "revision": "637020968c0392e8cb0bcd9edb1bd9b342075f3d",
       "readmeUrl": "https://github.com/living-code-theme/obsidian/blob/637020968c0392e8cb0bcd9edb1bd9b342075f3d/README.md",
       "content": "ports/obsidian.bda921676583f571d1115db30af6d95440d5cdfac2c971a275bc9e2d80fe8e06.json"
-    },
-    {
-      "id": "slack",
-      "name": "Slack",
-      "group": "Apps",
-      "description": "Living Code for Slack. Repository-owned theme files, installation instructions and four color flavors.",
-      "homepage": "https://slack.com",
-      "quick": "See installation instructions",
-      "aliases": [
-        "slack"
-      ],
-      "icon": null,
-      "emoji": "💬",
-      "flavors": [
-        "night",
-        "frost",
-        "paper",
-        "signal"
-      ],
-      "images": [],
-      "repository": "https://github.com/living-code-theme/slack",
-      "repositoryName": "living-code-theme/slack",
-      "revision": "fb21e1ddcb7302cacb9c9fe1c743188ed446827c",
-      "readmeUrl": "https://github.com/living-code-theme/slack/blob/fb21e1ddcb7302cacb9c9fe1c743188ed446827c/README.md",
-      "content": "ports/slack.22409aa24bf0745014557867b0bb7f1dae2a7a69745b0d379b1d136ffef80d52.json"
     },
     {
       "id": "chrome",
@@ -1875,9 +1850,9 @@
       ],
       "repository": "https://github.com/living-code-theme/yazi",
       "repositoryName": "living-code-theme/yazi",
-      "revision": "e51e6be362d6ba7034e044e6bb207fc6dc7451dd",
-      "readmeUrl": "https://github.com/living-code-theme/yazi/blob/e51e6be362d6ba7034e044e6bb207fc6dc7451dd/README.md",
-      "content": "ports/yazi.334f643a98531ee6b4a3ff9ef1a0121b0fb53b267cc36db4185df0014f9e8ffd.json"
+      "revision": "f88707851661c12b8edd24cf6d6498be2c92a1ad",
+      "readmeUrl": "https://github.com/living-code-theme/yazi/blob/f88707851661c12b8edd24cf6d6498be2c92a1ad/README.md",
+      "content": "ports/yazi.c4bd79604aaae4b4f08f145b505fa10986af179c1ce5f8993a9f112d4efa1735.json"
     },
     {
       "id": "zellij",

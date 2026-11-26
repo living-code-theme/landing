@@ -35,40 +35,40 @@
     },
     "repository": "https://github.com/living-code-theme/crush",
     "repositoryName": "living-code-theme/crush",
-    "revision": "184846af7fe25e0f0bce2555a49965e99f8ec311",
-    "readmeUrl": "https://github.com/living-code-theme/crush/blob/184846af7fe25e0f0bce2555a49965e99f8ec311/README.md",
+    "revision": "75e73dfe643005fb0fddbabd181d8a51cbabb5f3",
+    "readmeUrl": "https://github.com/living-code-theme/crush/blob/75e73dfe643005fb0fddbabd181d8a51cbabb5f3/README.md",
     "fileUrls": {
-      "themes/living-code-night.json": "https://github.com/living-code-theme/crush/blob/184846af7fe25e0f0bce2555a49965e99f8ec311/themes/living-code-night.json",
-      "themes/living-code-frost.json": "https://github.com/living-code-theme/crush/blob/184846af7fe25e0f0bce2555a49965e99f8ec311/themes/living-code-frost.json",
-      "themes/living-code-paper.json": "https://github.com/living-code-theme/crush/blob/184846af7fe25e0f0bce2555a49965e99f8ec311/themes/living-code-paper.json",
-      "themes/living-code-signal.json": "https://github.com/living-code-theme/crush/blob/184846af7fe25e0f0bce2555a49965e99f8ec311/themes/living-code-signal.json"
+      "themes/living-code-night.json": "https://github.com/living-code-theme/crush/blob/75e73dfe643005fb0fddbabd181d8a51cbabb5f3/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/crush/blob/75e73dfe643005fb0fddbabd181d8a51cbabb5f3/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/crush/blob/75e73dfe643005fb0fddbabd181d8a51cbabb5f3/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/crush/blob/75e73dfe643005fb0fddbabd181d8a51cbabb5f3/themes/living-code-signal.json"
     },
     "images": [
       {
         "flavor": "night",
         "alt": "Crush running Living Code Night",
-        "src": "https://assets.living-code.dev/port-images/b7db07449b884a25c7ae28578d6bfa02f5f3bc069bc9ec7b7fd66303fe5aebff.webp",
+        "src": "https://assets.living-code.dev/port-images/1cdd25daf5d6d5a4f9e10ef52762d1aa07b375b3f7397ee910c1ed0452f083a9.webp",
         "width": 2560,
         "height": 1600
       },
       {
         "flavor": "frost",
         "alt": "Crush running Living Code Frost",
-        "src": "https://assets.living-code.dev/port-images/8909eb14aec2323583cd96dee7c0433f2b8f77ae63c2a31f845fc0a35a45d8fb.webp",
+        "src": "https://assets.living-code.dev/port-images/2a8cc68826cf3e4fc523a83f0a073d979e7acc445aea37f10f46c09439f1cd68.webp",
         "width": 2560,
         "height": 1600
       },
       {
         "flavor": "paper",
         "alt": "Crush running Living Code Paper",
-        "src": "https://assets.living-code.dev/port-images/e395f710bff2d854bd9374b752e8c809569a5509607b68811d0cdc67779d4ffb.webp",
+        "src": "https://assets.living-code.dev/port-images/e7a985759f3da155bdef0038a097c724818a0a56b83966bfab2928a0ae91f568.webp",
         "width": 2560,
         "height": 1600
       },
       {
         "flavor": "signal",
         "alt": "Crush running Living Code Signal",
-        "src": "https://assets.living-code.dev/port-images/0e57751c71ca6ba25e39a55bf969e5d6afaf8f119afed5b89e8ce9ba4fa97cf6.webp",
+        "src": "https://assets.living-code.dev/port-images/aad9533a344d5a299f410dba30e17c602af8c22f44a92a7559b966d0baad925e.webp",
         "width": 2560,
         "height": 1600
       }
