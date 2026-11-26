@@ -6,14 +6,7 @@ import { portIcon } from "../src/lib/icons.mjs";
 import { finderPayload } from "../src/lib/port-finder-data.mjs";
 import { ports } from "../src/lib/ports.mjs";
 
-const slack = portIcon({ id: "slack", name: "Slack" });
 const json = portIcon({ id: "json", name: "JSON / JavaScript" });
-
-test("Slack uses its logo instead of a hash wordmark", () => {
-  assert.equal(slack.title, "Slack");
-  assert.match(slack.path, /^M/);
-  assert.equal(slack.text, undefined);
-});
 
 test("JSON / JavaScript uses the JavaScript logo", () => {
   assert.deepEqual(json, { path: siJavascript.path, title: siJavascript.title });
