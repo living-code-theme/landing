@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "port": {
+    "id": "herdr-app",
+    "name": "Herdr App",
+    "group": "AI & Agents",
+    "description": "Living Code for Herdr App: native desktop themes for terminal ANSI colors, workspace chrome, selections and agent status.",
+    "homepage": "https://herdr.dev/",
+    "quick": "Download a native JSON theme",
+    "aliases": [
+      "herdr-app",
+      "herdr desktop",
+      "herdr-core",
+      "coding agents"
+    ],
+    "icon": null,
+    "emoji": "🐏",
+    "flavors": [
+      "night",
+      "frost",
+      "paper",
+      "signal"
+    ],
+    "files": [
+      "themes/living-code-night.json",
+      "themes/living-code-frost.json",
+      "themes/living-code-paper.json",
+      "themes/living-code-signal.json"
+    ],
+    "guide": {
+      "schemaVersion": 1,
+      "installation": "Download the flavor you want directly into Herdr App's native theme directory:\n\n```sh\nflavor=night # night, frost, paper, or signal\napp_home=\"${HERDR_APP_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/herdr-app}\"\ncurl -fsSL --create-dirs -o \"$app_home/themes/living-code-$flavor.json\" \"https://raw.githubusercontent.com/living-code-theme/herdr-app/main/themes/living-code-$flavor.json\"\n```\n\nWith Herdr App open, go to **Settings → Look**. Set **Appearance** to **Light** for Paper or **Dark** for Night, Frost and Signal, then select the downloaded theme in the corresponding theme picker. Each layout keeps its own light and dark theme.\n\nAlternatively, after choosing the matching appearance, activate it for the current layout:\n\n```sh\nherdr-app do app.theme --name \"living-code-$flavor\"\n```\n\nNo settings file is replaced, and no restart or core restart is needed. The shell example is for Linux/macOS; on Windows, place the JSON in `%USERPROFILE%\\.config\\herdr-app\\themes` (or the configured `HERDR_APP_HOME`/`XDG_CONFIG_HOME`) and use the same theme picker.",
+      "configuration": "The JSON supplies the native background, foreground, selection, cursor and all 16 ANSI slots, plus every named UI color in Herdr App 0.1.11. Panels use the slate ramp; accent/focus use the accent role; working, blocked and done map to warning, error and success. Idle/unknown stay neutral. Signal intentionally uses neutral/teal status colors rather than introducing extra hues.\n\nColors come from a revision-pinned Living Code core palette, never a runtime download. Herdr watches personal theme files and reloads edits live. If a layout or `settings.json` defines its own `colors`, those overrides take precedence; remove only conflicting overrides when you want the full theme. A layout's theme and a saved theme-picker choice can override the global theme setting.\n\nFor automatic switching, install Paper plus a dark flavor, choose **System** appearance, and select the light/dark themes in Settings. For NixOS, Home Manager can link a JSON to `xdg.configFile.\"herdr-app/themes/living-code-night.json\"`; leave `settings.json` and layouts writable so the app can save its preferences.",
+      "compatibility": "Verified with **Herdr App 0.1.11** and **herdr-core 0.1.16** on Linux. The theme loader and UI vocabulary are checked against the release's pinned Rust source. The native JSON format is platform-independent; the automated application captures run on Linux/X11 with locked Mesa software Vulkan rendering.\n\nThis is the new graphical **herdr-app**, not the legacy **herdr / herdr-tui**. The [separate Herdr TUI port](https://github.com/living-code-theme/herdr) uses TOML and must not be installed in this app. The theme does not change core configuration, sessions, keybindings or installed mods. Programs that emit their own truecolor values still need their own matching theme; a terminal palette cannot override an agent's syntax engine.\n\nPreviews are captured from the real app in a disposable HOME, core session and Xvfb display at **2560×1600**, with 2× app zoom and no raster upscaling. They show a local Git fixture, real `bat --theme=ansi` source output, real Git diff output and ANSI swatches; any status reported by a fixture is a labeled local demo, not a real agent conversation or a claimed model/test result. No account, provider key, subscription or paid API call is used. See `capture/app.py` and `images/capture.json` for the recipe, runtime identities and SHA-256 provenance.",
+      "links": {}
+    },
+    "repository": "https://github.com/living-code-theme/herdr-app",
+    "repositoryName": "living-code-theme/herdr-app",
+    "revision": "adc4387a22157a380f36b24c7c1058f9378a5631",
+    "readmeUrl": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/README.md",
+    "fileUrls": {
+      "themes/living-code-night.json": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/themes/living-code-night.json",
+      "themes/living-code-frost.json": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/themes/living-code-frost.json",
+      "themes/living-code-paper.json": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/themes/living-code-paper.json",
+      "themes/living-code-signal.json": "https://github.com/living-code-theme/herdr-app/blob/adc4387a22157a380f36b24c7c1058f9378a5631/themes/living-code-signal.json"
+    },
+    "images": [
+      {
+        "flavor": "night",
+        "alt": "Herdr App running Living Code Night",
+        "src": "https://assets.living-code.dev/port-images/4db971b1404c614c25587259ccc445883ea0d785c055198f8a24fde46cbd6f55.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "frost",
+        "alt": "Herdr App running Living Code Frost",
+        "src": "https://assets.living-code.dev/port-images/0393b233661c392cb4cb3caaea285f4188d53cf92dff44e5a81ca79e7788fed8.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "paper",
+        "alt": "Herdr App running Living Code Paper",
+        "src": "https://assets.living-code.dev/port-images/71b646d995bcb26ef716e5a207965640918a169cdd8e7e878cf96c0a9a31e11b.webp",
+        "width": 2560,
+        "height": 1600
+      },
+      {
+        "flavor": "signal",
+        "alt": "Herdr App running Living Code Signal",
+        "src": "https://assets.living-code.dev/port-images/612f073e82b9a32f94b19142ca553a6413ea4dee60cb1f6c991bc8783363b4a9.webp",
+        "width": 2560,
+        "height": 1600
+      }
+    ],
+    "guideImages": {}
+  }
+}
